@@ -1,0 +1,42 @@
+# GPT Image 2 中文提示词索引
+
+本项目用于整理 GPT Image 2 中文提示词案例，并支持“上传图片 -> 分析图片 -> 推荐 3 个提示词 -> 用户选择 -> 主体锚点式最小适配改写”的工作流。仓库只保存提示词和示例图片，不直接调用图像生成 API。
+
+## 分册入口
+
+- [gallery1.md：UI与界面](gallery1.md) - 86 个案例，例 2-354
+- [gallery2.md：图表与信息可视化](gallery2.md) - 59 个案例，例 1-348
+- [gallery3.md：海报与排版](gallery3.md) - 63 个案例，例 3-355
+- [gallery4.md：商品与电商](gallery4.md) - 19 个案例，例 29-327
+- [gallery5.md：品牌与标志](gallery5.md) - 7 个案例，例 36-160
+- [gallery6.md：建筑与空间](gallery6.md) - 20 个案例，例 26-324
+- [gallery7.md：摄影与写实](gallery7.md) - 20 个案例，例 30-328
+- [gallery8.md：插画与艺术](gallery8.md) - 27 个案例，例 6-346
+- [gallery9.md：人物与角色](gallery9.md) - 8 个案例，例 27-340
+- [gallery10.md：场景与叙事](gallery10.md) - 9 个案例，例 4-330
+- [gallery11.md：历史与古风题材](gallery11.md) - 5 个案例，例 44-337
+- [gallery12.md：文档与出版物](gallery12.md) - 4 个案例，例 168-303
+- [gallery13.md：其他应用场景](gallery13.md) - 25 个案例，例 178-334
+
+## 使用工作流
+
+1. 用户上传一张图片。
+2. Codex 分析图片的主体、场景、风格、构图、文字、比例和不确定点。
+3. Codex 从 `gallery*.md` 中挑选 3 个最适合的中文提示词案例。
+4. 用户选择其中一个候选。
+5. Codex 对选中提示词做主体锚点式最小适配改写：把上传图主体绑定到候选 prompt，保留候选 prompt 的目标场景、构图、服装、道具、光线、文字和风格。
+6. 用户把图片和最终中文提示词发送给网页版 ChatGPT 生成图片。
+
+## 新增案例规则
+
+- 新案例图片放入 `assets/case<n>.jpg`，编号使用下一个可用数字。
+- 提示词只写中文，不保留英文版本。
+- 案例条目只保留标题、示例图片和提示词。
+- 新增或移动案例后，同步更新本索引的分册入口。
+- 项目工作流说明见 [AGENTS.md](AGENTS.md)，repo-local skill 见 `.codex/skills/get-image-prompt/SKILL.md`。
+
+## 当前资产
+
+- Markdown 案例条目：352 个。
+- 图片资产：355 张，统一位于 `assets/case<n>.jpg`。
+- 已知缺失条目编号：12、169、170；保留对应图片资产，不凭空补写提示词。
