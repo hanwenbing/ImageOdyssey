@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "./supabaseClient";
 
 type SquareValue = "X" | "O" | null;
 type Squares = SquareValue[];
 type History = Squares[];
+type Instrument = {
+  id: number;
+  name: string;
+};
 type WinnerResult = {
   winner: Exclude<SquareValue, null>;
   line: number[];
@@ -67,6 +72,78 @@ function calculateWinner(squares: Squares): WinnerResult {
 
 function createEmptySquares(): Squares {
   return Array<SquareValue>(9).fill(null);
+}
+
+function SupabasePanel() {
+  const [instruments, setInstruments] = useState<Instrument[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function getInstruments() {
+      const { data, error } = await supabase.from("instruments").select();
+
+      if (error) {
+        setErrorMessage(error.message);
+        setInstruments([]);
+      } else {
+        setErrorMessage(null);
+        setInstruments(data ?? []);
+      }
+
+      setIsLoading(false);
+    }
+
+    void getInstruments();
+  }, []);
+
+  return (
+    <section className="rounded-3xl border border-white/10 bg-white/[0.06] p-5 shadow-2xl shadow-black/30 backdrop-blur">
+      <div className="mb-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-200">
+          Supabase
+        </p>
+        <h2 className="mt-1 text-2xl font-black text-white">
+          Instruments table
+        </h2>
+        <p className="mt-2 text-sm text-zinc-300">
+          Data loaded from the public <code>instruments</code> table.
+        </p>
+      </div>
+
+      {isLoading && (
+        <p className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-zinc-300">
+          Loading instruments...
+        </p>
+      )}
+
+      {!isLoading && errorMessage && (
+        <p className="rounded-2xl border border-rose-300/30 bg-rose-300/10 px-4 py-3 text-sm font-semibold text-rose-100">
+          {errorMessage}
+        </p>
+      )}
+
+      {!isLoading && !errorMessage && instruments.length === 0 && (
+        <p className="rounded-2xl border border-amber-300/30 bg-amber-300/10 px-4 py-3 text-sm font-semibold text-amber-100">
+          No instruments found.
+        </p>
+      )}
+
+      {!isLoading && !errorMessage && instruments.length > 0 && (
+        <ul className="space-y-2">
+          {instruments.map((instrument) => (
+            <li
+              key={instrument.id}
+              className="flex items-center justify-between rounded-2xl border border-white/10 bg-zinc-950/50 px-4 py-3 text-sm"
+            >
+              <span className="font-semibold text-white">{instrument.name}</span>
+              <span className="text-zinc-500">#{instrument.id}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
 }
 
 function Board({ xIsNext, squares, onPlay }: BoardProps) {
@@ -206,6 +283,10 @@ export default function Game() {
           </div>
           <ol className="space-y-2">{moves}</ol>
         </aside>
+
+        <div className="lg:col-span-2">
+          <SupabasePanel />
+        </div>
       </div>
     </main>
   );
