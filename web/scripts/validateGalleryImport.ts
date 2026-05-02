@@ -33,6 +33,15 @@ type CategorySelectTable = {
     }>;
   };
 };
+type CountHeadTable = {
+  select(
+    columns: string,
+    options: { count: "exact"; head: true }
+  ): PromiseLike<{
+    count: number | null;
+    error: { message: string } | null;
+  }>;
+};
 type PromptCaseSelectTable = {
   select(columns: string): {
     in(column: string, values: number[]): {
@@ -125,6 +134,20 @@ function assertEqual(actual: unknown, expected: unknown, message: string): void 
   }
 }
 
+function getMissingPromptNumbers(localCaseNumbers: number[]): number[] {
+  const caseNumberSet = new Set(localCaseNumbers);
+  const maxCaseNumber = Math.max(...localCaseNumbers);
+  const missingNumbers: number[] = [];
+
+  for (let caseNumber = 1; caseNumber <= maxCaseNumber; caseNumber += 1) {
+    if (!caseNumberSet.has(caseNumber)) {
+      missingNumbers.push(caseNumber);
+    }
+  }
+
+  return missingNumbers;
+}
+
 async function main(): Promise<void> {
   const baseLoadedKeys = new Set<string>();
   loadEnvFile(resolve(webRoot, ".env"), { loadedKeys: baseLoadedKeys });
@@ -152,6 +175,22 @@ async function main(): Promise<void> {
   }
 
   const localCategorySlugs = localCategories.map((category) => category.slug);
+  const categoriesCountTable = supabase.from("categories") as unknown as CountHeadTable;
+  const { count: categoriesCount, error: categoriesCountError } = await categoriesCountTable.select(
+    "*",
+    { count: "exact", head: true }
+  );
+
+  if (categoriesCountError) {
+    throw new Error(`Category count validation failed: ${categoriesCountError.message}`);
+  }
+
+  assertEqual(
+    categoriesCount,
+    localCategories.length,
+    "Category full-table count does not match local corpus"
+  );
+
   const categoriesTable = supabase.from("categories") as unknown as CategorySelectTable;
   const { data: categoryRows, error: categoryError } = await categoriesTable
     .select("id, slug, name, sort_order, source_gallery_file")
@@ -198,6 +237,29 @@ async function main(): Promise<void> {
 
   const localCaseNumbers = localPromptCases.map((promptCase) => promptCase.case_number);
   const localCaseNumberSet = new Set(localCaseNumbers);
+  const missingPromptNumbers = getMissingPromptNumbers(localCaseNumbers);
+  assertEqual(
+    missingPromptNumbers,
+    knownMissingPromptNumbers,
+    "Missing prompt numbers do not match expected local gaps"
+  );
+
+  const promptCasesCountTable = supabase.from("prompt_cases") as unknown as CountHeadTable;
+  const { count: promptCasesCount, error: promptCasesCountError } = await promptCasesCountTable.select(
+    "*",
+    { count: "exact", head: true }
+  );
+
+  if (promptCasesCountError) {
+    throw new Error(`Prompt case count validation failed: ${promptCasesCountError.message}`);
+  }
+
+  assertEqual(
+    promptCasesCount,
+    localPromptCases.length,
+    "Prompt case full-table count does not match local corpus"
+  );
+
   const promptCasesTable = supabase.from("prompt_cases") as unknown as PromptCaseSelectTable;
   const { data: promptCaseRows, error: promptCaseError } = await promptCasesTable
     .select(
@@ -297,7 +359,7 @@ async function main(): Promise<void> {
       {
         categories: localCategories.length,
         prompt_cases: localPromptCases.length,
-        known_missing_prompt_numbers: knownMissingPromptNumbers
+        known_missing_prompt_numbers: missingPromptNumbers
       },
       null,
       2
