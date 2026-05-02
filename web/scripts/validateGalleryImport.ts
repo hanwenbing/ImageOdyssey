@@ -21,6 +21,12 @@ type CategoryRow = Database["public"]["Tables"]["categories"]["Row"];
 type PromptCaseRow = Database["public"]["Tables"]["prompt_cases"]["Row"];
 type CategorySelectTable = {
   select(columns: string): {
+    in(column: string, values: string[]): {
+      order(column: string, options: { ascending: boolean }): PromiseLike<{
+        data: CategoryRow[] | null;
+        error: { message: string } | null;
+      }>;
+    };
     order(column: string, options: { ascending: boolean }): PromiseLike<{
       data: CategoryRow[] | null;
       error: { message: string } | null;
@@ -29,6 +35,12 @@ type CategorySelectTable = {
 };
 type PromptCaseSelectTable = {
   select(columns: string): {
+    in(column: string, values: number[]): {
+      order(column: string, options: { ascending: boolean }): PromiseLike<{
+        data: PromptCaseRow[] | null;
+        error: { message: string } | null;
+      }>;
+    };
     order(column: string, options: { ascending: boolean }): PromiseLike<{
       data: PromptCaseRow[] | null;
       error: { message: string } | null;
@@ -36,7 +48,10 @@ type PromptCaseSelectTable = {
   };
 };
 
-function loadEnvFile(filePath: string): void {
+function loadEnvFile(
+  filePath: string,
+  options: { overrideLoadedKeys?: Set<string>; loadedKeys?: Set<string> } = {}
+): void {
   if (!existsSync(filePath)) {
     return;
   }
@@ -45,6 +60,13 @@ function loadEnvFile(filePath: string): void {
   for (const [key, value] of Object.entries(parsed)) {
     if (process.env[key] === undefined) {
       process.env[key] = value;
+      options.loadedKeys?.add(key);
+      continue;
+    }
+
+    if (options.overrideLoadedKeys?.has(key)) {
+      process.env[key] = value;
+      options.loadedKeys?.add(key);
     }
   }
 }
@@ -104,8 +126,12 @@ function assertEqual(actual: unknown, expected: unknown, message: string): void 
 }
 
 async function main(): Promise<void> {
-  loadEnvFile(resolve(webRoot, ".env"));
-  loadEnvFile(resolve(webRoot, ".env.local"));
+  const baseLoadedKeys = new Set<string>();
+  loadEnvFile(resolve(webRoot, ".env"), { loadedKeys: baseLoadedKeys });
+  loadEnvFile(resolve(webRoot, ".env.local"), {
+    overrideLoadedKeys: baseLoadedKeys,
+    loadedKeys: baseLoadedKeys
+  });
 
   const supabaseUrl = requireEnv("SUPABASE_URL");
   const serviceRoleKey = requireEnv("SUPABASE_SERVICE_ROLE_KEY");
@@ -113,9 +139,6 @@ async function main(): Promise<void> {
   const { categories: localCategories, promptCases: localPromptCases } =
     loadLocalCorpus();
   ensureUniqueCaseNumbers(localPromptCases);
-  const categoriesTable = supabase.from("categories") as unknown as CategorySelectTable;
-  const promptCasesTable = supabase.from("prompt_cases") as unknown as PromptCaseSelectTable;
-
   if (localCategories.length !== expectedCategoryCount) {
     throw new Error(
       `Expected ${expectedCategoryCount} local categories, found ${localCategories.length}`
@@ -128,8 +151,11 @@ async function main(): Promise<void> {
     );
   }
 
+  const localCategorySlugs = localCategories.map((category) => category.slug);
+  const categoriesTable = supabase.from("categories") as unknown as CategorySelectTable;
   const { data: categoryRows, error: categoryError } = await categoriesTable
     .select("id, slug, name, sort_order, source_gallery_file")
+    .in("slug", localCategorySlugs)
     .order("sort_order", { ascending: true });
 
   if (categoryError) {
@@ -147,7 +173,7 @@ async function main(): Promise<void> {
   );
 
   const localCategoryBySlug = new Map(localCategories.map((category) => [category.slug, category]));
-  const categoryIdByName = new Map<string, string>();
+  const categoryIdBySourceFile = new Map<string, string>();
 
   for (const categoryRow of categoryRows) {
     const localCategory = localCategoryBySlug.get(categoryRow.slug);
@@ -167,15 +193,17 @@ async function main(): Promise<void> {
       `Category source gallery file mismatch for ${categoryRow.slug}`
     );
 
-    categoryIdByName.set(categoryRow.name, categoryRow.id);
+    categoryIdBySourceFile.set(categoryRow.source_gallery_file, categoryRow.id);
   }
 
   const localCaseNumbers = localPromptCases.map((promptCase) => promptCase.case_number);
   const localCaseNumberSet = new Set(localCaseNumbers);
+  const promptCasesTable = supabase.from("prompt_cases") as unknown as PromptCaseSelectTable;
   const { data: promptCaseRows, error: promptCaseError } = await promptCasesTable
     .select(
       "case_number, title, category_id, prompt_text, image_storage_path, image_public_url, summary, tags, source_gallery_file"
     )
+    .in("case_number", localCaseNumbers)
     .order("case_number", { ascending: true });
 
   if (promptCaseError) {
@@ -206,9 +234,9 @@ async function main(): Promise<void> {
       throw new Error(`Missing local prompt case ${promptCaseRow.case_number}`);
     }
 
-    const categoryId = categoryIdByName.get(localPromptCase.category_name);
+    const categoryId = categoryIdBySourceFile.get(localPromptCase.source_gallery_file);
     if (!categoryId) {
-      throw new Error(`Missing category id for ${localPromptCase.category_name}`);
+      throw new Error(`Missing category id for ${localPromptCase.source_gallery_file}`);
     }
 
     const expectedStoragePath = `cases/case${localPromptCase.case_number}.jpg`;

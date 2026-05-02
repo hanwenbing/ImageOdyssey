@@ -34,7 +34,10 @@ type UpsertTable<Insert> = {
   upsert(values: Insert[], options: { onConflict: string }): MutationResult;
 };
 
-function loadEnvFile(filePath: string): void {
+function loadEnvFile(
+  filePath: string,
+  options: { overrideLoadedKeys?: Set<string>; loadedKeys?: Set<string> } = {}
+): void {
   if (!existsSync(filePath)) {
     return;
   }
@@ -43,6 +46,13 @@ function loadEnvFile(filePath: string): void {
   for (const [key, value] of Object.entries(parsed)) {
     if (process.env[key] === undefined) {
       process.env[key] = value;
+      options.loadedKeys?.add(key);
+      continue;
+    }
+
+    if (options.overrideLoadedKeys?.has(key)) {
+      process.env[key] = value;
+      options.loadedKeys?.add(key);
     }
   }
 }
@@ -100,8 +110,12 @@ function failWithSupabaseError(scope: string, error: unknown): never {
 }
 
 async function main(): Promise<void> {
-  loadEnvFile(resolve(webRoot, ".env"));
-  loadEnvFile(resolve(webRoot, ".env.local"));
+  const baseLoadedKeys = new Set<string>();
+  loadEnvFile(resolve(webRoot, ".env"), { loadedKeys: baseLoadedKeys });
+  loadEnvFile(resolve(webRoot, ".env.local"), {
+    overrideLoadedKeys: baseLoadedKeys,
+    loadedKeys: baseLoadedKeys
+  });
 
   const supabaseUrl = requireEnv("SUPABASE_URL");
   const serviceRoleKey = requireEnv("SUPABASE_SERVICE_ROLE_KEY");
@@ -146,9 +160,9 @@ async function main(): Promise<void> {
     );
   }
 
-  const categoryIdByName = new Map<string, string>();
+  const categoryIdBySourceFile = new Map<string, string>();
   for (const categoryRow of categoryRows) {
-    categoryIdByName.set(categoryRow.name, categoryRow.id);
+    categoryIdBySourceFile.set(categoryRow.source_gallery_file, categoryRow.id);
   }
 
   let importedPromptCaseCount = 0;
@@ -172,9 +186,9 @@ async function main(): Promise<void> {
   };
 
   for (const promptCase of promptCases) {
-    const categoryId = categoryIdByName.get(promptCase.category_name);
+    const categoryId = categoryIdBySourceFile.get(promptCase.source_gallery_file);
     if (!categoryId) {
-      throw new Error(`Missing category id for ${promptCase.category_name}`);
+      throw new Error(`Missing category id for ${promptCase.source_gallery_file}`);
     }
 
     const localImagePath = resolve(repoRoot, promptCase.local_image_path);
