@@ -62,23 +62,9 @@ for select
 to anon, authenticated
 using (true);
 
-drop policy if exists "local insert experiments" on public.experiments;
-create policy "local insert experiments"
-on public.experiments
-for insert
-to anon, authenticated
-with check (true);
-
 drop policy if exists "local read gallery images" on storage.objects;
 create policy "local read gallery images"
 on storage.objects
 for select
 to anon, authenticated
 using (bucket_id = 'gallery-images');
-
-drop policy if exists "local upload experiment images" on storage.objects;
-create policy "local upload experiment images"
-on storage.objects
-for insert
-to anon, authenticated
-with check (bucket_id = 'experiment-images');

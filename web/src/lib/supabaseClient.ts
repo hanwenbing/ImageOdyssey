@@ -1,6 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "../types";
 
-let supabaseClient: ReturnType<typeof createClient> | null = null;
+let supabaseClient: SupabaseClient<Database> | null = null;
 
 export function getSupabaseClient() {
   if (supabaseClient) {
@@ -14,6 +16,6 @@ export function getSupabaseClient() {
     throw new Error("Missing VITE_SUPABASE_URL or VITE_SUPABASE_PUBLISHABLE_KEY");
   }
 
-  supabaseClient = createClient(supabaseUrl, supabasePublishableKey);
+  supabaseClient = createClient<Database>(supabaseUrl, supabasePublishableKey);
   return supabaseClient;
 }
