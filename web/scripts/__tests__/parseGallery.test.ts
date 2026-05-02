@@ -38,6 +38,15 @@ Some unrelated prose can stay here.
       /malformed gallery index line.*gallery1\.md UI与界面/i
     );
   });
+
+  it("ignores ordinary prose that mentions gallery files", () => {
+    const markdown = `
+See gallery1.md for details.
+The parser should still ignore unrelated prose.
+`;
+
+    expect(parseIndexMarkdown(markdown)).toEqual([]);
+  });
 });
 
 describe("parseGalleryMarkdown", () => {

@@ -64,8 +64,9 @@ export function parseIndexMarkdown(markdown: string): ParsedCategory[] {
     if (!match) {
       if (
         trimmedLine !== "" &&
-        (/gallery\d+\.md/.test(trimmedLine) ||
-          /^-\s*\[?gallery\d+/i.test(trimmedLine))
+        (/^-\s+.*gallery\d+\.md/i.test(trimmedLine) ||
+          /\[gallery\d+\.md/i.test(trimmedLine) ||
+          /\(gallery\d+\.md\)/i.test(trimmedLine))
       ) {
         throw new Error(`Malformed gallery index line: ${trimmedLine}`);
       }
