@@ -14,6 +14,8 @@ const webRoot = resolve(scriptDir, "..");
 const repoRoot = resolve(webRoot, "..");
 const galleryImagesBucket = "gallery-images";
 const knownMissingPromptNumbers = [12, 169, 170];
+const expectedCategoryCount = 13;
+const expectedPromptCaseCount = 352;
 const promptCaseBatchSize = 50;
 
 type CategoryInsert = Database["public"]["Tables"]["categories"]["Insert"];
@@ -101,6 +103,44 @@ function ensureUniqueCaseNumbers(
   }
 }
 
+function getMissingPromptNumbers(localCaseNumbers: number[]): number[] {
+  const caseNumberSet = new Set(localCaseNumbers);
+  const maxCaseNumber = Math.max(...localCaseNumbers);
+  const missingNumbers: number[] = [];
+
+  for (let caseNumber = 1; caseNumber <= maxCaseNumber; caseNumber += 1) {
+    if (!caseNumberSet.has(caseNumber)) {
+      missingNumbers.push(caseNumber);
+    }
+  }
+
+  return missingNumbers;
+}
+
+function validateLocalCorpusShape(promptCases: Array<{ case_number: number }>): void {
+  if (promptCases.length !== expectedPromptCaseCount) {
+    throw new Error(
+      `Expected ${expectedPromptCaseCount} local prompt cases, found ${promptCases.length}`
+    );
+  }
+
+  const localCaseNumbers = promptCases.map((promptCase) => promptCase.case_number);
+  const missingPromptNumbers = getMissingPromptNumbers(localCaseNumbers);
+  if (missingPromptNumbers.length !== knownMissingPromptNumbers.length) {
+    throw new Error(
+      `Expected ${knownMissingPromptNumbers.length} missing prompt numbers, found ${missingPromptNumbers.length}`
+    );
+  }
+
+  const missingPromptNumbersJson = JSON.stringify(missingPromptNumbers);
+  const expectedMissingPromptNumbersJson = JSON.stringify(knownMissingPromptNumbers);
+  if (missingPromptNumbersJson !== expectedMissingPromptNumbersJson) {
+    throw new Error(
+      `Missing prompt numbers do not match expected local gaps: expected ${expectedMissingPromptNumbersJson}, got ${missingPromptNumbersJson}`
+    );
+  }
+}
+
 function failWithSupabaseError(scope: string, error: unknown): never {
   const message =
     error instanceof Error ? error.message : typeof error === "string" ? error : String(error);
@@ -108,6 +148,15 @@ function failWithSupabaseError(scope: string, error: unknown): never {
 }
 
 async function main(): Promise<void> {
+  const { categories, promptCases } = loadLocalCorpus();
+  ensureUniqueCaseNumbers(promptCases);
+  if (categories.length !== expectedCategoryCount) {
+    throw new Error(
+      `Expected ${expectedCategoryCount} local categories, found ${categories.length}`
+    );
+  }
+  validateLocalCorpusShape(promptCases);
+
   const baseLoadedKeys = new Set<string>();
   loadEnvFile(resolve(webRoot, ".env"), { loadedKeys: baseLoadedKeys });
   loadEnvFile(resolve(webRoot, ".env.local"), {
@@ -118,8 +167,6 @@ async function main(): Promise<void> {
   const supabaseUrl = requireEnv("SUPABASE_URL");
   const serviceRoleKey = requireEnv("SUPABASE_SERVICE_ROLE_KEY");
   const supabase = createClient<Database>(supabaseUrl, serviceRoleKey);
-  const { categories, promptCases } = loadLocalCorpus();
-  ensureUniqueCaseNumbers(promptCases);
   const categoriesTable = supabase.from("categories") as unknown as TableBuilder<
     CategoryRow,
     CategoryInsert
