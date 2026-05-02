@@ -8,12 +8,16 @@
     "build": "tsc --noEmit && vite build",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "import:gallery": "tsx scripts/importGallery.ts",
+    "validate:gallery": "tsx scripts/validateGalleryImport.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.1",
+    "dotenv": "^17.2.3",
     "react": "^19.2.5",
-    "react-dom": "^19.2.5"
+    "react-dom": "^19.2.5",
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
