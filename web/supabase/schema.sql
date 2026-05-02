@@ -41,7 +41,7 @@ create index if not exists experiments_prompt_case_id_idx on public.experiments(
 insert into storage.buckets (id, name, public)
 values
   ('gallery-images', 'gallery-images', true),
-  ('experiment-images', 'experiment-images', true)
+  ('experiment-images', 'experiment-images', false)
 on conflict (id) do update set public = excluded.public;
 
 alter table public.categories enable row level security;
@@ -62,13 +62,6 @@ for select
 to anon, authenticated
 using (true);
 
-drop policy if exists "local read experiments" on public.experiments;
-create policy "local read experiments"
-on public.experiments
-for select
-to anon, authenticated
-using (true);
-
 drop policy if exists "local insert experiments" on public.experiments;
 create policy "local insert experiments"
 on public.experiments
@@ -82,13 +75,6 @@ on storage.objects
 for select
 to anon, authenticated
 using (bucket_id = 'gallery-images');
-
-drop policy if exists "local read experiment images" on storage.objects;
-create policy "local read experiment images"
-on storage.objects
-for select
-to anon, authenticated
-using (bucket_id = 'experiment-images');
 
 drop policy if exists "local upload experiment images" on storage.objects;
 create policy "local upload experiment images"
