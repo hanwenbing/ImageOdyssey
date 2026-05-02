@@ -48,6 +48,16 @@ alter table public.categories enable row level security;
 alter table public.prompt_cases enable row level security;
 alter table public.experiments enable row level security;
 
+-- Guard against earlier local migrations that briefly exposed experiment data.
+drop policy if exists "local read experiments" on public.experiments;
+drop policy if exists "local insert experiments" on public.experiments;
+drop policy if exists "local read experiment images" on storage.objects;
+drop policy if exists "local upload experiment images" on storage.objects;
+
+update storage.buckets
+set public = false
+where id = 'experiment-images';
+
 drop policy if exists "local read categories" on public.categories;
 create policy "local read categories"
 on public.categories

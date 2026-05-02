@@ -1,7 +1,7 @@
 export type CaseIndexItem = {
   case_number: number;
   title: string;
-  category: string;
+  category_name: string;
   summary: string;
   tags: string[];
   prompt_excerpt: string;
