@@ -94,6 +94,7 @@ export function parseGalleryMarkdown(
   const cases: ParsedPromptCase[] = [];
   const anchorPattern = /^\s*<a id="case-(\d+)"><\/a>\s*$/gm;
   const anchors = Array.from(normalizedMarkdown.matchAll(anchorPattern));
+  const anchoredHeadingPositions = new Set<number>();
 
   for (let index = 0; index < anchors.length; index += 1) {
     const anchorMatch = anchors[index];
@@ -118,6 +119,7 @@ export function parseGalleryMarkdown(
 
     const headingNumber = Number(headingMatch[1]);
     const title = headingMatch[2].trim();
+    anchoredHeadingPositions.add(sectionStart + headingMatch.index);
     if (headingNumber !== anchorNumber) {
       throw new Error(
         `${caseErrorPrefix(anchorNumber, sourceGalleryFile)} mismatch: anchor ${anchorNumber} does not match heading ${headingNumber}`
@@ -169,6 +171,19 @@ export function parseGalleryMarkdown(
       tags: Array.from(new Set([categoryName, title])),
       prompt_excerpt: createPromptExcerpt(promptText)
     });
+  }
+
+  for (const headingMatch of normalizedMarkdown.matchAll(
+    /^\s*### 例 (\d+)：([^\n]+)\s*$/gm
+  )) {
+    if (
+      headingMatch.index !== undefined &&
+      !anchoredHeadingPositions.has(headingMatch.index)
+    ) {
+      throw new Error(
+        `${sourceGalleryFile} case ${Number(headingMatch[1])} malformed: missing case anchor`
+      );
+    }
   }
 
   return cases;

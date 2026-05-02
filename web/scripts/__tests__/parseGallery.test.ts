@@ -154,6 +154,26 @@ describe("parseGalleryMarkdown", () => {
     ).toThrow(/gallery1\.md.*case 9.*prompt/i);
   });
 
+  it("throws when a valid-looking case is missing its anchor", () => {
+    const markdown = `
+# UI与界面
+
+### 例 2：社媒界面截图
+
+![例 2：社媒界面截图](assets/case2.jpg)
+
+**提示词：**
+
+\`\`\`text
+画一张 X 的内容截图。
+\`\`\`
+`;
+
+    expect(() =>
+      parseGalleryMarkdown("gallery1.md", "UI与界面", markdown)
+    ).toThrow(/gallery1\.md.*case 2.*anchor/i);
+  });
+
   it("throws when a second case heading appears inside one anchored section", () => {
     const markdown = `
 # UI与界面
