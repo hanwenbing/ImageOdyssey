@@ -57,9 +57,23 @@ function ensureSingleMatch(
 export function parseIndexMarkdown(markdown: string): ParsedCategory[] {
   const categories: ParsedCategory[] = [];
   const linePattern = /gallery(\d+)\.md：(.+?)\]\(gallery\1\.md\)/;
+  let isBookletEntrySection = false;
 
   for (const line of normalizeLineEndings(markdown).split("\n")) {
     const trimmedLine = line.trim();
+    if (trimmedLine === "## 分册入口") {
+      isBookletEntrySection = true;
+      continue;
+    }
+
+    if (isBookletEntrySection && /^##\s+/.test(trimmedLine)) {
+      break;
+    }
+
+    if (!isBookletEntrySection) {
+      continue;
+    }
+
     const match = line.match(linePattern);
     if (!match) {
       if (
@@ -96,10 +110,18 @@ export function parseGalleryMarkdown(
   const anchorPattern = /^\s*<a id="case-(\d+)"><\/a>\s*$/gm;
   const anchors = Array.from(normalizedMarkdown.matchAll(anchorPattern));
   const anchoredHeadingPositions = new Set<number>();
+  const seenAnchorNumbers = new Set<number>();
 
   for (let index = 0; index < anchors.length; index += 1) {
     const anchorMatch = anchors[index];
     const anchorNumber = Number(anchorMatch[1]);
+    if (seenAnchorNumbers.has(anchorNumber)) {
+      throw new Error(
+        `${sourceGalleryFile} duplicate case anchor: case ${anchorNumber}`
+      );
+    }
+    seenAnchorNumbers.add(anchorNumber);
+
     const sectionStart = anchorMatch.index ?? 0;
     const sectionEnd =
       index + 1 < anchors.length
