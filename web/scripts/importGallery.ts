@@ -19,6 +19,7 @@ const promptCaseBatchSize = 50;
 type CategoryInsert = Database["public"]["Tables"]["categories"]["Insert"];
 type CategoryRow = Database["public"]["Tables"]["categories"]["Row"];
 type PromptCaseInsert = Database["public"]["Tables"]["prompt_cases"]["Insert"];
+type PromptCaseRow = Database["public"]["Tables"]["prompt_cases"]["Row"];
 type MutationResult = PromiseLike<{ error: { message: string } | null }>;
 type SelectResult<Row> = PromiseLike<{
   data: Row[] | null;
@@ -26,14 +27,11 @@ type SelectResult<Row> = PromiseLike<{
 }>;
 type TableBuilder<Row, Insert> = {
   upsert(values: Insert[], options: { onConflict: string }): MutationResult;
-  select(columns: string): {
-    order(column: string, options: { ascending: boolean }): SelectResult<Row>;
+  select(columns: string): SelectResult<Row>;
+  delete(): {
+    in(column: string, values: Array<string | number>): MutationResult;
   };
 };
-type UpsertTable<Insert> = {
-  upsert(values: Insert[], options: { onConflict: string }): MutationResult;
-};
-
 function loadEnvFile(
   filePath: string,
   options: { overrideLoadedKeys?: Set<string>; loadedKeys?: Set<string> } = {}
@@ -126,7 +124,8 @@ async function main(): Promise<void> {
     CategoryRow,
     CategoryInsert
   >;
-  const promptCasesTable = supabase.from("prompt_cases") as unknown as UpsertTable<
+  const promptCasesTable = supabase.from("prompt_cases") as unknown as TableBuilder<
+    PromptCaseRow,
     PromptCaseInsert
   >;
 
@@ -146,23 +145,49 @@ async function main(): Promise<void> {
     failWithSupabaseError("Category upsert", categoryUpsertResult.error);
   }
 
-  const { data: categoryRows, error: categorySelectError } = await categoriesTable
-    .select("id, slug, name, sort_order, source_gallery_file")
-    .order("sort_order", { ascending: true });
+  const { data: categoryRows, error: categorySelectError } = await categoriesTable.select(
+    "id, slug, name, sort_order, source_gallery_file"
+  );
 
   if (categorySelectError) {
     failWithSupabaseError("Category select", categorySelectError);
   }
 
-  if (!categoryRows || categoryRows.length !== categories.length) {
-    throw new Error(
-      `Category upsert returned ${categoryRows?.length ?? 0} rows for ${categories.length} local categories`
-    );
+  if (!categoryRows) {
+    throw new Error("Category select returned no rows");
   }
 
   const categoryIdBySourceFile = new Map<string, string>();
   for (const categoryRow of categoryRows) {
     categoryIdBySourceFile.set(categoryRow.source_gallery_file, categoryRow.id);
+  }
+
+  for (const category of categories) {
+    if (!categoryIdBySourceFile.has(category.source_gallery_file)) {
+      throw new Error(`Missing category id for ${category.source_gallery_file}`);
+    }
+  }
+
+  const localCaseNumberSet = new Set(promptCases.map((promptCase) => promptCase.case_number));
+  const { data: existingPromptCaseRows, error: existingPromptCaseError } =
+    await promptCasesTable.select("case_number");
+
+  if (existingPromptCaseError) {
+    failWithSupabaseError("Prompt case pre-cleanup select", existingPromptCaseError);
+  }
+
+  const stalePromptCaseNumbers = (existingPromptCaseRows ?? [])
+    .map((row) => row.case_number)
+    .filter((caseNumber) => !localCaseNumberSet.has(caseNumber));
+
+  if (stalePromptCaseNumbers.length > 0) {
+    const { error: stalePromptCaseDeleteError } = await promptCasesTable
+      .delete()
+      .in("case_number", stalePromptCaseNumbers);
+
+    if (stalePromptCaseDeleteError) {
+      failWithSupabaseError("Prompt case cleanup delete", stalePromptCaseDeleteError);
+    }
   }
 
   let importedPromptCaseCount = 0;
@@ -232,10 +257,32 @@ async function main(): Promise<void> {
 
   await flushPromptCases();
 
+  const localCategorySlugSet = new Set(categories.map((category) => category.slug));
+  const { data: existingCategoryRows, error: existingCategoryError } =
+    await categoriesTable.select("slug");
+
+  if (existingCategoryError) {
+    failWithSupabaseError("Category post-cleanup select", existingCategoryError);
+  }
+
+  const staleCategorySlugs = (existingCategoryRows ?? [])
+    .map((row) => row.slug)
+    .filter((slug) => !localCategorySlugSet.has(slug));
+
+  if (staleCategorySlugs.length > 0) {
+    const { error: staleCategoryDeleteError } = await categoriesTable
+      .delete()
+      .in("slug", staleCategorySlugs);
+
+    if (staleCategoryDeleteError) {
+      failWithSupabaseError("Category cleanup delete", staleCategoryDeleteError);
+    }
+  }
+
   console.log(
     JSON.stringify(
       {
-        categories: categoryRows.length,
+        categories: categories.length,
         prompt_cases: importedPromptCaseCount,
         known_missing_prompt_numbers: knownMissingPromptNumbers
       },
