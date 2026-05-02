@@ -27,6 +27,17 @@ describe("parseIndexMarkdown", () => {
       }
     ]);
   });
+
+  it("throws for malformed gallery index lines", () => {
+    const markdown = `
+Some unrelated prose can stay here.
+- [gallery1.md UI与界面](gallery1.md) - 86 个案例，例 2-354
+`;
+
+    expect(() => parseIndexMarkdown(markdown)).toThrow(
+      /malformed gallery index line.*gallery1\.md UI与界面/i
+    );
+  });
 });
 
 describe("parseGalleryMarkdown", () => {
@@ -141,6 +152,90 @@ describe("parseGalleryMarkdown", () => {
     expect(() =>
       parseGalleryMarkdown("gallery1.md", "UI与界面", markdown)
     ).toThrow(/gallery1\.md.*case 9.*prompt/i);
+  });
+
+  it("throws when a second case heading appears inside one anchored section", () => {
+    const markdown = `
+# UI与界面
+
+<a id="case-2"></a>
+
+### 例 2：社媒界面截图
+
+![例 2：社媒界面截图](assets/case2.jpg)
+
+**提示词：**
+
+\`\`\`text
+画一张 X 的内容截图。
+\`\`\`
+
+### 例 3：缺少锚点的下一例
+
+![例 3：缺少锚点的下一例](assets/case3.jpg)
+
+**提示词：**
+
+\`\`\`text
+画一张 Y 的内容截图。
+\`\`\`
+`;
+
+    expect(() =>
+      parseGalleryMarkdown("gallery1.md", "UI与界面", markdown)
+    ).toThrow(/gallery1\.md.*case 2.*extra case heading/i);
+  });
+
+  it("throws when duplicate image references appear inside one anchored section", () => {
+    const markdown = `
+# UI与界面
+
+<a id="case-2"></a>
+
+### 例 2：社媒界面截图
+
+![例 2：社媒界面截图](assets/case2.jpg)
+
+![例 3：缺少锚点的下一例](assets/case3.jpg)
+
+**提示词：**
+
+\`\`\`text
+画一张 X 的内容截图。
+\`\`\`
+`;
+
+    expect(() =>
+      parseGalleryMarkdown("gallery1.md", "UI与界面", markdown)
+    ).toThrow(/gallery1\.md.*case 2.*multiple image/i);
+  });
+
+  it("throws when duplicate prompt fences appear inside one anchored section", () => {
+    const markdown = `
+# UI与界面
+
+<a id="case-2"></a>
+
+### 例 2：社媒界面截图
+
+![例 2：社媒界面截图](assets/case2.jpg)
+
+**提示词：**
+
+\`\`\`text
+画一张 X 的内容截图。
+\`\`\`
+
+**提示词：**
+
+\`\`\`text
+画一张 Y 的内容截图。
+\`\`\`
+`;
+
+    expect(() =>
+      parseGalleryMarkdown("gallery1.md", "UI与界面", markdown)
+    ).toThrow(/gallery1\.md.*case 2.*multiple prompt/i);
   });
 });
 

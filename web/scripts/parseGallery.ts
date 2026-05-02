@@ -25,13 +25,51 @@ function caseErrorPrefix(caseNumber: number, sourceGalleryFile: string): string 
   return `${sourceGalleryFile} case ${caseNumber}`;
 }
 
+function ensureSingleMatch(
+  matches: RegExpMatchArray[],
+  caseNumber: number,
+  sourceGalleryFile: string,
+  multipleMessage: string,
+  missingMessage: string
+): RegExpMatchArray & { index: number } {
+  if (matches.length === 0) {
+    throw new Error(
+      `${caseErrorPrefix(caseNumber, sourceGalleryFile)} malformed: ${missingMessage}`
+    );
+  }
+
+  if (matches.length > 1) {
+    throw new Error(
+      `${caseErrorPrefix(caseNumber, sourceGalleryFile)} malformed: ${multipleMessage}`
+    );
+  }
+
+  const match = matches[0];
+  if (match.index === undefined) {
+    throw new Error(
+      `${caseErrorPrefix(caseNumber, sourceGalleryFile)} malformed: missing marker position`
+    );
+  }
+
+  return match as RegExpMatchArray & { index: number };
+}
+
 export function parseIndexMarkdown(markdown: string): ParsedCategory[] {
   const categories: ParsedCategory[] = [];
   const linePattern = /gallery(\d+)\.md：(.+?)\]\(gallery\1\.md\)/;
 
   for (const line of normalizeLineEndings(markdown).split("\n")) {
+    const trimmedLine = line.trim();
     const match = line.match(linePattern);
     if (!match) {
+      if (
+        trimmedLine !== "" &&
+        (/gallery\d+\.md/.test(trimmedLine) ||
+          /^-\s*\[?gallery\d+/i.test(trimmedLine))
+      ) {
+        throw new Error(`Malformed gallery index line: ${trimmedLine}`);
+      }
+
       continue;
     }
 
@@ -67,12 +105,16 @@ export function parseGalleryMarkdown(
         : normalizedMarkdown.length;
     const section = normalizedMarkdown.slice(sectionStart, sectionEnd);
 
-    const headingMatch = section.match(/^\s*### 例 (\d+)：([^\n]+)\s*$/m);
-    if (!headingMatch || headingMatch.index === undefined) {
-      throw new Error(
-        `${caseErrorPrefix(anchorNumber, sourceGalleryFile)} malformed: missing case heading`
-      );
-    }
+    const headingMatches = Array.from(
+      section.matchAll(/^\s*### 例 (\d+)：([^\n]+)\s*$/gm)
+    );
+    const headingMatch = ensureSingleMatch(
+      headingMatches,
+      anchorNumber,
+      sourceGalleryFile,
+      "extra case heading found inside anchored section",
+      "missing case heading"
+    );
 
     const headingNumber = Number(headingMatch[1]);
     const title = headingMatch[2].trim();
@@ -83,14 +125,16 @@ export function parseGalleryMarkdown(
     }
 
     const afterHeading = section.slice(headingMatch.index + headingMatch[0].length);
-    const imageMatch = afterHeading.match(
-      /!\[[^\]]*]\(\s*(assets\/case(\d+)\.jpg)\s*\)/
+    const imageMatches = Array.from(
+      afterHeading.matchAll(/!\[[^\]]*]\(\s*(assets\/case(\d+)\.jpg)\s*\)/g)
     );
-    if (!imageMatch || imageMatch.index === undefined) {
-      throw new Error(
-        `${caseErrorPrefix(anchorNumber, sourceGalleryFile)} malformed: missing image`
-      );
-    }
+    const imageMatch = ensureSingleMatch(
+      imageMatches,
+      anchorNumber,
+      sourceGalleryFile,
+      "multiple image references found inside anchored section",
+      "missing image"
+    );
 
     const imageCaseNumber = Number(imageMatch[2]);
     if (imageCaseNumber !== anchorNumber) {
@@ -100,14 +144,18 @@ export function parseGalleryMarkdown(
     }
 
     const afterImage = afterHeading.slice(imageMatch.index + imageMatch[0].length);
-    const promptMatch = afterImage.match(
-      /\*\*提示词：\*\*(?:\s*\n\s*)*```text\s*\n([\s\S]*?)\n\s*```/
+    const promptMatches = Array.from(
+      afterImage.matchAll(
+        /\*\*提示词：\*\*(?:\s*\n\s*)*```text\s*\n([\s\S]*?)\n\s*```/g
+      )
     );
-    if (!promptMatch) {
-      throw new Error(
-        `${caseErrorPrefix(anchorNumber, sourceGalleryFile)} malformed: missing prompt fence`
-      );
-    }
+    const promptMatch = ensureSingleMatch(
+      promptMatches,
+      anchorNumber,
+      sourceGalleryFile,
+      "multiple prompt fences found inside anchored section",
+      "missing prompt fence"
+    );
 
     const promptText = promptMatch[1].trim();
     cases.push({
