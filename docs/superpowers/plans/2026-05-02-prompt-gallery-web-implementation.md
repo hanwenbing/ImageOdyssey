@@ -19,6 +19,25 @@
 - Do not expose Supabase `service_role` keys to browser code.
 - Do not expose a general shell execution endpoint.
 
+## Review-Driven Amendments
+
+These amendments supersede older snippets below where they conflict. They came from the Task 1 and Task 2 review gates.
+
+- Task 1 keeps only scripts that are backed by existing files at that checkpoint. Later tasks must add `server`, `dev:all`, `import:gallery`, and `validate:gallery` only when the corresponding files exist.
+- Tailwind CSS v4 must be wired through `@tailwindcss/vite`; an empty `postcss.config.js` is not part of the final scaffold.
+- Browser code must not write `experiments` rows or upload to `experiment-images` directly with the publishable key. Source/result uploads and experiment saves go through the local Node API using server-side credentials.
+- `gallery-images` is public/readable. `experiment-images` is private and has no anonymous read or write policies.
+- `experiments` has no anonymous read or insert policy. Local server code uses service role credentials for experiment writes.
+- Supabase client code uses a lazy `getSupabaseClient()` typed with `createClient<Database>()`; do not import an eager `supabase` singleton.
+- The joined frontend prompt-case view model is named `PromptCaseWithCategory`, not `PromptCase`, because `category_name` is not a base `prompt_cases` column.
+- `CaseIndexItem` uses `category_name`, not `category`.
+- Task 4 must add the `tsx` dependency and `import:gallery` / `validate:gallery` scripts when import scripts are created.
+- Task 6 must add local-server dependencies and scripts when API files are created: `express`, `cors`, `multer`, `dotenv`, `tsx`, `zod`, corresponding `@types/*`, and `concurrently` if `dev:all` is added.
+- Task 6 API surface includes not only `/api/recommend` and `/api/rewrite`, but also server-boundary experiment endpoints:
+  - `POST /api/experiment-images` accepts multipart image upload with `kind=source|result`, uploads to private Supabase `experiment-images`, and returns `{ storagePath }`.
+  - `POST /api/experiments` accepts the `ExperimentInsert` payload and inserts an experiment row through the server.
+- Task 9 must preview selected source/result images with `URL.createObjectURL(file)` and store Supabase storage paths returned by the local API. It must not call `supabase.storage.from("experiment-images").upload(...)`, `getPublicUrl(...)` for experiment images, or `supabase.from("experiments").insert(...)` from browser code.
+
 ## File Structure To Create
 
 ```text
