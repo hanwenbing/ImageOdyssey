@@ -7,6 +7,36 @@ import type {
 } from "../../server/types";
 import type { ExperimentInsert } from "../types";
 
+type JsonValue =
+  | string
+  | number
+  | boolean
+  | null
+  | JsonValue[]
+  | { [key: string]: JsonValue };
+
+export type ClientWorkflowEvent = {
+  request_id: string;
+  workflow: "frontend";
+  stage: "recommend_blocked" | "rewrite_blocked" | "result_upload_blocked" | "api_error";
+  status: "failed" | "blocked";
+  message: string | null;
+  request_payload: JsonValue | null;
+  response_payload: JsonValue | null;
+  error_payload: JsonValue | null;
+  metadata: JsonValue | null;
+};
+
+function normalizeFetchError(error: unknown): Error {
+  if (error instanceof TypeError) {
+    return new Error("本地 API 未连接。请运行 run-web-dev.cmd 或 npm -C web run dev:all。", {
+      cause: error
+    });
+  }
+
+  return error instanceof Error ? error : new Error(String(error));
+}
+
 async function parseJsonResponse<T>(response: Response): Promise<T> {
   const text = await response.text();
   let body: unknown = null;
@@ -46,13 +76,20 @@ async function parseJsonResponse<T>(response: Response): Promise<T> {
 }
 
 async function postJson<T>(path: string, payload: unknown): Promise<T> {
-  const response = await fetch(path, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json"
-    },
-    body: JSON.stringify(payload)
-  });
+  const body = JSON.stringify(payload);
+  const response = await (async () => {
+    try {
+      return await fetch(path, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json"
+        },
+        body
+      });
+    } catch (error) {
+      throw normalizeFetchError(error);
+    }
+  })();
 
   return parseJsonResponse<T>(response);
 }
@@ -76,16 +113,26 @@ export async function uploadExperimentImage(
   formData.append("kind", kind);
   formData.append("file", file);
 
-  const response = await fetch("/api/experiment-images", {
-    method: "POST",
-    body: formData
-  });
+  const response = await (async () => {
+    try {
+      return await fetch("/api/experiment-images", {
+        method: "POST",
+        body: formData
+      });
+    } catch (error) {
+      throw normalizeFetchError(error);
+    }
+  })();
 
   return parseJsonResponse<{ storagePath: string }>(response);
 }
 
 export async function saveExperiment(payload: ExperimentInsert): Promise<{ id: string }> {
   return postJson<{ id: string }>("/api/experiments", payload);
+}
+
+export async function logWorkflowEvent(event: ClientWorkflowEvent): Promise<void> {
+  await postJson<{ ok: true }>("/api/workflow-events", event);
 }
 
 export function toCaseIndexItem(promptCase: {
