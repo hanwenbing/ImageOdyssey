@@ -3,14 +3,52 @@
 import { createServer } from "node:http";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { RecommendRequest, RecommendResponse, RewriteRequest, RewriteResponse } from "../types";
+import type { WorkflowEventInsert } from "../workflowEvents";
 import { createApp } from "../routes";
 
-type MockSupabaseClient = {
-  storage: {
-    from: ReturnType<typeof vi.fn>;
+function createServiceRoleClientMock(options: {
+  uploadResult?: { data: { path: string } | null; error: unknown };
+  experimentResult?: { data: { id: string } | null; error: unknown };
+} = {}) {
+  const workflowInsert = vi.fn().mockResolvedValue({ error: null });
+  const upload = vi.fn().mockResolvedValue(
+    options.uploadResult ?? { data: { path: "source/upload.png" }, error: null }
+  );
+  const storageFrom = vi.fn().mockReturnValue({ upload });
+  const experimentSingle = vi.fn().mockResolvedValue(
+    options.experimentResult ?? { data: { id: "experiment-1" }, error: null }
+  );
+  const experimentSelect = vi.fn().mockReturnValue({ single: experimentSingle });
+  const experimentInsert = vi.fn().mockReturnValue({ select: experimentSelect });
+  const from = vi.fn((table: string) => {
+    if (table === "workflow_events") {
+      return { insert: workflowInsert };
+    }
+
+    if (table === "experiments") {
+      return { insert: experimentInsert };
+    }
+
+    throw new Error(`Unexpected table: ${table}`);
+  });
+
+  return {
+    client: {
+      storage: { from: storageFrom },
+      from
+    },
+    workflowInsert,
+    upload,
+    storageFrom,
+    experimentInsert,
+    experimentSelect,
+    experimentSingle
   };
-  from: ReturnType<typeof vi.fn>;
-};
+}
+
+function workflowEventsFromCalls(insert: ReturnType<typeof vi.fn>): WorkflowEventInsert[] {
+  return insert.mock.calls.map(([event]) => event as WorkflowEventInsert);
+}
 
 function createServerUrl(app: ReturnType<typeof createApp>) {
   const server = createServer(app);
@@ -124,6 +162,7 @@ describe("API routes", () => {
   });
 
   it("forwards recommend requests to codexBridge and returns JSON", async () => {
+    const serviceRoleClient = createServiceRoleClientMock();
     const recommend = vi.fn(async (request: RecommendRequest): Promise<RecommendResponse> => {
       void request;
       return {
@@ -138,8 +177,11 @@ describe("API routes", () => {
         changed_parts: []
       };
     });
-    const getServiceRoleClient = vi.fn();
-    const app = createApp({ recommend, rewrite, getServiceRoleClient });
+    const app = createApp({
+      recommend,
+      rewrite,
+      getServiceRoleClient: vi.fn().mockReturnValue(serviceRoleClient.client)
+    });
     const payload = {
       source_image_storage_path: "source/path.jpg",
       user_query: "match the closest cases",
@@ -164,6 +206,30 @@ describe("API routes", () => {
       recommendations: [{ case_number: 7, reason: "closest fit" }]
     });
     expect(recommend).toHaveBeenCalledWith(payload);
+    expect(serviceRoleClient.workflowInsert).toHaveBeenCalledTimes(2);
+
+    const [startedEvent, succeededEvent] = workflowEventsFromCalls(serviceRoleClient.workflowInsert);
+    expect(startedEvent).toMatchObject({
+      workflow: "recommend",
+      stage: "request_received",
+      status: "started",
+      request_payload: payload,
+      response_payload: null,
+      error_payload: null,
+      metadata: null
+    });
+    expect(succeededEvent).toMatchObject({
+      workflow: "recommend",
+      stage: "response_sent",
+      status: "succeeded",
+      request_payload: payload,
+      response_payload: {
+        recommendations: [{ case_number: 7, reason: "closest fit" }]
+      },
+      error_payload: null,
+      metadata: null
+    });
+    expect(startedEvent.request_id).toBe(succeededEvent.request_id);
   });
 
   it("returns a 400 error for invalid recommend requests", async () => {
@@ -186,7 +252,66 @@ describe("API routes", () => {
     });
   });
 
+  it("returns a 500 error and logs failure when recommend rejects", async () => {
+    const serviceRoleClient = createServiceRoleClientMock();
+    const recommend = vi.fn().mockRejectedValue(new Error("recommend exploded"));
+    const app = createApp({
+      recommend,
+      rewrite: vi.fn(),
+      getServiceRoleClient: vi.fn().mockReturnValue(serviceRoleClient.client)
+    });
+    const payload = {
+      source_image_storage_path: "source/path.jpg",
+      user_query: "match the closest cases",
+      category_filter: null,
+      cases: [
+        {
+          case_number: 7,
+          title: "Case 7",
+          category_name: "Portrait",
+          summary: "Summary",
+          tags: ["portrait"],
+          prompt_excerpt: "Excerpt",
+          image_storage_path: "cases/case7.jpg"
+        }
+      ]
+    };
+
+    const { response, json } = await requestJson(app, "/api/recommend", payload);
+
+    expect(response.status).toBe(500);
+    expect(await json()).toEqual({
+      error: "recommend exploded"
+    });
+    expect(serviceRoleClient.workflowInsert).toHaveBeenCalledTimes(2);
+
+    const [startedEvent, failedEvent] = workflowEventsFromCalls(serviceRoleClient.workflowInsert);
+    expect(startedEvent).toMatchObject({
+      workflow: "recommend",
+      stage: "request_received",
+      status: "started",
+      request_payload: payload,
+      response_payload: null,
+      error_payload: null,
+      metadata: null
+    });
+    expect(failedEvent).toMatchObject({
+      workflow: "recommend",
+      stage: "route_error",
+      status: "failed",
+      request_payload: payload,
+      response_payload: null,
+      error_payload: {
+        message: "recommend exploded",
+        name: "Error"
+      },
+      metadata: null
+    });
+    expect(startedEvent.request_id).toBe(failedEvent.request_id);
+  });
+
   it("forwards rewrite requests to codexBridge and returns JSON", async () => {
+    const serviceRoleClient = createServiceRoleClientMock();
     const rewrite = vi.fn(async (request: RewriteRequest): Promise<RewriteResponse> => {
       void request;
       return {
@@ -204,7 +329,7 @@ describe("API routes", () => {
     const app = createApp({
       recommend,
       rewrite,
-      getServiceRoleClient: vi.fn()
+      getServiceRoleClient: vi.fn().mockReturnValue(serviceRoleClient.client)
     });
     const payload = {
       source_image_storage_path: "source/path.jpg",
@@ -221,6 +346,32 @@ describe("API routes", () => {
       changed_parts: ["composition"]
     });
     expect(rewrite).toHaveBeenCalledWith(payload);
+    expect(serviceRoleClient.workflowInsert).toHaveBeenCalledTimes(2);
+
+    const [startedEvent, succeededEvent] = workflowEventsFromCalls(serviceRoleClient.workflowInsert);
+    expect(startedEvent).toMatchObject({
+      workflow: "rewrite",
+      stage: "request_received",
+      status: "started",
+      request_payload: payload,
+      response_payload: null,
+      error_payload: null,
+      metadata: null
+    });
+    expect(succeededEvent).toMatchObject({
+      workflow: "rewrite",
+      stage: "response_sent",
+      status: "succeeded",
+      request_payload: payload,
+      response_payload: {
+        rewritten_prompt_text: "Rewritten prompt",
+        preserved_parts: ["subject", "lighting"],
+        changed_parts: ["composition"]
+      },
+      error_payload: null,
+      metadata: null
+    });
+    expect(startedEvent.request_id).toBe(succeededEvent.request_id);
   });
 
   it("returns a 400 error for invalid rewrite requests", async () => {
@@ -242,17 +393,129 @@ describe("API routes", () => {
     });
   });
 
-  it("uploads an experiment image to Supabase storage", async () => {
-    const upload = vi.fn().mockResolvedValue({ data: { path: "source/upload.png" }, error: null });
-    const from = vi.fn().mockReturnValue({ upload });
-    const supabaseClient: MockSupabaseClient = {
-      storage: { from },
-      from
+  it("returns a 500 error and logs failure when rewrite rejects", async () => {
+    const serviceRoleClient = createServiceRoleClientMock();
+    const rewrite = vi.fn().mockRejectedValue(new Error("rewrite exploded"));
+    const app = createApp({
+      recommend: vi.fn(),
+      rewrite,
+      getServiceRoleClient: vi.fn().mockReturnValue(serviceRoleClient.client)
+    });
+    const payload = {
+      source_image_storage_path: "source/path.jpg",
+      case_number: 7,
+      original_prompt_text: "Original prompt"
     };
+
+    const { response, json } = await requestJson(app, "/api/rewrite", payload);
+
+    expect(response.status).toBe(500);
+    expect(await json()).toEqual({
+      error: "rewrite exploded"
+    });
+    expect(serviceRoleClient.workflowInsert).toHaveBeenCalledTimes(2);
+
+    const [startedEvent, failedEvent] = workflowEventsFromCalls(serviceRoleClient.workflowInsert);
+    expect(startedEvent).toMatchObject({
+      workflow: "rewrite",
+      stage: "request_received",
+      status: "started",
+      request_payload: payload,
+      response_payload: null,
+      error_payload: null,
+      metadata: null
+    });
+    expect(failedEvent).toMatchObject({
+      workflow: "rewrite",
+      stage: "route_error",
+      status: "failed",
+      request_payload: payload,
+      response_payload: null,
+      error_payload: {
+        message: "rewrite exploded",
+        name: "Error"
+      },
+      metadata: null
+    });
+    expect(startedEvent.request_id).toBe(failedEvent.request_id);
+  });
+
+  it("writes workflow events through Supabase and returns ok", async () => {
+    const serviceRoleClient = createServiceRoleClientMock();
     const app = createApp({
       recommend: vi.fn(),
       rewrite: vi.fn(),
-      getServiceRoleClient: vi.fn().mockReturnValue(supabaseClient)
+      getServiceRoleClient: vi.fn().mockReturnValue(serviceRoleClient.client)
+    });
+    const payload = {
+      request_id: "wf_123",
+      workflow: "frontend",
+      stage: "recommend_blocked",
+      status: "blocked",
+      message: null,
+      request_payload: { source: "gallery" },
+      response_payload: null,
+      error_payload: null,
+      metadata: { attempt: 1 }
+    };
+
+    const { response, json } = await requestJson(app, "/api/workflow-events", payload);
+
+    expect(response.status).toBe(200);
+    expect(await json()).toEqual({ ok: true });
+    expect(serviceRoleClient.workflowInsert).toHaveBeenCalledWith(payload);
+  });
+
+  it("returns a 400 error for invalid workflow event payloads", async () => {
+    const app = createApp({
+      recommend: vi.fn(),
+      rewrite: vi.fn(),
+      getServiceRoleClient: vi.fn()
+    });
+
+    const { response, json } = await requestJson(app, "/api/workflow-events", {
+      workflow: "frontend"
+    });
+
+    expect(response.status).toBe(400);
+    expect(await json()).toEqual({
+      error: expect.any(String)
+    });
+  });
+
+  it("rejects non-frontend workflow event writes", async () => {
+    const serviceRoleClient = createServiceRoleClientMock();
+    const app = createApp({
+      recommend: vi.fn(),
+      rewrite: vi.fn(),
+      getServiceRoleClient: vi.fn().mockReturnValue(serviceRoleClient.client)
+    });
+
+    const { response, json } = await requestJson(app, "/api/workflow-events", {
+      request_id: "wf_123",
+      workflow: "recommend",
+      stage: "request_received",
+      status: "started",
+      message: null,
+      request_payload: null,
+      response_payload: null,
+      error_payload: null,
+      metadata: null
+    });
+
+    expect(response.status).toBe(400);
+    expect(await json()).toEqual({
+      error: expect.any(String)
+    });
+    expect(serviceRoleClient.workflowInsert).not.toHaveBeenCalled();
+  });
+
+  it("uploads an experiment image to Supabase storage", async () => {
+    const serviceRoleClient = createServiceRoleClientMock();
+    const app = createApp({
+      recommend: vi.fn(),
+      rewrite: vi.fn(),
+      getServiceRoleClient: vi.fn().mockReturnValue(serviceRoleClient.client)
     });
     const formData = new FormData();
     formData.append("kind", "source");
@@ -267,7 +530,19 @@ describe("API routes", () => {
     const body = await json();
     expect(typeof body.storagePath).toBe("string");
     expect(String(body.storagePath)).toMatch(/^source\/[0-9a-f-]+-source_image\.png$/i);
-    expect(upload).toHaveBeenCalledTimes(1);
+    expect(serviceRoleClient.upload).toHaveBeenCalledTimes(1);
+    expect(serviceRoleClient.workflowInsert).toHaveBeenCalledTimes(2);
+    const [startedEvent, succeededEvent] = workflowEventsFromCalls(serviceRoleClient.workflowInsert);
+    expect(startedEvent).toMatchObject({
+      workflow: "experiment-images",
+      stage: "request_received",
+      status: "started"
+    });
+    expect(succeededEvent).toMatchObject({
+      workflow: "experiment-images",
+      stage: "storage_uploaded",
+      status: "succeeded"
+    });
   });
 
   it("returns a 400 error when experiment image upload is missing a file", async () => {
@@ -306,18 +581,16 @@ describe("API routes", () => {
   });
 
   it("returns a 500 error when experiment image upload fails", async () => {
-    const upload = vi.fn().mockResolvedValue({
-      data: null,
-      error: new Error("upload failed")
+    const serviceRoleClient = createServiceRoleClientMock({
+      uploadResult: {
+        data: null,
+        error: new Error("upload failed")
+      }
     });
-    const from = vi.fn().mockReturnValue({ upload });
     const app = createApp({
       recommend: vi.fn(),
       rewrite: vi.fn(),
-      getServiceRoleClient: vi.fn().mockReturnValue({
-        storage: { from },
-        from
-      })
+      getServiceRoleClient: vi.fn().mockReturnValue(serviceRoleClient.client)
     });
     const formData = new FormData();
     formData.append("kind", "result");
@@ -329,17 +602,30 @@ describe("API routes", () => {
     expect(await json()).toEqual({
       error: expect.stringContaining("upload failed")
     });
+    expect(serviceRoleClient.workflowInsert).toHaveBeenCalledTimes(2);
+    const [startedEvent, failedEvent] = workflowEventsFromCalls(serviceRoleClient.workflowInsert);
+    expect(startedEvent).toMatchObject({
+      workflow: "experiment-images",
+      stage: "request_received",
+      status: "started"
+    });
+    expect(failedEvent).toMatchObject({
+      workflow: "experiment-images",
+      stage: "route_error",
+      status: "failed",
+      error_payload: {
+        message: "upload failed",
+        name: "Error"
+      }
+    });
   });
 
   it("inserts experiments with Supabase service role", async () => {
-    const single = vi.fn().mockResolvedValue({ data: { id: "experiment-1" }, error: null });
-    const select = vi.fn().mockReturnValue({ single });
-    const insert = vi.fn().mockReturnValue({ select });
-    const from = vi.fn().mockReturnValue({ insert });
+    const serviceRoleClient = createServiceRoleClientMock();
     const app = createApp({
       recommend: vi.fn(),
       rewrite: vi.fn(),
-      getServiceRoleClient: vi.fn().mockReturnValue({ from })
+      getServiceRoleClient: vi.fn().mockReturnValue(serviceRoleClient.client)
     });
 
     const payload = {
@@ -355,7 +641,19 @@ describe("API routes", () => {
 
     expect(response.status).toBe(200);
     expect(await json()).toEqual({ id: "experiment-1" });
-    expect(insert).toHaveBeenCalledWith(payload);
+    expect(serviceRoleClient.workflowInsert).toHaveBeenCalledTimes(2);
+    const [startedEvent, succeededEvent] = workflowEventsFromCalls(serviceRoleClient.workflowInsert);
+    expect(startedEvent).toMatchObject({
+      workflow: "experiments",
+      stage: "request_received",
+      status: "started"
+    });
+    expect(succeededEvent).toMatchObject({
+      workflow: "experiments",
+      stage: "insert_succeeded",
+      status: "succeeded"
+    });
+    expect(serviceRoleClient.experimentInsert).toHaveBeenCalledWith(payload);
   });
 
   it("returns a 400 error for invalid experiment inserts", async () => {
@@ -381,19 +679,16 @@ describe("API routes", () => {
   });
 
   it("returns a 500 error when experiment insert fails", async () => {
-    const single = vi.fn().mockResolvedValue({
-      data: null,
-      error: new Error("insert failed")
+    const serviceRoleClient = createServiceRoleClientMock({
+      experimentResult: {
+        data: null,
+        error: new Error("insert failed")
+      }
     });
-    const select = vi.fn().mockReturnValue({ single });
-    const insert = vi.fn().mockReturnValue({
-      select
-    });
-    const from = vi.fn().mockReturnValue({ insert });
     const app = createApp({
       recommend: vi.fn(),
       rewrite: vi.fn(),
-      getServiceRoleClient: vi.fn().mockReturnValue({ from })
+      getServiceRoleClient: vi.fn().mockReturnValue(serviceRoleClient.client)
     });
 
     const { response, json } = await requestJson(app, "/api/experiments", {
@@ -408,6 +703,22 @@ describe("API routes", () => {
     expect(response.status).toBe(500);
     expect(await json()).toEqual({
       error: expect.stringContaining("insert failed")
+    });
+    expect(serviceRoleClient.workflowInsert).toHaveBeenCalledTimes(2);
+    const [startedEvent, failedEvent] = workflowEventsFromCalls(serviceRoleClient.workflowInsert);
+    expect(startedEvent).toMatchObject({
+      workflow: "experiments",
+      stage: "request_received",
+      status: "started"
+    });
+    expect(failedEvent).toMatchObject({
+      workflow: "experiments",
+      stage: "route_error",
+      status: "failed",
+      error_payload: {
+        message: "insert failed",
+        name: "Error"
+      }
     });
   });
 });
