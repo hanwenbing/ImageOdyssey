@@ -5,6 +5,7 @@ import {
   requestRewrite,
   saveExperiment,
   toCaseIndexItem,
+  logWorkflowEvent,
   uploadExperimentImage
 } from "./lib/apiClient";
 import {
@@ -18,13 +19,26 @@ import type {
   PromptCaseWithCategory,
   RewriteResult
 } from "./types";
+import type { ClientWorkflowEvent } from "./lib/apiClient";
 
 type PromptTab = "original" | "rewrite";
+type BlockedWorkflowStage = Extract<
+  ClientWorkflowEvent["stage"],
+  "recommend_blocked" | "rewrite_blocked" | "result_upload_blocked"
+>;
 
 type PromptCaseRow = Omit<PromptCaseWithCategory, "category_name">;
 
 function formatErrorMessage(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
+}
+
+function createWorkflowRequestId(): string {
+  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
+    return crypto.randomUUID();
+  }
+
+  return `frontend-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
 function CaseCard({
@@ -66,15 +80,26 @@ function CaseCard({
           <span className="text-[11px] text-zinc-400">{promptCase.category_name}</span>
         </div>
         <div className="mt-1 line-clamp-2 text-sm text-zinc-100">{promptCase.title}</div>
-        <div className="mt-2 text-xs text-cyan-200">点击选择</div>
-      </div>
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-zinc-950/92 p-3 text-left opacity-0 transition duration-200 group-hover:translate-y-0 group-hover:opacity-100">
-        <div className="flex items-center justify-between gap-2">
-          <span className="text-sm font-semibold text-white">Case {promptCase.case_number}</span>
-          <span className="text-[11px] text-zinc-400">{promptCase.category_name}</span>
+        <div className="hidden group-hover:block">
+          <div className="mt-2 line-clamp-3 text-xs leading-5 text-zinc-300">
+            {promptCase.summary}
+          </div>
+          {promptCase.tags.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1">
+              {promptCase.tags.slice(0, 3).map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded bg-white/10 px-1.5 py-0.5 text-[10px] text-zinc-300"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+          <div className="mt-2 text-xs text-cyan-200">
+            {recommended ? "推荐候选 · 点击选择" : "点击选择"}
+          </div>
         </div>
-        <div className="mt-1 line-clamp-2 text-sm text-zinc-100">{promptCase.title}</div>
-        <div className="mt-2 text-xs text-cyan-200">点击选择</div>
       </div>
     </button>
   );
@@ -99,6 +124,7 @@ export default function App() {
   const [resultUploadBusy, setResultUploadBusy] = useState(false);
   const [recommendBusy, setRecommendBusy] = useState(false);
   const [rewriteBusy, setRewriteBusy] = useState(false);
+  const [promptDrawerOpen, setPromptDrawerOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -220,6 +246,102 @@ export default function App() {
     !rewriteBusy &&
     !resultUploadBusy;
 
+  function workflowStateMetadata() {
+    return {
+      sourceUploaded: Boolean(sourceStoragePath),
+      sourceUploadBusy,
+      resultUploadBusy,
+      recommendBusy,
+      rewriteBusy,
+      selectedCaseId,
+      selectedCaseNumber: selectedCase?.case_number ?? null,
+      hasRewriteResult: Boolean(rewriteResult),
+      filteredCaseCount: filteredCases.length,
+      selectedCategory,
+      query
+    };
+  }
+
+  function logBlockedWorkflowEvent(stage: BlockedWorkflowStage, message: string) {
+    void logWorkflowEvent({
+      request_id: createWorkflowRequestId(),
+      workflow: "frontend",
+      stage,
+      status: "blocked",
+      message,
+      request_payload: {
+        action: stage.replace("_blocked", "")
+      },
+      response_payload: null,
+      error_payload: null,
+      metadata: workflowStateMetadata()
+    }).catch((error) => {
+      console.warn("Failed to log blocked workflow event", error);
+    });
+  }
+
+  function describeRecommendBlockedReason(): string | null {
+    if (sourceUploadBusy) {
+      return "Source Image 正在上传，完成后再推荐。";
+    }
+    if (!sourceStoragePath) {
+      return "请先上传 Source Image，再获取推荐。";
+    }
+    if (recommendBusy) {
+      return "推荐正在进行中。";
+    }
+    if (filteredCases.length === 0) {
+      return "当前筛选下没有可用于推荐的案例。";
+    }
+
+    return null;
+  }
+
+  function describeRewriteBlockedReason(): string | null {
+    if (sourceUploadBusy) {
+      return "Source Image 正在上传，完成后再改写。";
+    }
+    if (!sourceStoragePath) {
+      return "请先上传 Source Image，再改写 Prompt。";
+    }
+    if (!selectedCase) {
+      return "请先选择一个案例，再改写 Prompt。";
+    }
+    if (recommendBusy) {
+      return "推荐正在进行中，完成后再改写。";
+    }
+    if (rewriteBusy) {
+      return "改写正在进行中。";
+    }
+
+    return null;
+  }
+
+  function describeResultUploadBlockedReason(): string | null {
+    if (sourceUploadBusy) {
+      return "Source Image 正在上传，完成后再上传 Result Image。";
+    }
+    if (!sourceStoragePath) {
+      return "请先上传 Source Image，再上传 Result Image。";
+    }
+    if (!selectedCase) {
+      return "请先选择一个案例，再上传 Result Image。";
+    }
+    if (!rewriteResult) {
+      return "请先完成 Prompt 改写，再上传 Result Image。";
+    }
+    if (recommendBusy || rewriteBusy || resultUploadBusy) {
+      return "当前操作正在进行中，完成后再上传 Result Image。";
+    }
+
+    return null;
+  }
+
+  function handleBlockedAction(stage: BlockedWorkflowStage, message: string) {
+    setErrorMessage(message);
+    logBlockedWorkflowEvent(stage, message);
+  }
+
   async function handleSourceSelected(file: File) {
     setErrorMessage(null);
     setSourceUploadBusy(true);
@@ -243,7 +365,12 @@ export default function App() {
   }
 
   async function handleResultSelected(file: File) {
-    if (!canUploadResult || !sourceStoragePath || !selectedCase || !rewriteResult) {
+    const blockedReason = describeResultUploadBlockedReason();
+    if (blockedReason || !sourceStoragePath || !selectedCase || !rewriteResult) {
+      handleBlockedAction(
+        "result_upload_blocked",
+        blockedReason ?? "当前状态不能上传 Result Image。"
+      );
       return;
     }
 
@@ -269,7 +396,12 @@ export default function App() {
   }
 
   async function handleRecommend() {
-    if (!canRecommend || !sourceStoragePath) {
+    const blockedReason = describeRecommendBlockedReason();
+    if (blockedReason || !sourceStoragePath) {
+      handleBlockedAction(
+        "recommend_blocked",
+        blockedReason ?? "当前状态不能获取推荐。"
+      );
       return;
     }
 
@@ -295,7 +427,9 @@ export default function App() {
   }
 
   async function handleRewrite() {
-    if (!canRewrite || !sourceStoragePath || !selectedCase) {
+    const blockedReason = describeRewriteBlockedReason();
+    if (blockedReason || !sourceStoragePath || !selectedCase) {
+      handleBlockedAction("rewrite_blocked", blockedReason ?? "当前状态不能改写 Prompt。");
       return;
     }
 
@@ -311,6 +445,7 @@ export default function App() {
 
       setRewriteResult(result);
       setActivePromptTab("rewrite");
+      setPromptDrawerOpen(true);
     } catch (error) {
       setErrorMessage(formatErrorMessage(error));
     } finally {
@@ -324,29 +459,33 @@ export default function App() {
       : rewriteResult?.rewritten_prompt_text ?? "点击“改写”后，这里会显示改写后的 Prompt。";
 
   return (
-    <main className="flex min-h-screen flex-col bg-zinc-950 text-zinc-50">
+    <main className="h-screen overflow-hidden bg-zinc-950 text-zinc-50">
       {errorMessage && (
         <div className="fixed left-4 top-4 z-50 max-w-[min(680px,calc(100vw-2rem))] rounded-lg border border-rose-300/30 bg-rose-950 px-4 py-3 text-sm text-rose-100 shadow-xl">
           {errorMessage}
         </div>
       )}
 
-      <div className="mx-auto flex min-h-0 w-full max-w-[1800px] flex-1 flex-col gap-4 p-4 pb-40 xl:grid xl:grid-cols-[360px_minmax(0,1fr)]">
-        <section className="flex min-h-0 flex-col gap-4">
+      <div className="mx-auto grid h-full min-h-0 w-full max-w-[1800px] grid-rows-[auto_minmax(0,1fr)] gap-4 p-4 xl:grid-cols-[360px_minmax(0,1fr)] xl:grid-rows-1">
+        <section className="grid min-h-0 gap-4 sm:grid-cols-2 xl:flex xl:flex-col">
           <ImageUploadPanel
             title="Source Image"
-            helper="上传参考图，推荐和改写都会围绕它展开"
             imageUrl={sourcePreviewUrl}
             busy={sourceUploadBusy}
             onFileSelected={handleSourceSelected}
           />
           <ImageUploadPanel
             title="Result Image"
-            helper="完成改写后上传生成结果，系统会自动保存实验记录"
             imageUrl={resultPreviewUrl}
             disabled={!canUploadResult}
             busy={resultUploadBusy}
             onFileSelected={handleResultSelected}
+            onBlockedSelect={() => {
+              const blockedReason = describeResultUploadBlockedReason();
+              if (blockedReason) {
+                handleBlockedAction("result_upload_blocked", blockedReason);
+              }
+            }}
           />
         </section>
 
@@ -361,9 +500,13 @@ export default function App() {
                 onChange={(event) => setQuery(event.currentTarget.value)}
               />
               <button
-                className="h-11 rounded-lg bg-cyan-300 px-4 text-sm font-semibold text-zinc-950 disabled:cursor-not-allowed disabled:bg-zinc-800 disabled:text-zinc-500"
+                className={`h-11 rounded-lg px-4 text-sm font-semibold ${
+                  canRecommend
+                    ? "bg-cyan-300 text-zinc-950"
+                    : "cursor-not-allowed bg-zinc-800 text-zinc-500"
+                }`}
                 type="button"
-                disabled={!canRecommend}
+                aria-disabled={!canRecommend}
                 onClick={handleRecommend}
               >
                 {recommendBusy ? "推荐中..." : "推荐"}
@@ -391,7 +534,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="min-h-0 flex-1">
+          <div className="min-h-0 flex-1 overflow-hidden">
             {galleryLoading ? (
               <div className="flex h-full items-center justify-center rounded-lg border border-dashed border-white/10 text-sm text-zinc-400">
                 正在加载 Gallery...
@@ -401,7 +544,7 @@ export default function App() {
                 没有匹配的案例
               </div>
             ) : (
-              <div className="grid max-h-full grid-cols-2 gap-3 overflow-y-auto pr-1 md:grid-cols-3 xl:grid-cols-4">
+              <div className="grid h-full grid-cols-2 gap-3 overflow-y-auto pr-1 md:grid-cols-3 xl:grid-cols-4">
                 {visibleCases.map((promptCase) => (
                   <CaseCard
                     key={promptCase.id}
@@ -419,59 +562,73 @@ export default function App() {
               </div>
             )}
           </div>
-        </section>
-      </div>
 
-      <section className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-zinc-950/96 backdrop-blur">
-        <div className="mx-auto flex w-full max-w-[1800px] flex-col gap-3 px-4 py-4 xl:flex-row xl:items-end xl:gap-4">
-          <div className="min-w-0 flex-1">
-            <div className="mb-3 flex flex-wrap items-center gap-2">
+          <div className="mt-4 shrink-0 rounded-lg border border-white/10 bg-zinc-950/80">
+            <div className="flex flex-col gap-3 p-3 xl:flex-row xl:items-center">
               <button
-                className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
-                  activePromptTab === "original"
-                    ? "bg-cyan-300 text-zinc-950"
-                    : "bg-white/10 text-zinc-300 hover:bg-white/15"
-                }`}
+                className="h-9 rounded-lg border border-white/10 px-3 text-sm font-semibold text-zinc-100 hover:border-cyan-300/50"
                 type="button"
-                onClick={() => setActivePromptTab("original")}
+                aria-expanded={promptDrawerOpen}
+                onClick={() => setPromptDrawerOpen((open) => !open)}
               >
-                原始 Prompt
+                {promptDrawerOpen ? "收起 Prompt" : "展开 Prompt"}
               </button>
-              <button
-                className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
-                  activePromptTab === "rewrite"
-                    ? "bg-cyan-300 text-zinc-950"
-                    : "bg-white/10 text-zinc-300 hover:bg-white/15"
-                }`}
-                type="button"
-                onClick={() => setActivePromptTab("rewrite")}
-              >
-                改写 Prompt
-              </button>
-              <span className="min-w-0 truncate text-sm text-zinc-400">
+              <span className="min-w-0 flex-1 truncate text-sm text-zinc-400">
                 {selectedCase
                   ? `当前案例：Case ${selectedCase.case_number} · ${selectedCase.title}`
                   : "当前案例：未选择"}
               </span>
+              <button
+                className={`h-9 rounded-lg px-4 text-sm font-semibold ${
+                  canRewrite
+                    ? "bg-cyan-300 text-zinc-950"
+                    : "cursor-not-allowed bg-zinc-800 text-zinc-500"
+                }`}
+                type="button"
+                aria-disabled={!canRewrite}
+                onClick={handleRewrite}
+              >
+                {rewriteBusy ? "改写中..." : "改写"}
+              </button>
             </div>
 
-            <textarea
-              className="h-28 w-full resize-none rounded-lg border border-white/10 bg-zinc-950 px-3 py-3 text-sm leading-6 text-zinc-100 outline-none"
-              readOnly
-              value={promptText}
-            />
-          </div>
+            {promptDrawerOpen && (
+              <div className="border-t border-white/10 p-3">
+                <div className="mb-3 flex flex-wrap items-center gap-2">
+                  <button
+                    className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
+                      activePromptTab === "original"
+                        ? "bg-cyan-300 text-zinc-950"
+                        : "bg-white/10 text-zinc-300 hover:bg-white/15"
+                    }`}
+                    type="button"
+                    onClick={() => setActivePromptTab("original")}
+                  >
+                    原始 Prompt
+                  </button>
+                  <button
+                    className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
+                      activePromptTab === "rewrite"
+                        ? "bg-cyan-300 text-zinc-950"
+                        : "bg-white/10 text-zinc-300 hover:bg-white/15"
+                    }`}
+                    type="button"
+                    onClick={() => setActivePromptTab("rewrite")}
+                  >
+                    改写 Prompt
+                  </button>
+                </div>
 
-          <button
-            className="h-11 rounded-lg bg-cyan-300 px-5 text-sm font-semibold text-zinc-950 disabled:cursor-not-allowed disabled:bg-zinc-800 disabled:text-zinc-500"
-            type="button"
-            disabled={!canRewrite}
-            onClick={handleRewrite}
-          >
-            {rewriteBusy ? "改写中..." : "改写"}
-          </button>
-        </div>
-      </section>
+                <textarea
+                  className="h-32 w-full resize-none rounded-lg border border-white/10 bg-zinc-950 px-3 py-3 text-sm leading-6 text-zinc-100 outline-none"
+                  readOnly
+                  value={promptText}
+                />
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
