@@ -1,7 +1,7 @@
 # 编程与工程（Coding）
 
-> 生成时间：2026-04-30 10:02:46 CST
-> 插件数量：29
+> 生成时间：2026-05-06 07:57:37 CST
+> 插件数量：30
 
 ## Build iOS Apps
 
@@ -74,6 +74,15 @@
 - 适合：适合 PR 审查、代码质量检查、评审意见整理和修复建议验证。
 - 连接与权限：安装时认证；具体可用动作、读写权限和授权范围以 ChatGPT 工作区 Apps 管理页及安装授权页为准。
 - 来源：Codex official marketplace cache；补充来源：https://www.coderabbit.ai/
+
+## Codex Security
+
+- 类别：Coding
+- 类型：Skill
+- 简介：待补充：本地官方缓存只确认该插件存在，尚未补充可靠中文介绍。
+- 适合：待补充：需要结合官方连接说明或厂商资料确认适合场景。
+- 连接与权限：安装时认证；具体可用动作、读写权限和授权范围以 ChatGPT 工作区 Apps 管理页及安装授权页为准。
+- 来源：Codex official marketplace cache
 
 ## Expo
 

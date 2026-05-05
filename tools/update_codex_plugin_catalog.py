@@ -16,6 +16,8 @@ DEFAULT_MARKETPLACE = Path("/Users/godw/.codex/.tmp/plugins/.agents/plugins/mark
 DEFAULT_PLUGINS_ROOT = Path("/Users/godw/.codex/.tmp/plugins/plugins")
 DEFAULT_DATA = Path("data/codex-plugins/plugins.zh.json")
 DEFAULT_OUT = Path("docs/codex-plugins")
+DEFAULT_SNAPSHOT = Path("data/codex-plugins/plugin-snapshots.json")
+WEEKLY_REPORT_DIR = "weekly-updates"
 
 CATEGORY_FILE_NAMES = {
     "Coding": "coding.md",
@@ -47,6 +49,7 @@ class PluginRecord:
     plugin_type: str
     installation: str
     authentication: str
+    source_path: str
     summary: str
     use_cases: str
     permission_note: str
@@ -174,6 +177,7 @@ def build_records(marketplace_path: Path, plugins_root: Path, data_path: Path) -
                 plugin_type=detect_plugin_type(plugins_root / slug),
                 installation=policy.get("installation", "AVAILABLE"),
                 authentication=policy.get("authentication", "ON_INSTALL"),
+                source_path=item.get("source", {}).get("path", ""),
                 summary=summary,
                 use_cases=use_cases,
                 permission_note=permission_note,
@@ -183,6 +187,270 @@ def build_records(marketplace_path: Path, plugins_root: Path, data_path: Path) -
             )
         )
     return sorted(records, key=lambda r: (r.category, r.display_name.lower()))
+
+
+def record_snapshot(record: PluginRecord, first_seen_at: str) -> dict[str, Any]:
+    return {
+        "slug": record.slug,
+        "display_name": record.display_name,
+        "category": record.category,
+        "plugin_type": record.plugin_type,
+        "installation": record.installation,
+        "authentication": record.authentication,
+        "source_path": record.source_path,
+        "missing_profile": record.missing_profile,
+        "first_seen_at": first_seen_at,
+    }
+
+
+def load_snapshot(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {
+            "schema_version": 1,
+            "plugins": {},
+            "history": [],
+        }
+    snapshot = load_json(path)
+    if not isinstance(snapshot, dict):
+        raise SystemExit(f"Invalid snapshot file: {path}")
+    snapshot.setdefault("schema_version", 1)
+    snapshot.setdefault("plugins", {})
+    snapshot.setdefault("history", [])
+    return snapshot
+
+
+def update_snapshot(
+    records: list[PluginRecord],
+    snapshot_path: Path,
+    generated_at: str,
+    marketplace_path: Path,
+    report_path: str | None = None,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    previous = load_snapshot(snapshot_path)
+    previous_plugins = previous.get("plugins", {})
+    if not isinstance(previous_plugins, dict):
+        raise SystemExit(f"Invalid snapshot plugins object: {snapshot_path}")
+
+    current_by_slug = {record.slug: record for record in records}
+    previous_slugs = set(previous_plugins)
+    current_slugs = set(current_by_slug)
+    is_initial_scan = not previous_slugs
+    new_slugs = [] if is_initial_scan else sorted(current_slugs - previous_slugs)
+    removed_slugs = sorted(previous_slugs - current_slugs)
+
+    next_plugins: dict[str, Any] = {}
+    for slug in sorted(current_slugs):
+        record = current_by_slug[slug]
+        previous_record = previous_plugins.get(slug, {})
+        first_seen_at = previous_record.get("first_seen_at") or generated_at
+        next_plugins[slug] = record_snapshot(record, first_seen_at)
+
+    history = list(previous.get("history", []))
+    history.append(
+        {
+            "scan_at": generated_at,
+            "marketplace_path": str(marketplace_path),
+            "plugin_count": len(records),
+            "initial_scan": is_initial_scan,
+            "new_plugins": new_slugs,
+            "removed_plugins": removed_slugs,
+            "missing_profiles": sorted(record.slug for record in records if record.missing_profile),
+            "report_path": report_path,
+        }
+    )
+
+    next_snapshot = {
+        "schema_version": 1,
+        "generated_at": generated_at,
+        "marketplace_path": str(marketplace_path),
+        "plugins": next_plugins,
+        "history": history[-52:],
+    }
+    return next_snapshot, history[-1]
+
+
+def render_plugin_list(records: list[PluginRecord], slugs: list[str]) -> list[str]:
+    by_slug = {record.slug: record for record in records}
+    if not slugs:
+        return ["- 无。"]
+    lines: list[str] = []
+    for slug in slugs:
+        record = by_slug.get(slug)
+        if record:
+            suffix = "（缺中文资料）" if record.missing_profile else ""
+            lines.append(
+                f"- `{slug}`：{record.display_name}；{record.category}；{record.plugin_type}{suffix}"
+            )
+        else:
+            lines.append(f"- `{slug}`")
+    return lines
+
+
+def weekly_report_filename(generated_at: str) -> str:
+    parts = generated_at.split()
+    if len(parts) >= 2:
+        date_part = parts[0]
+        time_part = parts[1].replace(":", "")
+        return f"{date_part}-{time_part}.md"
+    safe = "".join(char if char.isalnum() else "-" for char in generated_at).strip("-")
+    return f"{safe or 'scan'}.md"
+
+
+def weekly_report_path(out_dir: Path, generated_at: str) -> Path:
+    report_dir = out_dir / WEEKLY_REPORT_DIR
+    filename = weekly_report_filename(generated_at)
+    candidate = report_dir / filename
+    if not candidate.exists():
+        return candidate
+
+    stem = candidate.stem
+    suffix = candidate.suffix
+    counter = 2
+    while True:
+        candidate = report_dir / f"{stem}-{counter:02d}{suffix}"
+        if not candidate.exists():
+            return candidate
+        counter += 1
+
+
+def render_weekly_report(
+    records: list[PluginRecord],
+    snapshot_event: dict[str, Any],
+    generated_at: str,
+    marketplace_path: Path,
+) -> str:
+    counts = Counter(record.category for record in records)
+    missing_profiles = sorted(record.slug for record in records if record.missing_profile)
+    lines = [
+        "# Codex 插件每周扫描记录",
+        "",
+        f"> 最近扫描：{generated_at}",
+        f"> 来源：`{marketplace_path}`",
+        "",
+        "## 最近一次扫描",
+        "",
+        f"- 插件总数：{len(records)}",
+        f"- 是否首次建立基线：{'是' if snapshot_event.get('initial_scan') else '否'}",
+        "",
+        "### 分类数量",
+        "",
+    ]
+    for category in CATEGORY_FILE_NAMES:
+        lines.append(f"- {CATEGORY_ZH[category]}（{category}）：{counts[category]} 个")
+
+    lines.extend(["", "### 本次新增插件", ""])
+    lines.extend(render_plugin_list(records, snapshot_event.get("new_plugins", [])))
+    lines.extend(["", "### 本次移除插件", ""])
+    removed = snapshot_event.get("removed_plugins", [])
+    if removed:
+        lines.extend(f"- `{slug}`" for slug in removed)
+    else:
+        lines.append("- 无。")
+
+    lines.extend(["", "### 缺失中文资料", ""])
+    if missing_profiles:
+        lines.extend(f"- `{slug}`" for slug in missing_profiles)
+    else:
+        lines.append("- 无。")
+
+    lines.extend(
+        [
+            "",
+            "## 口径说明",
+            "",
+            "- 本报告记录的是本仓库一次扫描本机 Codex official marketplace cache 的结果。",
+            "- “新增插件”指相对于上一次 snapshot 新出现的插件 slug。",
+            "- 首次运行只建立基线，不把已有插件都计为本周新增。",
+            "- 日期是本仓库自动化扫描日期，不是 OpenAI 官方插件上架日期。",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def render_weekly_index(snapshot: dict[str, Any], records: list[PluginRecord], latest_report_link: str) -> str:
+    history = list(snapshot.get("history", []))
+    latest_event = history[-1] if history else {}
+    missing_profiles = sorted(record.slug for record in records if record.missing_profile)
+    latest_report = latest_event.get("report_path") or latest_report_link
+
+    lines = [
+        "# Codex 插件每周扫描记录索引",
+        "",
+        f"> 最近扫描：{snapshot.get('generated_at', '未知')}",
+        f"> 最近报告：[{latest_report}]({latest_report_link})",
+        "",
+        "## 最近扫描摘要",
+        "",
+        f"- 插件总数：{latest_event.get('plugin_count', len(records))}",
+        f"- 是否首次建立基线：{'是' if latest_event.get('initial_scan') else '否'}",
+        f"- 本次新增插件：{len(latest_event.get('new_plugins', []))}",
+        f"- 本次移除插件：{len(latest_event.get('removed_plugins', []))}",
+        f"- 缺失中文资料：{len(missing_profiles)}",
+        "",
+        "## 扫描历史",
+        "",
+    ]
+
+    for event in reversed(history):
+        report_path = event.get("report_path")
+        if report_path:
+            report_name = Path(str(report_path)).name
+            report_link = f"./{WEEKLY_REPORT_DIR}/{report_name}"
+            title = f"[{event.get('scan_at', '未知')}]({report_link})"
+        else:
+            title = str(event.get("scan_at", "未知"))
+        baseline = "；baseline" if event.get("initial_scan") else ""
+        lines.append(
+            f"- {title}：{event.get('plugin_count', '未知')} 个插件；"
+            f"新增 {len(event.get('new_plugins', []))}；"
+            f"移除 {len(event.get('removed_plugins', []))}{baseline}"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## 口径说明",
+            "",
+            "- 本索引页只汇总扫描历史，不承载单次扫描正文。",
+            f"- 每次 `--weekly` 会在 `docs/codex-plugins/{WEEKLY_REPORT_DIR}/` 下新增一个 dated Markdown 报告。",
+            "- Timeline 使用本仓库首次扫描发现日期，不代表 OpenAI 官方上架日期。",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def render_timeline(snapshot: dict[str, Any]) -> str:
+    plugins = snapshot.get("plugins", {})
+    by_date: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for record in plugins.values():
+        first_seen_at = str(record.get("first_seen_at", "未知"))
+        first_seen_date = first_seen_at.split(" ")[0]
+        by_date[first_seen_date].append(record)
+
+    lines = [
+        "# Codex 插件首次发现 Timeline",
+        "",
+        f"> 最近更新：{snapshot.get('generated_at', '未知')}",
+        "",
+        "## 口径",
+        "",
+        "- 本 timeline 记录的是本仓库自动化首次扫描发现插件的日期。",
+        "- 这不是 OpenAI 官方插件上架日期。",
+        "- 如果需要官方上架时间，需要以 OpenAI 官方发布记录为准；本地 cache mtime 只能作为弱参考。",
+        "",
+    ]
+    for first_seen_date in sorted(by_date):
+        items = sorted(by_date[first_seen_date], key=lambda item: str(item.get("display_name", "")).lower())
+        lines.extend([f"## {first_seen_date}", ""])
+        for item in items:
+            missing = "；缺中文资料" if item.get("missing_profile") else ""
+            lines.append(
+                f"- `{item.get('slug')}`：{item.get('display_name')}；{item.get('category')}；{item.get('plugin_type')}{missing}"
+            )
+        lines.append("")
+    return "\n".join(lines)
 
 
 def render_index(records: list[PluginRecord], marketplace_path: Path, generated_at: str) -> str:
@@ -217,7 +485,38 @@ def render_index(records: list[PluginRecord], marketplace_path: Path, generated_
         category_records = by_category.get(category, [])
         total += len(category_records)
         lines.append(f"- [{CATEGORY_ZH[category]}（{category}）](./{CATEGORY_FILE_NAMES[category]})：{len(category_records)} 个")
-    lines.extend(["", f"合计：{total} 个插件。", "", "## 维护方式", "", "在仓库根目录运行：", "", "```bash", "python3 tools/update_codex_plugin_catalog.py", "```", "", "只检查来源和数据完整性，不写文件：", "", "```bash", "python3 tools/update_codex_plugin_catalog.py --check", "```", ""])
+    lines.extend(
+        [
+            "",
+            f"合计：{total} 个插件。",
+            "",
+            "## 每周扫描",
+            "",
+            "- [每周扫描记录](./weekly-updates.md)",
+            "- [插件首次发现 Timeline](./timeline.md)",
+            "",
+            "## 维护方式",
+            "",
+            "在仓库根目录运行：",
+            "",
+            "```bash",
+            "python3 tools/update_codex_plugin_catalog.py",
+            "```",
+            "",
+            "每周扫描并更新 snapshot / timeline：",
+            "",
+            "```bash",
+            "python3 tools/update_codex_plugin_catalog.py --weekly",
+            "```",
+            "",
+            "只检查来源和数据完整性，不写文件：",
+            "",
+            "```bash",
+            "python3 tools/update_codex_plugin_catalog.py --check",
+            "```",
+            "",
+        ]
+    )
     return "\n".join(lines)
 
 
@@ -269,7 +568,9 @@ def main() -> int:
     parser.add_argument("--plugins-root", type=Path, default=DEFAULT_PLUGINS_ROOT)
     parser.add_argument("--data", type=Path, default=DEFAULT_DATA)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
+    parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument("--check", action="store_true", help="Validate inputs without writing markdown files.")
+    parser.add_argument("--weekly", action="store_true", help="Update catalog, weekly diff, snapshot, and timeline.")
     args = parser.parse_args()
 
     records = build_records(args.marketplace, args.plugins_root, args.data)
@@ -296,6 +597,33 @@ def main() -> int:
     write_text(args.out / "index.md", render_index(records, args.marketplace, generated_at))
     for category, filename in CATEGORY_FILE_NAMES.items():
         write_text(args.out / filename, render_category(category, records, generated_at))
+
+    if args.weekly:
+        report_path = weekly_report_path(args.out, generated_at)
+        report_filename = report_path.name
+        snapshot_report_path = report_path.as_posix()
+        index_report_link = f"./{WEEKLY_REPORT_DIR}/{report_filename}"
+        snapshot, snapshot_event = update_snapshot(
+            records,
+            args.snapshot,
+            generated_at,
+            args.marketplace,
+            snapshot_report_path,
+        )
+        write_text(args.snapshot, json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n")
+        write_text(
+            report_path,
+            render_weekly_report(records, snapshot_event, generated_at, args.marketplace),
+        )
+        write_text(
+            args.out / "weekly-updates.md",
+            render_weekly_index(snapshot, records, index_report_link),
+        )
+        write_text(args.out / "timeline.md", render_timeline(snapshot))
+        print(f"Wrote weekly snapshot to {args.snapshot}")
+        print(f"Wrote weekly report to {report_path}")
+        print(f"New plugins: {len(snapshot_event.get('new_plugins', []))}")
+        print(f"Removed plugins: {len(snapshot_event.get('removed_plugins', []))}")
 
     print(f"Wrote catalog to {args.out}")
     return 0

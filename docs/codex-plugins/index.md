@@ -1,6 +1,6 @@
 # Codex 官方插件清单
 
-> 生成时间：2026-04-30 10:02:46 CST
+> 生成时间：2026-05-06 07:57:37 CST
 > 来源：`/Users/godw/.codex/.tmp/plugins/.agents/plugins/marketplace.json`（本机 `openai-curated / Codex official` marketplace 缓存）
 
 ## 口径
@@ -17,13 +17,18 @@
 
 ## 分类索引
 
-- [编程与工程（Coding）](./coding.md)：29 个
+- [编程与工程（Coding）](./coding.md)：30 个
 - [设计与内容创作（Design）](./design.md)：5 个
 - [生活方式（Lifestyle）](./lifestyle.md)：5 个
 - [生产力与业务系统（Productivity）](./productivity.md)：59 个
-- [研究与数据（Research）](./research.md)：20 个
+- [研究与数据（Research）](./research.md)：21 个
 
-合计：118 个插件。
+合计：120 个插件。
+
+## 每周扫描
+
+- [每周扫描记录](./weekly-updates.md)
+- [插件首次发现 Timeline](./timeline.md)
 
 ## 维护方式
 
@@ -31,6 +36,12 @@
 
 ```bash
 python3 tools/update_codex_plugin_catalog.py
+```
+
+每周扫描并更新 snapshot / timeline：
+
+```bash
+python3 tools/update_codex_plugin_catalog.py --weekly
 ```
 
 只检查来源和数据完整性，不写文件：
