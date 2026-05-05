@@ -146,41 +146,7 @@ A realistic photo of a Chinese high school math exam paper, printed inblack and 
 **提示词：**
 
 ```text
-{
-  "type": "illustrated map infographic",
-  "style": "{argument name=\"art style\" default=\"watercolor and ink hand-drawn illustration on vintage parchment\"}",
-  "title_section": {
-    "text": "{argument name=\"city name\" default=\"成都\"} {argument name=\"map title\" default=\"吃货暴走地图\"}",
-    "mascot": "cartoon red chili pepper wearing sunglasses and giving a thumbs up"
-  },
-  "border": "{argument name=\"border decoration\" default=\"vine of green leaves and red chili peppers\"}",
-  "layout": {
-    "background": "textured beige parchment paper with yellow roads, blue rivers, and green park areas",
-    "sections": [
-      {
-        "title": "landmarks",
-        "count": 6,
-        "illustrations": ["traditional pavilion", "traditional monastery", "modern skyscraper with climbing panda", "tall TV tower", "traditional gate", "industrial buildings"],
-        "labels": ["人民公园", "文殊院", "IFS", "339电视塔", "宽窄巷子", "东郊记忆"]
-      },
-      {
-        "title": "food_spots",
-        "count": 12,
-        "illustrations": ["mapo tofu", "dumplings in chili oil", "skewers in pot", "sticky rice balls", "egg baking cake", "nine-grid hotpot", "sweet potato noodles", "cold skewers", "spicy mixed dish", "covered tea bowl", "ice jelly dessert", "spicy rabbit heads"],
-        "labels": ["1 陈麻婆豆腐", "2 钟水饺", "3 春熙路", "4 宽窄巷子·三大炮", "5 建设路·叶婆婆蛋烘糕", "6 玉林路·小龙坎火锅", "7 香香巷·肥肠粉", "8 武侯祠大街·钵钵鸡", "9 东郊记忆·冒椒火辣", "10 人民公园·鹤鸣茶社", "11 锦里古街·冰粉", "12 双流老妈兔头"]
-      },
-      {
-        "title": "图例",
-        "position": "bottom-right",
-        "count": 5,
-        "items": ["red dot", "green house", "green tree", "blue line", "yellow double line"],
-        "labels": ["美食地点", "地标景点", "公园绿地", "河流湖泊", "主要道路"]
-      }
-    ],
-    "centerpiece": "giant panda sitting and eating bamboo",
-    "bottom_right_extras": ["vintage compass rose with N, S, E, W", "disclaimer text '温馨提示：吃辣需谨慎，肠胃要保护~' with a red chili pepper icon"]
-  }
-}
+制作一张图示地图信息图，整体风格为 {argument name="art style" default="watercolor and ink hand-drawn illustration on vintage parchment"}。标题区写成 {argument name="city name" default="成都"} {argument name="map title" default="吃货暴走地图"}，并配上一个戴墨镜、竖起大拇指的卡通红辣椒吉祥物。外框使用 {argument name="border decoration" default="vine of green leaves and red chili peppers"}。整张图的背景是带纹理的米黄色羊皮纸，配有黄色道路、蓝色河流和绿色公园区域。版面分成多个内容区：地标部分收录 6 个地点，插画分别是传统亭子、传统寺院、带熊猫攀爬的现代高楼、高电视塔、传统城门和工业建筑，标签依次为人民公园、文殊院、IFS、339电视塔、宽窄巷子、东郊记忆；美食地点部分收录 12 个点，插画包括麻婆豆腐、红油水饺、火锅串串、三大炮、蛋烘糕、九宫格火锅、红薯粉、冷锅串串、钵钵鸡、盖碗茶、冰粉和兔头，标签依次为 1 陈麻婆豆腐、2 钟水饺、3 春熙路、4 宽窄巷子·三大炮、5 建设路·叶婆婆蛋烘糕、6 玉林路·小龙坎火锅、7 香香巷·肥肠粉、8 武侯祠大街·钵钵鸡、9 东郊记忆·冒椒火辣、10 人民公园·鹤鸣茶社、11 锦里古街·冰粉、12 双流老妈兔头。右下角的图例区需要 5 个项目，分别是红点、绿房子、绿树、蓝线和黄双线，对应美食地点、地标景点、公园绿地、河流湖泊和主要道路。画面中央放一个正在吃竹子的巨型熊猫，右下角还要加入一枚复古指南针，标注 N、S、E、W，并附上提示文字“温馨提示：吃辣需谨慎，肠胃要保护~”，旁边配一个红辣椒图标。
 ```
 
 ***
@@ -222,47 +188,7 @@ A realistic photo of a Chinese high school math exam paper, printed inblack and 
 **提示词：**
 
 ```text
-{
-  "type": "evolutionary timeline infographic",
-  "instruction": "Using REFERENCE_0 as a structural base, transform the flat vector design into a highly realistic 3D infographic. Replace the smooth ramps with distinct stone steps and upgrade all organisms to photorealistic 3D models.",
-  "style": {
-    "background": "{argument name=\"background style\" default=\"vintage textured parchment paper\"}",
-    "staircase": "{argument name=\"staircase material\" default=\"realistic textured stone blocks\"}",
-    "subjects": "{argument name=\"organism style\" default=\"highly detailed photorealistic 3D renders\"}"
-  },
-  "layout": {
-    "main_title": "{argument name=\"main title\" default=\"人类演化\"}",
-    "sections": [
-      {
-        "position": "left sidebar",
-        "count": 8,
-        "labels": ["L0: 单细胞生命", "L1: 多细胞生物", "L2: 动物界", "L3: 脊索动物", "L4: 上陆革命", "L5: 哺乳纲", "L6: 人科演化", "L7: 智人纪元"]
-      },
-      {
-        "position": "top right",
-        "title": "获得的功能 / 失去的功能",
-        "description": "Legend with plus and minus icons"
-      },
-      {
-        "position": "bottom center",
-        "title": "演化关键里程碑",
-        "count": 6,
-        "description": "Timeline with a silhouette graphic of 6 figures showing ape-to-human evolution"
-      }
-    ],
-    "centerpiece": {
-      "description": "Winding stone staircase with 25 numbered steps featuring specific organisms.",
-      "count": 25,
-      "notable_elements": [
-        "Step 07: Jellyfish",
-        "Step 09: Ammonite",
-        "Step 10: Trilobite",
-        "Step 24: Walking human",
-        "Step 25: {argument name=\"future evolution concept\" default=\"glowing cosmic silhouette with a question mark\"}"
-      ]
-    }
-  }
-}
+以 REFERENCE_0 作为结构基础，把原本的扁平矢量设计改成高度逼真的 3D 信息图。背景样式使用 {argument name="background style" default="vintage textured parchment paper"}，楼梯材质使用 {argument name="staircase material" default="realistic textured stone blocks"}，主体生物使用 {argument name="organism style" default="highly detailed photorealistic 3D renders"}。主标题改为 {argument name="main title" default="人类演化"}。左侧边栏按顺序列出 8 个阶段标签：L0: 单细胞生命、L1: 多细胞生物、L2: 动物界、L3: 脊索动物、L4: 上陆革命、L5: 哺乳纲、L6: 人科演化、L7: 智人纪元。右上角放置“获得的功能 / 失去的功能”图例，并配上加号和减号图标。底部中央放“演化关键里程碑”时间线，使用 6 个剪影展示从猿到人的演化过程。画面中心是一条蜿蜒的石阶，共 25 级，每一级都标注具体生物，其中要突出第 07 级的水母、第 09 级的菊石、第 10 级的三叶虫、第 24 级的行走人类，以及第 25 级 {argument name="future evolution concept" default="glowing cosmic silhouette with a question mark"}。整体仍要保留信息图的结构感，但视觉必须呈现为真实石材台阶和写实 3D 生物。
 ```
 
 ***
@@ -276,48 +202,7 @@ A realistic photo of a Chinese high school math exam paper, printed inblack and 
 **提示词：**
 
 ```text
-{
-  "type": "7-day fashion lookbook infographic",
-  "header": {
-    "title": "{argument name=\"main title\" default=\"一周穿搭指南\"}",
-    "subtitle": "{argument name=\"style keywords\" default=\"温柔 | 靓丽 | 优雅\"}",
-    "slogan_cn": "优雅不设限，自信每一天",
-    "slogan_en": "{argument name=\"english slogan\" default=\"ELEGANCE HAS NO LIMIT, BE CONFIDENT EVERY DAY\"}"
-  },
-  "subject": "{argument name=\"subject description\" default=\"young elegant Asian woman\"}",
-  "layout": {
-    "columns": 7,
-    "column_elements": [
-      "day_header",
-      "main_portrait",
-      "4_detail_thumbnails",
-      "outfit_specs",
-      "keywords_colors",
-      "3_color_swatches",
-      "star_ratings",
-      "fabric_price",
-      "4_season_icons"
-    ],
-    "days": [
-      { "day": "周一 (MONDAY)", "outfit": "beige blazer suit", "scene": "场景：重要会议 / 正式商务" },
-      { "day": "周二 (TUESDAY)", "outfit": "pink blazer suit", "scene": "场景：日常通勤" },
-      { "day": "周三 (WEDNESDAY)", "outfit": "cream knit cardigan set", "scene": "场景：生活休闲" },
-      { "day": "周四 (THURSDAY)", "outfit": "champagne slip dress", "scene": "场景：外出私会" },
-      { "day": "周五 (FRIDAY)", "outfit": "blue knit top, white skirt", "scene": "场景：休闲社交" },
-      { "day": "周六 (SATURDAY)", "outfit": "white sports bra, purple leggings", "scene": "场景：运动休闲" },
-      { "day": "周日 (SUNDAY)", "outfit": "beige lounge knitwear", "scene": "场景：居家 / 约会" }
-    ]
-  },
-  "footer": {
-    "tips": "{argument name=\"footer tips\" default=\"Tips: 根据天气与场合灵活调整，配饰是提升整体造型的关键；保持自信与舒适，才是穿搭的最终目的。\"}",
-    "legend": [
-      "春: 春季适用",
-      "夏: 夏季适用",
-      "秋: 秋季适用",
-      "冬: 冬季适用"
-    ]
-  }
-}
+制作一张 7 天穿搭手册信息图。标题为 {argument name="main title" default="一周穿搭指南"}，副标题为 {argument name="style keywords" default="温柔 | 靓丽 | 优雅"}，中文标语写“优雅不设限，自信每一天”，英文标语写 {argument name="english slogan" default="ELEGANCE HAS NO LIMIT, BE CONFIDENT EVERY DAY"}。主体人物是 {argument name="subject description" default="young elegant Asian woman"}。版面采用 7 列布局，每列包含 day_header、main_portrait、4_detail_thumbnails、outfit_specs、keywords_colors、3_color_swatches、star_ratings、fabric_price 和 4_season_icons 这些元素。七天内容依次为：周一（MONDAY）穿 beige blazer suit，场景是重要会议 / 正式商务；周二（TUESDAY）穿 pink blazer suit，场景是日常通勤；周三（WEDNESDAY）穿 cream knit cardigan set，场景是生活休闲；周四（THURSDAY）穿 champagne slip dress，场景是外出私会；周五（FRIDAY）穿 blue knit top, white skirt，场景是休闲社交；周六（SATURDAY）穿 white sports bra, purple leggings，场景是运动休闲；周日（SUNDAY）穿 beige lounge knitwear，场景是居家 / 约会。页脚提示为 {argument name="footer tips" default="Tips: 根据天气与场合灵活调整，配饰是提升整体造型的关键；保持自信与舒适，才是穿搭的最终目的。"}，图例保留春、夏、秋、冬四个季节适用说明。
 ```
 
 ***
@@ -345,7 +230,7 @@ A realistic photo of a Chinese high school math exam paper, printed inblack and 
 **提示词：**
 
 ```text
-{"type":"infographic poster","style":"cute flat vector illustration, cozy, warm, soft shading, {argument name=\"color palette\" default=\"pastel Morandi colors, soft pinks, purples, and warm tones\"}","character":"{argument name=\"character description\" default=\"young woman with shoulder-length brown hair wearing a pinkish-purple shirt\"}","layout":{"structure":"4 rows, 3 columns. Top row is a merged header. Rows 2-4 contain 9 individual panels.","header":{"title":"{argument name=\"main title\" default=\"情绪不好了？\"}","subtitle":"{argument name=\"subtitle\" default=\"8个让你瞬间变好的方法\"}","sub_subtitle":"写给焦虑的你，快来看看","visual":"character hugging herself, surrounded by yellow sparkles and hearts"},"grid_panels":[{"id":1,"title":"1. 深呼吸","text":"调节神经，缓解紧张情绪。","visual":"character with eyes closed, smiling, surrounded by clouds"},{"id":2,"title":"2. 去户外散步","text":"接触自然，让心静下来。","visual":"character walking outdoors among green trees and bushes"},{"id":3,"title":"3. 写情绪日记","text":"把烦恼写下，大脑会更轻松。","visual":"character sitting at a desk writing in a notebook with a pen, floating hearts"},{"id":4,"title":"4. 抱抱自己","text":"给予自己温暖和安慰。","visual":"character hugging herself with eyes closed, floating hearts"},{"id":5,"title":"5. 听听音乐","text":"让舒缓的旋律治愈心灵。","visual":"character wearing large white headphones, eyes closed, floating colorful music notes"},{"id":6,"title":"6. 找人倾诉","text":"分享你的烦恼，让压力释放。","visual":"character holding a smartphone, talking to another similar-looking girl, floating hearts"},{"id":7,"title":"7. 看看天空","text":"感受天空的辽阔，让心情变好。","visual":"character looking up at a blue sky with white clouds and sparkles"},{"id":8,"title":"8. 冥想","text":"专注于呼吸，找回内心的宁静。","visual":"an open notebook, a pen, and a pink flower on a desk"},{"id":9,"title":"none","text":"{argument name=\"footer text\" default=\"转发收藏，每天都要关爱自己！\"}","visual":"character sitting cross-legged in a meditation pose, eyes closed, with a glowing halo behind her head"}]}}
+制作一张信息图海报，风格为 cute flat vector illustration、cozy、warm、soft shading，并使用 {argument name="color palette" default="pastel Morandi colors, soft pinks, purples, and warm tones"}。人物设定是 {argument name="character description" default="young woman with shoulder-length brown hair wearing a pinkish-purple shirt"}。整体版式为 4 行 3 列，最上面一行是合并标题区，第二到第四行共放 9 个独立面板。标题区主标题为 {argument name="main title" default="情绪不好了？"}，副标题为 {argument name="subtitle" default="8个让你瞬间变好的方法"}，再下方写“写给焦虑的你，快来看看”，视觉是角色抱着自己，周围有黄色闪光和爱心。九个面板依次表现：1. 深呼吸，文字“调节神经，缓解紧张情绪。”，画面是闭眼微笑、周围有云朵的角色；2. 去户外散步，文字“接触自然，让心静下来。”，画面是角色在绿色树木和灌木间散步；3. 写情绪日记，文字“把烦恼写下，大脑会更轻松。”，画面是角色坐在桌前用笔写笔记本，周围有漂浮爱心；4. 抱抱自己，文字“给予自己温暖和安慰。”，画面是闭眼抱住自己的角色，周围有爱心；5. 听听音乐，文字“让舒缓的旋律治愈心灵。”，画面是戴白色大耳机、闭眼、周围有彩色音符的角色；6. 找人倾诉，文字“分享你的烦恼，让压力释放。”，画面是角色拿着手机和另一位相似女孩通话，周围有爱心；7. 看看天空，文字“感受天空的辽阔，让心情变好。”，画面是角色仰望蓝天白云和闪光；8. 冥想，文字“专注于呼吸，找回内心的宁静。”，画面是桌上的打开笔记本、笔和粉色花朵；9. none，文字为 {argument name="footer text" default="转发收藏，每天都要关爱自己！"}，画面是盘腿冥想、闭眼、头后有发光光环的角色。
 ```
 
 ***
@@ -392,82 +277,7 @@ Bottom Summary: `The balance between being in the world and being out of the wor
 **提示词：**
 
 ```text
-{
-  "type": "fashion design process infographic",
-  "title": "{argument name=\"main title\" default=\"一件女装诞生的因果链 THE CAUSAL CHAIN OF A WOMEN'S GARMENT\"}",
-  "subtitle": "从纤维，到版型，到上身 FROM FIBER TO FIT",
-  "style": {
-    "aesthetic": "elegant editorial, technical fashion illustration, highly detailed",
-    "color_palette": "{argument name=\"color palette\" default=\"beige, cream, and neutral tones\"}"
-  },
-  "layout": {
-    "centerpiece": {
-      "description": "Exploded-view illustration of a {argument name=\"garment type\" default=\"women's trench coat dress\"} showing cascading layers of fabric, pattern pieces, and stitching lines. Top shows a model wearing the finished garment.",
-      "central_list": {
-        "count": 13,
-        "type": "numbered steps with pointer lines",
-        "labels": ["01 Material", "02 Inspiration", "03 Sketch", "04 Fabric", "05 Draping", "06 Pattern", "07 Sewing", "08 Fitting", "09 Revision", "10 Team", "11 Construction", "12 Garment", "13 Collaboration"]
-      }
-    },
-    "left_column": [
-      {
-        "module": "MODULE 1: RAW MATERIAL AND FABRIC",
-        "count": 6,
-        "items": ["Fiber", "Yarn Structure", "Fabric Construction", "Weight", "Drape", "Surface Texture"]
-      },
-      {
-        "module": "MODULE 2: INSPIRATION AND DIRECTION",
-        "count": 5,
-        "items": ["Inspiration Source", "Color Direction", "Woman Image", "Occasion Positioning", "Silhouette Intention"]
-      },
-      {
-        "module": "MODULE 3: DESIGN SKETCH AND SILHOUETTE",
-        "count": 7,
-        "items": ["Design Sketch", "Construction Line", "Front Back Relationship", "Neckline", "Shoulder Line", "Waist Line", "Hem Proportion"]
-      }
-    ],
-    "right_column": [
-      {
-        "module": "MODULE 4: PATTERNMAKING AND DRAPING",
-        "count": 6,
-        "items": ["Draping", "Patternmaking", "Dart", "Panel Line", "Ease", "Grain Direction"]
-      },
-      {
-        "module": "MODULE 5: CUTTING AND SAMPLING",
-        "count": 5,
-        "items": ["Cutting", "Layout", "Sample Sewing", "Construction Sequence", "Technique Test"]
-      },
-      {
-        "module": "MODULE 6: FITTING AND REVISION",
-        "count": 4,
-        "items": ["Fitting", "Fit Issues", "Before", "After"]
-      }
-    ],
-    "bottom_row": [
-      {
-        "module": "MODULE 7: TEAM COLLABORATION",
-        "count": 8,
-        "items": ["Designer", "Patternmaker", "Fabric Buyer", "Sample Maker", "Merchandiser", "QC", "Feedback Loop", "Model"]
-      },
-      {
-        "module": "MODULE 8: FINAL GARMENT PRESENTATION",
-        "count": 3,
-        "items": ["Details", "Finished Front & Back", "Labels & Care"]
-      },
-      {
-        "module": "MODULE 9: FINAL WEAR",
-        "count": 3,
-        "items": ["Drape", "Proportion", "Movement in Motion"]
-      },
-      {
-        "module": "MODULE 10: THE CHAIN SUMMARY",
-        "count": 8,
-        "items": ["Material Foundation", "Aesthetic Judgment", "Structural Engineering", "Craft Realization", "Body Negotiation", "Team Collaboration", "Iterative Revision", "Final Garment"]
-      }
-    ],
-    "footer": "{argument name=\"footer text\" default=\"一件成衣，因无数判断而存在 A garment exists because of countless decisions.\"}"
-  }
-}
+制作一张女装设计流程信息图，标题为 {argument name="main title" default="一件女装诞生的因果链 THE CAUSAL CHAIN OF A WOMEN'S GARMENT"}，副标题写“从纤维，到版型，到上身 FROM FIBER TO FIT”。整体审美为 elegant editorial、technical fashion illustration、highly detailed，配色使用 {argument name="color palette" default="beige, cream, and neutral tones"}。中心画面是一件 {argument name="garment type" default="women's trench coat dress"} 的爆炸图，展示层层叠加的面料、纸样和缝线，顶部放完成后的模特展示。中心纵向列表要有 13 个带引导线的编号步骤，依次是 01 Material、02 Inspiration、03 Sketch、04 Fabric、05 Draping、06 Pattern、07 Sewing、08 Fitting、09 Revision、10 Team、11 Construction、12 Garment、13 Collaboration。左侧三组模块分别是：MODULE 1: RAW MATERIAL AND FABRIC，包含 Fiber、Yarn Structure、Fabric Construction、Weight、Drape、Surface Texture 共 6 项；MODULE 2: INSPIRATION AND DIRECTION，包含 Inspiration Source、Color Direction、Woman Image、Occasion Positioning、Silhouette Intention 共 5 项；MODULE 3: DESIGN SKETCH AND SILHOUETTE，包含 Design Sketch、Construction Line、Front Back Relationship、Neckline、Shoulder Line、Waist Line、Hem Proportion 共 7 项。右侧三组模块分别是：MODULE 4: PATTERNMAKING AND DRAPING，包含 Draping、Patternmaking、Dart、Panel Line、Ease、Grain Direction 共 6 项；MODULE 5: CUTTING AND SAMPLING，包含 Cutting、Layout、Sample Sewing、Construction Sequence、Technique Test 共 5 项；MODULE 6: FITTING AND REVISION，包含 Fitting、Fit Issues、Before、After 共 4 项。底部四组模块分别是：MODULE 7: TEAM COLLABORATION，包含 Designer、Patternmaker、Fabric Buyer、Sample Maker、Merchandiser、QC、Feedback Loop、Model 共 8 项；MODULE 8: FINAL GARMENT PRESENTATION，包含 Details、Finished Front & Back、Labels & Care 共 3 项；MODULE 9: FINAL WEAR，包含 Drape、Proportion、Movement in Motion 共 3 项；MODULE 10: THE CHAIN SUMMARY，包含 Material Foundation、Aesthetic Judgment、Structural Engineering、Craft Realization、Body Negotiation、Team Collaboration、Iterative Revision、Final Garment 共 8 项。页脚写 {argument name="footer text" default="一件成衣，因无数判断而存在 A garment exists because of countless decisions."}。
 ```
 
 ***
@@ -481,40 +291,7 @@ Bottom Summary: `The balance between being in the world and being out of the wor
 **提示词：**
 
 ```text
-{
-  "type": "medical infographic poster",
-  "style": "highly detailed anatomical illustrations, clean structured layout, scientific diagrammatic style",
-  "color_palette": "{argument name=\"color palette\" default=\"medical red, blue, beige, and anatomical flesh tones\"}",
-  "language": "{argument name=\"language\" default=\"bilingual Chinese and English\"}",
-  "header": {
-    "main_title": "{argument name=\"main title\" default=\"糖尿病诞生的因果链\"}",
-    "english_title": "{argument name=\"english title\" default=\"THE CAUSAL CHAIN OF DIABETES\"}",
-    "subtitle": "从胰岛素失灵，到高血糖，到全身损伤"
-  },
-  "layout": {
-    "centerpiece": "{argument name=\"central subject\" default=\"transparent human body showing circulatory system and internal organs\"}",
-    "sections_count": 14,
-    "sections": [
-      { "id": "01", "title": "葡萄糖进入生命", "visuals": ["stomach and intestines"] },
-      { "id": "02", "title": "胰腺与胰岛素", "visuals": ["pancreas", "beta cell"] },
-      { "id": "03", "title": "正常胰岛素作用", "visuals": ["receptor signaling diagram", "muscle, liver, adipose icons"] },
-      { "id": "04", "title": "胰岛素抵抗: 2型通路开始", "visuals": ["receptor blockage diagram", "7 lifestyle icons"] },
-      { "id": "05", "title": "肝脏持续释放葡萄糖", "visuals": ["liver"] },
-      { "id": "06", "title": "β细胞衰竭: 代偿到失败", "visuals": ["beta-cell decline line chart"] },
-      { "id": "07", "title": "1型糖尿病分支", "visuals": ["autoimmune destruction diagram"] },
-      { "id": "08", "title": "高血糖与血液化学", "visuals": ["blood vessel with glucose", "glucose indicators table", "glucose variability chart"] },
-      { "id": "09", "title": "高血糖导致组织损伤", "visuals": ["4 pathways of damage diagrams"] },
-      { "id": "10", "title": "急性代谢后果", "visuals": ["7 symptom icons"] },
-      { "id": "11", "title": "微血管并发症", "visuals": ["eye", "kidney", "nerve cross-section"] },
-      { "id": "12", "title": "大血管并发症与组织损伤", "visuals": ["heart", "brain", "diabetic foot"] },
-      { "id": "13", "title": "器官系统长期代价", "visuals": ["text list"] },
-      { "id": "14", "title": "糖尿病是调控系统失灵", "visuals": ["metabolic control flowchart"] }
-    ],
-    "footer": {
-      "core_message": "核心信息 CORE MESSAGE"
-    }
-  }
-}
+请制作一张医学信息图海报，采用高细节的人体解剖插画、清晰分区的版式和科学图解风格。配色使用 {argument name="color palette" default="medical red, blue, beige, and anatomical flesh tones"}，语言使用 {argument name="language" default="bilingual Chinese and English"}。主标题为 {argument name="main title" default="糖尿病诞生的因果链"}，英文标题为 {argument name="english title" default="THE CAUSAL CHAIN OF DIABETES"}，副标题写成“从胰岛素失灵，到高血糖，到全身损伤”。画面中心使用 {argument name="central subject" default="transparent human body showing circulatory system and internal organs"} 作为主体，并设置 14 个分区，依次展示：01 葡萄糖进入生命，配胃和肠道示意；02 胰腺与胰岛素，配胰腺和 β 细胞；03 正常胰岛素作用，配受体信号图和肌肉、肝脏、脂肪图标；04 胰岛素抵抗: 2 型通路开始，配受体阻断图和 7 个生活方式图标；05 肝脏持续释放葡萄糖，配肝脏示意；06 β 细胞衰竭: 代偿到失败，配 β 细胞衰退折线图；07 1 型糖尿病分支，配自身免疫破坏图；08 高血糖与血液化学，配血管中的葡萄糖、葡萄糖指标表和波动图；09 高血糖导致组织损伤，配 4 条损伤路径图；10 急性代谢后果，配 7 个症状图标；11 微血管并发症，配眼、肾脏和神经横截面；12 大血管并发症与组织损伤，配心脏、脑和糖尿病足；13 器官系统长期代价，配文字列表；14 糖尿病是调控系统失灵，配代谢控制流程图。底部保留“核心信息 CORE MESSAGE”。
 ```
 
 ***
@@ -528,46 +305,7 @@ Bottom Summary: `The balance between being in the world and being out of the wor
 **提示词：**
 
 ```text
-{
-  "type": "comprehensive medical infographic",
-  "style": "highly detailed 3D medical illustration, clinical white background, clean typography",
-  "header": {
-    "title_cn": "{argument name=\"main title\" default=\"痛风诞生的因果链\"}",
-    "title_en": "{argument name=\"english title\" default=\"THE CAUSAL CHAIN OF GOUT\"}",
-    "subtitle": "Pain is not the beginning. Metabolic imbalance is.",
-    "top_right_sequence": {
-      "count": 6,
-      "labels": ["Metabolism", "Transport", "Crystallization", "Immunity", "Inflammation", "Damage"]
-    }
-  },
-  "centerpiece": {
-    "description": "{argument name=\"central figure\" default=\"transparent anatomical human body showing liver, kidneys, and vascular system\"}",
-    "details": "pathway highlighted in {argument name=\"highlight color\" default=\"glowing red\"} descending to the foot"
-  },
-  "layout": {
-    "left_column": [
-      { "id": "01", "title": "Purine Sources", "elements": 6, "labels": ["Red meat", "Organ meats", "Seafood", "Beer", "Endogenous", "Fructose"] },
-      { "id": "02", "title": "Uric Acid Production", "elements": 2, "labels": ["Chemical pathway", "Liver"] },
-      { "id": "03", "title": "Renal & Intestinal Excretion", "elements": 2, "labels": ["Kidney nephron", "Intestines"] },
-      { "id": "04", "title": "Hyperuricemia", "elements": 2, "labels": ["Blood vial", "Solubility graph"] }
-    ],
-    "center_overlay": [
-      { "id": "05", "title": "Crystal Physics", "elements": 3, "labels": ["Supersaturation beaker", "Precipitation beaker", "Molecular structure"] },
-      { "id": "06", "title": "Joint Deposition & Local Environment", "elements": 1, "labels": ["First MTP joint cross-section"] }
-    ],
-    "right_column": [
-      { "id": "07", "title": "Immune Inflammatory Cascade", "elements": 4, "labels": ["Macrophage", "Inflammasome", "Neutrophil", "Cytokines"] },
-      { "id": "08", "title": "Acute Gout Flare", "elements": 1, "labels": ["Inflamed foot"] },
-      { "id": "09", "title": "Chronic Structural Damage", "elements": 1, "labels": ["Bone erosion joint"] },
-      { "id": "10", "title": "Tophus Formation", "elements": 2, "labels": ["Hand tophi", "Foot tophi"] },
-      { "id": "11", "title": "Beyond the Joint", "elements": 2, "labels": ["Kidney stones", "Systemic burden"] }
-    ],
-    "bottom_row": [
-      { "id": "12", "title": "Pain Is the Final Signal", "elements": 7, "labels": ["Increased Purine", "Overproduction", "Reduced Excretion", "Hyperuricemia", "Crystal Formation", "Immune Activation", "Man in pain"] }
-    ]
-  },
-  "theme": "{argument name=\"disease focus\" default=\"gout and uric acid crystallization\"}"
-}
+请制作一张全面的医学信息图，采用高细节 3D 医学插画、临床白色背景和干净排版。标题中文为 {argument name="main title" default="痛风诞生的因果链"}，英文标题为 {argument name="english title" default="THE CAUSAL CHAIN OF GOUT"}，副标题写成“Pain is not the beginning. Metabolic imbalance is.”。右上角按顺序排列 6 个步骤标签：Metabolism、Transport、Crystallization、Immunity、Inflammation、Damage。中心主体使用 {argument name="central figure" default="transparent anatomical human body showing liver, kidneys, and vascular system"}，并用 {argument name="highlight color" default="glowing red"} 的路径从身体高亮延伸到脚部。左栏依次展示：01 Purine Sources，包含 Red meat、Organ meats、Seafood、Beer、Endogenous、Fructose；02 Uric Acid Production，包含 Chemical pathway、Liver；03 Renal & Intestinal Excretion，包含 Kidney nephron、Intestines；04 Hyperuricemia，包含 Blood vial、Solubility graph。中间覆盖层展示：05 Crystal Physics，包含 Supersaturation beaker、Precipitation beaker、Molecular structure；06 Joint Deposition & Local Environment，包含 First MTP joint cross-section。右栏依次展示：07 Immune Inflammatory Cascade，包含 Macrophage、Inflammasome、Neutrophil、Cytokines；08 Acute Gout Flare，包含 Inflamed foot；09 Chronic Structural Damage，包含 Bone erosion joint；10 Tophus Formation，包含 Hand tophi、Foot tophi；11 Beyond the Joint，包含 Kidney stones、Systemic burden。底部一行展示：12 Pain Is the Final Signal，包含 Increased Purine、Overproduction、Reduced Excretion、Hyperuricemia、Crystal Formation、Immune Activation、Man in pain。主题为 {argument name="disease focus" default="gout and uric acid crystallization"}。
 ```
 
 ***
@@ -581,46 +319,7 @@ Bottom Summary: `The balance between being in the world and being out of the wor
 **提示词：**
 
 ```text
-{
-  "type": "comprehensive medical infographic",
-  "style": "highly detailed 3D medical illustration, clinical white background, clean typography",
-  "header": {
-    "title_cn": "{argument name=\"main title\" default=\"痛风诞生的因果链\"}",
-    "title_en": "{argument name=\"english title\" default=\"THE CAUSAL CHAIN OF GOUT\"}",
-    "subtitle": "Pain is not the beginning. Metabolic imbalance is.",
-    "top_right_sequence": {
-      "count": 6,
-      "labels": ["Metabolism", "Transport", "Crystallization", "Immunity", "Inflammation", "Damage"]
-    }
-  },
-  "centerpiece": {
-    "description": "{argument name=\"central figure\" default=\"transparent anatomical human body showing liver, kidneys, and vascular system\"}",
-    "details": "pathway highlighted in {argument name=\"highlight color\" default=\"glowing red\"} descending to the foot"
-  },
-  "layout": {
-    "left_column": [
-      { "id": "01", "title": "Purine Sources", "elements": 6, "labels": ["Red meat", "Organ meats", "Seafood", "Beer", "Endogenous", "Fructose"] },
-      { "id": "02", "title": "Uric Acid Production", "elements": 2, "labels": ["Chemical pathway", "Liver"] },
-      { "id": "03", "title": "Renal & Intestinal Excretion", "elements": 2, "labels": ["Kidney nephron", "Intestines"] },
-      { "id": "04", "title": "Hyperuricemia", "elements": 2, "labels": ["Blood vial", "Solubility graph"] }
-    ],
-    "center_overlay": [
-      { "id": "05", "title": "Crystal Physics", "elements": 3, "labels": ["Supersaturation beaker", "Precipitation beaker", "Molecular structure"] },
-      { "id": "06", "title": "Joint Deposition & Local Environment", "elements": 1, "labels": ["First MTP joint cross-section"] }
-    ],
-    "right_column": [
-      { "id": "07", "title": "Immune Inflammatory Cascade", "elements": 4, "labels": ["Macrophage", "Inflammasome", "Neutrophil", "Cytokines"] },
-      { "id": "08", "title": "Acute Gout Flare", "elements": 1, "labels": ["Inflamed foot"] },
-      { "id": "09", "title": "Chronic Structural Damage", "elements": 1, "labels": ["Bone erosion joint"] },
-      { "id": "10", "title": "Tophus Formation", "elements": 2, "labels": ["Hand tophi", "Foot tophi"] },
-      { "id": "11", "title": "Beyond the Joint", "elements": 2, "labels": ["Kidney stones", "Systemic burden"] }
-    ],
-    "bottom_row": [
-      { "id": "12", "title": "Pain Is the Final Signal", "elements": 7, "labels": ["Increased Purine", "Overproduction", "Reduced Excretion", "Hyperuricemia", "Crystal Formation", "Immune Activation", "Man in pain"] }
-    ]
-  },
-  "theme": "{argument name=\"disease focus\" default=\"gout and uric acid crystallization\"}"
-}
+请制作一张全面的医学信息图，采用高细节 3D 医学插画、临床白色背景和干净排版。标题中文为 {argument name="main title" default="痛风诞生的因果链"}，英文标题为 {argument name="english title" default="THE CAUSAL CHAIN OF GOUT"}，副标题写成“Pain is not the beginning. Metabolic imbalance is.”。右上角按顺序排列 6 个步骤标签：Metabolism、Transport、Crystallization、Immunity、Inflammation、Damage。中心主体使用 {argument name="central figure" default="transparent anatomical human body showing liver, kidneys, and vascular system"}，并用 {argument name="highlight color" default="glowing red"} 的路径从身体高亮延伸到脚部。左栏依次展示：01 Purine Sources，包含 Red meat、Organ meats、Seafood、Beer、Endogenous、Fructose；02 Uric Acid Production，包含 Chemical pathway、Liver；03 Renal & Intestinal Excretion，包含 Kidney nephron、Intestines；04 Hyperuricemia，包含 Blood vial、Solubility graph。中间覆盖层展示：05 Crystal Physics，包含 Supersaturation beaker、Precipitation beaker、Molecular structure；06 Joint Deposition & Local Environment，包含 First MTP joint cross-section。右栏依次展示：07 Immune Inflammatory Cascade，包含 Macrophage、Inflammasome、Neutrophil、Cytokines；08 Acute Gout Flare，包含 Inflamed foot；09 Chronic Structural Damage，包含 Bone erosion joint；10 Tophus Formation，包含 Hand tophi、Foot tophi；11 Beyond the Joint，包含 Kidney stones、Systemic burden。底部一行展示：12 Pain Is the Final Signal，包含 Increased Purine、Overproduction、Reduced Excretion、Hyperuricemia、Crystal Formation、Immune Activation、Man in pain。主题为 {argument name="disease focus" default="gout and uric acid crystallization"}。
 ```
 
 ***
@@ -634,85 +333,7 @@ Bottom Summary: `The balance between being in the world and being out of the wor
 **提示词：**
 
 ```text
-{
-  "type": "technical infographic",
-  "subject": "{argument name=\"subject matter\" default=\"digital photography process\"}",
-  "header": {
-    "title": "{argument name=\"main title\" default=\"一张照片诞生的因果链 THE CAUSAL CHAIN OF A PHOTOGRAPH\"}",
-    "subtitle": "从世界，到图像 FROM WORLD TO IMAGE"
-  },
-  "centerpiece": {
-    "description": "Exploded isometric view of a modern mirrorless camera",
-    "model": "{argument name=\"camera model\" default=\"Canon EOS R5\"}",
-    "labeled_parts_count": 12,
-    "labeled_parts": [
-      "EVF",
-      "Body Structure",
-      "Control Dials",
-      "Thermal Design",
-      "Optical Axis",
-      "IBIS Stabilizer",
-      "Shutter Unit",
-      "Full-Frame Sensor",
-      "{argument name=\"processor name\" default=\"DIGIC X Processor\"}",
-      "Main PCB",
-      "High-Speed Bus",
-      "Card Slot"
-    ]
-  },
-  "layout": {
-    "left_column": {
-      "description": "Chronological causal chain",
-      "count": 13,
-      "steps": [
-        "01 REALITY EXISTS",
-        "02 PHOTONS LEAVE THE WORLD",
-        "03 LENS ACCEPTS & BENDS LIGHT",
-        "04 APERTURE SELECTS",
-        "05 SHUTTER CUTS TIME",
-        "06 FOCUS SETS PRIORITY",
-        "07 SENSOR RECEIVES EVENT",
-        "08 LIGHT BECOMES CHARGE",
-        "09 ANALOG READOUT",
-        "10 A/D CONVERSION",
-        "11 COMPUTATION RECONSTRUCTS",
-        "12 IMAGE APPEARS",
-        "13 MEMORY OUTLIVES"
-      ]
-    },
-    "right_column": {
-      "title": "八大模块 / 8 MODULES",
-      "count": 8,
-      "modules": [
-        "1 ORIGIN OF LIGHT",
-        "2 LENS SHAPES REALITY",
-        "3 APERTURE & SHUTTER EDIT THE WORLD",
-        "4 FOCUS DECIDES CLARITY",
-        "5 SENSOR MEASURES LIGHT",
-        "6 SIGNAL BORN & AMPLIFIED",
-        "7 COMPUTATION BUILDS IMAGE",
-        "8 FILE BECOMES MEMORY"
-      ]
-    },
-    "side_diagrams": {
-      "count": 7,
-      "descriptions": [
-        "Ray cone & image formation",
-        "Aperture & depth of field",
-        "Shutter & motion",
-        "Focal plane & clarity",
-        "Pixel structure",
-        "Photoelectric conversion",
-        "Analog signal waveform"
-      ]
-    },
-    "footer": {
-      "count": 5,
-      "description": "Philosophical summary points"
-    }
-  },
-  "style": "technical, precise, wireframe elements, glowing data lines, photorealistic camera components, clean typography, dual-language"
-}
+请制作一张技术信息图，主题为 {argument name="subject matter" default="digital photography process"}。主标题为 {argument name="main title" default="一张照片诞生的因果链 THE CAUSAL CHAIN OF A PHOTOGRAPH"}，副标题为“从世界，到图像 FROM WORLD TO IMAGE”。中心主体是 {argument name="camera model" default="Canon EOS R5"} 的现代无反相机爆炸轴测图，清晰标注 12 个部件：EVF、Body Structure、Control Dials、Thermal Design、Optical Axis、IBIS Stabilizer、Shutter Unit、Full-Frame Sensor、{argument name="processor name" default="DIGIC X Processor"}、Main PCB、High-Speed Bus、Card Slot。左侧按时间顺序展示 13 步因果链：01 REALITY EXISTS；02 PHOTONS LEAVE THE WORLD；03 LENS ACCEPTS & BENDS LIGHT；04 APERTURE SELECTS；05 SHUTTER CUTS TIME；06 FOCUS SETS PRIORITY；07 SENSOR RECEIVES EVENT；08 LIGHT BECOMES CHARGE；09 ANALOG READOUT；10 A/D CONVERSION；11 COMPUTATION RECONSTRUCTS；12 IMAGE APPEARS；13 MEMORY OUTLIVES。右侧标题为“八大模块 / 8 MODULES”，依次列出：1 ORIGIN OF LIGHT；2 LENS SHAPES REALITY；3 APERTURE & SHUTTER EDIT THE WORLD；4 FOCUS DECIDES CLARITY；5 SENSOR MEASURES LIGHT；6 SIGNAL BORN & AMPLIFIED；7 COMPUTATION BUILDS IMAGE；8 FILE BECOMES MEMORY。旁边还要放 7 个侧边示意图，分别表现光线锥与成像、光圈与景深、快门与运动、焦平面与清晰度、像素结构、光电转换、模拟信号波形；底部保留 5 条哲学性总结。整体风格为技术性、精确、线框元素、发光数据线、写实相机部件、干净排版、双语。
 ```
 
 ***
@@ -726,93 +347,7 @@ Bottom Summary: `The balance between being in the world and being out of the wor
 **提示词：**
 
 ```text
-{
-  "type": "technical infographic and exploded view diagram",
-  "header": {
-    "title": "{argument name=\"main title\" default=\"佳能 EOS R5 成像系统剖面 CANON EOS R5 IMAGING ATLAS\"}",
-    "subtitles": [
-      "一张照片是如何被制造出来的 HOW AN IMAGE IS ACTUALLY FORMED",
-      "从光，到数据 | FROM PHOTONS TO FILES",
-      "相机不是壳体，而是一条运算链 A camera is not a shell, but a computational chain"
-    ],
-    "top_left_box": {
-      "title": "EOS R5 核心规格 KEY SPECIFICATIONS",
-      "bullet_points_count": 6
-    },
-    "top_right_images": {
-      "count": 2,
-      "description": "front and back views of the camera body"
-    }
-  },
-  "centerpiece": {
-    "description": "highly detailed 3D exploded view of the {argument name=\"camera model\" default=\"Canon EOS R5\"} camera, showing internal components separated vertically",
-    "components_visible": [
-      "lens mount",
-      "lens elements with glowing blue light rays",
-      "image sensor",
-      "motherboard with glowing {argument name=\"processor name\" default=\"DIGIC X\"} chip",
-      "battery pack",
-      "dual card slots",
-      "electronic viewfinder (EVF)"
-    ]
-  },
-  "layout": {
-    "numbered_sections": [
-      {
-        "number": 1,
-        "title": "光学入口 OPTICAL ENTRY",
-        "elements": ["lens cross-section with light rays", "2 line graphs"]
-      },
-      {
-        "number": 2,
-        "title": "光圈、快门与曝光控制 APERTURE, SHUTTER, EXPOSURE",
-        "elements": ["3 aperture blade diagrams", "4 shutter speed example photos", "depth of field diagram", "exposure triangle diagram"]
-      },
-      {
-        "number": 3,
-        "title": "对焦系统与成像平面 FOCUS ACQUISITION + IMAGE PLANE",
-        "elements": ["lens alignment diagram", "AF coverage photo of a runner"]
-      },
-      {
-        "number": 4,
-        "title": "传感器与像素结构 SENSOR + PIXEL ARCHITECTURE",
-        "elements": ["3D pixel array diagram", "single pixel cross-section diagram", "sensor spec table", "quantum efficiency graph"]
-      },
-      {
-        "number": 5,
-        "title": "防抖系统与机械稳定 IBIS + MECHANICAL STABILIZATION",
-        "elements": ["sensor shift mechanism diagram with yaw/pitch/roll axes", "2 stabilization effect comparison photos"]
-      },
-      {
-        "number": 6,
-        "title": "模拟信号、模数转换与读出 ANALOG READOUT + A/D CONVERSION",
-        "elements": ["signal flowchart", "3 readout timing graphs", "signal-to-noise ratio graph", "rolling shutter example photo of a car"]
-      },
-      {
-        "number": 7,
-        "title": "DIGIC X 图像处理链 DIGIC X IMAGE PROCESSING PIPELINE",
-        "elements": ["processing flowchart with central chip", "dynamic range graph", "tone curve graph", "histogram"]
-      },
-      {
-        "number": 8,
-        "title": "文件生成、显示与存储 FILE OUTPUT, PREVIEW, STORAGE",
-        "elements": ["file output flowchart", "2 storage card icons", "file workflow diagram"]
-      }
-    ],
-    "bottom_comparisons": {
-      "count": 5,
-      "labels": [
-        "传感器尺寸对比 SENSOR SIZE COMPARISON",
-        "镜头焦距与视角 FOCAL LENGTH & ANGLE OF VIEW",
-        "ISO 与噪点关系 ISO & NOISE RELATIONSHIP",
-        "光圈与景深关系 APERTURE & DEPTH OF FIELD",
-        "RAW vs JPEG"
-      ]
-    },
-    "footer": "{argument name=\"footer quote\" default=\"光被捕获，数据被解读，影像被记录，记忆被永恒。 Light is captured. Data is interpreted. Image is recorded. Memory is eternal.\"}"
-  },
-  "style": "clean, technical, highly detailed, photorealistic components, blueprint-style annotations, light gray background, precise typography"
-}
+请制作一张技术信息图和爆炸结构图，主题是 {argument name="main title" default="佳能 EOS R5 成像系统剖面 CANON EOS R5 IMAGING ATLAS"}。整体要像在讲解一台相机如何把光变成图像：标题使用 {argument name="main title" default="佳能 EOS R5 成像系统剖面 CANON EOS R5 IMAGING ATLAS"}，副标题依次是“一张照片是如何被制造出来的 HOW AN IMAGE IS ACTUALLY FORMED”、“从光，到数据 | FROM PHOTONS TO FILES”和“相机不是壳体，而是一条运算链 A camera is not a shell, but a computational chain”。左上角信息框写“EOS R5 核心规格 KEY SPECIFICATIONS”，并列出 6 条要点；右上角放 2 张相机机身正反面视图。画面中心是一台 {argument name="camera model" default="Canon EOS R5"} 相机的高度细致 3D 爆炸剖面图，内部组件沿垂直方向分离展开，能看到镜头卡口、带蓝色光线的镜头元素、图像传感器、带有发光 {argument name="processor name" default="DIGIC X"} 芯片的主板、电池组、双卡槽和电子取景器（EVF）。版面需要包含 8 个编号分区：1“光学入口 OPTICAL ENTRY”，配镜头剖面和 2 张折线图；2“光圈、快门与曝光控制 APERTURE, SHUTTER, EXPOSURE”，配 3 张光圈叶片图、4 张快门速度示例照片、景深图和曝光三角图；3“对焦系统与成像平面 FOCUS ACQUISITION + IMAGE PLANE”，配镜头对齐图和跑者的自动对焦覆盖示意；4“传感器与像素结构 SENSOR + PIXEL ARCHITECTURE”，配 3D 像素阵列图、单个像素剖面图、传感器规格表和量子效率曲线；5“防抖系统与机械稳定 IBIS + MECHANICAL STABILIZATION”，配传感器位移机构图和 2 张防抖效果对比照；6“模拟信号、模数转换与读出 ANALOG READOUT + A/D CONVERSION”，配信号流程图、3 张读出时序图、信噪比曲线和一张滚动快门汽车示例图；7“DIGIC X 图像处理链 DIGIC X IMAGE PROCESSING PIPELINE”，配以中央芯片为核心的处理流程图、动态范围图、色调曲线图和直方图；8“文件生成、显示与存储 FILE OUTPUT, PREVIEW, STORAGE”，配文件输出流程图、2 个存储卡图标和文件工作流图。底部再放 5 个对比区块：传感器尺寸对比 SENSOR SIZE COMPARISON、镜头焦距与视角 FOCAL LENGTH & ANGLE OF VIEW、ISO 与噪点关系 ISO & NOISE RELATIONSHIP、光圈与景深关系 APERTURE & DEPTH OF FIELD、RAW vs JPEG。页脚使用 {argument name="footer quote" default="光被捕获，数据被解读，影像被记录，记忆被永恒。 Light is captured. Data is interpreted. Image is recorded. Memory is eternal."}。整体风格要干净、技术感强、细节非常丰富、组件写实、蓝图式注释、浅灰背景、排版精准。
 ```
 
 ***
@@ -826,34 +361,7 @@ Bottom Summary: `The balance between being in the world and being out of the wor
 **提示词：**
 
 ```text
-{
-  "type": "scientific botanical infographic poster",
-  "subject": "{argument name=\"plant species\" default=\"Pomegranate (Punica granatum)\"}",
-  "style": "vintage botanical illustration mixed with modern infographic design, highly detailed, {argument name=\"color palette\" default=\"earthy greens, deep reds, parchment background\"}",
-  "header": {
-    "main_title": "{argument name=\"main title\" default=\"植物生命路径剖面\"}",
-    "english_title": "{argument name=\"english title\" default=\"BOTANICAL GROWTH ATLAS\"}",
-    "subtitle": "从种子到果实，一株植物如何展开自己 / FROM SEED TO FRUIT"
-  },
-  "centerpiece": "full plant showing extensive root system, woody stem, green leaves, blooming red flowers, and ripe fruits including one halved to show seeds",
-  "layout": {
-    "numbered_sections": [
-      { "number": 1, "title": "种子结构 / Seed Architecture", "content": "cross-section of a single seed with 6 labeled parts" },
-      { "number": 2, "title": "萌发机制 / Germination Mechanism", "content": "sequence of 5 sprouting seeds showing radicle emergence" },
-      { "number": 3, "title": "根系与地下网络 / Root System + Subsurface Intelligence", "content": "detailed root network with 2 circular microscopic cross-sections showing vascular bundles and hyphae" },
-      { "number": 4, "title": "茎叶生长与维管系统 / Stem, Leaf & Vascular System", "content": "leaf detail and circular stem cross-section with 5 labeled layers" },
-      { "number": 5, "title": "光合作用与能量转换 / Photosynthesis + Energy Conversion", "content": "3D cellular cross-section of a leaf showing mesophyll and chloroplasts, plus a chemical equation diagram" },
-      { "number": 6, "title": "花芽分化与开花机制 / Bud Formation + Blooming", "content": "detailed flower cross-section showing stamen and ovary, plus a 4-season timeline" },
-      { "number": 7, "title": "授粉与结果路径 / Pollination + Fruiting Pathway", "content": "bee approaching a flower cross-section, followed by a sequence of 5 stages of ovary development into a fruit" },
-      { "number": 8, "title": "果实成熟与种子循环 / Fruit Maturation + Seed Cycle", "content": "ripe fruit breaking open, seeds dispersing downwards to a new sprout" }
-    ],
-    "additional_elements": [
-      { "position": "bottom left", "title": "环境触发因素 / Environmental Triggers", "content": "grid of 6 weather/environmental icons and 6 nutrient element icons (N, P, K, Ca, Mg, Fe)" },
-      { "position": "bottom edge", "title": "Growth Timeline", "content": "linear sequence of 19 small plant icons showing the complete life cycle from seed to mature plant" }
-    ],
-    "footer_quote": "{argument name=\"bottom quote\" default=\"理解植物，就是理解生命如何在时间中构建秩序。\"}"
-  }
-}
+请制作一张科学植物信息图海报，主体是 {argument name="plant species" default="Pomegranate (Punica granatum)"}。整体风格是 vintage botanical illustration mixed with modern infographic design, highly detailed，颜色使用 {argument name="color palette" default="earthy greens, deep reds, parchment background"}。标题区包含主标题 {argument name="main title" default="植物生命路径剖面"}、英文标题 {argument name="english title" default="BOTANICAL GROWTH ATLAS"}，以及副标题“从种子到果实，一株植物如何展开自己 / FROM SEED TO FRUIT”。中心画面是一株完整植物，要有发达根系、木质茎、绿色叶片、盛开的红花和成熟果实，其中一个果实要剖开以展示种子。版面分成 8 个编号部分：1“种子结构 / Seed Architecture”，内容是一个种子的剖面并标出 6 个部分；2“萌发机制 / Germination Mechanism”，内容是 5 个发芽阶段，展示胚根萌出；3“根系与地下网络 / Root System + Subsurface Intelligence”，内容是细致的根系网络，并配 2 个圆形显微剖面，展示维管束和菌丝；4“茎叶生长与维管系统 / Stem, Leaf & Vascular System”，内容是叶片细节和一个带 5 层标注的茎剖面；5“光合作用与能量转换 / Photosynthesis + Energy Conversion”，内容是叶片细胞剖面，显示叶肉和叶绿体，并配一个化学方程式图；6“花芽分化与开花机制 / Bud Formation + Blooming”，内容是花的细致剖面，展示雄蕊和子房，并配 4 季时间线；7“授粉与结果路径 / Pollination + Fruiting Pathway”，内容是蜜蜂接近花的剖面，然后用 5 个阶段展示子房如何发育成果实；8“果实成熟与种子循环 / Fruit Maturation + Seed Cycle”，内容是成熟果实裂开，种子向下扩散到新的幼芽。还要在左下角加入“环境触发因素 / Environmental Triggers”，内容是 6 个天气或环境图标和 6 个营养元素图标（N, P, K, Ca, Mg, Fe）；在底边加入 Growth Timeline，内容是从种子到成熟植株的 19 个小植物图标连续生命周期。页脚引用 {argument name="bottom quote" default="理解植物，就是理解生命如何在时间中构建秩序。"}。
 ```
 
 ***
@@ -867,59 +375,7 @@ Bottom Summary: `The balance between being in the world and being out of the wor
 **提示词：**
 
 ```text
-{
-  "type": "complex urban systems atlas infographic",
-  "style": "{argument name=\"color palette\" default=\"dark background with glowing blue, gold, and purple accents\"}, highly detailed technical illustration, 3D isometric cutaway",
-  "header": {
-    "title": "{argument name=\"chinese city name\" default=\"上海\"}城市系统剖面 {argument name=\"english city name\" default=\"SHANGHAI\"} URBAN SYSTEMS ATLAS",
-    "subtitles": [
-      "地表之上，是城市；地表之下，是秩序 {argument name=\"english subtitle\" default=\"Beneath the skyline lies the machine.\"}",
-      "一座城市如何运转 How a Megacity Actually Works"
-    ]
-  },
-  "layout": {
-    "top_left": "Compass rose and city map labeled '上海市域位置 SHANGHAI LOCATION'",
-    "top_right": "Data table titled '城市数据 CITY DATA' with 7 rows of statistics",
-    "centerpiece": {
-      "description": "{argument name=\"centerpiece style\" default=\"highly detailed 3D isometric cutaway render\"} of a megacity river landscape",
-      "layers": [
-        "地面层 SURFACE",
-        "排水层 DRAINAGE LAYER",
-        "电力层 POWER LAYER",
-        "通信层 COMMUNICATION LAYER",
-        "轨道交通层 METRO LAYER",
-        "道路隧道层 ROAD TUNNEL LAYER",
-        "管廊综合层 UTILITY CORRIDOR LAYER"
-      ]
-    },
-    "side_panels": [
-      { "id": "01", "title": "城市主骨架 URBAN SKELETON", "elements": "Map with 8 legend items" },
-      { "id": "02", "title": "排水与地下水网 DRAINAGE + STORMWATER", "elements": "Cross-section diagram '典型排水剖面 DRAINAGE SECTION' with 5 legend items" },
-      { "id": "03", "title": "电网与能源分配 POWER GRID + ENERGY", "elements": "Cross-section diagram '典型变电站剖面 SUBSTATION SECTION' with 6 legend items" },
-      { "id": "04", "title": "通信与网络骨干 TELECOM + INTERNET", "elements": "Cross-section diagram '数据中心剖面 DATA CENTER SECTION' with 6 legend items" },
-      { "id": "05", "title": "地铁与地下交通 METRO + SUBSURFACE MOBILITY", "elements": "Cross-section diagram '人民广场站剖面 PEOPLE'S SQUARE STATION' with 6 legend items" },
-      { "id": "06", "title": "道路、高架与循环 ROADS + ELEVATED MOBILITY", "elements": "Cross-section diagram '南浦大桥剖面 NANPU BRIDGE SECTION' with 6 legend items" },
-      { "id": "07", "title": "管廊与地下设施 UTILITY CORRIDORS + PLUMBING", "elements": "Cross-section diagram '综合管廊 UTILITY CORRIDOR' with 8 legend items" },
-      { "id": "08", "title": "城市流量与系统协同 URBAN FLOWS + COORDINATION", "elements": "Map diagram '城市运行指挥中心 CITY OPERATIONS CENTER' with 6 legend items" }
-    ],
-    "bottom_panels": {
-      "system_logic": {
-        "title": "城市系统协同逻辑 SYSTEM COORDINATION LOGIC",
-        "steps": 4,
-        "labels": ["感知层 SENSING LAYER", "网络层 NETWORK LAYER", "平台层 PLATFORM LAYER", "应用层 APPLICATION LAYER"]
-      },
-      "city_brain": {
-        "title": "城市大脑 CITY BRAIN",
-        "central_node": 1,
-        "peripheral_nodes": 8
-      },
-      "references": {
-        "depth_scale": { "title": "深度与尺度 DEPTH & SCALE REFERENCE", "icons": 5 },
-        "map_scale": { "title": "比例尺 SCALE", "markers": 4 }
-      }
-    }
-  }
-}
+请制作一张复杂的城市系统总览信息图，主题是 {argument name="chinese city name" default="上海"}城市系统剖面 {argument name="english city name" default="SHANGHAI"} URBAN SYSTEMS ATLAS。整体风格使用 {argument name="color palette" default="dark background with glowing blue, gold, and purple accents"}，并保持 highly detailed technical illustration, 3D isometric cutaway 的感觉。标题区写“{argument name="chinese city name" default="上海"}城市系统剖面 {argument name="english city name" default="SHANGHAI"} URBAN SYSTEMS ATLAS”，副标题是“地表之上，是城市；地表之下，是秩序 {argument name="english subtitle" default="Beneath the skyline lies the machine."}”和“一座城市如何运转 How a Megacity Actually Works”。左上角放指南针玫瑰和城市地图，标注“上海市域位置 SHANGHAI LOCATION”；右上角放标题为“城市数据 CITY DATA”的数据表，包含 7 行统计。中心是一幅 {argument name="centerpiece style" default="highly detailed 3D isometric cutaway render"} 的大都市河岸景观剖面，按层展示“地面层 SURFACE”“排水层 DRAINAGE LAYER”“电力层 POWER LAYER”“通信层 COMMUNICATION LAYER”“轨道交通层 METRO LAYER”“道路隧道层 ROAD TUNNEL LAYER”“管廊综合层 UTILITY CORRIDOR LAYER”。侧边面板依次包含 01“城市主骨架 URBAN SKELETON”，配 8 个图例项的地图；02“排水与地下水网 DRAINAGE + STORMWATER”，配“典型排水剖面 DRAINAGE SECTION”剖面图和 5 个图例项；03“电网与能源分配 POWER GRID + ENERGY”，配“典型变电站剖面 SUBSTATION SECTION”剖面图和 6 个图例项；04“通信与网络骨干 TELECOM + INTERNET”，配“数据中心剖面 DATA CENTER SECTION”剖面图和 6 个图例项；05“地铁与地下交通 METRO + SUBSURFACE MOBILITY”，配“人民广场站剖面 PEOPLE'S SQUARE STATION”剖面图和 6 个图例项；06“道路、高架与循环 ROADS + ELEVATED MOBILITY”，配“南浦大桥剖面 NANPU BRIDGE SECTION”剖面图和 6 个图例项；07“管廊与地下设施 UTILITY CORRIDORS + PLUMBING”，配“综合管廊 UTILITY CORRIDOR”剖面图和 8 个图例项；08“城市流量与系统协同 URBAN FLOWS + COORDINATION”，配“城市运行指挥中心 CITY OPERATIONS CENTER”地图图示和 6 个图例项。底部面板还要有“城市系统协同逻辑 SYSTEM COORDINATION LOGIC”，分 4 步，标签是“感知层 SENSING LAYER”“网络层 NETWORK LAYER”“平台层 PLATFORM LAYER”“应用层 APPLICATION LAYER”；“城市大脑 CITY BRAIN”，中心节点 1、外围节点 8；以及“深度与尺度 DEPTH & SCALE REFERENCE”和“比例尺 SCALE”，分别配 5 个图标和 4 个标记。
 ```
 
 ***
@@ -1057,139 +513,7 @@ Bottom Summary: `The balance between being in the world and being out of the wor
 **提示词：**
 
 ```text
-[核心任务]
-将提供的输入图像转换为姿势和光线分析表。
-
-这不是完成的人物插图。
-这不是衣服床单。
-这不是为了美观而进行的重画。
-
-这是一个白线粗糙人体模型转换。
-
-[主要目标]
-仅提取和可视化：
-- 姿势结构
-- 身体平衡
-- 相机角度
-- 身体线条流畅
-- 推断光源位置
-- 照明区域和光强度
-
-[输入角色]
-使用提供的图像作为严格锚点：
-- 姿势
-- 相机角度
-- 身体倾斜
-- 重量分布
-- 大概的照明情况
-
-不要保留：
-- 脸部渲染
-- 发型渲染
-- 服装细节
-- 配件
-- 武器细节
-- 背景架构
-- 角色身份
-- 情绪表达
-
-[图形转换]
-单个粗糙的人体模型般的人物形象
-白色的身体轮廓线
-白色内部构造线
-简单的人体模型头
-没有脸
-没有眼睛
-没有嘴
-没有睫毛
-没有个性
-没有个人身份
-
-人物形象应该是这样的：
-- 粗略姿势人体模型
-- 解剖代理
-- 基于线条的身体指南
-- 结构草图
-- 白线粗糙假人
-
-保留：
-- 姿势可读性
-- 剪影流
-- 头部倾斜
-- 躯干方向
-- 骨盆方向
-- 肢体放置
-
-[背景]
-纯黑色背景
-负片式暗场
-没有风景
-没有道具
-没有架构
-没有环境故事
-
-[线条样式]
-粗略的白线画
-干净但像素描
-构造线感
-解剖引导线可见
-关节流可见
-强调身体轮廓
-没有抛光插图完成
-
-[光估计]
-从输入图像预测可能的光源位置
-仅使用绿光可视化光源和照明区域
-
-使用具有变化的绿光强度：
-- 光线直射处最强的绿色
-- 中绿色用于包裹光
-- 柔和的绿色表示反射光或褪色光
-
-用标签和箭头标记估计的光源，例如：
-- 主灯
-- 边缘光
-- 补光灯
-- 地板弹跳
-- 背光
-仅在适当的情况下
-
-重要：
-不要发明随机灯
-从原始输入图像推断光照
-如果照明不明确，请保持注释简单且合理
-
-[绿灯可视化]
-显示绿光：
-- 头部/颅骨平面
-- 颈部
-- 肩膀
-- 胸部平面
-- 胸腔方向
-- 骨盆边缘
-- 大腿平面
-- 膝盖接触点
-- 地板接触弹跳（如果适用）
-
-使用绿光不作为装饰，
-但作为照明分析信息
-
-[姿势优先]
-1. 保留姿势结构
-2. 保持拍摄角度
-3.保持身体平衡
-4. 保持头部与躯干的关系
-5. 想象可能的光线方向
-6. 显示具有可读绿色强度变化的照明区域
-
-[负面]
-完成的人，
-可爱的女孩，
-详细的脸部，
-头发渲染，
-服装效果图、
-武器强调，
-美丽的解剖学
+请把提供的输入图像改成一张姿势与光线分析表。不要把它做成完整人物插画，也不要做成服装展示页或为了好看而进行的重绘；目标是一个白线、粗糙的人体模型式转换。只提取并可视化姿势结构、身体平衡、相机角度、身体线条流畅、推断光源位置，以及照明区域和光强度。输入图像要作为严格锚点，用来保留姿势、相机角度、身体倾斜、重量分布和大致的照明情况。不要保留脸部渲染、发型渲染、服装细节、配件、武器细节、背景架构、角色身份和情绪表达。最终画面应是单个粗糙的人体模型般的人物形象，带白色身体轮廓线和白色内部构造线，头部也保持简单，没有脸、眼睛、嘴、睫毛、个性或个人身份；它应像粗略姿势人体模型、解剖代理、基于线条的身体指南、结构草图、白线粗糙假人。保留姿势可读性、剪影流、头部倾斜、躯干方向、骨盆方向和肢体放置。背景必须是纯黑色、负片式暗场，没有风景、没有道具、没有架构、没有环境故事。线条样式要粗略的白线画，干净但像素描，保留构造线感、可见的解剖引导线和关节流，强调身体轮廓，不要做成抛光完成的插画。光估计部分要从输入图像预测可能的光源位置，只使用绿光可视化光源和照明区域；绿光强度要有变化，直射处最强，中间绿色用于包裹光，柔和的绿色表示反射光或褪色光。必要时用标签和箭头标记主灯、边缘光、补光灯、地板弹跳和背光，但不要发明随机灯。如果照明不明确，就保持注释简单且合理。绿色可视化应显示在头部/颅骨平面、颈部、肩膀、胸部平面、胸腔方向、骨盆边缘、大腿平面、膝盖接触点和地板接触弹跳（如果适用），而且绿光只作为照明分析信息，不是装饰。姿势优先级依次是保留姿势结构、保持拍摄角度、保持身体平衡、保持头部与躯干的关系、想象可能的光线方向、显示具有可读绿色强度变化的照明区域。负面要求包括完成的人物、可爱的女孩、详细的脸部、头发渲染、服装效果图、武器强调和美丽的解剖学。
 ```
 
 ***
@@ -1203,139 +527,7 @@ Bottom Summary: `The balance between being in the world and being out of the wor
 **提示词：**
 
 ```text
-[核心任务]
-将提供的输入图像转换为姿势和光线分析表。
-
-这不是完成的人物插图。
-这不是衣服床单。
-这不是为了美观而进行的重画。
-
-这是一个白线粗糙人体模型转换。
-
-[主要目标]
-仅提取和可视化：
-- 姿势结构
-- 身体平衡
-- 相机角度
-- 身体线条流畅
-- 推断光源位置
-- 照明区域和光强度
-
-[输入角色]
-使用提供的图像作为严格锚点：
-- 姿势
-- 相机角度
-- 身体倾斜
-- 重量分布
-- 大概的照明情况
-
-不要保留：
-- 脸部渲染
-- 发型渲染
-- 服装细节
-- 配件
-- 武器细节
-- 背景架构
-- 角色身份
-- 情绪表达
-
-[图形转换]
-单个粗糙的人体模型般的人物形象
-白色的身体轮廓线
-白色内部构造线
-简单的人体模型头
-没有脸
-没有眼睛
-没有嘴
-没有睫毛
-没有个性
-没有个人身份
-
-人物形象应该是这样的：
-- 粗略姿势人体模型
-- 解剖代理
-- 基于线条的身体指南
-- 结构草图
-- 白线粗糙假人
-
-保留：
-- 姿势可读性
-- 剪影流
-- 头部倾斜
-- 躯干方向
-- 骨盆方向
-- 肢体放置
-
-[背景]
-纯黑色背景
-负片式暗场
-没有风景
-没有道具
-没有架构
-没有环境故事
-
-[线条样式]
-粗略的白线画
-干净但像素描
-构造线感
-解剖引导线可见
-关节流可见
-强调身体轮廓
-没有抛光插图完成
-
-[光估计]
-从输入图像预测可能的光源位置
-仅使用绿光可视化光源和照明区域
-
-使用具有变化的绿光强度：
-- 光线直射处最强的绿色
-- 中绿色用于包裹光
-- 柔和的绿色表示反射光或褪色光
-
-用标签和箭头标记估计的光源，例如：
-- 主灯
-- 边缘光
-- 补光灯
-- 地板弹跳
-- 背光
-仅在适当的情况下
-
-重要：
-不要发明随机灯
-从原始输入图像推断光照
-如果照明不明确，请保持注释简单且合理
-
-[绿灯可视化]
-显示绿光：
-- 头部/颅骨平面
-- 颈部
-- 肩膀
-- 胸部平面
-- 胸腔方向
-- 骨盆边缘
-- 大腿平面
-- 膝盖接触点
-- 地板接触弹跳（如果适用）
-
-使用绿光不作为装饰，
-但作为照明分析信息
-
-[姿势优先]
-1. 保留姿势结构
-2. 保持拍摄角度
-3.保持身体平衡
-4. 保持头部与躯干的关系
-5. 想象可能的光线方向
-6. 显示具有可读绿色强度变化的照明区域
-
-[负面]
-完成的人，
-可爱的女孩，
-详细的脸部，
-头发渲染，
-服装效果图、
-武器强调，
-美丽的解剖学
+请把提供的输入图像改成一张姿势与光线分析表。不要把它做成完整人物插画，也不要做成服装展示页或为了好看而进行的重绘；目标是一个白线、粗糙的人体模型式转换。只提取并可视化姿势结构、身体平衡、相机角度、身体线条流畅、推断光源位置，以及照明区域和光强度。输入图像要作为严格锚点，用来保留姿势、相机角度、身体倾斜、重量分布和大致的照明情况。不要保留脸部渲染、发型渲染、服装细节、配件、武器细节、背景架构、角色身份和情绪表达。最终画面应是单个粗糙的人体模型般的人物形象，带白色身体轮廓线和白色内部构造线，头部也保持简单，没有脸、眼睛、嘴、睫毛、个性或个人身份；它应像粗略姿势人体模型、解剖代理、基于线条的身体指南、结构草图、白线粗糙假人。保留姿势可读性、剪影流、头部倾斜、躯干方向、骨盆方向和肢体放置。背景必须是纯黑色、负片式暗场，没有风景、没有道具、没有架构、没有环境故事。线条样式要粗略的白线画，干净但像素描，保留构造线感、可见的解剖引导线和关节流，强调身体轮廓，不要做成抛光完成的插画。光估计部分要从输入图像预测可能的光源位置，只使用绿光可视化光源和照明区域；绿光强度要有变化，直射处最强，中间绿色用于包裹光，柔和的绿色表示反射光或褪色光。必要时用标签和箭头标记主灯、边缘光、补光灯、地板弹跳和背光，但不要发明随机灯。如果照明不明确，就保持注释简单且合理。绿色可视化应显示在头部/颅骨平面、颈部、肩膀、胸部平面、胸腔方向、骨盆边缘、大腿平面、膝盖接触点和地板接触弹跳（如果适用），而且绿光只作为照明分析信息，不是装饰。姿势优先级依次是保留姿势结构、保持拍摄角度、保持身体平衡、保持头部与躯干的关系、想象可能的光线方向、显示具有可读绿色强度变化的照明区域。负面要求包括完成的人物、可爱的女孩、详细的脸部、头发渲染、服装效果图、武器强调和美丽的解剖学。
 ```
 
 ***
@@ -1349,139 +541,7 @@ Bottom Summary: `The balance between being in the world and being out of the wor
 **提示词：**
 
 ```text
-[核心任务]
-将提供的输入图像转换为姿势和光线分析表。
-
-这不是完成的人物插图。
-这不是衣服床单。
-这不是为了美观而进行的重画。
-
-这是一个白线粗糙人体模型转换。
-
-[主要目标]
-仅提取和可视化：
-- 姿势结构
-- 身体平衡
-- 相机角度
-- 身体线条流畅
-- 推断光源位置
-- 照明区域和光强度
-
-[输入角色]
-使用提供的图像作为严格锚点：
-- 姿势
-- 相机角度
-- 身体倾斜
-- 重量分布
-- 大概的照明情况
-
-不要保留：
-- 脸部渲染
-- 发型渲染
-- 服装细节
-- 配件
-- 武器细节
-- 背景架构
-- 角色身份
-- 情绪表达
-
-[图形转换]
-单个粗糙的人体模型般的人物形象
-白色的身体轮廓线
-白色内部构造线
-简单的人体模型头
-没有脸
-没有眼睛
-没有嘴
-没有睫毛
-没有个性
-没有个人身份
-
-人物形象应该是这样的：
-- 粗略姿势人体模型
-- 解剖代理
-- 基于线条的身体指南
-- 结构草图
-- 白线粗糙假人
-
-保留：
-- 姿势可读性
-- 剪影流
-- 头部倾斜
-- 躯干方向
-- 骨盆方向
-- 肢体放置
-
-[背景]
-纯黑色背景
-负片式暗场
-没有风景
-没有道具
-没有架构
-没有环境故事
-
-[线条样式]
-粗略的白线画
-干净但像素描
-构造线感
-解剖引导线可见
-关节流可见
-强调身体轮廓
-没有抛光插图完成
-
-[光估计]
-从输入图像预测可能的光源位置
-仅使用绿光可视化光源和照明区域
-
-使用具有变化的绿光强度：
-- 光线直射处最强的绿色
-- 中绿色用于包裹光
-- 柔和的绿色表示反射光或褪色光
-
-用标签和箭头标记估计的光源，例如：
-- 主灯
-- 边缘光
-- 补光灯
-- 地板弹跳
-- 背光
-仅在适当的情况下
-
-重要：
-不要发明随机灯
-从原始输入图像推断光照
-如果照明不明确，请保持注释简单且合理
-
-[绿灯可视化]
-显示绿光：
-- 头部/颅骨平面
-- 颈部
-- 肩膀
-- 胸部平面
-- 胸腔方向
-- 骨盆边缘
-- 大腿平面
-- 膝盖接触点
-- 地板接触弹跳（如果适用）
-
-使用绿光不作为装饰，
-但作为照明分析信息
-
-[姿势优先]
-1. 保留姿势结构
-2. 保持拍摄角度
-3.保持身体平衡
-4. 保持头部与躯干的关系
-5. 想象可能的光线方向
-6. 显示具有可读绿色强度变化的照明区域
-
-[负面]
-完成的人，
-可爱的女孩，
-详细的脸部，
-头发渲染，
-服装效果图、
-武器强调，
-美丽的解剖学
+请把提供的输入图像改成一张姿势与光线分析表。不要把它做成完整人物插画，也不要做成服装展示页或为了好看而进行的重绘；目标是一个白线、粗糙的人体模型式转换。只提取并可视化姿势结构、身体平衡、相机角度、身体线条流畅、推断光源位置，以及照明区域和光强度。输入图像要作为严格锚点，用来保留姿势、相机角度、身体倾斜、重量分布和大致的照明情况。不要保留脸部渲染、发型渲染、服装细节、配件、武器细节、背景架构、角色身份和情绪表达。最终画面应是单个粗糙的人体模型般的人物形象，带白色身体轮廓线和白色内部构造线，头部也保持简单，没有脸、眼睛、嘴、睫毛、个性或个人身份；它应像粗略姿势人体模型、解剖代理、基于线条的身体指南、结构草图、白线粗糙假人。保留姿势可读性、剪影流、头部倾斜、躯干方向、骨盆方向和肢体放置。背景必须是纯黑色、负片式暗场，没有风景、没有道具、没有架构、没有环境故事。线条样式要粗略的白线画，干净但像素描，保留构造线感、可见的解剖引导线和关节流，强调身体轮廓，不要做成抛光完成的插画。光估计部分要从输入图像预测可能的光源位置，只使用绿光可视化光源和照明区域；绿光强度要有变化，直射处最强，中间绿色用于包裹光，柔和的绿色表示反射光或褪色光。必要时用标签和箭头标记主灯、边缘光、补光灯、地板弹跳和背光，但不要发明随机灯。如果照明不明确，就保持注释简单且合理。绿色可视化应显示在头部/颅骨平面、颈部、肩膀、胸部平面、胸腔方向、骨盆边缘、大腿平面、膝盖接触点和地板接触弹跳（如果适用），而且绿光只作为照明分析信息，不是装饰。姿势优先级依次是保留姿势结构、保持拍摄角度、保持身体平衡、保持头部与躯干的关系、想象可能的光线方向、显示具有可读绿色强度变化的照明区域。负面要求包括完成的人物、可爱的女孩、详细的脸部、头发渲染、服装效果图、武器强调和美丽的解剖学。
 ```
 
 ***
@@ -1495,49 +555,7 @@ Bottom Summary: `The balance between being in the world and being out of the wor
 **提示词：**
 
 ```text
-{
-  "type": "科学光学设置图",
-  “主要设置”：{
-    “base”：“带有安装孔网格的光学面包板台”，
-    "beam": "红色激光束水平穿过所有组件",
-    “顶部分组括号”：[
-      "{参数名称=\"第一个组件组\" 默认=\"双调制\"}",
-      “4f 中继光学器件”，
-      “成像光学”，
-      《检测》
-    ],
-    “组件从左到右”：[
-      { "name": "Laser", "label": "{参数名称=\"激光波长\" default=\"λ = 632.8 nm\"}", "appearance": "黑色矩形框" },
-      { "name": "SLM1", "label": "(Phase / Pol. Mod.)", "appearance": "黑色方形装置在柱子上" },
-      { "name": "镜头 L1", "label": "(f1)", "appearance": "黑环安装镜头" },
-      { "name": "Iris", "label": "傅里叶平面（光瞳平面）/（高阶过滤）", "appearance": "黑色环安装座，上方有虚线" },
-      { "name": "HWP", "label": "(λ/2)", "appearance": "黑色环形安装座中的紫色光学元件" },
-      { "name": "Lens L2", "label": "(f1)", "appearance": "黑环安装镜头" },
-      { "name": "SLM2", "label": "(Phase / Pol. Mod.)", "appearance": "黑色方形装置在柱子上" },
-      { "name": "Lens L3", "label": "(f2)", "appearance": "黑环安装镜头" },
-      { "name": "Lens L4", "label": "(f2)", "appearance": "黑环卡口镜头" },
-      { "name": "线性偏光镜", "label": "(全局分析仪)", "appearance": "黑环安装镜头" },
-      { "name": "偏光相机", "label": "偏光相机", "appearance": "蓝黑盒相机" }
-    ]
-  },
-  “插图”：{
-    "position": "右下角，虚线边框",
-    "title": "{参数名称=\"插图标题\" 默认=\"偏光相机微偏光器阵列\"}（每像素分析器）",
-    "视觉效果": "带有白色方向箭头的彩色方块的 4x4 网格",
-    “图例计数”：4，
-    “图例标签”：[
-      “红色右箭头 0°（H）”，
-      “绿色向上箭头 90° (V)”，
-      “蓝色对角箭头 45° (D)”，
-      “黄色对角箭头 135° (A)”
-    ]
-  },
-  “底部标题”：{
-    "figure_number": "图 5。",
-    "title": "{参数名称=\"设置标题\" 默认=\"椭圆成像硬件设置。\"}",
-    "description": "{参数名称=\"图标题\" 默认=\"我们的原型显示系统采用双调制配置来实现相位和偏振的同时控制。 4f 中继光学装置传输调制波前...\"}"
-  }
-}
+请制作一张科学光学设置图，主体是带有安装孔网格的光学面包板台，一束红色激光水平穿过所有组件。顶部用括号分组，依次标出“第一个组件组”（默认“双调制”）、“4f 中继光学器件”、“成像光学”和“检测”。组件从左到右依次为：激光器，标签写成 {参数名称="激光波长" default="λ = 632.8 nm"}，外观是黑色矩形框；SLM1，标注“(Phase / Pol. Mod.)”，外观是装在柱子上的黑色方形装置；镜头 L1，标注“(f1)”，外观是黑环安装镜头；Iris，标注“傅里叶平面（光瞳平面）/（高阶过滤）”，外观是带虚线的黑色环形安装座；HWP，标注“(λ/2)”，外观是黑色环形安装座中的紫色光学元件；Lens L2，标注“(f1)”，外观是黑环安装镜头；SLM2，标注“(Phase / Pol. Mod.)”，外观是装在柱子上的黑色方形装置；Lens L3，标注“(f2)”，外观是黑环安装镜头；Lens L4，标注“(f2)”，外观是黑环卡口镜头；线性偏光镜，标注“(全局分析仪)”，外观是黑环安装镜头；偏光相机，文字直接写“偏光相机”，外观是蓝黑盒相机。右下角还有一个带虚线边框的插图，标题写成 {参数名称="插图标题" 默认="偏光相机微偏光器阵列"}（每像素分析器），画面是带白色方向箭头的彩色方块 4x4 网格，并标出 4 个图例：红色右箭头 0°（H）、绿色向上箭头 90°（V）、蓝色对角箭头 45°（D）、黄色对角箭头 135°（A）。底部标题区包含 figure_number“图 5。”，标题写成 {参数名称="设置标题" 默认="椭圆成像硬件设置。"}，说明文字写成 {参数名称="图标题" 默认="我们的原型显示系统采用双调制配置来实现相位和偏振的同时控制。 4f 中继光学装置传输调制波前..."}。整体风格要像严谨的科研光学系统示意图，结构清楚、标注完整、技术感强。
 ```
 
 ***
@@ -1551,40 +569,7 @@ Bottom Summary: `The balance between being in the world and being out of the wor
 **提示词：**
 
 ```text
-{
-  "type": "体育比赛信息图表海报",
-  "主题": "欧洲冠军联赛",
-  “背景”：“深蓝色和紫色的宇宙天空，发光的蓝色六边形线，照亮的体育场反射在底部的水面上”，
-  “标题”：{
-    "logo": "欧洲冠军联赛",
-    "title": "{参数名称=\"stage\" 默认=\"HALBFINALE\"}",
-    "subtitle": "DAS ZIEL: {参数名称=\"地点\" 默认=\"布达佩斯 2026\"}",
-    “地点”：“PUSKÁS ARÉNA”
-  },
-  “比赛”：{
-    "player_left": "{参数名称=\"球队 1 球员\" 默认=\"哈里·凯恩\"} 穿着红色拜仁队球衣",
-    "player_right": "{参数名称=\"第 2 队球员\" 默认=\"奥斯曼·登贝莱\"} 穿着蓝色 PSG 球衣",
-    "center_logos": "拜仁慕尼黑队和巴黎圣日耳曼队与 VS",
-    "date_box": "日历图标，MITTWOCH，{参数名称=\"日期\" 默认=\"06.05.2026\"}"
-  },
-  “事实部分”：{
-    “标题”：“事实”，
-    “计数”：5，
-    “项目”：[
-      “奖杯图标：DIE KÖNIGSKLASSE 2025/26”，
-      “条形图图标：凯恩在 TOPFORM”，
-      “闪电图标：DEMBÉLÉ ÜBERFLIEGER”，
-      “两人图标：BISHER 14 DUELLE”，
-      “体育场标志：布达佩斯RUFT”
-    ]
-  },
-  “页脚”：{
-    "tropy": "冠军联赛奖杯在右侧",
-    "stadium_image": "普斯卡什竞技场夜景",
-    "标语": "EIN TRAUM。EIN ZIEL。EIN TITEL。",
-    "bottom_text": "2026 年布达佩斯之路"
-  }
-}
+请制作一张体育比赛信息图表海报，主题是欧洲冠军联赛。背景使用深蓝和紫色的宇宙天空，加入发光的蓝色六边形线条，并让照亮的体育场倒映在底部水面上。标题区域保留欧洲冠军联赛 logo，主标题写 {参数名称="stage" 默认="HALBFINALE"}，副标题写成 DAS ZIEL: {参数名称="地点" 默认="布达佩斯 2026"}，地点文字显示为 PUSKÁS ARÉNA。比赛区域左侧人物是 {参数名称="球队 1 球员" 默认="哈里·凯恩"}，穿红色拜仁球衣；右侧人物是 {参数名称="第 2 队球员" 默认="奥斯曼·登贝莱"}，穿蓝色 PSG 球衣；中间放拜仁慕尼黑和巴黎圣日耳曼的队徽，并以 VS 连接。日期框使用日历图标，保留 MITTWOCH 和 {参数名称="日期" 默认="06.05.2026"}。事实部分标题为“事实”，共 5 条，依次是：奖杯图标对应“DIE KÖNIGSKLASSE 2025/26”，条形图图标对应“凯恩在 TOPFORM”，闪电图标对应“DEMBÉLÉ ÜBERFLIEGER”，两人图标对应“BISHER 14 DUELLE”，体育场标志对应“布达佩斯RUFT”。页脚右侧放冠军联赛奖杯，底部使用普斯卡什竞技场夜景图，并写上标语 EIN TRAUM。EIN ZIEL。EIN TITEL。以及底部文字 2026 年布达佩斯之路。整体气氛要像正式赛事宣传海报，充满能量、对抗感和舞台感。
 ```
 
 ***
@@ -1949,64 +934,7 @@ AI必须根据[主题]自动决定：
 **提示词：**
 
 ```text
-{
-  "type": "电子商务产品信息图",
-  "theme": "带有 {参数名称=\"强调色\" 默认=\"橙色\"} 强调色的深色模式",
-  “产品”：{
-    "brand": "{参数名称=\"品牌名称\" 默认=\"MEAN WELL\"}",
-    "model": "{参数名称=\"产品型号\" 默认=\"ELG-100-24B\"}",
-    "description": "100W 恒流 LED 驱动器，矩形银色金属外壳，两端有黑色电缆和详细规格标签"
-  },
-  “布局”：{
-    “部分”：[
-      {
-        "name": "英雄部分",
-        “元素”：[
-          “品牌标志左上角”，
-          "标题: '{参数名称=\"主标题\" 默认=\"户外稳定电源\"}'",
-          “潜台词：宽输入电压，保护外壳……”，
-          “大角度产品拍摄”，
-          “背景中‘100W’水印褪色”
-        ]
-      },
-      {
-        "name": "功能亮点",
-        “计数”：3，
-        “面板”：[
-          { "title": "Precision Build", "visual": "规格标签特写" },
-          { "title": "安全连接", "visual": "电缆入口和安装耳的特写" },
-          { "title": "主要特点", "visual": "有角度的产品照片，其中 3 条标注线指向文本：'100~305VAC 输入'、'恒流'、'IP67 / IP65 外壳'" }
-        ]
-      },
-      {
-        “名称”：“应用程序”，
-        “计数”：4，
-        “面板”：[
-          { "title": "街道照明", "visual": "路灯照亮的夜间高速公路" },
-          { "title": "户外项目", "visual": "具有建筑景观照明的现代建筑外观" },
-          { "title": "适用于室内系统", "visual": "带线性吸顶灯的现代商业走廊" },
-          { "title": "用于调光控制", "visual": "带有 4 个标签的电气控制盒：'0-10V'、'PWM'、'RESISTOR'、'DALI'" }
-        ]
-      },
-      {
-        "name": "环境保护",
-        “元素”：[
-          “产品放置在潮湿的表面上，具有水滴和雨水效果”，
-          “标题：‘受保护的性能’”，
-          “有关室内/室外使用和主动 PFC 的说明文字”，
-          “徽章：'{参数名称=\“保修年数\”默认=\“5\”}年保修'”
-        ]
-      },
-      {
-        "name": "技术规格",
-        “元素”：[
-          “标题：‘照明电源技术’”，
-          "4 个复选标记要点：'100~305VAC 输入'、'主动 PFC'、'低待机 <0.5W'、'0~10V / PWM / 电阻 / DALI'",
-          “在高科技电路板背景上发光的产品镜头”
-        ]}
-    ]
-  }
-}
+请制作一张电子商务产品信息图，采用深色模式并使用 {参数名称="强调色" 默认="橙色"} 作为点缀。产品信息写明品牌为 {参数名称="品牌名称" 默认="MEAN WELL"}，型号为 {参数名称="产品型号" 默认="ELG-100-24B"}，并描述为 100W 恒流 LED 驱动器，外壳是矩形银色金属盒，两端带黑色电缆，表面有详细规格标签。布局分成多个部分：英雄部分里，品牌标志放在左上角，标题写 {参数名称="主标题" 默认="户外稳定电源"}，副标题保留“宽输入电压，保护外壳……”这类说明，大角度展示产品，并在背景里淡化出现“100W”水印；功能亮点部分包含 3 个面板，分别是 Precision Build、Safe Connections 和主要特点，其中主要特点面板要用三条标注线指向“100~305VAC 输入”“恒流”“IP67 / IP65 外壳”；应用程序部分包含 4 个场景，分别是街道照明、户外项目、适用于室内系统、用于调光控制，并在电气控制盒上标出“0-10V”“PWM”“RESISTOR”“DALI”；环境保护部分让产品放在潮湿表面上，带水滴和雨水效果，标题写“受保护的性能”，并加入说明文字提到室内/室外使用和主动 PFC，徽章写成 {参数名称="保修年数" 默认="5"}年保修；技术规格部分标题为“照明电源技术”，列出 4 个复选要点：“100~305VAC 输入”“主动 PFC”“低待机 <0.5W”“0~10V / PWM / 电阻 / DALI”，并把产品镜头放在高科技电路板背景上发光展示。整体要像一张专业、精致、信息密度高的工业产品宣传图。
 ```
 
 ***
@@ -2530,29 +1458,7 @@ C. 植物类
 **提示词：**
 
 ```text
-[风格]
-单色灰度插图、3D 渲染角色、干净的教学参考表、白色背景、漫画风格的单元格布局、技术图表美观。
-
-[布局]
-4×4网格布局，共有16个面板。每个面板均由黑色细边框线分隔。单元编号为 1 至 16，面板尺寸一致。
-
-[人物]
-image1（相同的字符在所有面板中一致出现）
-
-[面板结构 - 每个单元]
-左上：粗体数字徽章+英文标题文本
-中：全身人物姿势图
-左下：英文描述文本（3-4行）
-叠加：指示移动的方向箭头
-
-[箭头/运动指示器]
-角色周围放置弯曲箭头、直箭头和圆形旋转指示器，以显示运动流程和方向。
-
-[渲染风格]
-高度细致的 3D 雕刻风格、柔和的工作室灯光、微妙的阴影、无色彩、灰度阴影、干净的线条、游戏概念艺术质量。
-
-[负面]
-没有背景风景，没有色调，没有附加人物，没有复杂的背景。
+请制作一张单色灰度的教学参考表，呈现 3D 渲染角色，白色背景，整体像漫画风格的单元格布局和技术图表。画面采用 4×4 网格，共 16 个面板，每个面板都有黑色细边框分隔，编号从 1 到 16，尺寸完全一致。所有面板都使用同一个角色 image1，并且这个角色在每个面板里保持一致。每个单元的结构都相同：左上角放粗体数字徽章和英文标题文本，中间放全身人物姿势图，左下角放 3 到 4 行英文描述文本，并叠加显示动作方向的箭头。箭头和运动指示器要包含弯曲箭头、直箭头和圆形旋转符号，用来表现动作流程和方向。渲染风格要非常细致，具有 3D 雕刻感、柔和的工作室灯光、微妙阴影、无色彩、灰度阴影、干净线条以及游戏概念艺术质量。负面要求是不要出现背景风景、不要有色调、不要有额外人物，也不要有复杂背景。整体视觉要像一张干净、专业、便于教学讲解的动作参考图。
 ```
 
 ***

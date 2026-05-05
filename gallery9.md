@@ -26,31 +26,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "collection of instant photos",
-  "setting": "laid out flat on a white fabric surface",
-  "character": {
-    "hair": "{argument name=\"hair color\" default=\"long pink hair with blue inner color\"}",
-    "outfit": "{argument name=\"outfit\" default=\"black and white maid uniform with frilly headband and black ribbons\"}",
-    "eyes": "reddish-pink"
-  },
-  "layout": {
-    "arrangement": "two rows of five polaroid photos",
-    "count": 10,
-    "photos": [
-      { "position": "top row 1", "description": "holding a pink heart cushion" },
-      { "position": "top row 2", "description": "winking, making a peace sign" },
-      { "position": "top row 3", "description": "making a hand heart, pink heart doodle on the bottom border" },
-      { "position": "top row 4", "description": "resting chin on hands, gentle smile" },
-      { "position": "top row 5", "description": "holding a red rose, winking" },
-      { "position": "bottom row 1", "description": "finger to lips, shy expression" },
-      { "position": "bottom row 2", "description": "holding a small pink cake" },
-      { "position": "bottom row 3", "description": "winking, hand near face, signature '{argument name=\"signature text\" default=\"Hanashi\"}' and heart doodle on border" },
-      { "position": "bottom row 4", "description": "holding a pink bunny plushie, sparkle doodles, signature '{argument name=\"signature text\" default=\"Hanashi\"}' and bunny doodle on border" },
-      { "position": "bottom row 5", "description": "winking, sparkle doodles, message '{argument name=\"message text\" default=\"いつも応援ありがとう！これからもよろしくね♪\"}' and signature '{argument name=\"signature text\" default=\"Hanashi\"}' on border" }
-    ]
-  }
-}
+一组即时照片，平铺在白色布料表面上。角色拥有{argument name="hair color" default="long pink hair with blue inner color"}，穿着{argument name="outfit" default="black and white maid uniform with frilly headband and black ribbons"}，眼睛是reddish-pink。整体排成两行五张的宝丽来照片，共10张：上排第1张手里抱着粉色爱心抱枕；第2张眨眼并比出剪刀手；第3张做手势爱心，底边有粉色爱心涂鸦；第4张双手托腮，神情温柔微笑；第5张手持红玫瑰并眨眼。下排第1张手指抵唇，表情羞涩；第2张抱着一块小粉色蛋糕；第3张眨眼、手靠近脸，边框上有签名'{argument name="signature text" default="Hanashi"}'和爱心涂鸦；第4张抱着粉色兔子玩偶，带闪光涂鸦，边框上有签名'{argument name="signature text" default="Hanashi"}'和兔子涂鸦；第5张眨眼、带闪光涂鸦，边框上有信息'{argument name="message text" default="いつも応援ありがとう！これからもよろしくね♪"}'以及签名'{argument name="signature text" default="Hanashi"}'。
 ```
 
 ***
@@ -64,98 +40,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "4-panel satirical product advertisement grid",
-  "layout": {
-    "grid": "2x2",
-    "panels": [
-      {
-        "position": "top-left",
-        "product_name": "{argument name=\"top left product name\" default=\"座る石\"}",
-        "visual": "man in white shirt and dark pants sitting on a large round stone in a park",
-        "catchphrase": "いつでも、どこでも、落ち着ける。",
-        "sales_badge": "累計販売数 12,000個 突破!",
-        "vertical_text": "公園のベンチが埋まっていた日に。",
-        "features_count": 3,
-        "features_labels": [
-          "重さ約8kgで安定感抜群",
-          "底面フェルト加工で傷つけにくい",
-          "付属の専用ベルトで持ち運び簡単"
-        ],
-        "extra_visual": "small inset image of the stone with a leather carrying strap",
-        "specs": [
-          "耐荷重 150kg",
-          "安心の日本製"
-        ]
-      },
-      {
-        "position": "top-right",
-        "product_name": "{argument name=\"top right product name\" default=\"磨きたくない人の歯ブラシ\"}",
-        "visual": "sleek light blue toothbrush angled diagonally on a dark blue background",
-        "toothbrush_text": "I don't want to brush my yeeth.",
-        "catchphrase": "持っているだけで安心感",
-        "vertical_text": "歯を磨く代わりに、これを持つ。",
-        "sales_badge": "シリーズ累計販売数 85,000本 突破!",
-        "features_count": 3,
-        "features_labels": [
-          "気持ちを落ち着けるお守り代わりに",
-          "会議や商談前のエチケットに",
-          "磨かない選択を、もっと自由に。"
-        ],
-        "bottom_banner": "歯磨きストレスから、あなたを解放する。"
-      },
-      {
-        "position": "bottom-left",
-        "product_name": "{argument name=\"bottom left product name\" default=\"雲の貯金箱\"}",
-        "visual": "hand inserting a coin into a fluffy white cloud-shaped piggy bank",
-        "catchphrase": "空気より軽い、安心感。",
-        "sales_badge": "累計販売数 23,567個 突破!",
-        "features_count": 3,
-        "features_labels": [
-          "ふわふわの触り心地",
-          "割れないから安心",
-          "インテリアに馴染むデザイン"
-        ],
-        "color_variants_count": 3,
-        "color_variants_labels": [
-          "blue",
-          "pink",
-          "white"
-        ],
-        "price": "¥2,980 (税込)",
-        "bottom_text": "今日から、空に向かってコツコツ貯めよう。"
-      },
-      {
-        "position": "bottom-right",
-        "product_name": "{argument name=\"bottom right product name\" default=\"叱ってくれる石\"}",
-        "visual": "round stone on a wooden desk with a pen, text written on the stone",
-        "stone_text": "{argument name=\"scolding phrase\" default=\"いいかげんやれ\"}",
-        "catchphrase": "やる気が出ないあなたへ。",
-        "sales_badge": "累計販売数 18,000個 突破!",
-        "features_count": 3,
-        "features_labels": [
-          "見るたびに心を奮い立たせる",
-          "厳選された言葉をランダム表示",
-          "電池不要、半永久的に叱ってくれる"
-        ],
-        "phrase_variants_count": 10,
-        "phrase_variants_labels": [
-          "甘えるな",
-          "考えるな",
-          "動け",
-          "現実を見ろ",
-          "逃げるな",
-          "寝るな",
-          "やればできる",
-          "お前ならできる",
-          "寝るな",
-          "もう言い訳するな"
-        ],
-        "price": "¥3,500 (税込)"
-      }
-    ]
-  }
-}
+一个2x2的四宫格讽刺产品广告网格。左上角是{argument name="top left product name" default="座る石"}：画面里一名穿白衬衫和深色裤子的男人坐在公园里一块巨大的圆石上；文案是“いつでも、どこでも、落ち着ける。”；销售徽章写着“累計販売数 12,000個 突破!”；竖排文字是“公園のベンチが埋まっていた日に。”；功能点共3条，分别是“重さ約8kgで安定感抜群”“底面フェルト加工で傷つけにくい”“付属の専用ベルトで持ち運び簡単”；旁边再放一张带皮革背带的小图；规格写“耐荷重 150kg”“安心の日本製”。右上角是{argument name="top right product name" default="磨きたくない人の歯ブラシ"}：一支浅蓝色牙刷斜放在深蓝背景上，牙刷上写着“I don't want to brush my yeeth.”，主文案“持っているだけで安心感”，竖排文字“歯を磨く代わりに、これを持つ。”，销售徽章“シリーズ累計販売数 85,000本 突破!”；功能点3条分别是“気持ちを落ち着けるお守り代わりに”“会議や商談前のエチケットに”“磨かない選択を、もっと自由に。”；底部横幅写“歯磨きストレスから、あなたを解放する。”。左下角是{argument name="bottom left product name" default="雲の貯金箱"}：手把硬币投入毛茸茸的白色云朵存钱罐，文案“空気より軽い、安心感。”，销售徽章“累計販売数 23,567個 突破!”；功能点3条是“ふわふわの触り心地”“割れないから安心”“インテリアに馴染むデザイン”；颜色变体有 blue、pink、white 三种；价格为“¥2,980 (税込)”；底部文字是“今日から、空に向かってコツコツ貯めよう。”。右下角是{argument name="bottom right product name" default="叱ってくれる石"}：一块圆石放在木桌上，旁边有笔，石头上写字；石头文字是{argument name="scolding phrase" default="いいかげんやれ"}；主文案“やる気が出ないあなたへ。”；销售徽章“累計販売数 18,000個 突破!”；功能点3条是“見るたびに心を奮い立たせる”“厳選された言葉をランダム表示”“電池不要、半永久的に叱ってくれる”；可选短句10条分别是“甘えるな”“考えるな”“動け”“現実を見ろ”“逃げるな”“寝るな”“やればできる”“お前ならできる”“寝るな”“もう言い訳するな”；价格为“¥3,500 (税込)”。
 ```
 
 ***
@@ -183,7 +68,7 @@
 **提示词：**
 
 ```text
-{argument name="voice" default="chatgpt voice"} 如果它是一个字符
+如果{argument name="voice" default="chatgpt voice"}是一个角色，就把它设计成一个角色形象。
 ```
 
 ***

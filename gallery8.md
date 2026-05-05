@@ -90,28 +90,7 @@ An anime-style illustration of a {argument name="action type" default="high-impa
 **提示词：**
 
 ```text
-{
-  "type": "3x3 字符表达网格",
-  "style": "{参数名称=\"艺术风格\" 默认=\"3D动画，皮克斯风格\"}",
-  "character_base": "{参数名称=\"角色描述\" 默认=\"有着浓密深色卷发和圆框眼镜的年轻女子\"}",
-  "common_theme": "{参数名称=\"框架概念\" 默认=\"从白皮书的破洞中窥视\"}",
-  “布局”：{
-    “行”：3，
-    “列”：3，
-    “总面板”：9，
-    “面板”：[
-      {"position": "左上", "表情": "眨眼", "action": "调整眼镜", "outfit": "绿色毛衣"},
-      {"position": "顶部中心", "表情": "傻笑", "action": "放下墨镜", "outfit": "红色皮夹克"},
-      {"position": "右上", "express": "思考", "action": "手指放在下巴上", "outfit": "黄色连帽衫"},
-      {"position": "中左", "表情": "灿烂的笑容", "action": "手臂放在边缘", "outfit": "黑白条纹衬衫"},
-      {"position": "中间中心", "表情": "微笑", "action": "竖起大拇指", "outfit": "橙色系扣衬衫"},
-      {"position": "中偏右", "表情": "中性", "action": "喝珍珠奶茶", "outfit": "蓝色毛衣"},
-      {"position": "左下角", "表情": "高兴", "action": "挥手", "outfit": "紫色毛衣背心+白衬衫"},
-      {"position": "bottom-center", "express": "闭眼大笑", "action": "双臂交叉", "outfit": "粉色开衫"},
-      {"position": "右下", "表情": "傻", "action": "戳脸颊", "outfit": "青色毛衣"}
-    ]
-  }
-}
+请制作一张 3x3 字符表达网格，整体风格使用 {参数名称=艺术风格 默认=3D动画，皮克斯风格}。角色基础设定为 {参数名称=角色描述 默认=有着浓密深色卷发和圆框眼镜的年轻女子}，共同主题是 {参数名称=框架概念 默认=从白皮书的破洞中窥视}。版式为 3 行 3 列，共 9 个面板，每个面板都表现不同表情、动作和穿搭：左上眨眼并调整眼镜，穿绿色毛衣；顶部中间傻笑并放下墨镜，穿红色皮夹克；右上思考，手指放在下巴上，穿黄色连帽衫；中左灿烂微笑，手臂放在边缘，穿黑白条纹衬衫；正中微笑并竖起大拇指，穿橙色系扣衬衫；中偏右表情中性，一边喝珍珠奶茶，穿蓝色毛衣；左下高兴地挥手，穿紫色毛衣背心加白衬衫；底部中间闭眼大笑并双臂交叉，穿粉色开衫；右下表情傻气，戳脸颊，穿青色毛衣。
 ```
 
 ***
@@ -125,48 +104,7 @@ An anime-style illustration of a {argument name="action type" default="high-impa
 **提示词：**
 
 ```text
-{
-  "type": "角色头像网格",
-  "theme": "{参数名称=\"主题\" 默认=\"西游神话\"}",
-  "style": "{参数名称=\"艺术风格\" default=\"干净的2D卡通矢量图，粗轮廓，扁平的颜色\"}",
-  “布局”：{
-    "background": "{参数名称=\"背景颜色\" 默认=\"浅灰色\"} 微妙的纹理",
-    "format": "圆形肖像网格，文本标签位于每个圆圈下方的中心",
-    “行”：[
-      {
-        “计数”：4，
-        “项目”：[
-          {"label": "孙悟空","description": "金头巾红领巾猴童"},
-          {"label": "唐三藏","description": "金冠和尚"},
-          {"label": "猪八戒", "description": "拿着耙子的猪猪侠"},
-          {"label": "沙雾经","description": "大胡子手持月牙杖"}
-        ]
-      },
-      {
-        “计数”：4，
-        “项目”：[
-          {"label": "白龙马","description": "金辔白马"},
-          {"label": "玉皇大帝","description": "白须金冠老人"},
-          {"label": "观音", "description": "手持柳枝的观音"},
-          {"label": "牛魔扭结", "description": "身穿铠甲的凶猛牛魔"}
-        ]
-      },
-      {
-        “计数”：4，
-        “项目”：[
-          {"label": "铁扇公主", "description": "拿着绿棕叶扇的女人"},
-          {"label": "红男孩", "description": "红头发、角和小火焰的男孩"},
-          {"label": "黑风恶魔", "description": "红眼睛发光的黑暗阴影恶魔"},
-          {"label": "哪吒","description": "双发髻手持火矛的少年"}
-        ]
-      },
-      {
-        “计数”：3，
-        "description": "部分行重复铁扇公主、黑风魔、哪吒，底部略有裁剪"
-      }
-    ]
-  }
-}
+请制作一张角色头像网格，主题为 {参数名称=主题 默认=西游神话}，艺术风格为 {参数名称=艺术风格 default=干净的2D卡通矢量图，粗轮廓，扁平的颜色}。背景使用 {参数名称=背景颜色 默认=浅灰色} 的细微纹理，整体排成圆形肖像网格，每个圆形下方居中放文本标签。共有 4 行内容：第一行放孙悟空、唐三藏、猪八戒、沙悟净；第二行放白龙马、玉皇大帝、观音、牛魔王；第三行放铁扇公主、红孩儿、黑风恶魔、哪吒；第四行重复部分角色，整体为 3 个，底部略微裁剪。每个角色都要保留对应描述中的形象特征，例如孙悟空是金头巾红领巾猴童，唐三藏是金冠和尚，猪八戒拿着耙子，沙悟净留着大胡子并持月牙杖，白龙马是金辔白马，玉皇大帝是白须金冠老人，观音手持柳枝，牛魔王身穿铠甲，铁扇公主拿绿棕叶扇，红孩儿有红头发、角和小火焰，黑风恶魔是红眼发光的黑暗阴影，哪吒则是双发髻并手持火矛。
 ```
 
 ***
@@ -180,7 +118,7 @@ An anime-style illustration of a {argument name="action type" default="high-impa
 **提示词：**
 
 ```text
-{ "type": "VTuber profile sheet", "theme": "{argument name=\"color theme\" default=\"purple and white\"}, elegant, lace, ribbon motifs", "character": { "name": "{argument name=\"character name\" default=\"紫咲リリー\"}", "archetype": "{argument name=\"character archetype\" default=\"elegant ojousama\"}", "appearance": "anime girl, long black hair with purple highlights, purple eyes, wearing a white blazer, purple pleated skirt, thigh-highs, ribbons", "pose": "standing, finger to lips, looking slightly to the side" }, "chibi_character": { "appearance": "same character in chibi form", "pose": "sitting down, smiling" }, "layout": { "header": { "top_left": "Ribbon banner reading 'VTuber Profile'", "top_center": "Logo with text '{argument name=\"vtuber type\" default=\"清楚系お嬢様Vtuber\"}' and '{argument name=\"character name\" default=\"紫咲リリー\"}' and 'Shisaki Lily'", "top_right": "Quote '{argument name=\"catchphrase\" default=\"皆さまの心に、優雅なひとときをお届けしますわ\"}' followed by a 3-line introductory paragraph" }, "columns": [ { "position": "left", "content": "Full-body character portrait" }, { "position": "center", "sections": [ { "title": "Profile", "count": 9, "labels": ["名前", "誕生日", "年齢", "身長", "属性", "一人称", "出身", "職業", "活動開始日"] }, { "title": "Personality", "content": "2-line text block" }, { "title": "Hobby & Special Skill", "count": 2, "labels": ["趣味", "特技"] }, { "title": "Like & Dislike", "count": 2, "labels": ["好きなもの", "苦手なもの"] } ] }, { "position": "right", "sections": [ { "title": "Streaming Content", "content": "1-line text block" }, { "title": "Schedule", "count": 2, "labels": ["配信時間", "配信頻度"] }, { "title": "Goals", "content": "3-line text block" }, { "title": "Fan & Tag", "count": 3, "labels": ["ファンネーム", "ファンアートタグ", "総合タグ"], "extra": "4 hashtag rows with small icons" }, { "title": "Creator", "count": 3, "labels": ["イラストレーター (ママ)", "モデラー (パパ)", "使用モデル"] }, { "title": "Links", "count": 4, "labels": ["YouTube", "X (Twitter)", "BOOTH", "FANBOX"] }, { "content": "Chibi character illustration placed at the bottom right corner" } ] } ], "footer": { "sections": [ { "title": "Rules", "count": 3, "description": "3 bullet points with heart icons" }, { "content": "2-line closing message at the bottom center" } ] } } }
+请制作一张 VTuber 个人资料表，整体主题为 {argument name=color theme default=purple and white}，并加入优雅、蕾丝和缎带元素。角色名为 {argument name=character name default=紫咲リリー}，人设为 {argument name=character archetype default=elegant ojousama}；外观是一位动漫女孩，黑色长发带紫色挑染，紫色眼睛，穿白色西装外套、紫色百褶裙、过膝袜和缎带，站立时手指抵唇并微微侧看。右下角再放同角色的 Q 版版本，坐姿微笑。顶部左侧是写有 VTuber Profile 的缎带横幅；顶部中央放 Logo，包含 {argument name=vtuber type default=清楚系お嬢様Vtuber}、{argument name=character name default=紫咲リリー} 和 Shisaki Lily；顶部右侧放引言 {argument name=catchphrase default=皆さまの心に、優雅なひとときをお届けしますわ}，并接一段 3 行简介。左栏展示全身角色立绘；中栏包含 Profile、Personality、Hobby & Special Skill、Like & Dislike 等区块，其中 Profile 列出姓名、生日、年龄、身高、属性、一人称、出身、职业、活动开始日，Personality 为 2 行文本，Hobby & Special Skill 为趣味和特技，Like & Dislike 为喜欢和不擅长；右栏包含 Streaming Content、Schedule、Goals、Fan & Tag、Creator、Links 等区块，Fan & Tag 需列出粉丝名、粉丝画标签和总合标签，并附 4 行 hashtag 小图标，Creator 列出插画师、建模师和使用模型，Links 列出 YouTube、X(Twitter)、BOOTH、FANBOX，最下方右侧放 Q 版角色插图。页脚部分放 Rules 3 条心形图标说明，以及底部中央 2 行收尾文案。
 ```
 
 ***
@@ -194,28 +132,7 @@ An anime-style illustration of a {argument name="action type" default="high-impa
 **提示词：**
 
 ```text
-{
-  "type": "人物肖像网格",
-  "theme": "{参数名称=\"主题\" 默认=\"权力的游戏角色\"}",
-  "style": "{参数名称=\"艺术风格\" 默认=\"2D 平面插画，干净的线条艺术，漫画风格，侧面视图朝右，苍白的皮肤带腮红\"}",
-  “布局”：{
-    “网格”：“3x3”，
-    "background": "浅灰色纹理",
-    "frame_style": "白色圆角矩形框架，每个框架下方带有文本标签"
-  },
-  “计数”：9，
-  “肖像”：[
-    { "label": "琼恩·雪诺", "description": "黑发一半向上，胡须，深色毛皮斗篷" },
-    { "label": "丹妮莉丝·坦格利安", "description": "银色辫子，蓝色连衣裙" },
-    { "label": "提利昂·兰尼斯特", "description": "棕色卷发、胡须、带金别针的深色外衣" },
-    { "label": "瑟曦·兰尼斯特", "description": "金发辫子，华丽的红色和金色连衣裙" },
-    { "label": "奈德·史塔克", "description": "棕色头发半高，胡须，深色毛皮斗篷" },
-    { "label": "艾莉亚·史塔克", "description": "短黑发半向上，棕色束腰外衣，剑柄" },
-    { "label": "詹姆·兰尼斯特", "description": "金色短发，狮子图案金色盔甲" },
-    { "label": "珊莎·史塔克", "description": "红色辫子，蓝色毛领连衣裙" },
-    { "label": "席恩·葛雷乔伊", "description": "深色短卷发，带有海妖别针的深色束腰外衣" }
-  ]
-}
+请制作一张人物肖像网格，主题为 {参数名称=主题 默认=权力的游戏角色}，艺术风格为 {参数名称=艺术风格 默认=2D 平面插画，干净的线条艺术，漫画风格，侧面视图朝右，苍白的皮肤带腮红}。版式为 3x3 网格，背景使用浅灰色纹理，外框是白色圆角矩形，每个框架下方都带有文本标签。整张图共 9 个肖像：琼恩·雪诺、丹妮莉丝·坦格利安、提利昂·兰尼斯特、瑟曦·兰尼斯特、奈德·史塔克、艾莉亚·史塔克、詹姆·兰尼斯特、珊莎·史塔克、席恩·葛雷乔伊，并分别保留对应外观特征，例如黑发半束、胡须、深色毛皮斗篷、银色辫子、金发辫子、短黑发、金色短发、红色辫子和深色短卷发等。
 ```
 
 ***
@@ -229,42 +146,7 @@ An anime-style illustration of a {argument name="action type" default="high-impa
 **提示词：**
 
 ```text
-{
-  "type": "5 面板拼贴",
-  "layout": "具有 3 个顶部面板和 2 个底部面板的网格",
-  “面板”：[
-    {
-      "position": "左上角",
-      “主题”：“模拟时钟”，
-      "details": "青色背景，时间显示{参数名称=\"时钟时间\" 默认=\"7:42\"}",
-      “style”：“平面矢量图”
-    },
-    {
-      "position": "中上",
-      "subject": "拿着扑克牌的女人",
-      "details": "持有 5 张牌：{参数名称=\"牌手\" 默认=\"黑桃 A、红心 K、梅花 Q、方块 J、黑桃 10\"}",
-      "style": "经典油画肖像"
-    },
-    {
-      "position": "右上角",
-      "subject": "一杯红色液体",
-      "details": "{参数名称=\"玻璃类型\" default=\"酒杯\"}充满深红色液体，大理石表面",
-      “风格”：“写实工作室摄影”
-    },
-    {
-      "position": "左下角",
-      “主题”：“棋盘”，
-      "details": "标准起始位置有 32 块木板",
-      “style”：“逼真的高角度拍摄”
-    },
-    {
-      "position": "右下角",
-      "subject": "两个骰子",
-      "details": "左骰子在顶部显示{参数名称=\"左骰子顶部\"默认=\"5\"}，右骰子在顶部显示{参数名称=\"右骰子顶部\"默认=\"2\"}",
-      “风格”：“波普艺术漫画书半色调与红色和蓝色爆发”
-    }
-  ]
-}
+一张五面板拼贴图，采用上方 3 个面板、下方 2 个面板的网格布局。左上角是模拟时钟，青色背景，时间显示 {参数名称="时钟时间" 默认="7:42"}，整体为平面矢量图风格。中上是一位拿着扑克牌的女人，手持 5 张牌：{参数名称="牌手" 默认="黑桃 A、红心 K、梅花 Q、方块 J、黑桃 10"}，画面呈经典油画肖像风格。右上角是一杯红色液体，使用 {参数名称="玻璃类型" default="酒杯"} 盛满深红色液体，摆在大理石表面上，采用写实工作室摄影风格。左下角是棋盘，处于标准起始位置，画面里有 32 个木制棋子，以逼真的高角度拍摄呈现。右下角是两个骰子，左骰子顶部显示 {参数名称="左骰子顶部"默认="5"}，右骰子顶部显示 {参数名称="右骰子顶部"默认="2"}，风格是红蓝爆发感的波普艺术漫画书半色调。
 ```
 
 ***
@@ -278,65 +160,7 @@ An anime-style illustration of a {argument name="action type" default="high-impa
 **提示词：**
 
 ```text
-{
-  "type": "2x2 grid of banner advertisements",
-  "theme": "{argument name=\"main theme\" default=\"SNSスクール\"} for {argument name=\"target audience\" default=\"ママ\"}",
-  "design_style": "soft, approachable, bright lighting, featuring {argument name=\"color palette\" default=\"soft green, white, and natural beige tones\"}",
-  "layout": {
-    "sections": [
-      {
-        "position": "top-left",
-        "visual_style": "photography",
-        "image_description": "Smiling woman working on a laptop at a table, a toddler playing with toys in the blurred background.",
-        "headlines": ["ママの“やってみたい”を応援！", "子育てしながら学べる", "SNSスクール"],
-        "features": {
-          "count": 1,
-          "type": "icon with text",
-          "labels": ["自宅で無理なくスキルアップ (with house icon)"]
-        },
-        "call_to_action_button": "無料相談"
-      },
-      {
-        "position": "top-right",
-        "visual_style": "photography",
-        "image_description": "Smiling woman holding a white mug, looking at a laptop.",
-        "headlines": ["ちょっとの時間が、大きな一歩に。", "スキマ時間を未来につなげる", "動画講座で学びやすい"],
-        "features": {
-          "count": 3,
-          "type": "circular icons with text below",
-          "labels": ["スマホでも学べる (smartphone icon)", "1日15分からOK (clock icon)", "繰り返し視聴できる (play button icon)"]
-        },
-        "call_to_action_button": "詳しく見る"
-      },
-      {
-        "position": "bottom-left",
-        "visual_style": "watercolor illustration",
-        "image_description": "Illustration of a woman with hair in a bun, smiling at a laptop with a green mug nearby.",
-        "headlines": ["はじめてでも大丈夫！ (with beginner mark)", "在宅でできるSNSの仕事", "未経験OK"],
-        "features": {
-          "count": 3,
-          "type": "circular icons with text below",
-          "labels": ["サポート充実 (heart icon)", "パソコンが苦手でも安心 (laptop icon)", "収入の柱をつくれる (yen coin icon)"]
-        },
-        "call_to_action_button": "体験してみる"
-      },
-      {
-        "position": "bottom-right",
-        "visual_style": "photography",
-        "image_description": "Smiling mother and young daughter sitting on a sofa reading a picture book together.",
-        "headlines": ["家族との時間も大切に", "自分らしい働き方へ", "ママの笑顔がいちばんの未来になる。"],
-        "features": {
-          "count": 3,
-          "type": "checkmark bullet points",
-          "labels": ["場所や時間に縛られない", "やりがいも収入も叶う", "子どもの成長をそばで見守れる"]
-        },
-        "extra_graphics": "Small illustration of a house and trees at the bottom left.",
-        "call_to_action_button": "説明会へ"
-      }
-    ],
-    "common_elements": "All panels feature a {argument name=\"button style\" default=\"rounded green pill button with white text and a right-pointing arrow icon\"} at the bottom."
-  }
-}
+一张 2x2 的横幅广告拼版图，主题是面向 {argument name="target audience" default="ママ"} 的 {argument name="main theme" default="SNSスクール"}。整体设计风格温和亲切、明亮柔和，并使用 {argument name="color palette" default="soft green, white, and natural beige tones"}。左上角面板使用摄影风格，画面是一位微笑的女性坐在桌前使用笔记本电脑，背景里有一个蹒跚学步的幼儿在玩玩具；标题文字依次为“ママの“やってみたい”を応援！”，“子育てしながら学べる”，“SNSスクール”；功能区只有 1 个图标加文字，内容是“自宅で無理なくスキルアップ (with house icon)”；底部按钮写“無料相談”。右上角面板同样是摄影风格，一位微笑的女性手拿白色杯子看着笔记本电脑；标题文字依次为“ちょっとの時間が、大きな一歩に。”，“スキマ時間を未来につなげる”，“動画講座で学びやすい”；功能区有 3 个带圆形图标和下方文字的项目，分别是“スマホでも学べる (smartphone icon)”、“1日15分からOK (clock icon)”、“繰り返し視聴できる (play button icon)”；底部按钮写“詳しく見る”。左下角面板使用水彩插画风格，画面是一位把头发扎成发髻、微笑着看笔记本电脑的女性，旁边有绿色杯子；标题文字依次为“はじめてでも大丈夫！ (with beginner mark)”，“在宅でできるSNSの仕事”，“未経験OK”；功能区有 3 个带圆形图标和下方文字的项目，分别是“サポート充実 (heart icon)”、“パソコンが苦手でも安心 (laptop icon)”、“収入の柱をつくれる (yen coin icon)”；底部按钮写“体験してみる”。右下角面板使用摄影风格，画面是一位微笑的母亲和年幼女儿坐在沙发上一起看图画书；标题文字依次为“家族との時間も大切に”，“自分らしい働き方へ”，“ママの笑顔がいちばんの未来になる。”；功能区是 3 条带勾选符号的要点，分别为“場所や時間に縛られない”、“やりがいも収入も叶う”、“子どもの成長をそばで見守れる”；左下角还有一个小小的房子和树木插图；底部按钮写“説明会へ”。所有面板底部都要放置一个 {argument name="button style" default="rounded green pill button with white text and a right-pointing arrow icon"}。
 ```
 
 ***
@@ -350,49 +174,7 @@ An anime-style illustration of a {argument name="action type" default="high-impa
 **提示词：**
 
 ```text
-{
-  "type": "VTuber stream thumbnail",
-  "style": "anime, highly detailed, cute, sparkly, overwhelmingly pink color palette",
-  "character": {
-    "description": "anime girl with brown hair in twin buns, amber eyes, smiling gently",
-    "outfit": "pink kimono combined with a white frilly maid apron, cherry blossom hair accessories",
-    "pose": "holding a pink microphone decorated with a flower near her face"
-  },
-  "layout": {
-    "background": "pink gradient with sparkles, glowing hearts, and decorative pink bows",
-    "text_sections": [
-      {
-        "type": "top ribbon",
-        "text": "{argument name=\"top subtitle\" default=\"まったりおしゃべりしよ〜🤍\"}"
-      },
-      {
-        "type": "main title",
-        "text": "{argument name=\"main title\" default=\"雑談配信\"}",
-        "decorations": "surrounded by 3 large peach illustrations"
-      },
-      {
-        "type": "middle ribbon",
-        "text": "{argument name=\"middle subtitle\" default=\"みんなと楽しい時間を過ごしたいなっ♡\"}"
-      },
-      {
-        "type": "bullet points",
-        "position": "bottom left",
-        "count": 3,
-        "icon": "peach",
-        "labels": [
-          "{argument name=\"bullet 1\" default=\"初見さん〇\"}",
-          "{argument name=\"bullet 2\" default=\"ポイント回収〇\"}",
-          "ROMO"
-        ]
-      },
-      {
-        "type": "speech bubble",
-        "position": "bottom right",
-        "text": "コメント大歓迎♪ いっぱいお話し しようねっ♡"
-      }
-    ]
-  }
-}
+一张 VTuber 直播缩略图，整体是动漫风，细节丰富、可爱、闪亮，并使用压倒性的粉色配色。主角是一位棕色双丸子头、琥珀色眼睛、温柔微笑的动漫女孩，穿着粉色和服搭配白色蕾丝围裙，头上有樱花发饰，手里把一支带花装饰的粉色麦克风举在脸边。背景是粉色渐变，点缀闪光、发光爱心和装饰性的粉色蝴蝶结。画面上方放一个横幅文字：{argument name="top subtitle" default="まったりおしゃべりしよ〜🤍"}。主标题写 {argument name="main title" default="雑談配信"}，标题周围围着 3 个大型桃子插图。中间再放一条横幅文字：{argument name="middle subtitle" default="みんなと楽しい時間を過ごしたいなっ♡"}。左下角放 3 条项目符号，使用桃子图标，文字分别是 {argument name="bullet 1" default="初見さん〇"}、{argument name="bullet 2" default="ポイント回収〇"}、ROMO。右下角放一个对话气泡，文字是“コメント大歓迎♪ いっぱいお話し しようねっ♡”。
 ```
 
 ***
@@ -406,54 +188,7 @@ An anime-style illustration of a {argument name="action type" default="high-impa
 **提示词：**
 
 ```text
-{
-  "type": "VTuber stream thumbnail",
-  "theme": "pastel pink, soft, cute, lace, ribbons, hearts, bunny motif",
-  "character": {
-    "position": "right side, waist-up",
-    "appearance": "anime girl, {argument name=\"hair color\" default=\"pastel pink\"} long wavy hair, large grey eyes, blush, pink heart earrings",
-    "accessories": "white bunny ears, large pink bow on head",
-    "outfit": "white frilly dress with lace, large pink ribbon bow at collar with heart gem"
-  },
-  "layout": {
-    "background": "soft pink with subtle sparkles, lace patterns, floating hearts",
-    "text_elements": [
-      {
-        "type": "main title",
-        "position": "top left",
-        "style": "large stylized pink text with white outline",
-        "text": "{argument name=\"main title\" default=\"雑談配信\"}"
-      },
-      {
-        "type": "speech bubble",
-        "position": "above main title",
-        "text": "まったり"
-      },
-      {
-        "type": "circular badge",
-        "position": "top right",
-        "details": "lace-edged with small pink bow",
-        "text": "きてくれてありがとう♡"
-      },
-      {
-        "type": "heart badge",
-        "position": "bottom right",
-        "details": "large lace-edged heart",
-        "text": "みんなとおしゃべりできるの楽しみにしてるね♡"
-      }
-    ],
-    "list_section": {
-      "position": "bottom left",
-      "count": 3,
-      "style": "horizontal pill-shaped banners with lace edges, each featuring a pink heart with white bunny ears and a tiny bow on the left",
-      "items": [
-        "{argument name=\"list item 1\" default=\"初見さん〇\"}",
-        "{argument name=\"list item 2\" default=\"ポイント回収〇\"}",
-        "{argument name=\"list item 3\" default=\"ROM〇\"}"
-      ]
-    }
-  }
-}
+一张 VTuber 直播缩略图，主题是浅粉色、柔和、可爱，并带有蕾丝、丝带、爱心和兔子元素。角色位于右侧上半身出镜，是一位动漫女孩，拥有 {argument name="hair color" default="pastel pink"} 的长波浪头发、大大的灰色眼睛、脸颊红晕和粉色爱心耳环；她戴着白色兔耳朵，头上还有一个大大的粉色蝴蝶结；穿着带蕾丝的白色蓬松连衣裙，领口处系着一条带爱心宝石的巨大粉色缎带蝴蝶结。背景是柔和粉色，带有细微闪光、蕾丝图案和漂浮爱心。左上角放主标题，使用大号、带白色描边的粉色装饰字体，文字为 {argument name="main title" default="雑談配信"}；标题上方放一个对话气泡，文字“まったり”。右上角放一个带蕾丝边和小粉色蝴蝶结的圆形徽章，文字“きてくれてありがとう♡”。右下角放一个大号蕾丝边爱心徽章，文字“みんなとおしゃべりできるの楽しみにしてるね♡”。左下角放一个 3 条项目的列表区，使用横向圆角长条横幅、蕾丝边，每条左侧都有带白色兔耳朵和小蝴蝶结的粉色爱心，文字分别是 {argument name="list item 1" default="初見さん〇"}、{argument name="list item 2" default="ポイント回収〇"}、{argument name="list item 3" default="ROM〇"}。
 ```
 
 ***
@@ -495,77 +230,7 @@ A high-energy VTuber thumbnail illustration of a smiling anime girl with {argume
 **提示词：**
 
 ```text
-{
-  "type": "4格竖式漫画",
-  "style": "{参数名称=\"艺术风格\" 默认=\"黑白铅笔素描、剖面线阴影、讽刺漫画漫画\"}",
-  “字符”：{
-    "subject_1": "{参数名称=\"主角\" 默认=\"山姆·奥特曼\"}，卷发，休闲毛衣",
-    "subject_2": "{参数名称=\"采访者\" 默认=\"罗南·法罗\"}，西装，领带，拿着记事本"
-  },
-  “布局”：{
-    “面板”：[
-      {
-        “面板编号”：1，
-        "top_caption": "萨姆·奥特曼认为这将是一个不错的小简介……",
-        "scene": "subject_1 双手交叉，看上去得意洋洋；subject_2 看上去很认真地做笔记。",
-        "thought_bubble": "我会很有魅力。这将是一个很棒的角色。人们会喜欢它。",
-        "center_text": "罗南·法罗采访",
-        “插入肖像”：{
-          “计数”：2，
-          "labels": ["哈维·韦恩斯坦曝光", "莱斯利·穆恩维斯曝光"]
-        },
-        “信息框”：{
-          “计数”：3，
-          “文本”：[
-            “罗南·法罗：在《纽约客》上揭露哈维·韦恩斯坦的普利策奖获奖记者”，
-            “还有哥伦比亚广播公司的莱斯利·穆恩维斯。”,
-            “权力。滥用。责任。”
-          ]
-        }
-      },
-      {
-        “面板编号”：2，
-        "top_caption": "切至...",
-        "scene": "subject_1 的特写镜头看起来很震惊。",
-        "article_header": "{argument name=\"publication\" default=\"THE NEW YORKER\"}\nSAM ALTMAN 简介\nOPENAI CEO 的复杂任务\n作者：Ronan Farrow"
-      },
-      {
-        “面板编号”：3，
-        "top_caption": "文章发布后不久...",
-        "scene": "subject_1 看起来压力很大，满头大汗，把手机放在耳边。周围有 6 只手拿着智能手机。",
-        "phone_labels": ["VC"、"记者"、"前员工"、"投资者"、"技术首席执行官"、"前同事"],
-        “喊叫”：{
-          “计数”：8，
-          “文本”：[
-            "{参数名称=\"主要指控\" 默认=\"骗子\"}!",
-            “强迫性的骗子！”，
-            “病态的骗子！”，
-            “你不能停止撒谎！”，
-            “骗子！！！”，
-            “社交变态者！（据称）”，
-            “他说的一切都是谎言！”，
-            “操纵性的骗子！”
-          ]
-        },
-        "sound_effects": "铃声！铃声！铃声！"
-      },
-      {
-        “面板编号”：4，
-        "top_caption": "报告结论...",
-        "scene": "subject_1 看起来完全失败和沮丧。","quote_box": "\"奥特曼经常对投资者、员工、董事会甚至亲密朋友撒谎。\"\n\"他似乎不愿意说谎。\"\n\"从很多方面来看，他是一个强迫性的说谎者和一个社交路径。\"\n（据称）",
-        “思想泡泡”：{
-          "scene": "快乐的 subject_1 拿着“世界最佳首席执行官”马克杯。",
-          "text": "我认为这会是一个不错的小配置文件......",
-          “sparkle_words”：{
-            “计数”：4，
-            "text": [“天才！”、“有远见！”、“鼓舞人心！”、“才华横溢的领导者！”]
-          }
-        },
-        "bottom_caption": "相反，是个人资料暴露了他。"
-      }
-    ]
-  }
-}
+一张 4 格竖式漫画，整体风格为 {参数名称="艺术风格" 默认="黑白铅笔素描、剖面线阴影、讽刺漫画漫画"}。主角有两位：{参数名称="主角" 默认="山姆·奥特曼"}，卷发，穿休闲毛衣；以及 {参数名称="采访者" 默认="罗南·法罗"}，穿西装、打领带、手里拿着记事本。第 1 格顶部写“萨姆·奥特曼认为这将是一个不错的小简介……”，画面里 subject_1 双手交叉、看上去得意洋洋，subject_2 则认真记笔记；中间文字写“罗南·法罗采访”；插入 2 张肖像，标签分别是“哈维·韦恩斯坦曝光”和“莱斯利·穆恩维斯曝光”；信息框有 3 条文字，分别是“罗南·法罗：在《纽约客》上揭露哈维·韦恩斯坦的普利策奖获奖记者”、“还有哥伦比亚广播公司的莱斯利·穆恩维斯。”、“权力。滥用。责任。”。第 2 格顶部写“切至...”，画面是 subject_1 的特写镜头，看起来很震惊，文章标题区域写 {argument name="publication" default="THE NEW YORKER"}、SAM ALTMAN 简介、OPENAI CEO 的复杂任务、作者：Ronan Farrow。第 3 格顶部写“文章发布后不久...”，画面里 subject_1 看起来压力很大、满头大汗，把手机放在耳边，周围有 6 只手拿着智能手机；手机标签依次是 VC、记者、前员工、投资者、技术首席执行官、前同事；喊叫文本共有 8 条，分别是 {参数名称="主要指控" 默认="骗子"}!、强迫性的骗子！、病态的骗子！、你不能停止撒谎！、骗子！！！、社交变态者！（据称）、他说的一切都是谎言！、操纵性的骗子！；音效写“铃声！铃声！铃声！”。第 4 格顶部写“报告结论...”，画面里 subject_1 看起来彻底失败和沮丧，quote box 里写“奥特曼经常对投资者、员工、董事会甚至亲密朋友撒谎。”“他似乎不愿意说谎。”“从很多方面来看，他是一个强迫性的说谎者和一个社交路径。”（据称）；同时还有一个思想泡泡，画面是快乐的 subject_1 拿着“世界最佳首席执行官”马克杯，文字写“我认为这会是一个不错的小配置文件......”，sparkle words 有 4 条，分别是“天才！”、“有远见！”、“鼓舞人心！”、“才华横溢的领导者！”；底部标题写“相反，是个人资料暴露了他。”。
 ```
 
 ***
@@ -593,64 +258,7 @@ A high-energy VTuber thumbnail illustration of a smiling anime girl with {argume
 **提示词：**
 
 ```text
-{
-  "type": "anime character reference sheet",
-  "character": {
-    "name": "{argument name=\"character name\" default=\"真田大助\"}",
-    "appearance": "young warrior with long brown hair, wearing samurai-inspired armor, {argument name=\"main color\" default=\"red\"} chest plate and guards, {argument name=\"secondary color\" default=\"navy blue\"} pleated hakama, white short cape"
-  },
-  "layout": {
-    "header": {
-      "title": "{argument name=\"character name\" default=\"真田大助\"}",
-      "subtitle": "{argument name=\"character concept\" default=\"戦国時代を舞台にした物語の主人公。日英クォーターの若き武将。\"}",
-      "badge": "設定資料"
-    },
-    "right_side": {
-      "main_portrait": "large full-body standing pose, confident smile",
-      "background_elements": {
-        "emblem": "six-coin crest",
-        "quote": "{argument name=\"catchphrase\" default=\"この国を守る。その誇りと共に。\"}",
-        "scenery": "monochrome Japanese castle with army banners at the bottom right"
-      }
-    },
-    "sections": [
-      {
-        "title": "プロフィール",
-        "position": "top-left",
-        "content": "table with 6 rows and descriptive text"
-      },
-      {
-        "title": "三面図",
-        "position": "mid-left",
-        "count": 3,
-        "labels": ["正面", "側面", "背面"]
-      },
-      {
-        "title": "表情差分",
-        "position": "top-center",
-        "count": 6,
-        "labels": ["通常", "微笑み", "真剣", "怒り", "驚き", "考え中"]
-      },
-      {
-        "title": "衣装・装備詳細",
-        "position": "bottom-left",
-        "count": 9,
-        "labels": ["胸当て", "肩当て", "腕甲(籠手)", "脚甲(脛当て・膝当て)", "革靴", "白マント(短)", "帯", "袴/着物部分", "打刀"]
-      },
-      {
-        "title": "カラーパレット",
-        "position": "bottom-center",
-        "count": 8,
-        "labels": ["真田赤", "濃紺", "金", "白", "茶", "茶褐色", "肌色", "銀"]
-      },
-      {
-        "title": "世界観",
-        "position": "bottom-center-right",
-        "content": "paragraph of text describing the setting"
-      }
-    ]
-  }
-}
+一张动漫角色设定资料页，角色名为 {argument name="character name" default="真田大助"}。角色是一位年轻武士，留着长棕发，穿着武士风格盔甲，胸甲和护具使用 {argument name="main color" default="red"}，百褶袴使用 {argument name="secondary color" default="navy blue"}，并搭配白色短披风。页眉区域要显示标题 {argument name="character name" default="真田大助"}，副标题为 {argument name="character concept" default="戦国時代を舞台にした物語の主人公。日英クォーターの若き武将。"}，并带有“設定資料”徽章。右侧是一张大幅全身站姿正面图，表情自信微笑；背景元素包括六文钱家徽、引语 {argument name="catchphrase" default="この国を守る。その誇りと共に。"}，以及右下角带军旗的黑白日本城堡场景。左侧和下方要按设定页方式排版：左上是 6 行内容的“プロフィール”表格，中左是 3 个视图的“三面図”，分别标注“正面”“側面”“背面”，上中是 6 个表情差分，分别标注“通常”“微笑み”“真剣”“怒り”“驚き”“考え中”，左下是 9 项“衣装・装備詳細”，分别列出“胸当て”“肩当て”“腕甲(籠手)”“脚甲(脛当て・膝当て)”“革靴”“白マント(短)”“帯”“袴/着物部分”“打刀”，下中是 8 色“カラーパレット”，分别为“真田赤”“濃紺”“金”“白”“茶”“茶褐色”“肌色”“銀”，右下是“世界観”段落说明。
 ```
 
 ***
@@ -810,7 +418,7 @@ An anime-style light novel cover illustration featuring two characters in an int
 **提示词：**
 
 ```text
-{ 角色名称 } 完全由天然树叶制成，创意树叶拼贴艺术，分层绿叶和干叶构成身体、面部和衣服，可见叶脉和纹理，手工植物艺术风格，干净的白色背景，俯视平铺构图，高度细节，柔和自然光，逼真树叶纹理，8k
+以 {角色名称} 为主体，整体完全由天然树叶制成，做成创意树叶拼贴艺术。画面用分层的绿叶和干叶构成身体、面部和衣服，清楚展示叶脉和纹理，呈现手工植物艺术风格。背景保持干净的白色，构图为俯视平铺，高度细节，使用柔和自然光，并强调逼真的树叶纹理，整体达到 8k 质感。
 ```
 
 ***

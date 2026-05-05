@@ -53,33 +53,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "anime-style livestream thumbnail",
-  "character": {
-    "hair": "{argument name=\"hair color\" default=\"short silver hair with cyan underlights\"}",
-    "eyes": "large bright blue",
-    "outfit": "white collared shirt, black tie with silver accents, black jacket, black beret with a large blue heart jewel, blue jewel brooch, black choker",
-    "pose": "smiling gently, looking at viewer, positioned on the right side"
-  },
-  "background": "pastel blue with white clouds, sparkles, stars, small bows, and a subtle grid pattern",
-  "typography_and_ui": {
-    "top_left_speech_bubble": "まったりおしゃべりしよ〜♡",
-    "main_title": {
-      "text": "{argument name=\"main title\" default=\"雑談配信\"}",
-      "style": "large, soft blue gradient, white outline, decorated with small hearts, positioned on the middle-left"
-    },
-    "bottom_left_badges": {
-      "count": 3,
-      "style": "white pill-shaped buttons with a purple heart icon on the left",
-      "labels": [
-        "{argument name=\"badge 1 text\" default=\"初見さん〇\"}",
-        "{argument name=\"badge 2 text\" default=\"ポイント回収〇\"}",
-        "{argument name=\"badge 3 text\" default=\"ROM〇\"}"
-      ]
-    },
-    "bottom_right_cloud_bubble": "気軽にコメントしてね♡"
-  }
-}
+一张动漫风格直播封面图：角色站在画面右侧，微笑着看向观众，头发为 {argument name="hair color" default="short silver hair with cyan underlights"}，眼睛是明亮的大号蓝眼睛，穿白色翻领衬衫、黑色银边领带、黑色外套、带大号蓝色心形宝石的黑色贝雷帽、蓝色宝石胸针和黑色颈圈。背景使用浅蓝色，点缀白云、闪光、星星、小蝴蝶结和细微网格纹理。左上角放一个对话气泡，文字是“まったりおしゃべりしよ〜♡”。中左放主标题，标题文本为 {argument name="main title" default="雑談配信"}，使用大号柔和蓝色渐变、白色描边，并点缀小爱心。左下角放 3 个白色胶囊形按钮，左侧带紫色爱心图标，标签分别是 {argument name="badge 1 text" default="初見さん〇"}、{argument name="badge 2 text" default="ポイント回収〇"}、{argument name="badge 3 text" default="ROM〇"}。右下角再放一个云朵气泡，文字是“気軽にコメントしてね♡”。
 ```
 
 ***
@@ -93,73 +67,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "two-page manga spread",
-  "style": "highly detailed realistic manga, monochrome, screentones, dramatic lighting, psychological thriller",
-  "global_elements": {
-    "protagonist": "{argument name=\"main character description\" default=\"young Japanese salaryman in a suit\"}",
-    "theme": "{argument name=\"core concept\" default=\"surrounded by a massive crowd of identical clones of himself\"}"
-  },
-  "layout": {
-    "left_page": {
-      "type": "full page splash panel",
-      "setting": "{argument name=\"setting\" default=\"Shibuya scramble crossing at night\"}",
-      "visuals": "Protagonist standing alone in the center of the crossing, looking around in shock at a massive crowd where every single person is an exact clone of him.",
-      "text_elements": [
-        {"type": "manga title logo", "text": "{argument name=\"manga title\" default=\"俺だらけの街\"}"},
-        {"type": "subtitle", "text": "第1話 交代"},
-        {"type": "narration box", "text": "その夜、世界は静かに俺をやめた。"},
-        {"type": "sound effect", "text": "ザワ…"}
-      ]
-    },
-    "right_page": {
-      "type": "5-panel vertical layout",
-      "panels": [
-        {
-          "panel_number": 1,
-          "visuals": "Extreme close-up of protagonist's eyes, wide with shock, sweating.",
-          "text_elements": [
-            {"type": "speech bubble", "text": "……は？ なんで……みんな、俺なんだ？"},
-            {"type": "sound effect", "text": "ドクン"}
-          ]
-        },
-        {
-          "panel_number": 2,
-          "visuals": "A horizontal row of 8 identical clones in suits staring blankly forward.",
-          "text_elements": [
-            {"type": "sound effect", "text": "ザワ…"}
-          ]
-        },
-        {
-          "panel_number": 3,
-          "visuals": "A clone leaning in to whisper into the shocked protagonist's ear.",
-          "text_elements": [
-            {"type": "speech bubble", "text": "お前の代わりは、もう足りてる。"},
-            {"type": "sound effect", "text": "スッ"}
-          ]
-        },
-        {
-          "panel_number": 4,
-          "visuals": "Close-up of a smartphone screen held in a hand, showing a push notification.",
-          "text_elements": [
-            {"type": "screen text", "text": "交代を開始します。"},
-            {"type": "sound effect", "text": "ピロン"}
-          ]
-        },
-        {
-          "panel_number": 5,
-          "visuals": "Wide shot of the endless crowd of clones in the city street.",
-          "text_elements": [
-            {"type": "narration box", "text": "最初に消えるのは、名前でも命でもない。居場所だ。"},
-            {"type": "bottom left text", "text": "俺は、ここにいていいのか——？"},
-            {"type": "bottom right text", "text": "{argument name=\"cliffhanger text\" default=\"次号へつづく！\"}"},
-            {"type": "sound effect", "text": "ザワ… ザワ… ザワ…"}
-          ]
-        }
-      ]
-    }
-  }
-}
+一张双页漫画跨页，采用高度细致的写实漫画风格，黑白网点、戏剧性光影和心理惊悚氛围。主角为 {argument name="main character description" default="young Japanese salaryman in a suit"}，核心主题为 {argument name="core concept" default="surrounded by a massive crowd of identical clones of himself"}。左页使用整页大分镜，场景设定为 {argument name="setting" default="Shibuya scramble crossing at night"}：主角独自站在十字路口中央，震惊地环顾四周，周围所有人都是他的完全复制体。左页文字包括漫画标题 logo “{argument name="manga title" default="俺だらけの街"}”、副标题“第1話 交代”、旁白“その夜、世界は静かに俺をやめた。”，以及拟声“ザワ…”。右页采用 5 格竖向排版：第 1 格是主角眼睛的极近景，表现震惊和冒汗，台词“……は？ なんで……みんな、俺なんだ？”并配拟声“ドクン”；第 2 格是一排 8 个穿西装、面无表情直视前方的复制人，配拟声“ザワ…”；第 3 格是一个复制人俯身在震惊的主角耳边低语，台词“お前の代わりは、もう足りてる。”并配拟声“スッ”；第 4 格是手持智能手机的特写，屏幕显示推送通知“交代を開始します。”，并配拟声“ピロン”；第 5 格是城市街道上无尽复制人群的远景，旁白“最初に消えるのは、名前でも命でもない。居場所だ。”，左下文字“俺は、ここにいていいのか——？”，右下保留 {argument name="cliffhanger text" default="次号へつづく！"}，并用“ザワ… ザワ… ザワ…”收尾。
 ```
 
 ***
@@ -173,47 +81,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "e-commerce landing page hero section",
-  "brand": "{argument name=\"brand name\" default=\"CLEAR RESET\"}",
-  "theme": "refreshing skincare, clean aesthetic, water bubbles background",
-  "color_palette": ["white", "{argument name=\"primary color\" default=\"teal\"}", "light blue"],
-  "layout": {
-    "header": {
-      "logo": "CLEAR RESET",
-      "navigation_links": {"count": 5, "labels": ["About Product", "About Pores/Acne", "Ingredients", "How to Use", "FAQ"]},
-      "action_buttons": {"count": 2, "labels": ["Buy Now", "My Page"]}
-    },
-    "hero_content": {
-      "headline": "{argument name=\"main headline\" default=\"毛穴・ニキビ悩みに、すっきり澄んだ肌へ。\"}",
-      "subheadline": "Balances sebum and clears pores. Non-sticky, medicated skincare for comfortable daily use.",
-      "vertical_copy": "Prevents recurring rough skin and acne, leading to smooth, clear skin."
-    },
-    "visuals": {
-      "model": "{argument name=\"model description\" default=\"young Asian woman with clear radiant skin, hair tied up, smiling softly\"}",
-      "products": {
-        "count": 2,
-        "description": "{argument name=\"product type\" default=\"acne care gel tube and lotion bottle\"}",
-        "placement": "center"
-      },
-      "background": "light blue gradient with floating water bubbles"
-    },
-    "feature_highlights": {
-      "count": 4,
-      "style": "circular icons with text below",
-      "labels": ["Quasi-drug", "Pore Care", "Non-sticky", "Daily Use Morning/Night OK"]
-    },
-    "call_to_action": {
-      "banner_text": "Limited to first-time buyers",
-      "buttons": {"count": 2, "labels": ["Try it at a discount", "See details"]}
-    },
-    "statistics_cards": {
-      "count": 4,
-      "style": "white rectangular cards with large teal numbers",
-      "labels": ["Satisfaction 92%", "Pore visibility -23%", "Acne prevention 87%", "Want to repeat 97%"]
-    }
-  }
-}
+一个电商落地页首屏，品牌为 {argument name="brand name" default="CLEAR RESET"}，主题是清爽护肤、干净审美与水泡泡背景。整体配色以白色、{argument name="primary color" default="teal"} 和浅蓝为主。页眉左侧放 CLEAR RESET 标志，导航链接依次为 About Product、About Pores/Acne、Ingredients、How to Use、FAQ，右侧放 Buy Now 和 My Page 两个按钮。主视觉标题为 {argument name="main headline" default="毛穴・ニキビ悩みに、すっきり澄んだ肌へ。"}，副标题是“Balances sebum and clears pores. Non-sticky, medicated skincare for comfortable daily use.”，竖排文案是“Prevents recurring rough skin and acne, leading to smooth, clear skin.”。画面中间放一位年轻亚洲女性，皮肤清透有光泽，头发扎起，微笑柔和；中央摆放两件产品，描述为 {argument name="product type" default="acne care gel tube and lotion bottle"}。背景使用浅蓝渐变与漂浮水泡泡。下方加入 4 个圆形图标卖点，文字分别是 Quasi-drug、Pore Care、Non-sticky、Daily Use Morning/Night OK；再加上“Limited to first-time buyers”横幅，以及两个按钮“Try it at a discount”和“See details”。最后补上 4 个白色矩形统计卡片，使用大号青绿色数字，文字为 Satisfaction 92%、Pore visibility -23%、Acne prevention 87%、Want to repeat 97%。
 ```
 
 ***
