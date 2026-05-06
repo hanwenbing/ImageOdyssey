@@ -308,6 +308,10 @@ export default function App() {
       return "当前筛选下没有可用于推荐的案例。";
     }
 
+    if (filteredCases.length < 6) {
+      return "当前筛选结果少于 6 个候选案例，无法获取推荐。";
+    }
+
     return null;
   }
 
@@ -521,6 +525,7 @@ export default function App() {
                 }`}
                 type="button"
                 aria-disabled={!canRecommend}
+                disabled={!canRecommend}
                 onClick={handleRecommend}
               >
                 {recommendBusy ? "推荐中..." : "推荐"}

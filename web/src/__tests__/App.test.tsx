@@ -218,6 +218,41 @@ describe("App", () => {
     });
   });
 
+  it("blocks recommendations when fewer than six cases are visible", async () => {
+    render(<App />);
+
+    await screen.findByRole("button", { name: "Case 101 品牌海报" });
+
+    const sourceInput = screen.getAllByLabelText("Source Image")[0];
+    const sourceFile = new File(["source"], "source.png", { type: "image/png" });
+    fireEvent.change(sourceInput, { target: { files: [sourceFile] } });
+
+    await waitFor(() => {
+      expect(fetchMock).toHaveBeenCalledWith(
+        "/api/experiment-images",
+        expect.any(Object)
+      );
+    });
+
+    fetchMock.mockClear();
+    fireEvent.change(screen.getByLabelText("Search cases"), {
+      target: { value: "202" }
+    });
+
+    const recommendButton = screen.getByRole("button", { name: "推荐" });
+
+    await waitFor(() =>
+      expect(recommendButton).toHaveAttribute("aria-disabled", "true")
+    );
+    expect(recommendButton).toBeDisabled();
+
+    fireEvent.click(recommendButton);
+
+    expect(
+      fetchMock.mock.calls.some(([url]) => url === "/api/recommend")
+    ).toBe(false);
+  });
+
   it("expands the prompt drawer and shows original and rewritten prompts", async () => {
     render(<App />);
 
@@ -266,12 +301,12 @@ describe("App", () => {
     expect(screen.getByRole("button", { name: "收起 Prompt" })).toBeVisible();
   });
 
-  it("logs blocked recommendation, rewrite, and result upload actions", async () => {
+  it("disables blocked recommendations and logs rewrite and result upload blocks", async () => {
     render(<App />);
 
     await screen.findByRole("button", { name: "Case 101 品牌海报" });
 
-    fireEvent.click(screen.getByRole("button", { name: "推荐" }));
+    expect(screen.getByRole("button", { name: "推荐" })).toBeDisabled();
     fireEvent.click(screen.getByRole("button", { name: "改写" }));
     fireEvent.click(screen.getByText("等待改写完成"));
 
@@ -279,18 +314,14 @@ describe("App", () => {
       const workflowEventCalls = fetchMock.mock.calls.filter(
         ([url]) => url === "/api/workflow-events"
       );
-      expect(workflowEventCalls).toHaveLength(3);
+      expect(workflowEventCalls).toHaveLength(2);
     });
 
     const stages = fetchMock.mock.calls
       .filter(([url]) => url === "/api/workflow-events")
       .map(([, init]) => JSON.parse(String(init?.body)).stage);
 
-    expect(stages).toEqual([
-      "recommend_blocked",
-      "rewrite_blocked",
-      "result_upload_blocked"
-    ]);
+    expect(stages).toEqual(["rewrite_blocked", "result_upload_blocked"]);
   });
 
   it("uses a full-card hover overlay instead of repeating hover details by default", async () => {
