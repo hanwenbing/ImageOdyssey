@@ -61,3 +61,10 @@ python3 tools/update_codex_plugin_catalog.py
 - 改动要小，并且直接服务于提示词资料库、图片匹配工作流或 Codex 插件清单工作流。
 - 不要添加无关工具、自动化、构建系统或大段说明文档。
 - 完成结构迁移或大批量整理后，用命令验证结构和链接。
+
+## PR 提交前验证
+
+- 每次完成一个具体开发任务并准备提交 PR 前，必须通过 `[@浏览器](plugin://browser-use@openai-bundled)` / Browser Use 插件进行详细真实浏览器核验。
+- Browser Use 核验应覆盖用户主路径、关键交互、错误提示、视觉布局和本次 PR 相关验收项，并在 PR 描述或测试报告中写明验证结果。
+- 本仓库禁用 `playwright-cli` 作为 PR 验收测试工具；不要新增 `.playwright-cli/`、Playwright CLI 截图、DOM 快照或日志作为常规产物。
+- 如果 Browser Use 的 IAB backend 不可用，应先修复 Codex / Browser Use 配置或明确记录阻塞；不要直接用 Playwright CLI 替代并宣称浏览器验收完成。

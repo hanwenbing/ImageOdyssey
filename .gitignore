@@ -1,6 +1,12 @@
+.DS_Store
+**/.DS_Store
 .venv/
 .superpowers/
 .worktrees/
+.playwright-cli/
+output/playwright/
+tmp/pr3-playwright-cli-artifacts/
+tmp/browser-use-pr3-report/
 web/node_modules/
 web/dist/
 web/.env
