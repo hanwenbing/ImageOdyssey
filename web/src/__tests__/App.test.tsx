@@ -175,6 +175,10 @@ describe("App", () => {
     await waitFor(() => {
       expect(fetchMock).toHaveBeenCalledWith("/api/recommend", expect.any(Object));
     });
+    const recommendCall = fetchMock.mock.calls.find(([url]) => url === "/api/recommend");
+    expect(JSON.parse(String(recommendCall?.[1]?.body))).toMatchObject({
+      user_query: ""
+    });
 
     fireEvent.click(screen.getByRole("button", { name: "Case 101 品牌海报" }));
     fireEvent.click(screen.getByRole("button", { name: "展开 Prompt" }));
@@ -270,6 +274,27 @@ describe("App", () => {
       "rewrite_blocked",
       "result_upload_blocked"
     ]);
+  });
+
+  it("uses a full-card hover overlay instead of repeating hover details by default", async () => {
+    render(<App />);
+
+    await screen.findByRole("button", { name: "Case 101 品牌海报" });
+
+    const compact = screen.getByTestId("case-card-compact-101");
+    const overlay = screen.getByTestId("case-card-overlay-101");
+
+    expect(compact).toHaveClass("group-hover:opacity-0");
+    expect(compact).toHaveClass("group-focus-visible:opacity-0");
+    expect(overlay).toHaveClass("absolute");
+    expect(overlay).toHaveClass("inset-0");
+    expect(overlay).toHaveClass("opacity-0");
+    expect(overlay).toHaveClass("group-hover:opacity-100");
+    expect(overlay).toHaveClass("group-focus-visible:opacity-100");
+    expect(compact).not.toHaveTextContent("适合宣传图");
+    expect(compact).not.toHaveTextContent("点击选择");
+    expect(overlay).toHaveTextContent("适合宣传图");
+    expect(overlay).toHaveTextContent("点击选择");
   });
 
   it("revokes blob previews when replaced and unmounted", async () => {

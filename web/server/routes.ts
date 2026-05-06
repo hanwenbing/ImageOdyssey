@@ -55,7 +55,7 @@ const caseIndexItemSchema = z.object({
 
 const recommendRequestSchema = z.object({
   source_image_storage_path: z.string().min(1),
-  user_query: z.string().min(1),
+  user_query: z.string(),
   category_filter: z.string().nullable(),
   cases: z.array(caseIndexItemSchema).min(1)
 });

@@ -232,6 +232,70 @@ describe("API routes", () => {
     expect(startedEvent.request_id).toBe(succeededEvent.request_id);
   });
 
+  it("allows empty recommend queries and returns six recommendations", async () => {
+    const serviceRoleClient = createServiceRoleClientMock();
+    const recommend = vi.fn(async (request: RecommendRequest): Promise<RecommendResponse> => {
+      void request;
+      return {
+        recommendations: [1, 2, 3, 4, 5, 6].map((caseNumber) => ({
+          case_number: caseNumber,
+          reason: `reason ${caseNumber}`
+        }))
+      };
+    });
+    const app = createApp({
+      recommend,
+      rewrite: vi.fn(),
+      getServiceRoleClient: vi.fn().mockReturnValue(serviceRoleClient.client)
+    });
+    const payload = {
+      source_image_storage_path: "source/path.jpg",
+      user_query: "",
+      category_filter: null,
+      cases: [1, 2, 3, 4, 5, 6].map((caseNumber) => ({
+        case_number: caseNumber,
+        title: `Case ${caseNumber}`,
+        category_name: "Portrait",
+        summary: "Summary",
+        tags: ["portrait"],
+        prompt_excerpt: "Excerpt",
+        image_storage_path: `cases/case${caseNumber}.jpg`
+      }))
+    };
+
+    const { response, json } = await requestJson(app, "/api/recommend", payload);
+
+    expect(response.status).toBe(200);
+    expect(await json()).toEqual({
+      recommendations: [1, 2, 3, 4, 5, 6].map((caseNumber) => ({
+        case_number: caseNumber,
+        reason: `reason ${caseNumber}`
+      }))
+    });
+    expect(recommend).toHaveBeenCalledWith(payload);
+    expect(serviceRoleClient.workflowInsert).toHaveBeenCalledTimes(2);
+
+    const [startedEvent, succeededEvent] = workflowEventsFromCalls(serviceRoleClient.workflowInsert);
+    expect(startedEvent).toMatchObject({
+      workflow: "recommend",
+      stage: "request_received",
+      status: "started",
+      request_payload: payload
+    });
+    expect(succeededEvent).toMatchObject({
+      workflow: "recommend",
+      stage: "response_sent",
+      status: "succeeded",
+      response_payload: {
+        recommendations: [1, 2, 3, 4, 5, 6].map((caseNumber) => ({
+          case_number: caseNumber,
+          reason: `reason ${caseNumber}`
+        }))
+      }
+    });
+    expect(startedEvent.request_id).toBe(succeededEvent.request_id);
+  });
+
   it("returns a 400 error for invalid recommend requests", async () => {
     const app = createApp({
       recommend: vi.fn(),

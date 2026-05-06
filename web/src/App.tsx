@@ -74,31 +74,46 @@ function CaseCard({
           推荐
         </span>
       )}
-      <div className="absolute inset-x-0 bottom-0 bg-zinc-950/92 p-3 text-left">
+      <div
+        data-testid={`case-card-compact-${promptCase.case_number}`}
+        className="absolute inset-x-0 bottom-0 bg-zinc-950/80 p-3 text-left transition-opacity duration-200 group-hover:opacity-0 group-focus-visible:opacity-0"
+      >
         <div className="flex items-center justify-between gap-2">
           <span className="text-sm font-semibold text-white">Case {promptCase.case_number}</span>
-          <span className="text-[11px] text-zinc-400">{promptCase.category_name}</span>
         </div>
         <div className="mt-1 line-clamp-2 text-sm text-zinc-100">{promptCase.title}</div>
-        <div className="hidden group-hover:block">
-          <div className="mt-2 line-clamp-3 text-xs leading-5 text-zinc-300">
-            {promptCase.summary}
-          </div>
-          {promptCase.tags.length > 0 && (
-            <div className="mt-2 flex flex-wrap gap-1">
-              {promptCase.tags.slice(0, 3).map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded bg-white/10 px-1.5 py-0.5 text-[10px] text-zinc-300"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
+      </div>
+      <div
+        data-testid={`case-card-overlay-${promptCase.case_number}`}
+        className="pointer-events-none absolute inset-0 flex flex-col justify-end bg-zinc-950/72 p-3 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
+      >
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-semibold text-white">Case {promptCase.case_number}</span>
+          {recommended && (
+            <span className="rounded bg-cyan-300 px-1.5 py-0.5 text-[10px] font-semibold text-zinc-950">
+              推荐
+            </span>
           )}
-          <div className="mt-2 text-xs text-cyan-200">
-            {recommended ? "推荐候选 · 点击选择" : "点击选择"}
+        </div>
+        <div className="mt-1 text-[11px] text-zinc-300">{promptCase.category_name}</div>
+        <div className="mt-1 line-clamp-2 text-sm text-zinc-100">{promptCase.title}</div>
+        <div className="mt-2 line-clamp-3 text-xs leading-5 text-zinc-300">
+          {promptCase.summary}
+        </div>
+        {promptCase.tags.length > 0 && (
+          <div className="mt-2 flex flex-wrap gap-1">
+            {promptCase.tags.slice(0, 3).map((tag) => (
+              <span
+                key={tag}
+                className="rounded bg-white/10 px-1.5 py-0.5 text-[10px] text-zinc-300"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
+        )}
+        <div className="mt-2 text-xs text-cyan-200">
+          {recommended ? "推荐候选 · 点击选择" : "点击选择"}
         </div>
       </div>
     </button>
