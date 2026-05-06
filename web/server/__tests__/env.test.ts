@@ -4,17 +4,28 @@ import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { getSupabaseServerConfig, loadServerEnvFromDir } from "../env";
+import { getHuaweiMaasConfig, getSupabaseServerConfig, loadServerEnvFromDir } from "../env";
 
 const originalEnv = {
   SUPABASE_URL: process.env.SUPABASE_URL,
   SUPABASE_SECRET_KEY: process.env.SUPABASE_SECRET_KEY,
+  HUAWEI_MAAS_API_KEY: process.env.HUAWEI_MAAS_API_KEY,
+  HUAWEI_MAAS_CHAT_COMPLETIONS_URL: process.env.HUAWEI_MAAS_CHAT_COMPLETIONS_URL,
+  HUAWEI_MAAS_MODEL: process.env.HUAWEI_MAAS_MODEL,
+  HUAWEI_MAAS_VISION_CHAT_COMPLETIONS_URL: process.env.HUAWEI_MAAS_VISION_CHAT_COMPLETIONS_URL,
+  HUAWEI_MAAS_VISION_MODEL: process.env.HUAWEI_MAAS_VISION_MODEL,
   SAMPLE_ONLY_IN_ENV: process.env.SAMPLE_ONLY_IN_ENV
 };
 
 afterEach(() => {
   process.env.SUPABASE_URL = originalEnv.SUPABASE_URL;
   process.env.SUPABASE_SECRET_KEY = originalEnv.SUPABASE_SECRET_KEY;
+  process.env.HUAWEI_MAAS_API_KEY = originalEnv.HUAWEI_MAAS_API_KEY;
+  process.env.HUAWEI_MAAS_CHAT_COMPLETIONS_URL = originalEnv.HUAWEI_MAAS_CHAT_COMPLETIONS_URL;
+  process.env.HUAWEI_MAAS_MODEL = originalEnv.HUAWEI_MAAS_MODEL;
+  process.env.HUAWEI_MAAS_VISION_CHAT_COMPLETIONS_URL =
+    originalEnv.HUAWEI_MAAS_VISION_CHAT_COMPLETIONS_URL;
+  process.env.HUAWEI_MAAS_VISION_MODEL = originalEnv.HUAWEI_MAAS_VISION_MODEL;
   process.env.SAMPLE_ONLY_IN_ENV = originalEnv.SAMPLE_ONLY_IN_ENV;
 });
 
@@ -57,5 +68,27 @@ describe("server env loading", () => {
     expect(() => getSupabaseServerConfig()).toThrow(
       /SUPABASE_URL and SUPABASE_SECRET_KEY/
     );
+  });
+
+  it("returns MaaS defaults with a configured API key", () => {
+    process.env.HUAWEI_MAAS_API_KEY = "maas-key";
+    delete process.env.HUAWEI_MAAS_CHAT_COMPLETIONS_URL;
+    delete process.env.HUAWEI_MAAS_MODEL;
+    delete process.env.HUAWEI_MAAS_VISION_CHAT_COMPLETIONS_URL;
+    delete process.env.HUAWEI_MAAS_VISION_MODEL;
+
+    expect(getHuaweiMaasConfig()).toEqual({
+      apiKey: "maas-key",
+      chatCompletionsUrl: "https://api.modelarts-maas.com/v2/chat/completions",
+      model: "deepseek-v4-flash",
+      visionChatCompletionsUrl: "https://api.modelarts-maas.com/v1/chat/completions",
+      visionModel: "qwen2.5-vl-72b"
+    });
+  });
+
+  it("fails explicitly when MaaS API key is missing", () => {
+    delete process.env.HUAWEI_MAAS_API_KEY;
+
+    expect(() => getHuaweiMaasConfig()).toThrow(/HUAWEI_MAAS_API_KEY/);
   });
 });

@@ -23,3 +23,23 @@ export function getSupabaseServerConfig() {
     secretKey
   };
 }
+
+export function getHuaweiMaasConfig() {
+  const apiKey = process.env.HUAWEI_MAAS_API_KEY?.trim();
+
+  if (!apiKey) {
+    throw new Error("Missing HUAWEI_MAAS_API_KEY for MaaS AI routes");
+  }
+
+  return {
+    apiKey,
+    chatCompletionsUrl:
+      process.env.HUAWEI_MAAS_CHAT_COMPLETIONS_URL?.trim() ||
+      "https://api.modelarts-maas.com/v2/chat/completions",
+    model: process.env.HUAWEI_MAAS_MODEL?.trim() || "deepseek-v4-flash",
+    visionChatCompletionsUrl:
+      process.env.HUAWEI_MAAS_VISION_CHAT_COMPLETIONS_URL?.trim() ||
+      "https://api.modelarts-maas.com/v1/chat/completions",
+    visionModel: process.env.HUAWEI_MAAS_VISION_MODEL?.trim() || "qwen2.5-vl-72b"
+  };
+}

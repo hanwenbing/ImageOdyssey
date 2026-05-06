@@ -6,7 +6,7 @@ import { getServiceRoleClient } from "./supabase";
 
 const serverRoot = dirname(fileURLToPath(import.meta.url));
 const webRoot = resolve(serverRoot, "..");
-const cacheRoot = resolve(webRoot, "tmp", "codex-source-images");
+const cacheRoot = resolve(webRoot, "tmp", "maas-source-images");
 const maxExtensionLength = 12;
 
 function getSafeExtension(storagePath: string): string {

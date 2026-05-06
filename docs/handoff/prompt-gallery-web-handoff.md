@@ -17,7 +17,8 @@ development after the repository is forked from GitHub.
 The app turns the current `get-image-prompt` workflow into a local visual web
 studio. The user uploads a source image, browses or asks for recommendations
 from the existing GPT Image 2 prompt Gallery, selects a prompt case, asks the
-local Codex CLI bridge to rewrite that prompt around the uploaded subject, then
+local Node API and Huawei MaaS bridge to recommend and rewrite prompts around
+the uploaded subject, then
 manually uses the rewritten prompt in ChatGPT. After ChatGPT generates the
 image, the user uploads the result image back into the app and the experiment is
 saved automatically.
@@ -122,6 +123,11 @@ SUPABASE_URL="https://..."
 SUPABASE_SECRET_KEY="..."
 VITE_SUPABASE_URL="https://..."
 VITE_SUPABASE_PUBLISHABLE_KEY="..."
+HUAWEI_MAAS_API_KEY="..."
+HUAWEI_MAAS_CHAT_COMPLETIONS_URL="https://api.modelarts-maas.com/v2/chat/completions"
+HUAWEI_MAAS_MODEL="deepseek-v4-flash"
+HUAWEI_MAAS_VISION_CHAT_COMPLETIONS_URL="https://api.modelarts-maas.com/v1/chat/completions"
+HUAWEI_MAAS_VISION_MODEL="qwen2.5-vl-72b"
 ```
 
 Apply the SQL in:
@@ -154,19 +160,20 @@ For local development:
 npm run dev
 ```
 
-The local Node API has not been implemented yet, so `server` and `dev:all`
-scripts should only be added when Task 6 creates the API files.
+The local Node API is implemented. Use `npm run dev:all` to run both the API
+server and Vite dev server for local workflow testing.
 
 ## Remaining Work
 
 Continue from Task 5 in the implementation plan.
 
-### Task 5: Local Image Cache and Codex Bridge core
+### Task 5: Local Image Cache and MaaS Bridge core
 
 - Add server-side image cache for private `experiment-images`.
-- Add fixed Codex prompt builders for recommendation and rewrite.
-- Add Codex CLI execution wrapper.
-- Validate Codex JSON output before returning it to the app.
+- Add fixed MaaS prompt builders for recommendation and rewrite.
+- Use Huawei MaaS VL model `qwen2.5-vl-72b` for source image description.
+- Use Huawei MaaS text model `deepseek-v4-flash` for recommendation and rewrite.
+- Validate MaaS JSON output before returning it to the app.
 
 ### Task 6: Local API routes
 

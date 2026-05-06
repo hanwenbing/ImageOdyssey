@@ -47,7 +47,21 @@ const mockData = vi.hoisted(() => ({
       source_gallery_file: "gallery2.md",
       created_at: "2026-05-02T00:00:00Z",
       updated_at: "2026-05-02T00:00:00Z"
-    }
+    },
+    ...[303, 304, 305, 306].map((caseNumber) => ({
+      id: `case-${caseNumber}`,
+      case_number: caseNumber,
+      title: `Case ${caseNumber}`,
+      category_id: "cat-1",
+      prompt_text: `Prompt ${caseNumber}`,
+      image_storage_path: `cases/case${caseNumber}.jpg`,
+      image_public_url: `https://example.com/case${caseNumber}.jpg`,
+      summary: `Summary ${caseNumber}`,
+      tags: ["extra"],
+      source_gallery_file: "gallery1.md",
+      created_at: "2026-05-02T00:00:00Z",
+      updated_at: "2026-05-02T00:00:00Z"
+    }))
   ]
 }));
 
@@ -176,9 +190,12 @@ describe("App", () => {
       expect(fetchMock).toHaveBeenCalledWith("/api/recommend", expect.any(Object));
     });
     const recommendCall = fetchMock.mock.calls.find(([url]) => url === "/api/recommend");
-    expect(JSON.parse(String(recommendCall?.[1]?.body))).toMatchObject({
-      user_query: ""
+    const recommendPayload = JSON.parse(String(recommendCall?.[1]?.body));
+    expect(recommendPayload).toMatchObject({
+      user_query: "",
+      case_numbers: [101, 202, 303, 304, 305, 306]
     });
+    expect(recommendPayload).not.toHaveProperty("cases");
 
     fireEvent.click(screen.getByRole("button", { name: "Case 101 品牌海报" }));
     fireEvent.click(screen.getByRole("button", { name: "展开 Prompt" }));
@@ -291,6 +308,9 @@ describe("App", () => {
     expect(overlay).toHaveClass("opacity-0");
     expect(overlay).toHaveClass("group-hover:opacity-100");
     expect(overlay).toHaveClass("group-focus-visible:opacity-100");
+    const galleryGrid = screen.getByTestId("gallery-grid");
+    expect(galleryGrid).toHaveClass("content-start");
+    expect(galleryGrid).not.toHaveClass("h-full");
     expect(compact).not.toHaveTextContent("适合宣传图");
     expect(compact).not.toHaveTextContent("点击选择");
     expect(overlay).toHaveTextContent("适合宣传图");

@@ -3,7 +3,7 @@ import express from "express";
 import multer from "multer";
 import crypto from "node:crypto";
 import { z } from "zod";
-import { recommend as defaultRecommend, rewrite as defaultRewrite } from "./codexBridge";
+import { recommend as defaultRecommend, rewrite as defaultRewrite } from "./maasBridge";
 import {
   createRequestId,
   errorPayload,
@@ -43,21 +43,11 @@ type ExperimentInsertChain = {
   };
 };
 
-const caseIndexItemSchema = z.object({
-  case_number: z.number().int(),
-  title: z.string().min(1),
-  category_name: z.string().min(1),
-  summary: z.string().min(1),
-  tags: z.array(z.string()),
-  prompt_excerpt: z.string().min(1),
-  image_storage_path: z.string().min(1)
-});
-
 const recommendRequestSchema = z.object({
   source_image_storage_path: z.string().min(1),
   user_query: z.string(),
   category_filter: z.string().nullable(),
-  cases: z.array(caseIndexItemSchema).min(1)
+  case_numbers: z.array(z.number().int()).min(6)
 });
 
 const rewriteRequestSchema = z.object({
