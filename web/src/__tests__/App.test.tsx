@@ -129,6 +129,10 @@ describe("App", () => {
         return jsonResponse({ id: "experiment-1" });
       }
 
+      if (url === "/api/workflow-events") {
+        return jsonResponse({ ok: true });
+      }
+
       return jsonResponse({ error: `Unexpected request: ${url}` }, 500);
     });
 
@@ -149,26 +153,39 @@ describe("App", () => {
     ).toBeVisible();
     expect(screen.getByText("全部")).toBeVisible();
     expect(screen.getByRole("button", { name: "UI与界面" })).toBeVisible();
+    expect(
+      screen.queryByText("上传参考图，推荐和改写都会围绕它展开")
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("完成改写后上传生成结果，系统会自动保存实验记录")
+    ).not.toBeInTheDocument();
 
     const recommendButton = screen.getByRole("button", { name: "推荐" });
-    expect(recommendButton).toBeDisabled();
+    expect(recommendButton).toHaveAttribute("aria-disabled", "true");
 
     const sourceInput = screen.getAllByLabelText("Source Image")[0];
     const sourceFile = new File(["source"], "source.png", { type: "image/png" });
     fireEvent.change(sourceInput, { target: { files: [sourceFile] } });
 
-    await waitFor(() => expect(recommendButton).toBeEnabled());
+    await waitFor(() =>
+      expect(recommendButton).toHaveAttribute("aria-disabled", "false")
+    );
 
     fireEvent.click(recommendButton);
     await waitFor(() => {
       expect(fetchMock).toHaveBeenCalledWith("/api/recommend", expect.any(Object));
     });
+    const recommendCall = fetchMock.mock.calls.find(([url]) => url === "/api/recommend");
+    expect(JSON.parse(String(recommendCall?.[1]?.body))).toMatchObject({
+      user_query: ""
+    });
 
     fireEvent.click(screen.getByRole("button", { name: "Case 101 品牌海报" }));
+    fireEvent.click(screen.getByRole("button", { name: "展开 Prompt" }));
     expect(screen.getByDisplayValue("生成高对比度品牌海报")).toBeVisible();
 
     const rewriteButton = screen.getByRole("button", { name: "改写" });
-    expect(rewriteButton).toBeEnabled();
+    expect(rewriteButton).toHaveAttribute("aria-disabled", "false");
 
     fireEvent.click(rewriteButton);
     expect(await screen.findByDisplayValue("重写后的提示词")).toBeVisible();
@@ -182,6 +199,102 @@ describe("App", () => {
     await waitFor(() => {
       expect(fetchMock).toHaveBeenCalledWith("/api/experiments", expect.any(Object));
     });
+  });
+
+  it("expands the prompt drawer and shows original and rewritten prompts", async () => {
+    render(<App />);
+
+    await screen.findByRole("button", { name: "Case 101 品牌海报" });
+
+    const sourceInput = screen.getAllByLabelText("Source Image")[0];
+    const sourceFile = new File(["source"], "source.png", { type: "image/png" });
+    fireEvent.change(sourceInput, { target: { files: [sourceFile] } });
+
+    fireEvent.click(screen.getByRole("button", { name: "Case 101 品牌海报" }));
+
+    expect(screen.queryByDisplayValue("生成高对比度品牌海报")).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "展开 Prompt" }));
+    expect(screen.getByDisplayValue("生成高对比度品牌海报")).toBeVisible();
+
+    const rewriteButton = screen.getByRole("button", { name: "改写" });
+    await waitFor(() =>
+      expect(rewriteButton).toHaveAttribute("aria-disabled", "false")
+    );
+
+    fireEvent.click(rewriteButton);
+    expect(await screen.findByDisplayValue("重写后的提示词")).toBeVisible();
+  });
+
+  it("opens the prompt drawer after rewrite succeeds from the default collapsed state", async () => {
+    render(<App />);
+
+    await screen.findByRole("button", { name: "Case 101 品牌海报" });
+
+    const sourceInput = screen.getAllByLabelText("Source Image")[0];
+    const sourceFile = new File(["source"], "source.png", { type: "image/png" });
+    fireEvent.change(sourceInput, { target: { files: [sourceFile] } });
+
+    fireEvent.click(screen.getByRole("button", { name: "Case 101 品牌海报" }));
+    expect(screen.queryByDisplayValue("生成高对比度品牌海报")).not.toBeInTheDocument();
+
+    const rewriteButton = screen.getByRole("button", { name: "改写" });
+    await waitFor(() =>
+      expect(rewriteButton).toHaveAttribute("aria-disabled", "false")
+    );
+
+    fireEvent.click(rewriteButton);
+
+    expect(await screen.findByDisplayValue("重写后的提示词")).toBeVisible();
+    expect(screen.getByRole("button", { name: "收起 Prompt" })).toBeVisible();
+  });
+
+  it("logs blocked recommendation, rewrite, and result upload actions", async () => {
+    render(<App />);
+
+    await screen.findByRole("button", { name: "Case 101 品牌海报" });
+
+    fireEvent.click(screen.getByRole("button", { name: "推荐" }));
+    fireEvent.click(screen.getByRole("button", { name: "改写" }));
+    fireEvent.click(screen.getByText("等待改写完成"));
+
+    await waitFor(() => {
+      const workflowEventCalls = fetchMock.mock.calls.filter(
+        ([url]) => url === "/api/workflow-events"
+      );
+      expect(workflowEventCalls).toHaveLength(3);
+    });
+
+    const stages = fetchMock.mock.calls
+      .filter(([url]) => url === "/api/workflow-events")
+      .map(([, init]) => JSON.parse(String(init?.body)).stage);
+
+    expect(stages).toEqual([
+      "recommend_blocked",
+      "rewrite_blocked",
+      "result_upload_blocked"
+    ]);
+  });
+
+  it("uses a full-card hover overlay instead of repeating hover details by default", async () => {
+    render(<App />);
+
+    await screen.findByRole("button", { name: "Case 101 品牌海报" });
+
+    const compact = screen.getByTestId("case-card-compact-101");
+    const overlay = screen.getByTestId("case-card-overlay-101");
+
+    expect(compact).toHaveClass("group-hover:opacity-0");
+    expect(compact).toHaveClass("group-focus-visible:opacity-0");
+    expect(overlay).toHaveClass("absolute");
+    expect(overlay).toHaveClass("inset-0");
+    expect(overlay).toHaveClass("opacity-0");
+    expect(overlay).toHaveClass("group-hover:opacity-100");
+    expect(overlay).toHaveClass("group-focus-visible:opacity-100");
+    expect(compact).not.toHaveTextContent("适合宣传图");
+    expect(compact).not.toHaveTextContent("点击选择");
+    expect(overlay).toHaveTextContent("适合宣传图");
+    expect(overlay).toHaveTextContent("点击选择");
   });
 
   it("revokes blob previews when replaced and unmounted", async () => {

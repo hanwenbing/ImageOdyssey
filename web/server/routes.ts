@@ -4,6 +4,13 @@ import multer from "multer";
 import crypto from "node:crypto";
 import { z } from "zod";
 import { recommend as defaultRecommend, rewrite as defaultRewrite } from "./codexBridge";
+import {
+  createRequestId,
+  errorPayload,
+  logWorkflowEvent,
+  type JsonValue,
+  type WorkflowEventInsert
+} from "./workflowEvents";
 import type {
   RecommendRequest,
   RecommendResponse,
@@ -48,7 +55,7 @@ const caseIndexItemSchema = z.object({
 
 const recommendRequestSchema = z.object({
   source_image_storage_path: z.string().min(1),
-  user_query: z.string().min(1),
+  user_query: z.string(),
   category_filter: z.string().nullable(),
   cases: z.array(caseIndexItemSchema).min(1)
 });
@@ -57,6 +64,48 @@ const rewriteRequestSchema = z.object({
   source_image_storage_path: z.string().min(1),
   case_number: z.number().int(),
   original_prompt_text: z.string().min(1)
+});
+
+function isJsonValue(value: unknown): value is JsonValue {
+  if (value === null) {
+    return true;
+  }
+
+  const valueType = typeof value;
+  if (valueType === "string" || valueType === "number" || valueType === "boolean") {
+    return true;
+  }
+
+  if (Array.isArray(value)) {
+    return value.every(isJsonValue);
+  }
+
+  if (valueType === "object") {
+    return Object.values(value as Record<string, unknown>).every(isJsonValue);
+  }
+
+  return false;
+}
+
+const jsonValueSchema = z.custom<JsonValue>(isJsonValue, {
+  message: "Expected JSON-compatible value"
+});
+
+const frontendWorkflowEventSchema = z.object({
+  request_id: z.string().min(1),
+  workflow: z.literal("frontend"),
+  stage: z.enum([
+    "recommend_blocked",
+    "rewrite_blocked",
+    "result_upload_blocked",
+    "api_error"
+  ]),
+  status: z.enum(["failed", "blocked"]),
+  message: z.string().nullable(),
+  request_payload: jsonValueSchema.nullable(),
+  response_payload: jsonValueSchema.nullable(),
+  error_payload: jsonValueSchema.nullable(),
+  metadata: jsonValueSchema.nullable()
 });
 
 const experimentInsertSchema = z.object({
@@ -122,6 +171,30 @@ export function createRouter(dependencies: RouteDependencies = {}) {
   const getServiceRoleClient =
     dependencies.getServiceRoleClient ?? defaultGetServiceRoleClient;
 
+  async function writeWorkflowEvent(event: WorkflowEventInsert): Promise<void> {
+    const client = getServiceRoleClient();
+    await logWorkflowEvent(client.from.bind(client) as never, event);
+  }
+
+  function buildWorkflowEvent(
+    requestId: string,
+    workflow: string,
+    stage: string,
+    status: WorkflowEventInsert["status"],
+    details: Omit<
+      WorkflowEventInsert,
+      "request_id" | "workflow" | "stage" | "status"
+    >
+  ): WorkflowEventInsert {
+    return {
+      request_id: requestId,
+      workflow,
+      stage,
+      status,
+      ...details
+    };
+  }
+
   router.post(
     "/api/recommend",
     toAsyncHandler(async (request, response) => {
@@ -131,7 +204,41 @@ export function createRouter(dependencies: RouteDependencies = {}) {
         return;
       }
 
-      response.json(await recommend(parsedRequest.data));
+      const requestId = createRequestId();
+      await writeWorkflowEvent(
+        buildWorkflowEvent(requestId, "recommend", "request_received", "started", {
+          message: null,
+          request_payload: parsedRequest.data,
+          response_payload: null,
+          error_payload: null,
+          metadata: null
+        })
+      );
+
+      try {
+        const recommendation = await recommend(parsedRequest.data);
+        await writeWorkflowEvent(
+          buildWorkflowEvent(requestId, "recommend", "response_sent", "succeeded", {
+            message: null,
+            request_payload: parsedRequest.data,
+            response_payload: recommendation,
+            error_payload: null,
+            metadata: null
+          })
+        );
+        response.json(recommendation);
+      } catch (error) {
+        await writeWorkflowEvent(
+          buildWorkflowEvent(requestId, "recommend", "route_error", "failed", {
+            message: errorMessage(error),
+            request_payload: parsedRequest.data,
+            response_payload: null,
+            error_payload: errorPayload(error),
+            metadata: null
+          })
+        );
+        handleRouteError(response, error);
+      }
     })
   );
 
@@ -144,7 +251,41 @@ export function createRouter(dependencies: RouteDependencies = {}) {
         return;
       }
 
-      response.json(await rewrite(parsedRequest.data));
+      const requestId = createRequestId();
+      await writeWorkflowEvent(
+        buildWorkflowEvent(requestId, "rewrite", "request_received", "started", {
+          message: null,
+          request_payload: parsedRequest.data,
+          response_payload: null,
+          error_payload: null,
+          metadata: null
+        })
+      );
+
+      try {
+        const rewrittenPrompt = await rewrite(parsedRequest.data);
+        await writeWorkflowEvent(
+          buildWorkflowEvent(requestId, "rewrite", "response_sent", "succeeded", {
+            message: null,
+            request_payload: parsedRequest.data,
+            response_payload: rewrittenPrompt,
+            error_payload: null,
+            metadata: null
+          })
+        );
+        response.json(rewrittenPrompt);
+      } catch (error) {
+        await writeWorkflowEvent(
+          buildWorkflowEvent(requestId, "rewrite", "route_error", "failed", {
+            message: errorMessage(error),
+            request_payload: parsedRequest.data,
+            response_payload: null,
+            error_payload: errorPayload(error),
+            metadata: null
+          })
+        );
+        handleRouteError(response, error);
+      }
     })
   );
 
@@ -164,6 +305,19 @@ export function createRouter(dependencies: RouteDependencies = {}) {
       }
 
       const client = getServiceRoleClient();
+      const requestId = createRequestId();
+      await writeWorkflowEvent(
+        buildWorkflowEvent(requestId, "experiment-images", "request_received", "started", {
+          message: null,
+          request_payload: {
+            kind: parsedBody.data.kind,
+            fileName: request.file.originalname
+          },
+          response_payload: null,
+          error_payload: null,
+          metadata: null
+        })
+      );
       const storagePath = `${parsedBody.data.kind}/${crypto.randomUUID()}-${sanitizeUploadFileName(
         request.file.originalname
       )}`;
@@ -178,10 +332,34 @@ export function createRouter(dependencies: RouteDependencies = {}) {
       );
 
       if (error) {
+        await writeWorkflowEvent(
+          buildWorkflowEvent(requestId, "experiment-images", "route_error", "failed", {
+            message: errorMessage(error),
+            request_payload: {
+              kind: parsedBody.data.kind,
+              fileName: request.file.originalname
+            },
+            response_payload: null,
+            error_payload: errorPayload(error),
+            metadata: null
+          })
+        );
         handleRouteError(response, error);
         return;
       }
 
+      await writeWorkflowEvent(
+        buildWorkflowEvent(requestId, "experiment-images", "storage_uploaded", "succeeded", {
+          message: null,
+          request_payload: {
+            kind: parsedBody.data.kind,
+            fileName: request.file.originalname
+          },
+          response_payload: { storagePath },
+          error_payload: null,
+          metadata: null
+        })
+      );
       response.json({ storagePath });
     })
   );
@@ -196,6 +374,16 @@ export function createRouter(dependencies: RouteDependencies = {}) {
       }
 
       const client = getServiceRoleClient();
+      const requestId = createRequestId();
+      await writeWorkflowEvent(
+        buildWorkflowEvent(requestId, "experiments", "request_received", "started", {
+          message: null,
+          request_payload: parsedRequest.data,
+          response_payload: null,
+          error_payload: null,
+          metadata: null
+        })
+      );
       const experimentsTable = client.from("experiments") as unknown as ExperimentInsertChain;
       const { data, error } = await experimentsTable
         .insert(parsedRequest.data as ExperimentInsert)
@@ -203,16 +391,58 @@ export function createRouter(dependencies: RouteDependencies = {}) {
         .single();
 
       if (error) {
+        await writeWorkflowEvent(
+          buildWorkflowEvent(requestId, "experiments", "route_error", "failed", {
+            message: errorMessage(error),
+            request_payload: parsedRequest.data,
+            response_payload: null,
+            error_payload: errorPayload(error),
+            metadata: null
+          })
+        );
         handleRouteError(response, error);
         return;
       }
 
       if (!data || typeof data.id !== "string") {
-        response.status(500).json({ error: "Experiment insert did not return an id" });
+        const routeError = new Error("Experiment insert did not return an id");
+        await writeWorkflowEvent(
+          buildWorkflowEvent(requestId, "experiments", "route_error", "failed", {
+            message: routeError.message,
+            request_payload: parsedRequest.data,
+            response_payload: null,
+            error_payload: errorPayload(routeError),
+            metadata: null
+          })
+        );
+        response.status(500).json({ error: routeError.message });
         return;
       }
 
+      await writeWorkflowEvent(
+        buildWorkflowEvent(requestId, "experiments", "insert_succeeded", "succeeded", {
+          message: null,
+          request_payload: parsedRequest.data,
+          response_payload: { id: data.id },
+          error_payload: null,
+          metadata: null
+        })
+      );
       response.json({ id: data.id });
+    })
+  );
+
+  router.post(
+    "/api/workflow-events",
+    toAsyncHandler(async (request, response) => {
+      const parsedRequest = frontendWorkflowEventSchema.safeParse(request.body);
+      if (!parsedRequest.success) {
+        response.status(400).json({ error: firstValidationErrorMessage(parsedRequest.error) });
+        return;
+      }
+
+      await writeWorkflowEvent(parsedRequest.data);
+      response.json({ ok: true });
     })
   );
 

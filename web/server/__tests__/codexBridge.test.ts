@@ -299,4 +299,386 @@ describe("codexBridge.rewrite", () => {
       changed_parts: ["composition"]
     });
   });
+
+  it("rejects structured rewritten_prompt_text values", async () => {
+    const child = createMockChildProcess();
+    spawnMock.mockReturnValue(child);
+
+    const promise = rewrite({
+      source_image_storage_path: "cases/source.jpg",
+      case_number: loadLocalCaseIndex()[0].case_number,
+      original_prompt_text: "Original prompt text"
+    }, { resolveSourceImagePath: createResolveSourceImagePathMock() });
+
+    await vi.waitFor(() => expect(spawnMock).toHaveBeenCalledTimes(1));
+    child.stdout.emit(
+      "data",
+      Buffer.from(
+        '{"rewritten_prompt_text":"{\\"type\\":\\"portrait\\"}","preserved_parts":["subject"],"changed_parts":["style"]}'
+      )
+    );
+    child.emit("close", 0, null);
+
+    await expect(promise).rejects.toThrow(
+      /rewritten_prompt_text must be natural-language prompt text/i
+    );
+  });
+
+  it("rejects schema-like rewritten_prompt_text values without outer braces", async () => {
+    const child = createMockChildProcess();
+    spawnMock.mockReturnValue(child);
+
+    const promise = rewrite({
+      source_image_storage_path: "cases/source.jpg",
+      case_number: loadLocalCaseIndex()[0].case_number,
+      original_prompt_text: "Original prompt text"
+    }, { resolveSourceImagePath: createResolveSourceImagePathMock() });
+
+    await vi.waitFor(() => expect(spawnMock).toHaveBeenCalledTimes(1));
+    child.stdout.emit(
+      "data",
+      Buffer.from(
+        '{"rewritten_prompt_text":"\\"type\\": \\"portrait\\"","preserved_parts":["subject"],"changed_parts":["style"]}'
+      )
+    );
+    child.emit("close", 0, null);
+
+    await expect(promise).rejects.toThrow(
+      /rewritten_prompt_text must be natural-language prompt text/i
+    );
+  });
+
+  it("rejects unquoted object-like rewritten_prompt_text values", async () => {
+    const child = createMockChildProcess();
+    spawnMock.mockReturnValue(child);
+
+    const promise = rewrite({
+      source_image_storage_path: "cases/source.jpg",
+      case_number: loadLocalCaseIndex()[0].case_number,
+      original_prompt_text: "Original prompt text"
+    }, { resolveSourceImagePath: createResolveSourceImagePathMock() });
+
+    await vi.waitFor(() => expect(spawnMock).toHaveBeenCalledTimes(1));
+    child.stdout.emit(
+      "data",
+      Buffer.from(
+        '{"rewritten_prompt_text":"{type: portrait, style: cinematic}","preserved_parts":["subject"],"changed_parts":["style"]}'
+      )
+    );
+    child.emit("close", 0, null);
+
+    await expect(promise).rejects.toThrow(
+      /rewritten_prompt_text must be natural-language prompt text/i
+    );
+  });
+
+  it("rejects field-list rewritten_prompt_text values", async () => {
+    const child = createMockChildProcess();
+    spawnMock.mockReturnValue(child);
+
+    const promise = rewrite({
+      source_image_storage_path: "cases/source.jpg",
+      case_number: loadLocalCaseIndex()[0].case_number,
+      original_prompt_text: "Original prompt text"
+    }, { resolveSourceImagePath: createResolveSourceImagePathMock() });
+
+    await vi.waitFor(() => expect(spawnMock).toHaveBeenCalledTimes(1));
+    child.stdout.emit(
+      "data",
+      Buffer.from(
+        '{"rewritten_prompt_text":"主题：人物肖像\\n风格：电影感\\n构图：半身特写","preserved_parts":["subject"],"changed_parts":["style"]}'
+      )
+    );
+    child.emit("close", 0, null);
+
+    await expect(promise).rejects.toThrow(
+      /rewritten_prompt_text must be natural-language prompt text/i
+    );
+  });
+
+  it("rejects single-line field-list rewritten_prompt_text values", async () => {
+    const child = createMockChildProcess();
+    spawnMock.mockReturnValue(child);
+
+    const promise = rewrite({
+      source_image_storage_path: "cases/source.jpg",
+      case_number: loadLocalCaseIndex()[0].case_number,
+      original_prompt_text: "Original prompt text"
+    }, { resolveSourceImagePath: createResolveSourceImagePathMock() });
+
+    await vi.waitFor(() => expect(spawnMock).toHaveBeenCalledTimes(1));
+    child.stdout.emit(
+      "data",
+      Buffer.from(
+        '{"rewritten_prompt_text":"主题：人物肖像，风格：电影感，构图：半身特写","preserved_parts":["subject"],"changed_parts":["style"]}'
+      )
+    );
+    child.emit("close", 0, null);
+
+    await expect(promise).rejects.toThrow(
+      /rewritten_prompt_text must be natural-language prompt text/i
+    );
+  });
+
+  it("rejects single schema-field rewritten_prompt_text values except the short prompt label", async () => {
+    const child = createMockChildProcess();
+    spawnMock.mockReturnValue(child);
+
+    const promise = rewrite({
+      source_image_storage_path: "cases/source.jpg",
+      case_number: loadLocalCaseIndex()[0].case_number,
+      original_prompt_text: "Original prompt text"
+    }, { resolveSourceImagePath: createResolveSourceImagePathMock() });
+
+    await vi.waitFor(() => expect(spawnMock).toHaveBeenCalledTimes(1));
+    child.stdout.emit(
+      "data",
+      Buffer.from(
+        '{"rewritten_prompt_text":"主题：人物肖像，电影感照明，浅景深背景。","preserved_parts":["subject"],"changed_parts":["style"]}'
+      )
+    );
+    child.emit("close", 0, null);
+
+    await expect(promise).rejects.toThrow(
+      /rewritten_prompt_text must be natural-language prompt text/i
+    );
+  });
+
+  it("rejects numbered schema-list rewritten_prompt_text values", async () => {
+    const child = createMockChildProcess();
+    spawnMock.mockReturnValue(child);
+
+    const promise = rewrite({
+      source_image_storage_path: "cases/source.jpg",
+      case_number: loadLocalCaseIndex()[0].case_number,
+      original_prompt_text: "Original prompt text"
+    }, { resolveSourceImagePath: createResolveSourceImagePathMock() });
+
+    await vi.waitFor(() => expect(spawnMock).toHaveBeenCalledTimes(1));
+    child.stdout.emit(
+      "data",
+      Buffer.from(
+        '{"rewritten_prompt_text":"1. 主题 人物肖像\\n2. 风格 电影感\\n3. 构图 半身特写","preserved_parts":["subject"],"changed_parts":["style"]}'
+      )
+    );
+    child.emit("close", 0, null);
+
+    await expect(promise).rejects.toThrow(
+      /rewritten_prompt_text must be natural-language prompt text/i
+    );
+  });
+
+  it("rejects bullet schema-list rewritten_prompt_text values", async () => {
+    const child = createMockChildProcess();
+    spawnMock.mockReturnValue(child);
+
+    const promise = rewrite({
+      source_image_storage_path: "cases/source.jpg",
+      case_number: loadLocalCaseIndex()[0].case_number,
+      original_prompt_text: "Original prompt text"
+    }, { resolveSourceImagePath: createResolveSourceImagePathMock() });
+
+    await vi.waitFor(() => expect(spawnMock).toHaveBeenCalledTimes(1));
+    child.stdout.emit(
+      "data",
+      Buffer.from(
+        '{"rewritten_prompt_text":"- subject portrait\\n- style cinematic\\n- layout close-up","preserved_parts":["subject"],"changed_parts":["style"]}'
+      )
+    );
+    child.emit("close", 0, null);
+
+    await expect(promise).rejects.toThrow(
+      /rewritten_prompt_text must be natural-language prompt text/i
+    );
+  });
+
+  it("rejects generic numbered-list rewritten_prompt_text values", async () => {
+    const child = createMockChildProcess();
+    spawnMock.mockReturnValue(child);
+
+    const promise = rewrite({
+      source_image_storage_path: "cases/source.jpg",
+      case_number: loadLocalCaseIndex()[0].case_number,
+      original_prompt_text: "Original prompt text"
+    }, { resolveSourceImagePath: createResolveSourceImagePathMock() });
+
+    await vi.waitFor(() => expect(spawnMock).toHaveBeenCalledTimes(1));
+    child.stdout.emit(
+      "data",
+      Buffer.from(
+        '{"rewritten_prompt_text":"1. 人物肖像\\n2. 电影感光线\\n3. 半身特写","preserved_parts":["subject"],"changed_parts":["style"]}'
+      )
+    );
+    child.emit("close", 0, null);
+
+    await expect(promise).rejects.toThrow(
+      /rewritten_prompt_text must be natural-language prompt text/i
+    );
+  });
+
+  it("rejects generic bullet-list rewritten_prompt_text values", async () => {
+    const child = createMockChildProcess();
+    spawnMock.mockReturnValue(child);
+
+    const promise = rewrite({
+      source_image_storage_path: "cases/source.jpg",
+      case_number: loadLocalCaseIndex()[0].case_number,
+      original_prompt_text: "Original prompt text"
+    }, { resolveSourceImagePath: createResolveSourceImagePathMock() });
+
+    await vi.waitFor(() => expect(spawnMock).toHaveBeenCalledTimes(1));
+    child.stdout.emit(
+      "data",
+      Buffer.from(
+        '{"rewritten_prompt_text":"- 人物肖像\\n- 电影感光线\\n- 半身特写","preserved_parts":["subject"],"changed_parts":["style"]}'
+      )
+    );
+    child.emit("close", 0, null);
+
+    await expect(promise).rejects.toThrow(
+      /rewritten_prompt_text must be natural-language prompt text/i
+    );
+  });
+
+  it("allows natural-language rewritten_prompt_text that starts with a numbered sentence", async () => {
+    const child = createMockChildProcess();
+    spawnMock.mockReturnValue(child);
+
+    const promise = rewrite({
+      source_image_storage_path: "cases/source.jpg",
+      case_number: loadLocalCaseIndex()[0].case_number,
+      original_prompt_text: "Original prompt text"
+    }, { resolveSourceImagePath: createResolveSourceImagePathMock() });
+
+    await vi.waitFor(() => expect(spawnMock).toHaveBeenCalledTimes(1));
+    child.stdout.emit(
+      "data",
+      Buffer.from(
+        '{"rewritten_prompt_text":"1 位年轻人物站在柔和电影光线中，背景具有浅景深和温暖色调。","preserved_parts":["subject"],"changed_parts":["style"]}'
+      )
+    );
+    child.emit("close", 0, null);
+
+    await expect(promise).resolves.toMatchObject({
+      rewritten_prompt_text: "1 位年轻人物站在柔和电影光线中，背景具有浅景深和温暖色调。"
+    });
+  });
+
+  it("allows natural-language rewritten_prompt_text that starts with a bullet-like character", async () => {
+    const child = createMockChildProcess();
+    spawnMock.mockReturnValue(child);
+
+    const promise = rewrite({
+      source_image_storage_path: "cases/source.jpg",
+      case_number: loadLocalCaseIndex()[0].case_number,
+      original_prompt_text: "Original prompt text"
+    }, { resolveSourceImagePath: createResolveSourceImagePathMock() });
+
+    await vi.waitFor(() => expect(spawnMock).toHaveBeenCalledTimes(1));
+    child.stdout.emit(
+      "data",
+      Buffer.from(
+        '{"rewritten_prompt_text":"- 一张自然语言中文提示词，描绘柔和侧光下的电影感人物肖像。","preserved_parts":["subject"],"changed_parts":["style"]}'
+      )
+    );
+    child.emit("close", 0, null);
+
+    await expect(promise).resolves.toMatchObject({
+      rewritten_prompt_text: "- 一张自然语言中文提示词，描绘柔和侧光下的电影感人物肖像。"
+    });
+  });
+
+  it("allows natural-language rewritten_prompt_text with one short label", async () => {
+    const child = createMockChildProcess();
+    spawnMock.mockReturnValue(child);
+
+    const promise = rewrite({
+      source_image_storage_path: "cases/source.jpg",
+      case_number: loadLocalCaseIndex()[0].case_number,
+      original_prompt_text: "Original prompt text"
+    }, { resolveSourceImagePath: createResolveSourceImagePathMock() });
+
+    await vi.waitFor(() => expect(spawnMock).toHaveBeenCalledTimes(1));
+    child.stdout.emit(
+      "data",
+      Buffer.from(
+        '{"rewritten_prompt_text":"提示词：一张自然语言中文人物肖像，电影感照明，浅景深背景。","preserved_parts":["subject"],"changed_parts":["style"]}'
+      )
+    );
+    child.emit("close", 0, null);
+
+    await expect(promise).resolves.toMatchObject({
+      rewritten_prompt_text: "提示词：一张自然语言中文人物肖像，电影感照明，浅景深背景。"
+    });
+  });
+
+  it("allows natural-language rewritten_prompt_text that begins with a bracketed style tag", async () => {
+    const child = createMockChildProcess();
+    spawnMock.mockReturnValue(child);
+
+    const promise = rewrite({
+      source_image_storage_path: "cases/source.jpg",
+      case_number: loadLocalCaseIndex()[0].case_number,
+      original_prompt_text: "Original prompt text"
+    }, { resolveSourceImagePath: createResolveSourceImagePathMock() });
+
+    await vi.waitFor(() => expect(spawnMock).toHaveBeenCalledTimes(1));
+    child.stdout.emit(
+      "data",
+      Buffer.from(
+        '{"rewritten_prompt_text":"[电影感] 一张自然语言中文人物肖像提示词，柔和侧光，浅景深背景。","preserved_parts":["subject"],"changed_parts":["style"]}'
+      )
+    );
+    child.emit("close", 0, null);
+
+    await expect(promise).resolves.toMatchObject({
+      rewritten_prompt_text: "[电影感] 一张自然语言中文人物肖像提示词，柔和侧光，浅景深背景。"
+    });
+  });
+
+  it("asks Codex for natural-language Chinese prompt text without structured output", async () => {
+    const child = createMockChildProcess();
+    const resolveSourceImagePath = createResolveSourceImagePathMock();
+    spawnMock.mockReturnValue(child);
+
+    const promise = rewrite({
+      source_image_storage_path: "cases/source.jpg",
+      case_number: loadLocalCaseIndex()[0].case_number,
+      original_prompt_text: "Original prompt text"
+    }, { resolveSourceImagePath });
+
+    await vi.waitFor(() => expect(spawnMock).toHaveBeenCalledTimes(1));
+    expect(resolveSourceImagePath).toHaveBeenCalledWith("cases/source.jpg");
+    expect(child.stdin.write).toHaveBeenCalledTimes(1);
+
+    const prompt = child.stdin.write.mock.calls[0][0] as string;
+    expect(prompt).toContain("rewritten_prompt_text");
+    const normalizedPrompt = prompt.toLowerCase();
+    for (const requiredTerm of [
+      "natural-language",
+      "chinese",
+      "chatgpt",
+      "gpt image 2",
+      "json",
+      "markdown",
+      "key-value",
+      "schema-like"
+    ]) {
+      expect(normalizedPrompt).toContain(requiredTerm);
+    }
+
+    child.stdout.emit(
+      "data",
+      Buffer.from(
+        '{"rewritten_prompt_text":"一张自然语言中文人物肖像提示词，保留主体和光线，并调整构图。","preserved_parts":["subject","lighting"],"changed_parts":["composition"]}'
+      )
+    );
+    child.emit("close", 0, null);
+
+    await expect(promise).resolves.toEqual({
+      rewritten_prompt_text: "一张自然语言中文人物肖像提示词，保留主体和光线，并调整构图。",
+      preserved_parts: ["subject", "lighting"],
+      changed_parts: ["composition"]
+    });
+  });
 });

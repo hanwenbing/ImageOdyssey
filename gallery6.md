@@ -52,33 +52,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "2x2 纵向网格",
-  "subject": "{参数名称=\"主题描述\" 默认=\"年轻的成年东亚男性，黑色短发，微笑\"}",
-  "style": "真实感、高分辨率、专业照明、所有面板上一致的面部特征",
-  “布局”：{
-    "格式": "2x2 网格",
-    “面板计数”：4，
-    “面板”：[
-      {
-        "position": "左上角",
-        "description": "{参数名称=\"职业 1\" 默认=\"穿着深海军蓝西装、白衬衫和蓝色领带，灰色纹理背景的企业专业人员\"}"
-      },
-      {
-        "position": "右上角",
-        "description": "{参数名称=\"职业 2\" 默认=\"在模糊的户外公园背景下穿着深蓝色圆领 T 恤的休闲装\"}"
-      },
-      {
-        "position": "左下角",
-        "description": "{参数名称=\"职业 3\" 默认=\"建筑工人戴着黄色安全帽，身穿海军蓝色工作衬衫，身穿亮橙色高能见度背心，背景是模糊的仓库\"}"
-      },
-      {
-        "position": "右下角",
-        "description": "{参数名称=\"职业 4\" 默认=\"医疗专业人员在模糊的实验室背景下穿着白色实验室外套和浅蓝色领衬衫\"}"
-      }
-    ]
-  }
-}
+2x2 纵向网格构图，强调真实感、高分辨率、专业照明，并让四个面板保持一致的面部特征。主体是 {参数名称="主题描述" 默认="年轻的成年东亚男性，黑色短发，微笑"}。整体采用 2x2 网格布局，共 4 个面板：左上角展示 {参数名称="职业 1" 默认="穿着深海军蓝西装、白衬衫和蓝色领带，灰色纹理背景的企业专业人员"}；右上角展示 {参数名称="职业 2" 默认="在模糊的户外公园背景下穿着深蓝色圆领 T 恤的休闲装"}；左下角展示 {参数名称="职业 3" 默认="建筑工人戴着黄色安全帽，身穿海军蓝色工作衬衫，身穿亮橙色高能见度背心，背景是模糊的仓库"}；右下角展示 {参数名称="职业 4" 默认="医疗专业人员在模糊的实验室背景下穿着白色实验室外套和浅蓝色领衬衫"}。
 ```
 
 ***
@@ -106,102 +80,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "2x2 grid of Japanese digital advertisement banners",
-  "layout": {
-    "structure": "4 equal quadrants",
-    "quadrants": [
-      {
-        "position": "top-left",
-        "theme": "Travel",
-        "subject": "A couple holding hands on a white sand beach, looking out at turquoise ocean water under a bright blue sky.",
-        "elements": ["red hibiscus flower in bottom left corner"],
-        "text_labels": [
-          "今年こそ、解き放て。",
-          "{argument name=\"travel destination\" default=\"沖縄旅行\"}",
-          "3日間の癒やし旅",
-          "航空券＋ホテル",
-          "39,800円〜",
-          "絶景、グルメ、体験 ぜんぶ叶う!"
-        ],
-        "icons": {
-          "count": 3,
-          "descriptions": ["airplane", "hotel building", "car"]
-        }
-      },
-      {
-        "position": "top-right",
-        "theme": "Skincare",
-        "subject": "Close-up portrait of a young woman with glowing, dewy skin, eyes closed, gently touching her cheeks.",
-        "elements": [
-          "soft pink gradient background",
-          "dynamic water splash effects",
-          "pink cosmetic jar labeled '{argument name=\"skincare product name\" default=\"LUMIÈRE\"} Brightening Gel'"
-        ],
-        "text_labels": [
-          "毛穴・くすみ卒業！",
-          "透明感あふれる",
-          "水光肌へ",
-          "新感覚スキンケア",
-          "初回限定 78%OFF",
-          "{argument name=\"discount price\" default=\"1,980円\"}"
-        ],
-        "badges": {
-          "count": 3,
-          "style": "gold circular",
-          "labels": ["毛穴ケア", "高保湿", "ハリ・ツヤ"]
-        }
-      },
-      {
-        "position": "bottom-left",
-        "theme": "Gourmet Food",
-        "subject": "Thick, sliced, medium-rare steak sizzling on a dark grill plate.",
-        "elements": [
-          "garlic chips",
-          "rosemary sprig",
-          "dark background with smoke and glowing embers"
-        ],
-        "text_labels": [
-          "とろける旨さ！",
-          "{argument name=\"food item\" default=\"黒毛和牛\"}",
-          "贅沢ステーキ",
-          "期間限定",
-          "特別価格",
-          "通常価格 8,980円",
-          "4,980円"
-        ],
-        "badges": {
-          "count": 1,
-          "style": "red circular",
-          "labels": ["A4 A5等級"]
-        }
-      },
-      {
-        "position": "bottom-right",
-        "theme": "Online Education",
-        "subject": "Young man in a blue shirt studying at a desk, writing in a notebook next to an open laptop.",
-        "elements": ["bright indoor lighting", "desk environment"],
-        "text_labels": [
-          "スキマ時間で",
-          "{argument name=\"education goal\" default=\"最短合格！\"}",
-          "オンライン資格講座",
-          "スマホで完結",
-          "効率学習で差がつく！",
-          "今だけ！ 受講料 20%OFF"
-        ],
-        "badges": {
-          "count": 1,
-          "style": "blue circular",
-          "labels": ["受講者数 10万人 突破！"]
-        },
-        "icons": {
-          "count": 2,
-          "descriptions": ["smartphone", "open book"]
-        }
-      }
-    ]
-  }
-}
+画面是一组 2x2 的日本数字广告横幅，整体分成四个等大的象限。左上是旅行主题：一对情侣牵着手站在白色沙滩上，望向蓝绿色海水与明亮天空，左下角点缀一朵红色扶桑花；文案包括“今年こそ、解き放て。”、“{argument name="travel destination" default="沖縄旅行"}”、“3日間の癒やし旅”、“航空券＋ホテル”、“39,800円〜”以及“絶景、グルメ、体験 ぜんぶ叶う!” ，并配有 3 个图标，分别是飞机、酒店建筑和汽车。右上是护肤主题：年轻女性特写，肌肤透亮有水润感，闭着眼轻触脸颊，背景是柔和的粉色渐变，并加入动态水花效果，前景放置一个写有“{argument name="skincare product name" default="LUMIÈRE"} Brightening Gel”的粉色护肤品罐；文案包括“毛穴・くすみ卒業！”、“透明感あふれる”、“水光肌へ”、“新感覚スキンケア”、“初回限定 78%OFF”以及“{argument name="discount price" default="1,980円"}”，旁边还有 3 个金色圆形徽章，分别写着“毛穴ケア”、“高保湿”、“ハリ・ツヤ”。左下是美食主题：深色烤盘上摆着厚切、中等熟度、正在滋滋作响的牛排，周围有蒜片、迷迭香和带烟雾与余烬光点的深色背景；文案包括“とろける旨さ！”、“{argument name="food item" default="黒毛和牛"}”、“贅沢ステーキ”、“期間限定”、“特別価格”、“通常価格 8,980円”和“4,980円”，并带有一个红色圆形徽章“A4 A5等級”。右下是在线教育主题：一位穿蓝色衬衫的年轻男性坐在桌前学习，桌上有打开的笔记本电脑，他在笔记本上写字，环境是明亮的室内光线和书桌场景；文案包括“スキマ時間で”、“{argument name="education goal" default="最短合格！"}”、“オンライン資格講座”、“スマホで完結”、“効率学習で差がつく！”以及“今だけ！ 受講料 20%OFF”，并配有一个蓝色圆形徽章“受講者数 10万人 突破！”，另外还有手机和打开的书本两个图标。
 ```
 
 ***
@@ -243,44 +122,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "3-panel manga page",
-  "style": "anime, highly detailed, cinematic lighting, futuristic corporate",
-  "layout": {
-    "structure": "1 wide top panel, 2 square bottom panels"
-  },
-  "panels": [
-    {
-      "position": "top",
-      "shot": "wide landscape",
-      "scene": "Futuristic corporate lobby with floor-to-ceiling windows",
-      "lighting": "{argument name=\"time of day\" default=\"sunrise\"}",
-      "background": "City skyline featuring {argument name=\"landmark\" default=\"Tokyo Tower\"}",
-      "details": "Holographic displays, polished reflective floor, reception desk, lounge chairs"
-    },
-    {
-      "position": "bottom left",
-      "shot": "close-up profile",
-      "character": "Young woman, dark hair, black business suit",
-      "accessories": "Futuristic black earpiece with glowing blue light",
-      "speech_bubble": {
-        "style": "standard rounded",
-        "text": "{argument name=\"character dialogue\" default=\"数字はいいわ\"}"
-      }
-    },
-    {
-      "position": "bottom right",
-      "shot": "full body, walking away, touching earpiece",
-      "character": "Same woman, black suit, black heels, carrying a black tote bag",
-      "environment": "Approaching security gates",
-      "holographic_sign": "{argument name=\"floor sign\" default=\"ECHO 42F\"}",
-      "speech_bubble": {
-        "style": "futuristic angular",
-        "text": "{argument name=\"AI dialogue\" default=\"おはようございます、ユキさん。本日は記念すべき ──\"}"
-      }
-    }
-  ]
-}
+画面是一页 3 格漫画，采用动漫风格、细节丰富、电影感光影和未来企业氛围。版式为上方一条横向大格，下方左右两个方形小格。上方主场景是带有落地窗的未来感公司大堂，时间是 {argument name="time of day" default="sunrise"}，窗外城市天际线中能看到 {argument name="landmark" default="Tokyo Tower"}，空间里还包含全息显示屏、带反光的抛光地面、接待台和休息椅。左下格是近景侧面特写：一位年轻女性，黑色头发，穿黑色商务套装，戴着带蓝色发光效果的未来感黑色耳机；对白气泡使用标准圆角样式，文字为“{argument name="character dialogue" default="数字はいいわ"}”。右下格是全身镜头：同一位女性穿着黑色西装和黑色高跟鞋，手提黑色托特包，边走边触碰耳机，正朝安检闸机走去，画面里还有一个写着“{argument name="floor sign" default="ECHO 42F"}”的全息标识；对白气泡使用未来感尖角样式，文字为“{argument name="AI dialogue" default="おはようございます、ユキさん。本日は記念すべき ──"}”。
 ```
 
 ***
@@ -294,64 +136,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "manga page",
-  "style": "anime illustration, full color",
-  "characters": {
-    "woman": {
-      "appearance": "long {argument name=\"hair color\" default=\"black\"} hair, purple eyes",
-      "outfit": "{argument name=\"shirt color\" default=\"grey\"} long-sleeve shirt, dark grey skinny jeans, barefoot"
-    },
-    "delivery_man": {
-      "appearance": "bald, older man, thick eyebrows",
-      "outfit": "blue work jacket over a grey shirt"
-    }
-  },
-  "layout": {
-    "description": "Page split vertically. Left side contains 4 stacked horizontal panels. Right side is a single tall vertical panel.",
-    "left_column_panels": [
-      {
-        "panel_number": 1,
-        "scene": "Woman sitting on a grey sofa in a living room, holding a white mug.",
-        "text_elements": [
-          { "type": "speech_bubble", "text": "?" },
-          { "type": "sound_effect", "text": "ピンポーン♪", "description": "doorbell ringing" }
-        ]
-      },
-      {
-        "panel_number": 2,
-        "scene": "Woman opening the front door. Delivery man standing outside holding a cardboard box, smiling.",
-        "text_elements": [
-          { "type": "speech_bubble", "speaker": "delivery_man", "text": "{argument name=\"delivery greeting\" default=\"こんにちは〜！宅配便で〜す！\"}" },
-          { "type": "speech_bubble", "speaker": "woman", "text": "は、はい…ありがとうございます" }
-        ]
-      },
-      {
-        "panel_number": 3,
-        "scene": "Close-up of the delivery man laughing enthusiastically with a sparkly pink background.",
-        "text_elements": [
-          { "type": "speech_bubble", "speaker": "delivery_man", "text": "{argument name=\"creepy compliment\" default=\"おや〜？いや〜美人さんですなあ！こんな綺麗な方がお一人でお住まいなんて、もったいないなあ〜♪\"}" }
-        ]
-      },
-      {
-        "panel_number": 4,
-        "scene": "Close-up of the woman looking disgusted and uncomfortable, sweating slightly. The back of the delivery man's head is visible in the foreground.",
-        "text_elements": [
-          { "type": "speech_bubble", "speaker": "delivery_man", "text": "それにしてもお肌が綺麗！スタイルも抜群だし〜モデルさんみたいですよ！" },
-          { "type": "thought_bubble", "speaker": "woman", "text": "{argument name=\"woman reaction\" default=\"え…？何この人…ちょっと気持ち悪いかも…\"}" },
-          { "type": "caption_box", "text": "この後も延々と褒め続ける配達員だった…" }
-        ]
-      }
-    ],
-    "right_column_panel": {
-      "panel_number": 5,
-      "scene": "Full-body portrait of the woman standing indoors, looking annoyed and suspicious with her arms crossed.",
-      "text_elements": [
-        { "type": "thought_bubble", "speaker": "woman", "text": "誰かしら…？" }
-      ]
-    }
-  }
-}
+画面是一页漫画，整体为动漫彩色风格。版式从左到右分成两栏：左侧是 4 个上下堆叠的横向分镜，右侧是一格贯穿整栏的高竖向分镜。人物设定中，女性角色是长 {argument name="hair color" default="black"} 头发、紫色眼睛，穿 {argument name="shirt color" default="grey"} 长袖上衣、深灰色紧身牛仔裤，赤脚；送货员是秃头、年长男性、浓眉，穿蓝色工作夹克和灰色上衣。左上第一格里，女性坐在客厅的灰色沙发上，手里拿着白色马克杯，旁边有一个“？”对白气泡和表示门铃响的音效“ピンポーン♪”。左下第二格里，女性打开家门，门外的送货员抱着纸箱微笑站着；送货员对白为“{argument name="delivery greeting" default="こんにちは〜！宅配便で〜す！"}”，女性对白为“は、はい…ありがとうございます”。左侧第三格是送货员的近景特写，他在粉色闪光背景前开怀大笑，台词是“{argument name="creepy compliment" default="おや〜？いや〜美人さんですなあ！こんな綺麗な方がお一人でお住まいなんて、もったいないなあ〜♪"}”。左侧第四格是女性的近景，她显得厌恶、局促并微微出汗，前景还能看到送货员的后脑勺；送货员继续说“それにしてもお肌が綺麗！スタイルも抜群だし〜モデルさんみたいですよ！”，女性的内心独白为“{argument name="woman reaction" default="え…？何この人…ちょっと気持ち悪いかも…"}”，底部说明框写着“この後も延々と褒め続ける配達員だった…”。右侧整格则是女性站在室内、双臂交叉、神情不耐烦又警惕的全身像，内心气泡写着“誰かしら…？”。
 ```
 
 ***
@@ -365,31 +150,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "anime-style animated movie poster",
-  "scene": "Magical glowing multi-story treehouse restaurant in a dark enchanted forest at night, illuminated by string lights and warm window glow.",
-  "subjects": {
-    "children": "2 children in center foreground facing the restaurant: a boy with a backpack and lantern, and a girl in a red coat and beret with a lantern.",
-    "animals": "4 anthropomorphic animals: a bear chef holding a MENU book (bottom left), an owl playing violin and a squirrel playing flute on a branch (top left), a badger playing cello (mid right), and a rabbit in a suit holding a sign (bottom right).",
-    "creatures": "3 small black soot-sprite-like creatures with glowing eyes (bottom right).",
-    "floating_food": "4 glowing food items floating in the air: soup, pancakes, omurice, and a fruit parfait."
-  },
-  "layout": {
-    "top_text": "{argument name=\"top catchphrase\" default=\"おいしい奇跡が、今夜はじまる。\"}",
-    "building_sign": "{argument name=\"restaurant name\" default=\"森のレストラン\"}",
-    "left_board": "本日のおすすめ\n・森のスープ\n・星のオムライス\n・ふわふわパンケーキ\n・しあわせのパフェ\n...and more!",
-    "right_board": "いらっしゃいませ！\nここは、だれでも\n笑顔になれる場所。",
-    "main_title": {
-      "text": "{argument name=\"movie title\" default=\"ふしぎな森のレストラン\"}",
-      "styling": "Large stylized typography with a chef hat, fork, and spoon motifs."
-    },
-    "rabbit_sign": "ごちそうさま！またきてね！",
-    "bottom_left_badge": "{argument name=\"genre badge\" default=\"家族みんなで楽しめる！心あたたまる冒険ファンタジー\"}",
-    "bottom_center_credits": "Fictional cast and staff names in Japanese.",
-    "bottom_release_date": "{argument name=\"release date\" default=\"2025年 夏休みロードショー！\"}",
-    "bottom_right": "QR code with text '最新情報はこちら！'"
-  }
-}
+画面是一张动漫风格的动画电影海报。整体场景是夜晚的黑暗魔法森林，一座会发光的多层树屋餐厅坐落在森林中央，房屋由串灯和温暖的窗光照亮。前景中央站着 2 个孩子，正面对餐厅：一个男孩背着背包、提着灯笼，一个穿红色外套和贝雷帽的女孩也提着灯笼。周围还有 4 只拟人化动物：左下是一只抱着 MENU 书本的熊厨师；左上枝头是一只拉小提琴的猫头鹰和一只吹长笛的松鼠；右侧中部是一只拉大提琴的獾；右下是一只穿西装、举着标牌的兔子。右下角还有 3 个带发光眼睛的小黑色煤灰精灵生物，以及 4 个漂浮在空中的发光食物：汤、松饼、蛋包饭和水果芭菲。顶部主文案是“{argument name="top catchphrase" default="おいしい奇跡が、今夜はじまる。"}”，建筑招牌写“{argument name="restaurant name" default="森のレストラン"}”；左侧板子写“本日のおすすめ\n・森のスープ\n・星のオムライス\n・ふわふわパンケーキ\n・しあわせのパフェ\n...and more!”；右侧板子写“いらっしゃいませ！\nここは、だれでも\n笑顔になれる場所。”；主标题为“{argument name="movie title" default="ふしぎな森のレストラン"}”，并带有厨师帽、叉子和勺子的装饰；兔子举的牌子写“ごちそうさま！またきてね！”；左下角徽章为“{argument name="genre badge" default="家族みんなで楽しめる！心あたたまる冒険ファンタジー"}”；底部中间是虚构的演员和工作人员日文名单；底部发行日期为“{argument name="release date" default="2025年 夏休みロードショー！"}”；右下角放置二维码，并配文“最新情報はこちら！”。
 ```
 
 ***

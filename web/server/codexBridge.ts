@@ -235,6 +235,8 @@ function buildRewritePrompt(request: RewriteRequest, caseRecord: LocalCaseRecord
     "Return only one JSON object. Do not wrap it in markdown, code fences, or commentary.",
     'The JSON schema must be {"rewritten_prompt_text":string,"preserved_parts":[string],"changed_parts":[string]}.',
     "The rewritten prompt must stay faithful to the original case while adapting to the source image.",
+    "The rewritten_prompt_text value must be natural-language Chinese prompt text that can be copied directly into ChatGPT / GPT Image 2.",
+    "Do not put JSON, Markdown code fences, key-value objects, or schema-like prompt text inside rewritten_prompt_text.",
     "",
     "Case:",
     JSON.stringify(
@@ -252,6 +254,49 @@ function buildRewritePrompt(request: RewriteRequest, caseRecord: LocalCaseRecord
       2
     )
   ].join("\n");
+}
+
+function looksLikeStructuredPromptText(value: string): boolean {
+  const trimmedValue = value.trim();
+  if (trimmedValue.startsWith("```")) {
+    return true;
+  }
+
+  if (/^(?:\{\s*(?:["{}]|\}|[a-z\u4e00-\u9fff])|\[\s*(?:["{[]|\]))/i.test(trimmedValue)) {
+    return true;
+  }
+
+  const schemaKeyPattern =
+    /(?:^|\n)\s*["“”]?(?:type|subject|style|prompt|layout|theme|background|instruction|主题|主体|风格|构图|布局|背景|提示词|说明)["“”]?\s*[:：=]/i;
+  const schemaKeyMatches = trimmedValue.match(new RegExp(schemaKeyPattern, "gi")) ?? [];
+  if (schemaKeyMatches.length >= 2) {
+    return true;
+  }
+
+  const inlineSchemaKeyPattern =
+    /["“”]?(?:type|subject|style|prompt|layout|theme|background|instruction|主题|主体|风格|构图|布局|背景|提示词|说明)["“”]?\s*[:：=]/gi;
+  const inlineSchemaKeyMatches = trimmedValue.match(inlineSchemaKeyPattern) ?? [];
+  if (inlineSchemaKeyMatches.length >= 2) {
+    return true;
+  }
+
+  const structuredListPattern =
+    /(?:^|\n)\s*(?:[-*•]|\d+[.)、])\s*(?:type|subject|style|prompt|layout|theme|background|instruction|主题|主体|风格|构图|布局|背景|提示词|说明)(?=\s|[:：=]|$)/i;
+  const structuredListMatches =
+    trimmedValue.match(new RegExp(structuredListPattern, "gi")) ?? [];
+  if (structuredListMatches.length >= 2) {
+    return true;
+  }
+
+  const genericListMatches =
+    trimmedValue.match(/(?:^|\n)\s*(?:[-*•]|\d+[.)、])\s+\S+/g) ?? [];
+  if (genericListMatches.length >= 2) {
+    return true;
+  }
+
+  return /^"?(?:type|subject|style|prompt|layout|theme|background|instruction)"?\s*[:=]/i.test(
+    trimmedValue
+  ) || /^(?:主题|主体|风格|构图|布局|背景|说明)\s*[:：=]/.test(trimmedValue);
 }
 
 function validateRequestedCases(requestCases: CaseIndexItem[]): number[] {
@@ -340,6 +385,10 @@ function parseRewriteResponse(response: Record<string, unknown>): RewriteRespons
     response.rewritten_prompt_text,
     "rewritten_prompt_text"
   );
+
+  if (looksLikeStructuredPromptText(rewrittenPromptText)) {
+    throw new Error("rewritten_prompt_text must be natural-language prompt text");
+  }
 
   const preservedParts = response.preserved_parts;
   const changedParts = response.changed_parts;

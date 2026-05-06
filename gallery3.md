@@ -187,54 +187,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "cinematic promotional poster",
-  "style": "3D CGI animation style, highly detailed, dramatic lighting, caricature characters",
-  "characters": [
-    { "id": "char1", "description": "large shirtless man with long black hair, beard, and glasses" },
-    { "id": "char2", "description": "elderly woman in a kimono with white hair tied up" },
-    { "id": "char3", "description": "small man with a topknot, glasses, mustache, wearing a bright green sweater" }
-  ],
-  "layout": {
-    "panels": [
-      {
-        "position": "top",
-        "scene": "wide shot of a town street with buildings and a city skyline in the background",
-        "characters_present": ["char1", "char2", "char3"],
-        "text_overlays": [
-          "{argument name=\"intro text\" default=\"ある日ーー\"}",
-          "いつもの日常がーー",
-          "こんばんは"
-        ]
-      },
-      {
-        "position": "middle left",
-        "scene": "close-up of char1 looking shocked against a dark fiery background",
-        "text_overlays": [
-          "{argument name=\"shocked text\" default=\"私が出禁？\"}"
-        ]
-      },
-      {
-        "position": "middle right",
-        "scene": "close-up of char2 looking angry and pointing against a stormy sea background",
-        "text_overlays": [
-          "{argument name=\"angry text\" default=\"海を荒らすな！\"}"
-        ]
-      },
-      {
-        "position": "bottom",
-        "scene": "char3 pointing, char1 screaming, a second instance of char3 falling backwards, and char2 sitting angrily against a fiery chaotic background",
-        "text_overlays": [
-          "全然出ない！"
-        ],
-        "bottom_titles": [
-          "{argument name=\"main title\" default=\"パチンコ軍団親のイメチェン\"}",
-          "{argument name=\"subtitle\" default=\"LINEスタンプ販売中\"}"
-        ]
-      }
-    ]
-  }
-}
+请制作一张电影感的宣传海报，风格是 3D CGI 动画、细节丰富、光影戏剧化，并带有夸张卡通角色。角色有三位：第一位是高大、赤裸上身、长黑发、有胡子和眼镜的男人；第二位是穿和服、白发盘起的老年女性；第三位是个小个子男人，梳着发髻，戴眼镜和胡子，穿亮绿色毛衣。版式分成多个分镜面板：顶部是小镇街道的广角镜头，背景能看到建筑和城市天际线，三位角色都出现，并叠加文字 {argument name="intro text" default="ある日ーー"}、“いつもの日常がーー”和“こんばんは”；中间左侧是第一位角色在黑红火焰背景前惊讶的特写，文字写 {argument name="shocked text" default="私が出禁？"}；中间右侧是第二位角色在暴风雨海面背景前愤怒指向前方的特写，文字写 {argument name="angry text" default="海を荒らすな！"}；底部是混乱燃烧背景下的动作场面，第三位角色指向前方，第一位角色尖叫，第三位角色的另一个分身向后倒去，第二位角色愤怒地坐着，叠加文字“全然出ない！”，并放置主标题 {argument name="main title" default="パチンコ軍団親のイメチェン"} 和副标题 {argument name="subtitle" default="LINEスタンプ販売中"}。整体要像一张夸张、热闹、戏剧冲突很强的日式宣传海报。
 ```
 
 ***
@@ -248,65 +201,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "2x2 grid of banner advertisements",
-  "theme": "{argument name=\"school name\" default=\"SNSスクール\"}",
-  "target_audience": "{argument name=\"target audience\" default=\"学生\"}",
-  "layout": {
-    "grid": "2x2",
-    "panels": [
-      {
-        "position": "top-left",
-        "style": "dark neon, blue and purple",
-        "subject": "young woman looking up hopefully, holding a smartphone, wearing a purple sweatshirt",
-        "main_text": "{argument name=\"banner 1 headline\" default=\"SNSを仕事にしたい人へ\"}",
-        "sub_text": "“好き”をカタチに。未来を変える一歩を、今。",
-        "elements": [
-          "white and yellow typography",
-          "yellow call-to-action button: チェックする >",
-          "hand-drawn neon accents (crown, stars, heart)"
-        ]
-      },
-      {
-        "position": "top-right",
-        "style": "bright, pop, cyan and white",
-        "subject": "young woman smiling directly at camera, holding a smartphone, wearing a teal hoodie, hair in a bun",
-        "main_text": "{argument name=\"banner 2 headline\" default=\"好きな発信を武器にする\"}",
-        "sub_text": "企画・編集・投稿を学ぶ",
-        "elements": [
-          "torn paper texture backgrounds for text",
-          "yellow starburst sticker: 無料体験",
-          "3 feature icons with text: lightbulb (企画力), pencil (編集力), paper plane (投稿力)"
-        ]
-      },
-      {
-        "position": "bottom-left",
-        "style": "dark, analytical, neon purple and green",
-        "subject": "young man looking thoughtfully at his smartphone, wearing a black hoodie",
-        "main_text": "{argument name=\"banner 3 headline\" default=\"バズるだけじゃない 分析まで学べる\"}",
-        "sub_text": "#伸びる理由がわかると、もっと伸ばせる。",
-        "elements": [
-          "3 floating holographic data panels with line graphs and stats (125.6万, 23.8%, 12.6%)",
-          "3 feature icons at bottom: bar chart (データ分析), magnifying glass (改善提案), target (成果につなげる)",
-          "yellow call-to-action button: 詳しく見る >"
-        ]
-      },
-      {
-        "position": "bottom-right",
-        "style": "bright, friendly, purple and white",
-        "subject": "group of 4 young people (3 women, 1 man) huddled together smiling at a smartphone",
-        "main_text": "SNSで未来の可能性を広げよう",
-        "sub_text": "仲間と学べるコミュニティ",
-        "elements": [
-          "torn paper texture backgrounds for text",
-          "3 bullet points with icons (people, speech bubbles, rising chart)",
-          "2 polaroid-style inset photos showing students studying at a desk",
-          "yellow call-to-action button: 今すぐ参加 >"
-        ]
-      }
-    ]
-  }
-}
+请制作一张 2x2 网格的横幅广告图，主题使用 {argument name="school name" default="SNSスクール"}，目标受众是 {argument name="target audience" default="学生"}。左上角面板采用深色霓虹风，主色是蓝和紫，人物是一位抬头看向上方、手拿手机、穿紫色卫衣的年轻女性，主标题写 {argument name="banner 1 headline" default="SNSを仕事にしたい人へ"}，副文案保留“好き”をカタチに。未来を変える一歩を、今。这样的句子，元素里要有白色和黄色排版、写着“チェックする >”的黄色行动按钮，以及手绘霓虹装饰如皇冠、星星和爱心。右上角面板要明亮、流行、青色和白色，人物是面带微笑直接看镜头、手拿手机、穿青绿色连帽衫、头发扎成发髻的年轻女性，主标题写 {argument name="banner 2 headline" default="好きな発信を武器にする"}，副文案是“企画・編集・投稿を学ぶ”，并加入撕纸质感背景、写着“無料体験”的黄色星爆贴纸，以及 3 个特征图标：灯泡表示企画力、铅笔表示編集力、纸飞机表示投稿力。左下面板要偏深色分析风，霓虹紫和绿色，人物是一位穿黑色连帽衫、若有所思地看手机的年轻男性，主标题写 {argument name="banner 3 headline" default="バズるだけじゃない 分析まで学べる"}，副文案是 #伸びる理由がわかると、もっと伸ばせる。，并在上方放 3 个漂浮的全息数据面板，显示折线图和统计数字 125.6万、23.8%、12.6%，底部放 3 个功能图标：柱状图表示データ分析、放大镜表示改善提案、靶心表示成果につなげる，再配一个写着“詳しく見る >”的黄色按钮。右下面板要明亮、友好、紫色和白色，人物是 3 女 1 男围在一起看手机、开心微笑的年轻人群，主标题写“SNSで未来の可能性を広げよう”，副文案是“仲間と学べるコミュニティ”，并加入撕纸背景、带图标的 3 条要点、两张拍立得风格的课堂照片，以及写着“今すぐ参加 >”的黄色按钮。整体要像一组风格统一、适合招生宣传的社交媒体课程横幅。
 ```
 
 ***
@@ -320,7 +215,7 @@
 **提示词：**
 
 ```text
-{"type": "2x2 grid of promotional banner ads", "theme": "{argument name=\"course theme\" default=\"Social Media Content Creation School\"}", "panels": [{"position": "top-left", "color_palette": "light blue and pink pastel gradient", "subject": "young woman smiling, resting chin on hand, smartphone and ring light in foreground", "typography": {"headline": "{argument name=\"top left headline\" default=\"発信を仕事に変える SNSスクール\"}", "subheadings": ["好きが、私の未来になる！", "クリエイター志望歓迎！"]}, "layout_elements": {"bullet_points_count": 3, "call_to_action_button": "pink button labeled '無料体験 >'"}}, {"position": "top-right", "color_palette": "deep blue and cyan geometric", "subject": "young man looking intently at a professional camera on a tripod with a ring light", "typography": {"headline": "{argument name=\"top right headline\" default=\"魅せる投稿が学べる\"}", "subheadings": ["企画・撮影・運用サポート"]}, "layout_elements": {"circular_icons_count": 3, "icon_types": ["lightbulb", "camera", "bar chart"], "call_to_action_button": "yellow button labeled '詳細はこちら >'"}}, {"position": "bottom-left", "color_palette": "soft beige and white aesthetic", "subject": "young woman looking thoughtfully to the side, mood board background", "typography": {"headline": "{argument name=\"bottom left headline\" default=\"自分の世界観を育てる\"}", "subheadings": ["あなたらしさが、一番の強みになる。", "SNSブランディング講座"]}, "layout_elements": {"horizontal_icons_count": 3, "icon_types": ["palette", "person", "heart"], "call_to_action_button": "pink button labeled '今すぐ見る >'"}}, {"position": "bottom-right", "color_palette": "vibrant pink and magenta pop design", "subject": "young woman smiling brightly, pointing at text, messy bun, smartphone on tripod", "typography": {"headline": "{argument name=\"bottom right headline\" default=\"好きな発信でファンをつくる\"}", "subheadings": ["実践型レッスン"]}, "layout_elements": {"bullet_points_count": 4, "call_to_action_button": "yellow button labeled '申し込む >'"}}]}
+请制作一张 2x2 网格的宣传横幅广告，主题为 {argument name="course theme" default="Social Media Content Creation School"}。左上面板使用浅蓝和粉色的渐变配色，人物是一位微笑着托着下巴、前景摆着手机和补光灯的年轻女性，标题写 {argument name="top left headline" default="発信を仕事に変える SNSスクール"}，副标题保留“好きが、私の未来になる！”和“クリエイター志望歓迎！”两行文案，并配 3 个项目符号和一个写着“無料体験 >”的粉色按钮。右上面板使用深蓝和青色的几何风格，人物是一位专注看着三脚架上专业相机和环形灯的年轻男性，标题写 {argument name="top right headline" default="魅せる投稿が学べる"}，副标题写“企画・撮影・運用サポート”，并加入 3 个圆形图标 lightbulb、camera、bar chart，底部放一个写着“詳細はこちら >”的黄色按钮。左下面板使用柔和米色和白色美学风，人物是一位若有所思地看向侧边、背景是 mood board 的年轻女性，标题写 {argument name="bottom left headline" default="自分の世界観を育てる"}，副标题保留“あなたらしさが、一番の強みになる。”和“SNSブランディング講座”，并加入 3 个横向图标 palette、person、heart，再放一个写着“今すぐ見る >”的粉色按钮。右下面板使用鲜艳粉色和洋红的流行设计，人物是一位微笑着指向文字、发髻造型、手机架在三脚架上的年轻女性，标题写 {argument name="bottom right headline" default="好きな発信でファンをつくる"}，副标题写“実践型レッスン”，并加入 4 个项目符号和一个写着“申し込む >”的黄色按钮。整体视觉要像一套现代、活泼、适合课程宣传的广告版式。
 ```
 
 ***
@@ -334,41 +229,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "VTuber stream thumbnail",
-  "character": {
-    "hair": "long blonde twin tails with pink gradient ends",
-    "eyes": "large pink anime eyes",
-    "expression": "cheerful smile with a small fang, making a peace sign near the eye",
-    "outfit": "black top with harness straps, black heart-ring choker, multiple ear piercings including a cross dangle, black nail polish"
-  },
-  "background": "vibrant neon pink and black leopard print with glowing yellow accents, sparkles, and floating hearts",
-  "typography_and_layout": {
-    "main_title": {
-      "position": "top left",
-      "style": "large, bold, 3D, pink and black with white outlines",
-      "text": "{argument name=\"main title\" default=\"雑談配信\"}"
-    },
-    "top_right_text": {
-      "style": "casual handwritten style with a heart",
-      "text": "{argument name=\"top right text\" default=\"まったり話そ〜♡\"}"
-    },
-    "bottom_left_banners": {
-      "count": 3,
-      "style": "glowing pill-shaped banners with heart icons on the left",
-      "colors": ["pink", "yellow", "purple"],
-      "labels": [
-        "{argument name=\"banner 1 text\" default=\"初見さん〇\"}",
-        "{argument name=\"banner 2 text\" default=\"ポイント回収〇\"}",
-        "{argument name=\"banner 3 text\" default=\"ROM〇\"}"
-      ]
-    },
-    "bottom_right_text": {
-      "style": "casual handwritten style with a heart, yellow text with pink outline",
-      "text": "気軽にコメントしてねっ♡"
-    }
-  }
-}
+请制作一张 VTuber 直播缩略图。角色外观是长金色双马尾，发梢带粉色渐变，大大的粉色动漫眼睛，表情是开心微笑并露出一点小虎牙，手在眼睛旁边比出和平手势；服装是黑色上衣，带束带设计，黑色爱心环颈圈，多枚耳钉里包含一个十字垂坠，指甲是黑色。背景使用鲜艳的霓虹粉和黑色豹纹图案，并加入发光的黄色点缀、闪光和漂浮爱心。文字和排版部分要包含：左上角放主标题，使用大号、粗体、3D 效果的粉黑文字并带白色描边，文字写 {argument name="main title" default="雑談配信"}；右上角放随意手写风格并带爱心的文字，写 {argument name="top right text" default="まったり話そ〜♡"}；左下角放 3 条发光的胶囊形横幅，左侧带爱心图标，颜色分别是粉、黄、紫，标签依次写 {argument name="banner 1 text" default="初見さん〇"}、{argument name="banner 2 text" default="ポイント回収〇"}、{argument name="banner 3 text" default="ROM〇"}；右下角再放一行随意手写风格并带爱心的文字，使用黄色文字和粉色描边，内容是“気軽にコメントしてねっ♡”。整体要像一张高能、可爱、很适合直播平台的缩略图。
 ```
 
 ***
@@ -382,48 +243,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "VTuber debut stream thumbnail",
-  "character": {
-    "appearance": "anime girl, long dark purple hair, purple eyes, frilly white blouse, dark purple bow tie, large hair bow",
-    "pose": "finger to lips, cute expression",
-    "props": "condenser microphone with pop filter and purple ribbon on the right"
-  },
-  "background": "magical starry night, sparkles, glowing butterflies, purple and white color palette",
-  "layout": {
-    "typography": [
-      {
-        "position": "top left",
-        "style": "large bold text with cursive English above",
-        "text": "{argument name=\"main title\" default=\"初配信\"}",
-        "subtext_1": "First Stream",
-        "subtext_2": "Nice to meet you! I am Shisaki Lily!"
-      },
-      {
-        "position": "middle left",
-        "style": "decorative box",
-        "text": "{argument name=\"character description\" default=\"お嬢様学校に通う清楚系VTuberですわ♪\"}"
-      },
-      {
-        "position": "bottom left",
-        "style": "logo style",
-        "text": "{argument name=\"character name\" default=\"紫咲リリー\"}",
-        "subtext": "Shisaki Lily"
-      },
-      {
-        "position": "top right",
-        "style": "vertical text",
-        "text": "{argument name=\"catchphrase\" default=\"皆さまの心に、優雅なひとときをお届けしますわ♪\"}"
-      },
-      {
-        "position": "bottom right",
-        "style": "decorative pill shape",
-        "text": "{argument name=\"stream date and time\" default=\"4.21 SUN 21:00~\"}",
-        "subtext": "✦ START ✦"
-      }
-    ]
-  }
-}
+生成一张 VTuber 初配信直播缩略图。画面主体是一位动漫女孩，长深紫色头发、紫色眼睛，穿荷叶边白色衬衫和深紫色蝴蝶结领结，头上有大型发饰蝴蝶结，摆出手指抵唇的可爱表情。右侧放置带防喷罩的电容麦克风，麦克风上系有紫色丝带。背景是魔法感星空夜景，带闪光粒子、发光蝴蝶，并使用紫色与白色调。版式包含多组文字：左上方使用大号粗体标题，并在上方加入花体英文，主标题为 {argument name="main title" default="初配信"}，同时写上 First Stream 和 Nice to meet you! I am Shisaki Lily!；左侧中部使用装饰框显示 {argument name="character description" default="お嬢様学校に通う清楚系VTuberですわ♪"}；左下方以 logo 风格写出 {argument name="character name" default="紫咲リリー"}，并附 Shisaki Lily；右上方放置竖排文字 {argument name="catchphrase" default="皆さまの心に、優雅なひとときをお届けしますわ♪"}；右下方使用装饰性胶囊形标签显示 {argument name="stream date and time" default="4.21 SUN 21:00~"}，并附 ✦ START ✦。
 ```
 
 ***
@@ -437,67 +257,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "promotional banner thumbnail",
-  "style": "vibrant neon, cosmic galaxy background, anime illustration style, high-density Japanese typography, glowing text effects",
-  "character": {
-    "description": "smiling young woman pointing upwards with right index finger",
-    "appearance": "long {argument name=\"character hair color\" default=\"brown\"} hair, purple drop earrings, textured purple sweater",
-    "position": "right side"
-  },
-  "layout": {
-    "background": "purple, pink, and blue starry space nebula",
-    "center_typography": {
-      "top_small_text": "何から始めるか迷う人へ",
-      "main_title": "{argument name=\"main title\" default=\"初心者でもわかる AI副業\"}",
-      "subtitle": "最初の1本におすすめ",
-      "floating_text_near_character": "やさしく解説♡"
-    },
-    "top_left": {
-      "yellow_ribbon": "{argument name=\"top left ribbon text\" default=\"ゼロから始める\"}"
-    },
-    "top_right": {
-      "pink_circle_badge": "初心者 OK"
-    },
-    "left_column": {
-      "count": 7,
-      "description": "stack of pill-shaped badges",
-      "labels": [
-        "スマホでもOK (with phone icon)",
-        "副業デビューに (with beginner mark icon)",
-        "具体例つき",
-        "テンプレ付き",
-        "おすすめツール紹介",
-        "収益化の流れ",
-        "失敗しない始め方"
-      ]
-    },
-    "bottom_left_graphics": {
-      "count": 3,
-      "items": [
-        "laptop displaying an AI circuit brain graphic",
-        "glowing lightbulb",
-        "rocket ship taking off"
-      ]
-    },
-    "bottom_center": {
-      "large_purple_button": "{argument name=\"bottom center button text\" default=\"完全解説\"}",
-      "checklist_text_below": "✓始め方 ✓稼ぎ方 ✓注意点 ✓続け方まで全部わかる！"
-    },
-    "bottom_right": {
-      "pink_cloud_shape": {
-        "count": 3,
-        "bullet_points": [
-          "✓難しい知識不要",
-          "✓今日から始められる",
-          "✓やさしく丁寧に解説"
-        ]
-      },
-      "gold_medal_seal": "保存版",
-      "purple_badge": "{argument name=\"year badge text\" default=\"2026年 最新版\"}"
-    }
-  }
-}
+生成一张宣传横幅缩略图，整体风格为鲜艳霓虹、宇宙银河背景、动漫插画、高密度日文排版和发光文字效果。右侧是一位微笑的年轻女性，右手食指向上指，留着 {argument name="character hair color" default="brown"} 长发，佩戴紫色水滴耳环，穿有纹理的紫色毛衣。背景是紫色、粉色和蓝色交织的星云太空。画面中央排版包含顶部小字“何から始めるか迷う人へ”，主标题 {argument name="main title" default="初心者でもわかる AI副業"}，副标题“最初の1本におすすめ”，角色附近漂浮文字“やさしく解説♡”。左上角有黄色丝带，文字为 {argument name="top left ribbon text" default="ゼロから始める"}；右上角有粉色圆形徽章“初心者 OK”。左侧纵向堆叠 7 个胶囊形标签，分别写“スマホでもOK”并带手机图标、“副業デビューに”并带初心者标记图标、“具体例つき”、“テンプレ付き”、“おすすめツール紹介”、“収益化の流れ”、“失敗しない始め方”。左下角放 3 个图形元素：显示 AI 电路大脑图案的笔记本电脑、发光灯泡和起飞火箭。底部中央有大型紫色按钮 {argument name="bottom center button text" default="完全解説"}，下方写“✓始め方 ✓稼ぎ方 ✓注意点 ✓続け方まで全部わかる！”。右下角有粉色云朵形区域，列出“✓難しい知識不要”“✓今日から始められる”“✓やさしく丁寧に解説”，旁边加入金色奖章印章“保存版”和紫色徽章 {argument name="year badge text" default="2026年 最新版"}。
 ```
 
 ***
@@ -511,30 +271,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "2-page manga spread",
-  "style": "monochrome anime manga, screentones",
-  "theme": "{argument name=\"main action\" default=\"fantasy mage developing a video game\"}",
-  "character": "{argument name=\"character appearance\" default=\"anime girl with blonde hair, tiara, cape, white dress, thigh-highs\"}",
-  "layout": {
-    "left_page": {
-      "panel_count": 11,
-      "rows": [
-        {"panels": 1, "action": "Determined at dual-monitor desk, speech bubble: '新作ゲーム、絶対完成させる！'"},
-        {"panels": 3, "action": "Typing, drawing on tablet, testing with controller"},
-        {"panels": 3, "action": "Shocked at ERROR screen, depressed, determined again"},
-        {"panels": 4, "action": "Exhausted, sudden realization, furious typing, monitor showing 'Build succeeded!'"}
-      ]
-    },
-    "right_page": {
-      "panel_count": 2,
-      "panels": [
-        {"type": "large splash", "action": "Casting magic from a glowing circle at a code-error monster labeled '{argument name=\"error text\" default=\"NullReferenceException\"}'. Speech bubble: '{argument name=\"spell text\" default=\"デバッグ魔法!!\"}'"},
-        {"type": "bottom banner", "action": "Cheering in front of RPG title screen. Speech bubble: '{argument name=\"success text\" default=\"やったー！\"}'"}
-      ]
-    }
-  }
-}
+生成一张黑白动漫漫画双页跨页，使用网点纸质感，主题为 {argument name="main action" default="fantasy mage developing a video game"}。角色为 {argument name="character appearance" default="anime girl with blonde hair, tiara, cape, white dress, thigh-highs"}。左页包含 11 个分镜：第一行 1 格，角色坚定地坐在双显示器桌前，气泡文字“新作ゲーム、絶対完成させる！”；第二行 3 格，依次表现打字、在数位板上绘制、用手柄测试；第三行 3 格，表现看到 ERROR 屏幕后震惊、沮丧、重新振作；第四行 4 格，表现筋疲力尽、突然顿悟、愤怒地飞快打字、显示器出现“Build succeeded!”。右页包含 2 个分区：上方是大型跨页画面，角色站在发光魔法阵中，对标注为 {argument name="error text" default="NullReferenceException"} 的代码错误怪物施放魔法，气泡文字为 {argument name="spell text" default="デバッグ魔法!!"}；下方是横幅格，角色在 RPG 标题画面前欢呼，气泡文字为 {argument name="success text" default="やったー！"}。
 ```
 
 ***
@@ -562,71 +299,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "anime movie production pitch document",
-  "overall_layout": "split layout with a large cinematic movie poster on the top half and a grid of 5 detailed reference sheets on the bottom half",
-  "top_section": {
-    "type": "movie poster",
-    "visual": "A man, a woman, and a dog standing on a ruined city street, facing away from the viewer, looking towards a colossal, porous, web-like alien structure dominating the sky. A rusty 'RESTRICTED AREA' sign is on the right.",
-    "typography": {
-      "title": "{argument name=\"movie title\" default=\"劇場版 巨骸の向こう側 Fallen Colossus\"}",
-      "release_date": "{argument name=\"release date\" default=\"2027.11.28 ROADSHOW\"}",
-      "tagline": "そこにあるのは、まだ「説明」されていないもの。",
-      "credits_studio": "{argument name=\"studio name\" default=\"WIT STUDIO\"}"
-    }
-  },
-  "bottom_sections": [
-    {
-      "title": "{argument name=\"male character name\" default=\"来栖 武 / Kurusu Takeru\"}",
-      "type": "character reference sheet",
-      "elements": {
-        "full_body_poses": 3,
-        "expressions": 3,
-        "detail_shots": 8,
-        "description": "Male protagonist in dark tactical jacket and cargo pants. Includes front, back, and side full-body views, headshots, and detailed callouts for gloves, boots, backpack, and radio."
-      }
-    },
-    {
-      "title": "{argument name=\"female character name\" default=\"大城 真那 / Oshiro Mana\"}",
-      "type": "character reference sheet",
-      "elements": {
-        "full_body_poses": 3,
-        "expressions": 3,
-        "detail_shots": 6,
-        "description": "Female protagonist in grey tactical uniform. Includes front, back, and side full-body views, headshots, and detailed callouts for jacket, boots, ID badge, and pouch."
-      }
-    },
-    {
-      "title": "カゲ (Kage) 設定画",
-      "type": "animal character reference sheet",
-      "elements": {
-        "full_body_poses": 4,
-        "expressions": 4,
-        "detail_shots": 5,
-        "description": "Dog companion. Includes side, front, back, and angled full-body views, headshots, and detailed callouts for fur texture, paws, and a motorcycle sidecar."
-      }
-    },
-    {
-      "title": "第7巨骸 (Remnant-7) 内部区画 設定画",
-      "type": "environment and vehicle reference sheet",
-      "elements": {
-        "large_diagrams": 1,
-        "environment_thumbnails": 4,
-        "vehicle_designs": 1,
-        "description": "Cross-section of the porous alien structure, smaller environment thumbnails, and a motorcycle design featuring the characters."
-      }
-    },
-    {
-      "title": "Concept Art",
-      "type": "scene illustration",
-      "elements": {
-        "characters": 3,
-        "vehicles": 1,
-        "description": "The male character, female character, and dog with a motorcycle sidecar parked in front of the glowing, porous alien structure."
-      }
-    }
-  ]
-}
+生成一张动漫电影制作提案文档，整体采用上下分割版式：上半部分是一张大型电影海报，下半部分是 5 个详细设定资料格。上方电影海报中，一名男性、一名女性和一只狗站在废墟城市街道上，背对观众，望向天空中巨大、多孔、网状的外星结构，右侧有一块生锈的“RESTRICTED AREA”标志。海报文字包括片名 {argument name="movie title" default="劇場版 巨骸の向こう側 Fallen Colossus"}、上映日期 {argument name="release date" default="2027.11.28 ROADSHOW"}、标语“そこにあるのは、まだ「説明」されていないもの。”以及制作公司 {argument name="studio name" default="WIT STUDIO"}。下方第一格是男性角色设定图，标题 {argument name="male character name" default="来栖 武 / Kurusu Takeru"}，包含 3 个全身姿势、3 个表情、8 个细节特写，角色穿深色战术夹克和工装裤，展示正面、背面、侧面全身视图、头像，以及手套、靴子、背包和无线电的细节标注。第二格是女性角色设定图，标题 {argument name="female character name" default="大城 真那 / Oshiro Mana"}，包含 3 个全身姿势、3 个表情、6 个细节特写，角色穿灰色战术制服，展示正面、背面、侧面全身视图、头像，以及夹克、靴子、ID 徽章和小包细节。第三格是狗伙伴“カゲ (Kage) 設定画”，包含 4 个全身姿势、4 个表情、5 个细节特写，展示侧面、正面、背面和斜角全身视图、头像，以及毛发纹理、爪子和摩托车边车细节。第四格是“第7巨骸 (Remnant-7) 内部区画 設定画”，作为环境和载具设定图，包含 1 张多孔外星结构剖面大图、4 张环境缩略图，以及一款包含角色元素的摩托车设计。第五格是 Concept Art，画面中男性角色、女性角色和狗与一辆带边车的摩托车停在发光多孔外星结构前。
 ```
 
 ***
@@ -640,59 +313,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "movie poster grid",
-  "layout": "2x2 grid",
-  "posters": [
-    {
-      "position": "top-left",
-      "genre": "sci-fi comedy",
-      "visuals": "A Japanese salaryman sitting on a crowded train looking nervous, flanked by two aliens in business attire: a green frog-like alien looking at a smartphone, and a blue octopus-like alien reading a newspaper.",
-      "text_elements": {
-        "tagline_top": "隣の席のアイツ、実は宇宙人でした。",
-        "train_display": "次は 地球 (ちきゅう) Next Earth",
-        "tagline_side": "この星の常識、いつの間にかアップデートされていた。",
-        "main_title": "{argument name=\"poster 1 title\" default=\"となりの宇宙人\"}",
-        "cast": "星野サダオ タコヤキ・Z カエルダ・X",
-        "release_date": "6月13日(金) 全国公開"
-      }
-    },
-    {
-      "position": "top-right",
-      "genre": "surreal romance",
-      "visuals": "A man in a dark jacket affectionately hugging a giant onigiri (rice ball) topped with mentaiko (spicy cod roe) wrapped in seaweed. They are sitting on a rocky beach during a beautiful sunset.",
-      "text_elements": {
-        "tagline": "めんたいこは、裏切らない。",
-        "main_title": "{argument name=\"poster 2 title\" default=\"めんたいこ ひとすじ\"}",
-        "cast": "中尾シンイチ めんたい子 博多ミツル 高菜ユカリ のり平",
-        "release_date": "7月18日(金) 心にしみる、しお味系ラブストーリー"
-      }
-    },
-    {
-      "position": "bottom-left",
-      "genre": "heist comedy",
-      "visuals": "A joyful elderly woman in a leopard print blouse laughing maniacally while holding a fan of Japanese yen bills. Money is raining down around her. A happy raccoon is in the foreground.",
-      "text_elements": {
-        "tagline": "人生、まだまだ使いきってなんかない！",
-        "main_title": "{argument name=\"poster 3 title\" default=\"老後の逆襲\"}",
-        "subtitle": "〜いたずらタヌキと億万長者〜",
-        "cast": "ババンバ・バーバラ タヌキチ 金持ちババ 遺産マユミ 税理士ゴンザレス",
-        "release_date": "9月5日(金) 痛快！下剋上エンターテインメント！"
-      }
-    },
-    {
-      "position": "bottom-right",
-      "genre": "disaster thriller",
-      "visuals": "A dramatic disaster scene where laundry baskets, shirts, and clothes are being sucked up into a stormy, apocalyptic sky above a ruined Tokyo city skyline featuring the Tokyo Tower.",
-      "text_elements": {
-        "tagline": "それは、静かに、確実に、洗濯物を奪っていく。",
-        "main_title": "{argument name=\"poster 4 title\" default=\"洗濯物 ストーム\"}",
-        "cast": "森タクヤ 干場カオリ 風間ハルキ ピンチハンガー・タカ 洗濯バサミ・ケン",
-        "release_date": "8月29日(金) 全国の空が、危ない。"
-      }
-    }
-  ]
-}
+生成一张 2x2 网格电影海报组。左上角是一张科幻喜剧海报：一名日本上班族坐在拥挤列车上显得紧张，两侧各坐着一位穿商务服的外星人，其中绿色青蛙状外星人在看智能手机，蓝色章鱼状外星人在读报纸。文字包括顶部标语“隣の席のアイツ、実は宇宙人でした。”、列车显示“次は 地球 (ちきゅう) Next Earth”、侧边标语“この星の常識、いつの間にかアップデートされていた。”、主标题 {argument name="poster 1 title" default="となりの宇宙人"}、演员“星野サダオ タコヤキ・Z カエルダ・X”和上映日期“6月13日(金) 全国公開”。右上角是一张超现实爱情海报：一名穿深色夹克的男人亲密拥抱一个顶部有明太子的巨大饭团，饭团包着海苔，两者坐在美丽日落中的岩石海滩上。文字包括标语“めんたいこは、裏切らない。”、主标题 {argument name="poster 2 title" default="めんたいこ ひとすじ"}、演员“中尾シンイチ めんたい子 博多ミツル 高菜ユカリ のり平”和上映信息“7月18日(金) 心にしみる、しお味系ラブストーリー”。左下角是一张劫案喜剧海报：一位穿豹纹衬衫的开心老妇人大笑着举起一扇形日元钞票，周围钞票如雨落下，前景有一只快乐的狸。文字包括标语“人生、まだまだ使いきってなんかない！”、主标题 {argument name="poster 3 title" default="老後の逆襲"}、副标题“〜いたずらタヌキと億万長者〜”、演员“ババンバ・バーバラ タヌキチ 金持ちババ 遺産マユミ 税理士ゴンザレス”和上映信息“9月5日(金) 痛快！下剋上エンターテインメント！”。右下角是一张灾难惊悚海报：东京废墟天际线和东京塔上方，洗衣篮、衬衫和衣物被吸入风暴般的末日天空。文字包括标语“それは、静かに、確実に、洗濯物を奪っていく。”、主标题 {argument name="poster 4 title" default="洗濯物 ストーム"}、演员“森タクヤ 干場カオリ 風間ハルキ ピンチハンガー・タカ 洗濯バサミ・ケン”和上映信息“8月29日(金) 全国の空が、危ない。”。
 ```
 
 ***
@@ -720,56 +341,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "fashion product catalog layout",
-  "theme": "A cohesive fashion collection featuring a specific pattern: {argument name=\"pattern description\" default=\"overlapping circular floral mandala motifs in purple, green, blue, orange, and pink\"}",
-  "layout": {
-    "structure": "2x2 grid with a full-width bottom banner",
-    "sections": [
-      {
-        "id": "01",
-        "title": "{argument name=\"product 1\" default=\"Flared Dress\"}",
-        "subtitle": "フレアワンピース",
-        "main_image": "Woman in patterned flared dress holding white handbag.",
-        "swatch_count": 3,
-        "swatch_descriptions": ["purple variant", "green/blue variant", "orange/yellow variant"],
-        "description_text": "華やかなフレアシルエット。軽やかな素材が優雅な動きを演出します。"
-      },
-      {
-        "id": "02",
-        "title": "{argument name=\"product 2\" default=\"Silk Scarf\"}",
-        "subtitle": "シルクスカーフ",
-        "main_image": "Woman in white blouse with patterned silk scarf.",
-        "swatch_count": 2,
-        "swatch_descriptions": ["flat pattern detail", "tied knot detail"],
-        "description_text": "首元に彩りを添えるシルクスカーフ。上品な光沢と滑らかな肌ざわり。"
-      },
-      {
-        "id": "03",
-        "title": "{argument name=\"product 3\" default=\"Tote Bag\"}",
-        "subtitle": "トートバッグ",
-        "main_image": "Woman carrying patterned tote bag.",
-        "swatch_count": 3,
-        "swatch_descriptions": ["purple variant", "blue variant", "orange/yellow variant"],
-        "description_text": "A4サイズも入る収納力。軽くて丈夫、毎日使いたくなるトートバッグ。"
-      },
-      {
-        "id": "04",
-        "title": "{argument name=\"product 4\" default=\"Pouch\"}",
-        "subtitle": "ポーチ",
-        "main_image": "Patterned zip pouch on table with magazine and vase.",
-        "swatch_count": 3,
-        "swatch_descriptions": ["green/purple variant", "orange variant", "pink variant"],
-        "description_text": "バッグの中を彩る華やかなポーチ。細部まで美しいデザインが魅力です。"
-      }
-    ],
-    "bottom_banner": {
-      "title": "Pattern Design",
-      "description_text": "細やかな線と豊かな色彩が織りなす、唯一無二のパターンデザイン。日常に優雅な彩りを。",
-      "image": "Horizontal strip showing the seamless pattern."
-    }
-  }
-}
+请设计一张时尚商品目录版面，主题是一个统一风格的时装系列，围绕这个图案来展开：{argument name="pattern description" default="overlapping circular floral mandala motifs in purple, green, blue, orange, and pink"}。整体采用 2x2 网格布局，底部加一条通栏横幅。四个版块分别展示四件单品：01 为 {argument name="product 1" default="Flared Dress"}，副标题保留“フレアワンピース”，主视觉是一位穿着该图案喇叭裙、手拿白色手袋的女性，并配 3 个色卡，分别是紫色款、绿蓝款、橙黄款，文案写“華やかなフレアシルエット。軽やかな素材が優雅な動きを演出します。”；02 为 {argument name="product 2" default="Silk Scarf"}，副标题保留“シルクスカーフ”，主视觉是一位穿白色衬衫并搭配图案丝巾的女性，配 2 个色卡，分别是平铺图案细节和系结细节，文案写“首元に彩りを添えるシルクスカーフ。上品な光沢と滑らかな肌ざわり。”；03 为 {argument name="product 3" default="Tote Bag"}，副标题保留“トートバッグ”，主视觉是一位携带图案托特包的女性，配 3 个色卡，分别是紫色款、蓝色款、橙黄款，文案写“A4サイズも入る収納力。軽くて丈夫、毎日使いたくなるトートバッグ。”；04 为 {argument name="product 4" default="Pouch"}，副标题保留“ポーチ”，主视觉是桌面上的图案拉链收纳包，旁边摆放杂志和花瓶，配 3 个色卡，分别是绿紫款、橙色款、粉色款，文案写“バッグの中を彩る華やかなポーチ。細部まで美しいデザインが魅力です。”。底部横幅标题为“Pattern Design”，说明文字写“細やかな線と豊かな色彩が織りなす、唯一無二のパターンデザイン。日常に優雅な彩りを。”，横幅主图是一条展示无缝重复图案的横向条带。
 ```
 
 ***
@@ -783,62 +355,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "Japanese promotional landing page poster",
-  "style": "hyper-energetic, explosive typography, vibrant colors, amusement park night festival aesthetic",
-  "layout": {
-    "top_section": {
-      "background": "night sky, fireworks, ferris wheel, roller coaster",
-      "subjects": "4 young adults cheering, raising fists, dynamic lighting",
-      "typography": [
-        "{argument name=\"main headline\" default=\"究極の楽しい!!\"}",
-        "{argument name=\"sub headline\" default=\"やばい!!共感してもらいたい!!\"}",
-        "この一枚が、あなたの人生を最高に塗り替える!!"
-      ],
-      "badges": [
-        "累計販売枚数 {argument name=\"sales badge\" default=\"252,000\"} 枚突破!!!"
-      ]
-    },
-    "middle_section": {
-      "title": "究極の楽しい体験を実現する5つの超快楽ポイント",
-      "points_count": 5,
-      "points": [
-        {"number": 1, "label": "爆笑覚醒", "image": "people laughing"},
-        {"number": 2, "label": "ドキドキMAX", "image": "roller coaster loop"},
-        {"number": 3, "label": "感動の渦", "image": "fireworks explosion"},
-        {"number": 4, "label": "超解放ゾーン", "image": "silhouettes jumping at sunset"},
-        {"number": 5, "label": "無限リピート", "image": "group of people cheering"}
-      ]
-    },
-    "bonus_section": {
-      "title": "今だけ！超豪華 5大特典付き!!!",
-      "items_count": 5,
-      "items": [
-        "① 限定デザインポスター",
-        "② 楽しい名言ブックレット(PDF)",
-        "③ 超楽しいプレイリスト(MP3)",
-        "④ スマホ壁紙セット",
-        "⑤ 楽しいシークレット映像"
-      ]
-    },
-    "bottom_section": {
-      "product_info": {
-        "name": "究極の楽しいポスター",
-        "variants_count": 3,
-        "variants": ["全力全開ver.", "笑顔爆発ver.", "感動絶頂ver."]
-      },
-      "pricing": {
-        "label": "魂の価格",
-        "amount": "{argument name=\"price\" default=\"¥2,980\"}",
-        "shipping": "送料無料"
-      }
-    },
-    "footer": {
-      "text": "{argument name=\"footer call to action\" default=\"人生を最高に楽しみ尽くせ!! さぁ、今すぐ手に入れろ!!\"}",
-      "background_color": "magenta"
-    }
-  }
-}
+请设计一张日本宣传登陆页海报，整体风格要极度热烈、爆发感强、色彩鲜艳，并带有游乐园夜祭的氛围。顶部区域以夜空、烟花、摩天轮和过山车为背景，放置 4 位年轻人欢呼、举拳的动态人物，搭配强烈的灯光效果；大标题保留 {argument name="main headline" default="究極の楽しい!!"}，副标题保留 {argument name="sub headline" default="やばい!!共感してもらいたい!!"}，并加入“この一枚が、あなたの人生を最高に塗り替える!!”这句醒目的宣传语；徽章文案写“累計販売枚数 {argument name="sales badge" default="252,000"} 枚突破!!!”。中间区域标题为“究極の楽しい体験を実現する5つの超快楽ポイント”，展示 5 个要点，分别是 1 爆笑覚醒，配人们大笑的画面；2 ドキドキMAX，配过山车回环画面；3 感動の渦，配烟花爆炸画面；4 超解放ゾーン，配夕阳下跳跃的剪影；5 無限リピート，配一群人欢呼的画面。奖励区域标题写“今だけ！超豪華 5大特典付き!!!”，列出 5 项：① 限定デザインポスター，② 楽しい名言ブックレット(PDF)，③ 超楽しいプレイリスト(MP3)，④ スマホ壁紙セット，⑤ 楽しいシークレット映像。底部产品信息写“究極の楽しいポスター”，提供 3 个变体：全力全開ver.、笑顔爆発ver.、感動絶頂ver.；价格区写“魂の価格”，金额保留 {argument name="price" default="¥2,980"}，并写上“送料無料”。页脚文案保留 {argument name="footer call to action" default="人生を最高に楽しみ尽くせ!! さぁ、今すぐ手に入れろ!!"}，背景色为品红色。
 ```
 
 ***
@@ -852,7 +369,7 @@
 **提示词：**
 
 ```text
-{"type": "promotional advertisement poster for a bottled green tea beverage", "product": {"type": "clear plastic PET bottle filled with yellow-green tea", "label": "white label with green typography, featuring the product name '{argument name=\"product name\" default=\"清風茶\"}', subtitle '緑茶 Seifucha', and vertical text '国産茶葉使用' and '香り豊か、後味さわやか'"}, "background": "bright, fresh, sunlit outdoor atmosphere with dynamic water splashes wrapping around the bottle and vibrant green tea leaves", "layout": {"sections": [{"title": "headline", "position": "top-left", "text": "{argument name=\"main headline\" default=\"新発売\"}", "style": "large red text with a gold underline and a small green leaf accent"}, {"title": "catchphrase", "position": "mid-left", "text": "{argument name=\"catchphrase\" default=\"毎日に、すっきり。\"}", "style": "dark green text"}, {"title": "features", "position": "lower-left", "count": 2, "labels": ["国産茶葉使用", "香り豊か、後味さわやか"], "style": "white pill-shaped banners with green leaf icons"}, {"title": "price_badge", "position": "top-right", "text": "今だけ!! 特別価格 {argument name=\"price\" default=\"128円\"} (税込)", "style": "red circular sticker with white and yellow text"}, {"title": "promo_banner", "position": "bottom-left", "text": "期間限定のお得価格!", "style": "angled red ribbon with yellow and white text"}, {"title": "footer", "position": "bottom-edge", "text": "{argument name=\"footer text\" default=\"全国のコンビニ・スーパーで発売中\"}", "style": "solid green horizontal bar with a white shopping cart icon"}]}}
+请设计一张瓶装绿茶饮料的促销广告海报，主体是一只装着黄绿色茶汤的透明塑料 PET 瓶，瓶身标签为白底绿字，产品名保留 {argument name="product name" default="清風茶"}，副标题写“緑茶 Seifucha”，并在标签上保留竖排文字“国産茶葉使用”和“香り豊か、後味さわやか”。背景要明亮清新，带有阳光照射的户外氛围，水花动态地包裹瓶身，周围有鲜活的绿茶叶。版面左上写大标题 {argument name="main headline" default="新発売"}，使用大号红字并配金色下划线和小绿叶点缀；中左写 {argument name="catchphrase" default="毎日に、すっきり。"}，用深绿色文字；左下放两条卖点横条，文字分别是“国産茶葉使用”和“香り豊か、後味さわやか”，样式为白色圆角胶囊条并带绿色叶子图标；右上放红色圆形价格贴纸，写“今だけ!! 特別価格 {argument name="price" default="128円"} (税込)”；左下角再加一条倾斜红色促销丝带，文字为“期間限定のお得価格!”；底边放绿色实心横条，写 {argument name="footer text" default="全国のコンビニ・スーパーで発売中"}，并带白色购物车图标。
 ```
 
 ***
@@ -1349,9 +866,7 @@ S型流动构图，画面从下方向上延展，一条由足球运动轨迹形�
 **提示词：**
 
 ```text
-{
-  "prompt": "一个充满活力的高端广告构图中的三个超动态苏打水罐 —— 一罐热带冲刺苏打水伴随着戏剧性的水和热带水果飞溅而爆炸，鲜艳的橙色和粉色背景光；一罐柠檬冰爽苏打水在发光的绿色动态光背景下被冷水泼溅；两罐都覆盖着逼真的冷凝水和运动模糊的水滴，充满果味和清爽的能量。深橙色、粉色和霓虹绿灯光在大胆的演播室布置中融合。由使用佳能 50mm 镜头的专业摄影师拍摄，超写实纹理，清晰的细节，超高分辨率，明亮的商业海报美学，丰富的色彩鲜艳度，电影级飞溅效果 --ar 3:4"
-}
+请把画面做成一个充满活力的高端广告构图，主体是三个超动态苏打水罐：一罐热带冲刺苏打水在戏剧性的水花和热带水果飞溅中爆发，背景带鲜艳的橙色与粉色光晕；一罐柠檬冰爽苏打水在发光的绿色动态光背景下被冷水泼溅；两罐都要覆盖逼真的冷凝水和带运动模糊的水滴，整体充满果味和清爽能量。把深橙色、粉色和霓虹绿灯光融合到大胆的演播室布置里，采用专业摄影质感、超写实纹理、清晰细节、超高分辨率、明亮的商业海报美学、丰富的色彩鲜艳度和电影级飞溅效果，画幅比例为 --ar 3:4。
 ```
 
 ***
@@ -1365,67 +880,7 @@ S型流动构图，画面从下方向上延展，一条由足球运动轨迹形�
 **提示词：**
 
 ```text
-{
-  "style": "超写实奢华化妆品产品摄影",
-  "composition": {
-    "color_scheme": "戏剧性的单色蓝紫色",
-    "resolution": "8K超高分辨率",
-    "depth": "电影级景深",
-    "aesthetic": "高端香氛护肤品广告风格"
-  },
-  "product": {
-    "type": "软管包装",
-    "finish": "缎面质感",
-    "color": "长春花蓝",
-    "label": "NUBELLA",
-    "typography": "优雅的银色字体",
-    "cap": "反光金属铬盖",
-    "position": "垂直居中"
-  },
-  "surroundings": {
-    "smoke": {
-      "type": "墨水般的旋涡云雾",
-      "colors": [
-        "薰衣草色",
-        "靛蓝色",
-        "冰蓝色"
-      ],
-      "texture": "柔软、翻腾",
-      "interaction": "环绕在产品周围"
-    },
-    "flowers": {
-      "primary": [
-        {
-          "color": "紫色",
-          "details": "错综复杂的花瓣细节",
-          "center": "鲜艳的黄色"
-        },
-        {
-          "color": "紫丁香色",
-          "details": "错综复杂的花瓣细节",
-          "center": "鲜艳的黄色"
-        }
-      ],
-      "secondary": {
-        "type": "细小的紫罗兰色花朵",
-        "purpose": "增加立体感"
-      }
-    }
-  },
-  "lighting": {
-    "direction": "来自左上方的柔和定向照明",
-    "effects": [
-      "突显软管的光滑曲度",
-      "为金属盖增添微妙的光泽",
-      "在烟雾中营造深度"
-    ]
-  },
-  "background": {
-    "blend": "无缝的冷色调蓝色和紫色调",
-    "enhancement": "空灵的花香美学"
-  },
-  "details": "花瓣和蒸汽的超精细纹理"
-}
+请创作一张超写实的奢华化妆品产品摄影海报，整体采用高端香氛护肤品广告风格。画面中间垂直居中放置一支软管包装产品，质感为缎面，颜色是长春花蓝，标签写着 NUBELLA，字体采用优雅的银色字体，顶部是反光金属铬盖。整体色调使用戏剧性的单色蓝紫色，要求 8K 超高分辨率和电影级景深。产品周围环绕墨水般的旋涡云雾，颜色包含薰衣草色、靛蓝色和冰蓝色，质感柔软翻腾，并自然包围产品；再加入紫色和紫丁香色花朵，花瓣细节错综复杂、花心鲜艳黄色，旁边辅以细小的紫罗兰色花朵来增加立体感。左上方用柔和定向照明照亮主体，强调软管光滑曲度、金属盖微妙光泽，并在烟雾中营造深度；背景保持无缝的冷色调蓝紫色融合，呈现空灵的花香美学，细节要有花瓣和蒸汽的超精细纹理。
 ```
 
 ***
@@ -1439,14 +894,7 @@ S型流动构图，画面从下方向上延展，一条由足球运动轨迹形�
 **提示词：**
 
 ```text
-{
-  "prompt": "一位年轻男子的超写实电影级双重曝光侧脸肖像，表情专注强烈，皮肤纹理细节丰富，眼神锐利。他的面部与从剪影中浮现的未来主义城市天际线无缝融合，摩天大楼和城市建筑构成了他的颈部和下颌线。深蓝色和鲜艳红色的强烈对比，象征着冲突与力量。抽象的数字划痕、碎裂的玻璃纹理和漏光效果覆盖在面部，营造出戏剧性的效果。干净的白色背景，超精细的灯光，专业电影海报风格，高对比度，清晰聚焦，8K分辨率，逼真的发丝，社论海报构图，现代平面设计美学，戏剧性的氛围，超高清，照片级真实。",
-  "negative_prompt": "模糊，低分辨率，扭曲的面部，多余的肢体，过饱和的颜色，嘈杂的背景，平淡的灯光，卡通化，低细节",
-  "resolution": "8K",
-  "style": "电影感，双重曝光，照片级真实感，社论海报",
-  "background": "干净的白色",
-  "lighting": "高对比度，戏剧性的蓝红分割布光"
-}
+请创作一张超写实的电影级双重曝光侧脸肖像，主体是一位年轻男子，表情专注强烈，皮肤纹理细节丰富，眼神锐利。让他的面部与从剪影中浮现的未来主义城市天际线无缝融合，摩天大楼和城市建筑构成他的颈部与下颌线；整体使用深蓝色与鲜艳红色的强烈对比，表达冲突与力量。面部叠加抽象数字划痕、碎裂玻璃纹理和漏光效果，营造戏剧性氛围；背景保持干净的白色，灯光要超精细且高对比，采用专业电影海报风格、清晰聚焦、8K 分辨率、逼真的发丝、社论海报构图和现代平面设计美学，整体氛围戏剧化、超高清、照片级真实。不要出现模糊、低分辨率、扭曲面部、多余肢体、过饱和颜色、嘈杂背景、平淡灯光、卡通化或低细节。
 ```
 
 ***

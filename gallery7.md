@@ -66,7 +66,7 @@
 **提示词：**
 
 ```text
-{argument name="photography style" default="照片写实肖像，浅景深和柔和的散景"}一位{argument name="subject" default="年轻的日本女性"}回头看着镜头，脸上带着{argument name="expression" default="温柔的微笑"}。她穿着{argument name="attire" default="浅米色和服，带有橙色枫叶图案"}和金色腰带。她的深色头发盘成优雅的髻，松散的发丝勾勒出她的脸庞，戴着小珍珠耳环。背景是一个{argument name="setting" default="秋天的花园，有充满活力的红色枫叶"}，左上角有鲜红色的树叶，严重模糊的柔和背景营造出一种宁静的电影氛围。
+采用{argument name="photography style" default="照片写实肖像，浅景深和柔和的散景"}的表现方式，画面中是一位{argument name="subject" default="年轻的日本女性"}回头看向镜头，脸上带着{argument name="expression" default="温柔的微笑"}。她穿着{argument name="attire" default="浅米色和服，带有橙色枫叶图案"}和金色腰带，深色头发盘成优雅的发髻，几缕松散发丝勾勒出脸庞，并戴着小珍珠耳环。背景是一个{argument name="setting" default="秋天的花园，有充满活力的红色枫叶"}，左上角还有鲜红色树叶，整体背景被严重模糊处理，形成宁静的电影感氛围。
 ```
 
 ***
@@ -122,48 +122,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "科学硬件图",
-  “布局”：{
-    "main_scene": "光学平台的 3D 渲染，其中红色激光束穿过安装在黑色柱子上的 11 个对齐的光学组件。",
-    “顶括号”：[
-      {"label": "双调制", "span": "SLM1"},
-      {"label": "4f 中继光学器件", "span": "镜头 L1 到镜头 L2"},
-      {"label": "成像光学器件", "span": "SLM2 到镜头 L4"},
-      {“label”：“检测”，“span”：“相机”}
-    ],
-    “光学组件_左到右”：[
-      {"name": "激光", "labels": ["激光", "λ = {参数名称=\"激光波长\" 默认=\"632.8 nm\"}"]},
-      {“名称”：“SLM1”，“标签”：[“SLM1”，“（相位/极化模式）”]}，
-      {"name": "镜头 L1", "labels": ["镜头 L1", "(f1)"]},
-      {"name": "Iris", "labels": ["傅里叶平面", "(光瞳平面)", "Iris", "(高阶滤波)"]},
-      {“名称”：“HWP”，“标签”：[“HWP”，“（λ/2）”]}，
-      {"name": "镜头 L2", "labels": ["镜头 L2", "(f1)"]},
-      {"name": "SLM2", "labels": ["SLM2", "(相位/极化模式)"]},
-      {"name": "镜头 L3", "labels": ["镜头 L3", "(f2)"]},
-      {"name": "镜头 L4", "labels": ["镜头 L4", "(f2)"]},
-      {"name": "线性偏振器", "labels": ["线性", "-偏振器", "(全局分析器)"]},
-      {“名称”：“偏光相机”，“标签”：[“偏光相机”]}
-    ],
-    “插入框”：{
-      "position": "右下角",
-      "title": "偏光相机微偏光器阵列（每像素分析仪）",
-      "grid": "带有方向箭头的彩色方块的 4x4 网格",
-      “图例计数”：4，
-      “传奇项目”：[
-        “红色方块，水平箭头，0°（H）”，
-        “绿色方块，垂直箭头，90° (V)”，
-        “蓝色正方形，对角箭头，45° (D)”，
-        “黄色正方形，对角箭头，135° (A)”
-      ]
-    },
-    “底部标题”：{
-      "figure_prefix": "{参数名称=\"图编号\" 默认=\"图5.\"}",
-      "title": "{参数名称=\"系统名称\" 默认=\"椭圆成像硬件设置。\"}",
-      “text”：“解释双调制配置、4f 中继光学器件和偏振相机的科学文本段落。”
-    }
-  }
-}
+这是一张科学硬件图。主画面是光学平台的 3D 渲染，红色激光束穿过安装在黑色柱子上的 11 个对齐光学组件。顶部括号依次标注四个系统段：双调制对应 SLM1，4f 中继光学器件对应镜头 L1 到镜头 L2，成像光学器件对应 SLM2 到镜头 L4，检测对应相机。左到右的光学组件依次包括：激光，标签为“激光”和“λ = {参数名称="激光波长" 默认="632.8 nm"}”；SLM1，标签为“SLM1”和“（相位/极化模式）”；镜头 L1，标签为“镜头 L1”和“(f1)”；Iris，标签为“傅里叶平面”、“(光瞳平面)”、“Iris”、“(高阶滤波)”；HWP，标签为“HWP”和“（λ/2）”；镜头 L2，标签为“镜头 L2”和“(f1)”；SLM2，标签为“SLM2”和“(相位/极化模式)”；镜头 L3，标签为“镜头 L3”和“(f2)”；镜头 L4，标签为“镜头 L4”和“(f2)”；线性偏振器，标签为“线性”、“-偏振器”、“(全局分析器)”；最后是偏光相机。右下角插入框展示“偏光相机微偏光器阵列（每像素分析仪）”，采用带方向箭头的彩色方块 4x4 网格，并附 4 条图例：红色方块，水平箭头，0°（H）；绿色方块，垂直箭头，90° (V)；蓝色正方形，对角箭头，45° (D)；黄色正方形，对角箭头，135° (A)。底部标题区包含“{参数名称="图编号" 默认="图5."}”、系统名称“{参数名称="系统名称" 默认="椭圆成像硬件设置。"}”，以及一段解释双调制配置、4f 中继光学器件和偏振相机的科学文本。
 ```
 
 ***
@@ -177,44 +136,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "anime idol merchandise catalog flyer",
-  "theme_colors": "{argument name=\"theme color\" default=\"pastel blue and pink\"}",
-  "character": {
-    "name": "{argument name=\"character name\" default=\"ななし\"}",
-    "appearance": "anime girl, long {argument name=\"hair color\" default=\"pink\"} hair, blue eyes",
-    "attire": "{argument name=\"outfit\" default=\"black and white maid outfit with a red bow tie\"} and blue hair ribbons"
-  },
-  "layout": {
-    "header": {
-      "left": "upper body portrait of the character looking slightly to the side",
-      "center": {
-        "top_banner": "ななし 2nd EP リリース記念ライブ",
-        "main_title": "{argument name=\"event title\" default=\"おしごと☆メイド奮闘中！\"}",
-        "subtitle": "~ Oshigoto Maid Funtouchu! ~",
-        "section_header": "OFFICIAL GOODS"
-      },
-      "right": "purchase bonus info box containing 3 small rectangular photo prints"
-    },
-    "merchandise_grid": [
-      { "id": "01", "name": "アクリルスタンド", "description": "full body acrylic stand of the character" },
-      { "id": "02", "name": "缶バッジ", "description": "set of 6 circular can badges featuring different facial expressions" },
-      { "id": "03", "name": "ビッグタオル", "description": "large rectangular towel showing the character holding a heart pillow" },
-      { "id": "04", "name": "Tシャツ", "description": "white t-shirt showing FRONT with character graphic and BACK with small logo" },
-      { "id": "05", "name": "マフラータオル", "description": "long narrow muffler towel with character art and logo" },
-      { "id": "06", "name": "トートバッグ", "description": "canvas tote bag with blue logo" },
-      { "id": "07", "name": "アクリルキーホルダー", "description": "chibi character acrylic keychain with a star-shaped clasp" },
-      { "id": "08", "name": "ラバーバンド", "description": "blue silicone wristband with logo" },
-      { "id": "09", "name": "ステッカーセット", "description": "set of 4 visible stickers: chibi character, heart, ribbon bow, and logo" },
-      { "id": "10", "name": "ペンライト", "description": "blue glowing concert penlight" }
-    ],
-    "footer": {
-      "left": "purchase notes and guidelines box",
-      "center": "character signature 'Nanashi' with hand-drawn hearts and stars",
-      "right": "payment methods box"
-    }
-  }
-}
+请制作一张动漫偶像周边目录传单，整体配色为柔和的浅蓝和粉色。角色为 {argument name=character name default=ななし}，长着 {argument name=hair color default=pink} 的长发和蓝色眼睛，穿着 {argument name=outfit default=black and white maid outfit with a red bow tie} 并搭配蓝色发带。版式上，左侧放角色上半身侧脸肖像，中间顶部依次放横幅 ななし 2nd EP リリース記念ライブ、主标题 {argument name=event title default=おしごと☆メイド奮闘中！}、副标题 ~ Oshigoto Maid Funtouchu! ~ 和分区标题 OFFICIAL GOODS，右侧放包含 3 张小矩形照片的购入特典信息框。中部用 10 项周边格子展示角色全身压克力立牌、6 枚圆形徽章、抱着心形抱枕的大毛巾、正反面印图的白色 T 恤、长条毛巾、帆布托特包、星形扣件的 Q 版亚克力钥匙扣、蓝色硅胶手环、4 张可见贴纸组合，以及发光蓝色演唱会荧光棒。底部左侧放购买说明与注意事项，底部中央放签名 Nanashi 并配手绘爱心和星星，右侧放付款方式信息框。
 ```
 
 ***
@@ -260,38 +182,7 @@
 **提示词：**
 
 ```text
-{
-  "相机参数": {
-    "设备类型": "iPhone 15 Pro 前置自拍",
-    "镜头": "24mm",
-    "构图": "高角度 POV（第一人称视角）",
-    "后期处理": "计算摄影风格，清晰的数字读出，深景深"
-  },
-  "主体描述": {
-    "特征": "陶瓷娃娃审美，无瑕的苍白皮肤，巨大的冰蓝色眼睛，小巧的鼻子，翘起的自然色嘴唇",
-    "表情": "面无表情，空洞，瞪大眼睛注视",
-    "造型": "白金色的双紧辫发型，鲜艳的蓝色美甲",
-    "服装": "浅蓝色紧身弹力棉上衣，极深超宽 V 领，深邃锁骨与领口线",
-    "动作": "抬头仰视镜头，用一只手遮挡刺眼的阳光"
-  },
-  "环境与灯光": {
-    "场景": "广阔的沙滩，背景中模糊的海平线",
-    "灯光": "高调明亮的沿海日光，5500K 色温，强烈的白沙反光填充，均匀照明",
-    "质感": "微带露水的无孔皮肤，细腻的反光白沙颗粒"
-  },
-  "技术约束": {
-    "色彩科学": "柔和的粉彩色调，线性中性色，高曝光",
-    "负面提示词": [
-      "重阴影",
-      "雪",
-      "冬装",
-      "红指甲",
-      "黑色上衣",
-      "保守的领口",
-      "胶片颗粒感"
-    ]
-  }
-}
+请以 iPhone 15 Pro 前置自拍的视角，使用 24mm 镜头和高角度 POV 构图，呈现计算摄影风格、清晰数字读出和深景深。主体是一位陶瓷娃娃审美的年轻女性，拥有无瑕苍白皮肤、巨大的冰蓝色眼睛、小巧鼻子和自然色翘唇；表情空洞无表情，睁大眼睛凝视镜头，白金色双紧辫发型，鲜艳蓝色美甲，穿浅蓝色紧身弹力棉上衣，超深超宽 V 领，露出锁骨与领口线，并抬头看向镜头，用一只手遮挡刺眼阳光。场景是开阔沙滩与模糊海平线，采用高调明亮的沿海日光，5500K 色温，白沙强反光填充，整体均匀照明；皮肤带微微露水感和细腻反光，白沙颗粒质感清晰。色彩保持柔和粉彩、线性中性色和高曝光，并避免重阴影、雪、冬装、红指甲、黑色上衣、保守领口和胶片颗粒感。
 ```
 
 ***
@@ -414,9 +305,7 @@
 **提示词：**
 
 ```text
-{
-  "prompt": "超写实，一位留着深色短卷发、修剪整齐的胡须和黑色方形眼镜的年轻男子的鲜艳逼真渲染，身穿深色纹理高领毛衣和牛仔裤。他奔跑到一半被捕捉下来，姿态充满动感，向前突破，充满戏剧性地从一个破碎的漫画分镜框中显现——一条腿和一只手臂冲入现实世界，而身体的其余部分仍留在漫画框内。他的表情充满活力和喜悦，拥有锐利的面部细节，自然的皮肤纹理，以及具有高对比度和深度的戏剧性电影灯光。\n\n背景：一个非常详细的黑白漫画布局，充满了幽默、夸张的且与他直接互动的反应场景。周围的漫画人物表现出震惊和喜剧的表情，配有粗体的对话气泡和速度线。漫画分镜采用经典的高对比度水墨风格绘制，线条清晰，网点阴影。撕裂的纸张边缘和碎片增强了他冲破漫画世界的幻觉。全彩色的写实人物与单色的漫画环境形成强烈对比，创造出写实与漫画艺术之间的动态混合体。超精细，8k分辨率，清晰聚焦，戏剧性的阴影，电影级景深。"
-}
+请制作一张超写实图像：一位年轻男子留着深色短卷发、修剪整齐的胡须和黑色方形眼镜，穿深色纹理高领毛衣和牛仔裤。他正处于奔跑中，姿态充满动感，向前冲出，仿佛戏剧性地从一个破碎的漫画分镜框里冲出来，一条腿和一只手臂已经进入现实世界，而身体其余部分仍留在漫画框中。表情活力、喜悦，面部细节锐利，皮肤纹理自然，使用高对比度、深度感强的电影灯光。背景是一整页黑白漫画布局，充满幽默夸张的反应镜头，周围漫画人物带着震惊和喜剧表情，配有粗体对话气泡和速度线；分镜采用经典高对比度水墨风格，线条清晰、网点阴影明显，撕裂纸张边缘和碎片进一步强化他冲破漫画世界的幻觉。整体要求超精细、8k 分辨率、清晰聚焦、戏剧性阴影和电影级景深。
 ```
 
 ***
@@ -430,97 +319,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "图像生成提示词",
-  "language": "zh",
-  "style": "超现实电影感自拍摄影",
-  "aspect_ratio": "9:16",
-  "identity_preservation": {
-    "use_reference_image": true,
-    "strict_identity_lock": true,
-    "alter_face": false,
-    "alter_skin": false,
-    "alter_hair": false,
-    "alter_gender": false,
-    "notes": "保留上传参考图像中完全一致的脸部特征、皮肤纹理、头发、眼镜、年龄和性别。禁止合成皮肤或雕塑感。"
-  },
-  "subject": {
-    "gender": "女性",
-    "capture_method": "由主体本人拍摄的自拍",
-    "pose": {
-      "selfie_arm": {
-        "description": "一只手臂完全伸直并完全向上伸展，手持拍摄自拍的相机",
-        "visibility": "手臂在画面中清晰可见、笔直且占主导地位",
-        "camera_visibility": "自拍相机设备本身不得在画面中出现"
-      },
-      "product_arm": {
-        "description": "另一只手臂完全伸向相机，手持附带的佳能相机",
-        "importance": "产品最靠近相机并在视觉上占主导地位"
-      },
-      "head": {
-        "tilt": "头部向自拍相机微微倾斜"
-      },
-      "expression": "自然放松的面部表情"
-    },
-    "body_visibility": "从头到脚全身可见",
-    "feet": "双脚清晰接触路面"
-  },
-  "composition": {
-    "perspective": "胸部高度的自然自拍视角",
-    "camera_angle": "极端俯拍角度，相机位于主体正上方并直视下方",
-    "layer_depth": [
-      "产品（最靠近相机）",
-      "脸部",
-      "全身",
-      "城市环境（背景）"
-    ]
-  },
-  "scale_and_perspective": {
-    "effect": "强制透视",
-    "subject_scale": "女性呈现极度巨大",
-    "buildings_scale": "建筑物显得小得多，最高不超过她的膝盖",
-    "dominance": "主体在视觉上完全主导整个场景",
-    "realism": "激发规模感同时保持物理可信"
-  },
-  "environment": {
-    "location": "真实城市十字路口",
-    "elements": [
-      "人行横道",
-      "道路标线",
-      "交通标志",
-      "汽车",
-      "自行车",
-      "真实人类尺度的行人"
-    ],
-    "setting": "地面层城市环境"
-  },
-  "lighting": {
-    "type": "自然日光",
-    "conditions": "晴朗或轻度多云天空",
-    "shadows": "柔和且真实",
-    "restrictions": "禁止奇幻或戏剧性照明"
-  },
-  "product_rules": {
-    "usage": "完全按提供的上传佳能产品使用",
-    "distortion": "无",
-    "logo": "保持不变",
-    "appearance": "仅有自然反射和真实高光"
-  },
-  "camera_quality": {
-    "realism": "最大照片真实感",
-    "depth": "前景、主体与背景清晰分离",
-    "artifacts": "无"
-  },
-  "constraints": [
-    "禁止AI艺术感",
-    "禁止塑料或雕塑皮肤",
-    "禁止扭曲脸部或身体",
-    "禁止多余肢体或错误解剖",
-    "禁止文字或水印",
-    "禁止可见自拍相机设备"
-  ],
-  "output_goal": "创作一张超现实电影感自拍图像：女性使用其确切参考身份，从极端俯拍视角在真实城市人行横道拍摄，具备强制透视比例、自然日光，并将佳能相机产品明显持向镜头。"
-}
+请生成一张超现实电影感自拍照片，语言为中文，比例 9:16，并严格保留上传参考图像中的身份特征。必须开启参考图像锁定：脸部、皮肤、头发、眼镜、年龄和性别都不得更改，不要合成皮肤，也不要做出雕塑感。主体为女性，由她本人自拍；一只手臂完全伸直并向上伸展，举着自拍相机，手臂在画面中清晰可见且占主导位置，但相机设备本身不能出现在画面里；另一只手臂伸向镜头，手持附带的佳能相机，并让它在视觉上最靠近镜头、最占主导地位。头部微微朝自拍相机倾斜，表情自然放松，全身从头到脚可见，双脚清楚接触路面。构图使用胸部高度的自然自拍视角，同时带极端俯拍角度，相机位于主体正上方并直视下方；前后层次依次是产品、脸部、全身、城市环境。整体要有强制透视效果，女性主体显得极大，建筑物缩小到她膝盖以下，主体在视觉上主导整个场景，但仍保持物理可信。场景是真实城市十字路口，包含人行横道、道路标线、交通标志、汽车、自行车和真实尺度行人；使用自然日光，晴朗或轻度多云，阴影柔和真实，禁止奇幻或戏剧性照明。产品必须完全按上传的佳能产品使用，不可变形，Logo 保持不变，只允许自然反射和真实高光。整张图要求最大照片真实感，前景、主体和背景清晰分离，禁止 AI 艺术感、塑料或雕塑皮肤、扭曲脸部或身体、多余肢体、错误解剖、文字、水印，以及可见自拍相机设备。最终目标是创作一张超现实电影感自拍图像：女性以确切参考身份，从极端俯拍视角在真实城市人行横道拍摄，具有强制透视比例、自然日光，并将佳能相机产品明显举向镜头。
 ```
 
 ***

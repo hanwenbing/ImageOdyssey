@@ -156,41 +156,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "exploded view product diagram poster",
-  "subject": "VR headset",
-  "style": "clean high-tech 3D render, studio lighting, glowing accents",
-  "background": "{argument name=\"background color\" default=\"soft purple and blue gradient\"}",
-  "header": {
-    "logo": "∞ {argument name=\"product name\" default=\"Meta Quest 3\"}",
-    "subtitle": "{argument name=\"main catchphrase\" default=\"まったく新しい現実を、まったく新しい構造から。\"}"
-  },
-  "layout": {
-    "centerpiece": "vertically stacked exploded view of a VR headset showing 9 distinct layers of internal components: outer shell, camera sensors, motherboard with chip, pancake lenses, internal frame, battery packs, side straps, top strap, and facial interface cushion.",
-    "callout_labels": {
-      "count": 8,
-      "left_side": [
-        "Snapdragon® XR2 Gen 2\n圧倒的な処理性能でリアルタイムな体験を。",
-        "調整可能なIPD機構\n幅広いユーザーに快適なフィット感を。",
-        "精密設計されたヘッドストラップ\n快適さと安定性を追求したエルゴノミクス。"
-      ],
-      "right_side": [
-        "フェイスプレート\n洗練されたデザインと最適な重量バランス。",
-        "トラッキングカメラ\n高精度な位置トラッキングと環境認識を実現。",
-        "パンケーキレンズ\n薄型設計で広い視野角と鮮明な映像を提供。",
-        "高性能バッテリー\n長時間駆動を支える最適化された電源設計。",
-        "柔らかなフェイスインターフェース\n長時間でも快適な装着感を実現。"
-      ]
-    },
-    "footer": {
-      "left_text_block": {
-        "headline": "{argument name=\"bottom headline\" default=\"体験は、構造から進化する。\"}",
-        "body": "一つひとつのパーツに、没入体験を支える最先端テクノロジーとこだわりの設計。Meta Quest 3は、未来を感じさせる体験を内部から生み出しています。"
-      },
-      "right_logo": "∞ Meta"
-    }
-  }
-}
+生成一张爆炸图风格的产品海报，主体是 VR 头显，整体采用干净的高科技 3D 渲染、棚拍灯光和发光点缀。背景使用 {argument name="background color" default="soft purple and blue gradient"}。顶部标题区放置 ∞ {argument name="product name" default="Meta Quest 3"}，副标题为 {argument name="main catchphrase" default="まったく新しい現実を、まったく新しい構造から。"}。画面中央采用自上而下堆叠的爆炸分解构图，把 VR 头显拆成 9 个清晰层次：外壳、摄像头传感器、主板与芯片、pancake 镜片、内部框架、电池组、侧边绑带、顶部绑带、面部接触垫。左右两侧放置 8 个说明标注，左侧依次是 Snapdragon® XR2 Gen 2 / 圧倒的な処理性能でリアルタイムな体験を。、調整可能なIPD機構 / 幅広いユーザーに快適なフィット感を。、精密設計されたヘッドストラップ / 快適さと安定性を追求したエルゴノミクス。右侧依次是 フェイスプレート / 洗練されたデザインと最適な重量バランス。、トラッキングカメラ / 高精度な位置トラッキングと環境認識を実現。、パンケーキレンズ / 薄型設計で広い視野角と鮮明な映像を提供。、高性能バッテリー / 長時間駆動を支える最適化された電源設計。、柔らかなフェイスインターフェース / 長時間でも快適な装着感を実現。底部左侧放置标题 {argument name="bottom headline" default="体験は、構造から進化する。"} 和说明文：一つひとつのパーツに、没入体験を支える最先端テクノロジーとこだわりの設計。Meta Quest 3 は、未来を感じさせる体験を内部から生み出しています。右下角放置 ∞ Meta。
 ```
 
 ***
@@ -204,53 +170,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "live stream UI mockup",
-  "subject": {
-    "description": "portrait of {argument name=\"host name\" default=\"Elon Musk\"}, smiling, wearing a black t-shirt with a white technical schematic graphic",
-    "background": "left side shows a screen with '{argument name=\"left background logo\" default=\"SPACEX\"}' text, right side shows a red '{argument name=\"right background logo\" default=\"Tesla T logo\"}' and a dark car"
-  },
-  "ui_overlay": {
-    "top_header": {
-      "host_info": "avatar, name '{argument name=\"host name\" default=\"Elon Musk\"}', subtext '55.6万本场点赞', red '关注' button",
-      "rank_badge": "gold coin icon with '全站第1名'",
-      "viewer_stats": "3 top viewer avatars with '12.3w', '8.6w', '5.7w', total '68.7万', 'X' close button",
-      "right_links": "'更多直播 >', '礼物展馆 0/24' with blue '经典' tag"
-    },
-    "mid_left_gifts": {
-      "count": 2,
-      "items": [
-        "avatar '科技爱好者', '送小心心', heart icon x 1314",
-        "avatar '星辰大海', '送火箭', rocket icon x 666"
-      ]
-    },
-    "bottom_left_chat": {
-      "system_message": "level 37 badge '宇宙漫游者 加入了直播间'",
-      "message_count": 7,
-      "messages": [
-        "小火箭: 马斯克！未来可期！🚀",
-        "future: 特斯拉Model 2什么时候出？",
-        "星空梦想家: SpaceX今年能上火星吗？",
-        "AI探索者: Neuralink进展如何？",
-        "帅气的网友: 马总好！",
-        "Mars: 第一次来你的直播，超激动！",
-        "用户123: 讲讲AI吧，会取代人类吗？"
-      ]
-    },
-    "bottom_right_product_card": {
-      "hot_tag": "orange '热卖 x 1888'",
-      "image": "Tesla Cybertruck",
-      "title": "{argument name=\"product name\" default=\"特斯拉Cybertruck 电动皮卡\"}",
-      "price": "{argument name=\"product price\" default=\"¥ 1,618,000\"}",
-      "button": "red '抢' button",
-      "floating_animation": "translucent hearts floating up the right edge"
-    },
-    "bottom_bar": {
-      "input_field": "'说点什么...'",
-      "icons": ["smiley face", "three dots", "shopping cart", "gift box", "share"]
-    }
-  }
-}
+生成一张直播间 UI 模型图，画面主体是 {argument name="host name" default="Elon Musk"} 的半身人像，他面带微笑，穿黑色 T 恤，T 恤上带有白色技术示意图案。背景左侧是一块写有 '{argument name="left background logo" default="SPACEX"}' 的屏幕，右侧是红色的 '{argument name="right background logo" default="Tesla T logo"}' 和一辆深色汽车。顶部标题栏包含头像、名字 '{argument name="host name" default="Elon Musk"}'、副文案 '55.6万本场点赞' 和红色 '关注' 按钮；再加上带金币图标的 '全站第1名' 徽章、显示 12.3w、8.6w、5.7w 的 3 个观众头像、总数 '68.7万'、以及 'X' 关闭按钮；右侧链接写成 '更多直播 >' 和 '礼物展馆 0/24'，并带蓝色 '经典' 标签。画面左中部放两条礼物提示：头像 '科技爱好者' 送小心心，数量 x 1314；头像 '星辰大海' 送火箭，数量 x 666。左下角聊天区显示等级 37 的系统消息 '宇宙漫游者 加入了直播间'，再展示 7 条聊天内容：小火箭: 马斯克！未来可期！🚀、future: 特斯拉Model 2什么时候出？、星空梦想家: SpaceX今年能上火星吗？、AI探索者: Neuralink进展如何？、帅气的网友: 马总好！、Mars: 第一次来你的直播，超激动！、用户123: 讲讲AI吧，会取代人类吗？。右下角放商品卡片，标注橙色 '热卖 x 1888'，商品图是 Tesla Cybertruck，标题为 {argument name="product name" default="特斯拉Cybertruck 电动皮卡"}，价格为 {argument name="product price" default="¥ 1,618,000"}，右侧有红色 '抢' 按钮，边缘有半透明爱心向上飘动。底部输入栏写 '说点什么...'，并放表情、三点、购物车、礼物盒和分享图标。
 ```
 
 ***
@@ -362,45 +282,7 @@
 **提示词：**
 
 ```text
-{
-  "type": "移动社交媒体应用 UI 模型",
-  "platform": "Twitter/X 深色模式",
-  “标题”：{
-    "status_bar": "时间 19:28，小鸟图标，信号，wifi，电池",
-    "navigation": "后退箭头，'推文'标题"
-  },
-  “帖子”：{
-    “作者”：{
-      "avatar": "穿着红袍和黑帽子的中国皇帝的肖像",
-      "display_name": "{参数名称=\"显示名称\" 默认=\"朱元璋皇帝\"} 👑 [验证徽章]",
-      "handle": "{参数名称=\"handle\" 默认=\"@Emperor_Ming\"}"
-    },
-    “内容”：{
-      "text": "{参数名称=\"推文文本\" default=\"我已登上龙王王座！今天，我被拥立为明朝皇帝。洪武时代开始了。让我们一起重建我们伟大的国家！\"}",
-      "hashtags": "#MingDynasty #hongwuEra #NewBeginning",
-      “媒体网格”：{
-        “计数”：3，
-        “图像”：[
-          “穿着红色和金色长袍的皇帝坐在华丽的金色宝座上”，
-          “中国宫殿庭院的广角镜头，人群众多”，
-          “皇帝骑在马背上，率领军队，高举红龙旗”
-        ]
-      }
-    },
-    “元数据”：{
-      "timestamp": "{参数名称=\"timestamp\" 默认=\"下午 1:36 · 1368 年 1 月 23 日\"}",
-      “engagement”：“5,432 条转发、8,765 条引用、20,100 次点赞、102,300 次浏览”
-    },
-    "actions": "回复、转发、点赞（带“1”的红心）、分享、上传”
-  },
-  “页脚”：{
-    “回复栏”：{
-      "阿凡达": "红衣女人",
-      “placeholder”：“回复朱元璋皇帝……”
-    },
-    "navigation_bar": "主页、搜索、通知（红色'1'徽章）、消息"
-  }
-}
+生成一张 Twitter/X 深色模式的移动端推文界面截图。顶部状态栏显示时间 19:28、小鸟图标、信号、Wi‑Fi 和电池，导航栏只有后退箭头和“推文”标题。帖子作者头像是穿着红袍和黑帽子的中国皇帝肖像，显示名为 {argument name="display name" default="朱元璋皇帝"} 👑 [验证徽章]，账号为 {argument name="handle" default="@Emperor_Ming"}。正文写 {argument name="推文文本" default="我已登上龙王王座！今天，我被拥立为明朝皇帝。洪武时代开始了。让我们一起重建我们伟大的国家！"}，并带上 #MingDynasty #hongwuEra #NewBeginning。媒体区域是 3 张图的网格：穿着红色和金色长袍的皇帝坐在华丽的金色宝座上；中国宫殿庭院的广角镜头，人群众多；皇帝骑在马背上，率领军队，高举红龙旗。元数据显示为 {argument name="timestamp" default="下午 1:36 · 1368 年 1 月 23 日"}，以及 5,432 条转发、8,765 条引用、20,100 次点赞和 102,300 次浏览。操作栏依次是回复、转发、点赞（红心上带 1）、分享和上传。底部回复栏左侧头像是红衣女人，占位文字为“回复朱元璋皇帝……”。最底部导航栏包含主页、搜索、通知（红色 1 徽章）和消息。
 ```
 
 ***
@@ -456,50 +338,7 @@ An anime-style YouTube stream thumbnail featuring a cheerful female VTuber. She 
 **提示词：**
 
 ```text
-{
-  "type": "promotional banner / YouTube thumbnail",
-  "style": "high contrast, flashy, professional, {argument name=\"theme color\" default=\"gold and black\"} palette, glowing light rays, sparkling particles",
-  "subject": {
-    "description": "{argument name=\"subject description\" default=\"confident young Asian man in a dark suit with arms crossed\"}",
-    "pose": "looking upwards to the right",
-    "props": "glowing open laptop in front of him"
-  },
-  "layout": {
-    "background": "dark with radiant gold light bursts",
-    "text_sections": {
-      "top_left_badge": "[保存版]",
-      "top_header": "{argument name=\"top text\" default=\"知識ゼロからでも今日から始められる！ AIで稼ぐ力を最短で手に入れる！\"}",
-      "main_title": {
-        "text": "{argument name=\"main title\" default=\"AI副業 完全攻略\"}",
-        "style": "large, bold, 3D gold and white typography"
-      },
-      "subtitle_box": "{argument name=\"subtitle\" default=\"初心者でも月10万\"}",
-      "top_right_badge": {
-        "style": "gold laurel wreath",
-        "text": "2026年版 最新版"
-      },
-      "middle_right_tags": {
-        "count": 3,
-        "style": "stacked gold-bordered boxes",
-        "labels": ["最短で収益化", "具体例つき", "誰でも始めやすい"]
-      },
-      "middle_right_ribbon": {
-        "style": "red ribbon banner",
-        "text": "手順を徹底解説"
-      },
-      "bottom_left_tags": {
-        "count": 6,
-        "style": "2x3 grid of gold-bordered boxes",
-        "labels": ["おすすめツール紹介", "収益化の流れがわかる", "失敗しない始め方", "作業時間を最小化", "テンプレ付き", "再現しやすい方法"]
-      },
-      "bottom_footer": "迷わず稼げる！AI副業の教科書",
-      "bottom_right_badge": {
-        "style": "gold laurel wreath",
-        "text": "テンプレ付き"
-      }
-    }
-  }
-}
+生成一张宣传横幅 / YouTube 缩略图，整体风格要高对比、华丽、专业，使用 {argument name="theme color" default="gold and black"} 配色，并加入发光光束和闪烁粒子。主体是 {argument name="subject description" default="confident young Asian man in a dark suit with arms crossed"}，他双臂交叉、视线向右上方抬起，面前放着一台发光的打开状态笔记本电脑。背景保持黑暗，并出现金色放射光束。左上角放置 [保存版]；顶部文案为 {argument name="top text" default="知識ゼロからでも今日から始められる！ AIで稼ぐ力を最短で手に入れる！"}；主标题是 {argument name="main title" default="AI副業 完全攻略"}，使用大号粗体 3D 金白排版；副标题框写 {argument name="subtitle" default="初心者でも月10万"}；右上角放金色月桂冠徽章，文字为 2026年版 最新版；中右侧放 3 个金边叠放标签，分别是 最短で収益化、具体例つき、誰でも始めやすい；中部再放红色飘带横幅，文字是 手順を徹底解説；左下角放 2x3 的金边标签网格，依次写 推荐工具介绍、能看懂收益化流程、失敗しない始め方、作业时间最小化、带模板、方法易于复现；底部文案为 迷わず稼げる！AI副業の教科書；右下角再放一个金色月桂冠徽章，文字为 テンプレ付き。
 ```
 
 ***
@@ -513,50 +352,7 @@ An anime-style YouTube stream thumbnail featuring a cheerful female VTuber. She 
 **提示词：**
 
 ```text
-{
-  "type": "YouTube thumbnail",
-  "style": "High-impact, neon green and black color scheme, cyber business aesthetic",
-  "background": "Dark with glowing green grid, upward chart lines, large green arrow",
-  "subject": {
-    "description": "{argument name=\"subject description\" default=\"Serious Japanese man in a black suit\"}",
-    "position": "Right side",
-    "props": "Stacks of 10,000 Yen bills in bottom right"
-  },
-  "layout": {
-    "main_title": {
-      "text": "{argument name=\"main title\" default=\"月30万 ChatGPT副業 誰でも始めやすい\"}",
-      "position": "Center, huge bold white and green gradient text"
-    },
-    "top_left_badge": {
-      "text": "{argument name=\"top left badge\" default=\"再現性高め\"}",
-      "style": "Angled neon green box"
-    },
-    "top_tags": {
-      "count": 4,
-      "labels": ["初心者OK", "スマホでも可能", "最短で収益化", "具体例つき"]
-    },
-    "left_bullet_points": {
-      "count": 6,
-      "style": "Dark boxes with neon green borders and icons",
-      "items": [
-        "Lightbulb icon: 失敗しない始め方",
-        "Yen coin icon: 副業におすすめ",
-        "Chart icon: 収益化の流れ",
-        "Search icon: 案件の探し方",
-        "Chat icon: プロンプト例つき",
-        "Clipboard icon: テンプレ付き"
-      ]
-    },
-    "bottom_banner": {
-      "text": "{argument name=\"bottom banner text\" default=\"手順を徹底解説\"}",
-      "icons": "ChatGPT logo left, upward chart right"
-    },
-    "bottom_tags": {
-      "count": 2,
-      "labels": ["{argument name=\"year tag\" default=\"2026年最新版\"}", "即実践できる"]
-    }
-  }
-}
+生成一张 YouTube 缩略图，整体采用高冲击力的霓虹绿色和黑色配色，并带有赛博商业感。背景为深色，叠加发光绿色网格、上升走势图线和大号绿色箭头。主体放在右侧，是 {argument name="subject description" default="Serious Japanese man in a black suit"}，前景右下角堆放 10,000 日元纸币。主标题置于画面中央，文字为 {argument name="main title" default="月30万 ChatGPT副業 誰でも始めやすい"}，使用超大号粗体白色与绿色渐变文字。左上角放 {argument name="top left badge" default="再現性高め"} 的斜切霓虹绿色标签。顶部再放 4 个标签：初心者OK、スマホでも可能、最短で収益化、具体例つき。左侧用 6 个深色方框加霓虹绿描边和图标，依次写 Lightbulb icon: 失敗しない始め方、Yen coin icon: 副業におすすめ、Chart icon: 収益化の流れ、Search icon: 案件の探し方、Chat icon: プロンプト例つき、Clipboard icon: テンプレ付き。底部横幅写 {argument name="bottom banner text" default="手順を徹底解説"}，左右分别放 ChatGPT logo 和上升图表图标。最底部再放 2 个标签：{argument name="year tag" default="2026年最新版"} 和 即実践できる。
 ```
 
 ***
@@ -570,7 +366,7 @@ An anime-style YouTube stream thumbnail featuring a cheerful female VTuber. She 
 **提示词：**
 
 ```text
-{argument name="pianist" default="Vladimir Horowitz"} 表演了一场在 {argument name="platform" default="YouTube"} 上直播的{argument name="event" default="live钢琴演奏会"}
+画面呈现 {argument name="pianist" default="Vladimir Horowitz"} 在 {argument name="platform" default="YouTube"} 上直播演出一场 {argument name="event" default="live钢琴演奏会"}，突出现场钢琴表演的氛围。
 ```
 
 ***
@@ -584,32 +380,7 @@ An anime-style YouTube stream thumbnail featuring a cheerful female VTuber. She 
 **提示词：**
 
 ```text
-{
-  "type": "YouTube 直播 UI",
-  “顶部导航”：{
-    "logo": "YouTube Premium",
-    "search": "{参数名称=\"搜索查询\" 默认=\"bilal fraiha\"}",
-    “图标”：3
-  },
-  “玩家”：{
-    “主题”：[
-      "{argument name=\"女客人\" default=\"Sydney Sweeney\"} 穿着白色开衫",
-      “穿着米色夹克的大胡子男人笑”
-    ],
-    "bg": "沙发，2 个银色播放按钮，ram 标志'SARDI'",
-    “覆盖”：{
-      "chat": {"pos": "left", "count": 15, "desc": "彩色用户名，白色文本"},
-      "goal": {"pos": "右上角", "text": "今晚的目标：0 到 25"},
-      "banner": {"pos": "bottom center", "text": "K {参数名称=\"主播名称\" 默认=\"MOREBILAL\"}"}
-    },
-    “控制”：{“计数”：10}
-  },
-  “详细信息”：{
-    "title": "{参数名称=\"视频标题\" 默认=\"FULL STREAM | ??????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
-    "channel": "{argument name=\"channel name\" default=\"More Bilal No Filter\"}",
-    “按钮”：5
-  }
-}
+生成一张 YouTube 直播 UI 画面。顶部导航栏放 YouTube Premium 标志、搜索框 {argument name="搜索查询" default="bilal fraiha"}，以及 3 个图标。主体区域展示两位人物：{argument name="女客人" default="Sydney Sweeney"} 穿着白色开衫，另一位是穿着米色夹克、留大胡子的男人并带微笑；背景有沙发、2 个银色播放按钮，以及带有 'SARDI' 字样的 ram 标志。覆盖层左侧显示 15 条彩色用户名和白色文本的聊天消息，右上角写今晚的目标：0 到 25，底部中央横幅写 K {argument name="主播名称" default="MOREBILAL"}。控制区显示 10 个控制按钮。详细信息区的标题字段为 {argument name="视频标题" default="FULL STREAM | 直播实况"}，频道名是 {argument name="channel name" default="More Bilal No Filter"}，并放置 5 个按钮。
 ```
 
 ***
@@ -623,71 +394,7 @@ An anime-style YouTube stream thumbnail featuring a cheerful female VTuber. She 
 **提示词：**
 
 ```text
-{
-  "type": "YouTube 缩略图",
-  "style": "动漫、前卫、霓虹粉色和黑色配色方案、垃圾和泼溅口音",
-  “字符”：{
-    "appearance": "动漫女孩，{参数名称=\"头发颜色\" 默认=\"银色\"}头发，猫耳朵，紫色眼睛",
-    "表情": "{参数名称=\"表情\" 默认=\"震惊出汗\"}，张着嘴",
-    "accessories": "带粉色十字架的黑猫发夹，带心形环的黑色项圈",
-    “action”：“拿着带有漩涡标志的粉红色智能手机”
-  },
-  “布局”：{
-    “主标题”：{
-      "position": "底部中心",
-      "style": "巨大、大胆、3D 排版、垃圾纹理",
-      “行”：[
-        { "text": "{参数名称=\"主标题顶部\" default=\"스레드 논란\"}", "color": "霓虹粉色" },
-        { "text": "{参数名称=\"主标题底部\" default=\"읽어드림 ;;\"}", "color": "white" }
-      ]
-    },
-    “ui_elements”：[
-      {
-        “type”：“社交媒体提要模型”，
-        "position": "中左",
-        "header": "← 스레드",
-        “帖子计数”：3，
-        "details": "头像、韩文、点赞、评论、转发的交互图标"
-      },
-      {
-        "type": "实时聊天模型",
-        "position": "右边缘",
-        “消息计数”：4，
-        "details": "粉色用户图标，韩文文本"
-      }
-    ],
-    “文本标注”：[
-      {
-        "type": "尖尖的语音气泡",
-        "position": "中心顶部",
-        "text": "{参数名称=\"语音气泡文本\" 默认=\"??게 맞아?;;\"}"
-      },
-      {
-        "type": "霓虹灯盒",
-        "position": "右上角",
-        "text": "실시간 반응 중"
-      },
-      {
-        "type": "浮动垃圾文本",
-        "position": "最左边",
-        “行数”：3，
-        "text": ["OO 논란", "충격 실화", "역대급 사건"]
-      },
-      {
-        "type": "带箭头的手写文本",
-        "position": "右下角",
-        "text": "여러분의 생각은 어떠신і요?"
-      }
-    ],
-    “标志”：[
-      {
-        "type": "应用程序图标",
-        "position": "左上角",
-        “description”：“黑色圆角正方形上的白色漩涡标志”
-      }
-    ]
-  }
-}
+生成一张 YouTube 缩略图，整体是动漫、前卫、霓虹粉色和黑色配色，并加入垃圾感与泼溅装饰。主体是一个动漫女孩，银色头发、猫耳朵、紫色眼睛，表情为 {argument name="表情" default="震惊出汗"}、张着嘴；她戴着带粉色十字架的黑猫发夹和带心形环的黑色项圈，并拿着一部带漩涡标志的粉色智能手机。主标题放在底部中央，使用巨大、大胆、3D 排版和垃圾纹理，两行分别写 {argument name="主标题顶部" default="스레드 논란"} 与 {argument name="主标题底部" default="읽어드림 ;;"}，上行是霓虹粉色，下行是白色。左侧放一个社交媒体提要模型，顶部写 ← 스레드，包含 3 条帖子和头像、韩文、点赞、评论、转发交互图标。右侧边缘放一个实时聊天模型，显示 4 条带粉色用户图标的韩文消息。画面中央顶部放一个尖尖的语音气泡，文字为 {argument name="语音气泡文本" default="??게 맞아?;;"}。右上角放霓虹灯盒，文字是 실시간 반응 중。最左侧放 3 行浮动垃圾文本，依次是 OO 논란、충격 실화、역대급 사건。右下角放带箭头的手写文本：여러분의 생각은 어떠신і요?。左上角再放一个应用程序图标，样式是黑色圆角正方形上的白色漩涡标志。
 ```
 
 ***
@@ -701,7 +408,7 @@ An anime-style YouTube stream thumbnail featuring a cheerful female VTuber. She 
 **提示词：**
 
 ```text
-{"type": "YouTube 桌面深色模式 UI 模型", "header": {"logo": "YouTube", "search_bar": "搜索", "icons_count": 5, "icons": ["search", "mic", "create", "notifications", "profile"]}, "video_player": {"top_left_badge": "LIVE", "left_side": {"subject": "{argument name=\"演示者描述\" default=\"木制讲台上穿绿色毛衣的男人\"}", "podium_logo": "OpenAI"}, "right_side_presentation": {"text_elements": ["OpenAI", "INTRODUCING", "{参数名称=\"产品名称\" default=\"GPT-Image-2\"}", "{参数名称=\"标语\" default=\"更多现实的。更有用。更多创意。\"}"], "sample_images_count": 4, "sample_images": ["山湖与船", "斑驳光影的女人肖像", "森林里提着灯笼的可爱机器人", "星夜咖啡馆画"]}, "bottom_controls_count": 10, "bottom_controls": ["pause", "next", "volume", "LIVE", "红色进度条", "CC", "设置", "迷你播放器", "影院模式", "全屏"]}, "video_details": {"title": "{参数名称=\"视频标题\" default=\"OpenAI Live: 介绍GPT-Image-2\"}", "channel": {"name": "{参数名称=\"频道名称\" default=\"OpenAI\"}", "verified": true, "subscribers": "1.36M", "button": "订阅"}, "action_buttons_count": 5, "action_buttons": ["喜欢 12K", "不喜欢 497", "分享", "保存", "更多"], "description_box": {"stats": "95,237 正在观看 7 分钟前开始直播", "tags": "#OpenAI #GPTImage2 #AI", "text": "加入我们，参加一场特别的现场活动，我们将介绍我们最新、最先进的图像生成模型 GPT-Image-2。查看新功能、现场演示并听取团队的意见...更多"}}}
+请制作一张 YouTube 桌面端深色模式界面模型图。顶部是 YouTube 头部栏，包含 logo、搜索框，以及 5 个图标，依次为 search、mic、create、notifications、profile。中间是视频播放器区域，左上角有 LIVE 标识；左侧站在木制讲台前的是 {argument name="演示者描述" default="木制讲台上穿绿色毛衣的男人"}，讲台上显示 OpenAI 标志；右侧展示演示内容，画面里依次出现 OpenAI、INTRODUCING、{参数名称="产品名称" default="GPT-Image-2"}、{参数名称="标语" default="更多现实的。更有用。更多创意。"}，并配有 4 张示例图，分别是山湖与船、斑驳光影的女人肖像、森林里提着灯笼的可爱机器人、星夜咖啡馆画。播放器底部放 10 个控制项：pause、next、volume、LIVE、红色进度条、CC、设置、迷你播放器、影院模式、全屏。视频详情区标题为 {参数名称="视频标题" default="OpenAI Live: 介绍GPT-Image-2"}，频道信息为 {参数名称="频道名称" default="OpenAI"}，带认证标记，显示 1.36M 订阅者和“订阅”按钮；右侧放 5 个操作按钮：喜欢 12K、不喜欢 497、分享、保存、更多。描述区展示“95,237 正在观看 7 分钟前开始直播”、标签 #OpenAI #GPTImage2 #AI，以及一段介绍文字：加入我们，参加一场特别的现场活动，我们将介绍我们最新、最先进的图像生成模型 GPT-Image-2。查看新功能、现场演示并听取团队的意见……更多。
 ```
 
 ***
@@ -715,7 +422,7 @@ An anime-style YouTube stream thumbnail featuring a cheerful female VTuber. She 
 **提示词：**
 
 ```text
-{argument name="subject" default="一位美丽的网红"}正在直播{argument name="activity" default="game"}。
+请表现一位美丽的网红正在直播 {argument name="activity" default="game"}，整体语义保持为直播中的人物与对应活动场景，不要改变主体设定。
 ```
 
 ***
@@ -729,7 +436,7 @@ An anime-style YouTube stream thumbnail featuring a cheerful female VTuber. She 
 **提示词：**
 
 ```text
-{argument name="subject" default="一位美丽的网红"}正在直播{argument name="activity" default="game"}。
+请表现一位美丽的网红正在直播 {argument name="activity" default="game"}，整体语义保持为直播中的人物与对应活动场景，不要改变主体设定。
 ```
 
 ***
@@ -785,55 +492,7 @@ YouTube 缩略图风格的拼贴画，用于{argument name="overall momo" defaul
 **提示词：**
 
 ```text
-{
-  "type": "brand identity and merchandise design board",
-  "theme": {
-    "color_palette": "{argument name=\"theme color\" default=\"pastel pink\"} and white",
-    "motif": "{argument name=\"motif\" default=\"cherry blossoms\"} and pink hearts"
-  },
-  "character": {
-    "description": "anime girl with short brown bob hair, pink eyes, wearing a white hoodie, gentle smile"
-  },
-  "branding": {
-    "main_logo": "{argument name=\"character name\" default=\"癒音ちー\"}",
-    "sub_logo": "{argument name=\"character subtext\" default=\"ゆおんちー\"}"
-  },
-  "layout": {
-    "sections": [
-      {
-        "type": "header banner",
-        "position": "top",
-        "elements": ["large main logo", "sub logo", "cherry blossom graphics", "character portrait on the right"]
-      },
-      {
-        "type": "product packaging",
-        "position": "middle left",
-        "elements": ["1 square box with heart-shaped transparent window showing pink heart candies", "character illustration on box", "2 individual candy wrappers", "5 scattered heart candies"]
-      },
-      {
-        "type": "promotional poster",
-        "position": "middle right",
-        "elements": ["character portrait", "heart-shaped candy bowl", "main logo", "text '4.26 NEW OPEN'", "text '{argument name=\"social handle\" default=\"@yuonchii\"}'"]
-      },
-      {
-        "type": "horizontal web banner",
-        "position": "lower middle",
-        "elements": ["main logo", "cherry blossoms", "character portrait on the right"]
-      },
-      {
-        "type": "social media profile mockup",
-        "position": "bottom left",
-        "elements": ["header image with logo", "1 circular profile picture", "handle '{argument name=\"social handle\" default=\"@yuonchii\"}'", "1 follow button", "mock bio text"]
-      },
-      {
-        "type": "merchandise collection",
-        "position": "bottom right",
-        "count": 9,
-        "items": ["1 white t-shirt with logo", "1 white mug with character", "4 round pin badges", "1 acrylic keychain", "2 candy packets"]
-      }
-    ]
-  }
-}
+请制作一张品牌识别与周边设计板，整体以 {argument name="theme color" default="pastel pink"} 和白色为主色，搭配樱花与粉色爱心图案。角色是一位动漫女孩，短棕色波波头、粉色眼睛、穿白色连帽衫、笑容温柔。品牌主标识为 {argument name="character name" default="癒音ちー"}，副标识为 {argument name="character subtext" default="ゆおんちー"}。画面需要分成多个区块：顶部横幅放大主标识、副标识、樱花图案和右侧角色立绘；左中是产品包装区，包含 1 个方形盒子，盒子上有心形透明窗，里面能看到粉色心形糖果，盒身印角色插画，旁边还有 2 个独立糖纸和 5 颗散落爱心糖；右中是宣传海报区，包含角色头像、心形糖果碗、主标识、文字“4.26 NEW OPEN”，以及文字“{argument name="social handle" default="@yuonchii"}”；下中是横向网页横幅，包含主标识、樱花和右侧角色；左下是社交媒体主页 mockup，包含头图、1 个圆形头像、handle“{argument name="social handle" default="@yuonchii"}”、1 个关注按钮和简介文本；右下是周边合集，展示 9 件商品：1 件白色 T 恤、1 个印有角色的白色马克杯、4 个圆形徽章、1 个亚克力钥匙扣、2 包糖果。
 ```
 
 ***
@@ -847,74 +506,7 @@ YouTube 缩略图风格的拼贴画，用于{argument name="overall momo" defaul
 **提示词：**
 
 ```text
-{
-  "type": "UI/UX landing page mockup",
-  "theme": "dark mode, sleek modern aesthetic, glassmorphism, {argument name=\"primary accent color\" default=\"neon purple and blue\"} glowing accents",
-  "header": {
-    "logo": "{argument name=\"brand name\" default=\"goViralX\"}",
-    "top_right_tag": "VIRAL CAMPAIGN CASE STUDY"
-  },
-  "layout": {
-    "sections": [
-      {
-        "name": "Hero",
-        "headline": "{argument name=\"hero headline\" default=\"How We Created 10M+ Viral Impact\"}",
-        "subheadline": "3天引爆全网, 助力品牌实现指数级增长",
-        "stats_row": {
-          "count": 4,
-          "labels": ["总播放量", "互动率", "转化咨询", "执行周期"],
-          "values": ["{argument name=\"main statistic\" default=\"10,240,000+\"}", "18.7%", "3,200+", "72小时"]
-        },
-        "visual": "cinematic shot of a person in a hoodie looking at glowing digital screens and graphs, large play button overlay"
-      },
-      {
-        "name": "Strategy",
-        "title": "Our 3-Day Execution Strategy",
-        "layout_type": "vertical timeline",
-        "steps_count": 3,
-        "elements_per_step": ["timeline node", "title", "bullet points", "video thumbnail with play button", "description box"]
-      },
-      {
-        "name": "Performance",
-        "title": "Data-Driven Performance",
-        "left_column": {
-          "stat_cards_count": 4,
-          "values": ["10M+", "43%", "28,000+", "3,200+"]
-        },
-        "right_column": {
-          "charts_count": 2,
-          "chart_1": "line graph showing 7-day growth peaking at Day 3",
-          "chart_2": "horizontal segmented bar chart showing platform distribution (TikTok 52%, Instagram 24%, X 15%, YouTube 9%)"
-        }
-      },
-      {
-        "name": "Keys to Success",
-        "title": "The 3 Keys to Viral Success",
-        "cards_count": 3,
-        "card_elements": ["glowing icon (fire, target, antenna)", "title", "description", "VIEW DETAIL link"]
-      },
-      {
-        "name": "Social Proof",
-        "title": "TRUSTED BY CREATORS & BRANDS",
-        "left_column": {
-          "logos_count": 8,
-          "grid": "2x4",
-          "brands": ["SHEIN", "SHOPLINE", "Blueglass", "instacart", "lemon8", "mi", "CIDER", "bellroy"]
-        },
-        "right_column": {
-          "testimonial_cards_count": 2,
-          "elements": ["quote", "author title (SaaS Founder, Growth Manager)"]
-        }
-      },
-      {
-        "name": "Call to Action",
-        "title": "READY TO GO VIRAL?",
-        "interactive_elements": ["text input field", "glowing button with text '{argument name=\"call to action text\" default=\"获取专属增长方案 ->\"}'"],
-        "visual": "3D render of a rocket ship taking off with purple and blue flames"
-      }
-    ]
-  }
-}
+请制作一张 UI/UX 落地页 mockup，整体为深色模式、现代极简玻璃拟态风格，并带有 {argument name="primary accent color" default="neon purple and blue"} 发光点缀。顶部栏左侧是品牌名 {argument name="brand name" default="goViralX"}，右侧有 VIRAL CAMPAIGN CASE STUDY 标签。页面分为六个区块。Hero 区写 {argument name="hero headline" default="How We Created 10M+ Viral Impact"}，副标题为“3天引爆全网, 助力品牌实现指数级增长”；下方统计行有 4 个指标，标签为总播放量、互动率、转化咨询、执行周期，对应数值分别是 {argument name="main statistic" default="10,240,000+"}、18.7%、3,200+、72小时，配图是一个戴兜帽的人盯着发光的数字屏幕和图表，画面上叠加一个巨大的播放按钮。Strategy 区标题为 Our 3-Day Execution Strategy，采用垂直时间线，3 个步骤，每步包含时间节点、标题、要点、带播放按钮的视频缩略图和说明框。Performance 区标题为 Data-Driven Performance，左侧 4 个统计卡片显示 10M+、43%、28,000+、3,200+，右侧 2 张图表：一张是 Day 3 达到峰值的 7 天增长折线图，另一张是平台分布的水平分段条形图，比例为 TikTok 52%、Instagram 24%、X 15%、YouTube 9%。Keys to Success 区标题为 The 3 Keys to Viral Success，3 张卡片分别有 fire、target、antenna 图标、标题、说明和 VIEW DETAIL 链接。Social Proof 区标题为 TRUSTED BY CREATORS & BRANDS，左侧 2x4 网格展示 8 个品牌 logo：SHEIN、SHOPLINE、Blueglass、instacart、lemon8、mi、CIDER、bellroy；右侧 2 张证言卡片包含 quote 和作者头衔（SaaS Founder, Growth Manager）。Call to Action 区标题为 READY TO GO VIRAL?，包含一个文本输入框和一个发光按钮，按钮文字为 {argument name="call to action text" default="获取专属增长方案 ->"}，配图是紫蓝火焰升空的 3D 火箭。
 ```
 
 ***
@@ -928,92 +520,7 @@ YouTube 缩略图风格的拼贴画，用于{argument name="overall momo" defaul
 **提示词：**
 
 ```text
-{
-  "type": "18-panel brand identity and character design document",
-  "brand": {
-    "name": "{argument name=\"brand name\" default=\"沐阳 MUYANG TEA\"}",
-    "industry": "{argument name=\"industry\" default=\"tea shop\"}",
-    "colors": ["{argument name=\"primary color\" default=\"yellow\"}", "{argument name=\"secondary color\" default=\"green\"}", "white", "brown", "dark green"]
-  },
-  "subject": "{argument name=\"character description\" default=\"3D rendered cute Shiba Inu mascot wearing a green apron\"}",
-  "layout": {
-    "grid": "3 columns by 6 rows",
-    "sections": [
-      {
-        "title": "01 品牌DNA分析 / BRAND DNA ANALYSIS",
-        "elements": ["logo", "5 color swatches", "6 icons", "target audience charts"]
-      },
-      {
-        "title": "02 概念构思 / CONCEPT MOODBOARD",
-        "elements": ["5 photo references", "4 mood icons", "design equation"]
-      },
-      {
-        "title": "03 形态研究 / FORM STUDY",
-        "elements": ["4 logo anatomy icons", "4 evolution steps", "4 silhouettes"]
-      },
-      {
-        "title": "04 概念探索 / CONCEPT EXPLORATION",
-        "elements": ["12 line-art character sketches"]
-      },
-      {
-        "title": "05 精细线稿 / REFINED LINE ART",
-        "elements": ["3 rows of front and side line art with proportion guides"]
-      },
-      {
-        "title": "06 细节精修 / DETAIL REFINEMENT",
-        "elements": ["2 full-body renders with labels", "4 circular close-ups"]
-      },
-      {
-        "title": "07 表情设定 / EXPRESSION SHEET",
-        "elements": ["11 3D rendered head expressions"]
-      },
-      {
-        "title": "08 姿势库 / POSE LIBRARY",
-        "elements": ["9 full-body 3D rendered poses"]
-      },
-      {
-        "title": "09 转身视图 / TURNAROUND VIEW",
-        "elements": ["5 full-body 3D renders", "5 matching line-art views"]
-      },
-      {
-        "title": "10 色彩开发 / COLOR DEVELOPMENT",
-        "elements": ["5 rows of 5-color palettes", "color psychology text"]
-      },
-      {
-        "title": "11 材质规格 / MATERIAL SPECIFICATION",
-        "elements": ["5 texture swatches", "property sliders", "4 manufacturing icons"]
-      },
-      {
-        "title": "12 色彩应用 / COLOR APPLICATION",
-        "elements": ["4 color variant renders", "2 light/dark renders", "4 contrast rating circles"]
-      },
-      {
-        "title": "13 构造指南 / CONSTRUCTION GUIDE",
-        "elements": ["2 line-art diagrams for geometry and grid"]
-      },
-      {
-        "title": "14 设计系统规则 / DESIGN SYSTEM RULES",
-        "elements": ["minimum size icons", "clear space diagram", "4 usage examples"]
-      },
-      {
-        "title": "15 资产变体 / ASSET VARIANTS",
-        "elements": ["3 size variants", "3 line-art variants", "3 simplified flat heads"]
-      },
-      {
-        "title": "16 数字应用 / DIGITAL APPLICATIONS",
-        "elements": ["1 app icon", "2 social avatars", "UI elements", "3-step animation cycle"]
-      },
-      {
-        "title": "17 实物应用 / PHYSICAL APPLICATIONS",
-        "elements": ["plush toy mockup", "packaging mockup", "merchandise mockup", "storefront mockup"]
-      },
-      {
-        "title": "18 最终主视觉 / FINAL RENDERING",
-        "elements": ["large high-res 3D render of mascot holding tea", "logo", "file format list"]
-      }
-    ]
-  }
-}
+请制作一张 18 面板的品牌识别与角色设计文档，整体采用 3 列 6 行网格。品牌名为 {argument name="brand name" default="沐阳 MUYANG TEA"}，行业为 {argument name="industry" default="tea shop"}，品牌配色使用 {argument name="primary color" default="yellow"}、{argument name="secondary color" default="green"}、白色、棕色和深绿色；主体角色为 {argument name="character description" default="3D rendered cute Shiba Inu mascot wearing a green apron"}。版面从上到下依次包含 18 个区块：01 品牌DNA分析 / BRAND DNA ANALYSIS，放 logo、5 个色卡、6 个图标和目标受众图表；02 概念构思 / CONCEPT MOODBOARD，放 5 张照片参考、4 个氛围图标和设计公式；03 形态研究 / FORM STUDY，放 4 个 logo 解剖图标、4 个演化步骤和 4 个轮廓；04 概念探索 / CONCEPT EXPLORATION，放 12 张线稿角色草图；05 精细线稿 / REFINED LINE ART，放 3 排正侧面线稿和比例引导；06 细节精修 / DETAIL REFINEMENT，放 2 张全身渲染和 4 个圆形特写；07 表情设定 / EXPRESSION SHEET，放 11 个 3D 头部表情；08 姿势库 / POSE LIBRARY，放 9 个全身 3D 姿势；09 转身视图 / TURNAROUND VIEW，放 5 张全身 3D 渲染和 5 张对应线稿；10 色彩开发 / COLOR DEVELOPMENT，放 5 排 5 色调色板和色彩心理文字；11 材质规格 / MATERIAL SPECIFICATION，放 5 个材质色卡、属性滑杆和 4 个制造图标；12 色彩应用 / COLOR APPLICATION，放 4 个颜色变体渲染、2 个明暗渲染和 4 个对比评分圆圈；13 构造指南 / CONSTRUCTION GUIDE，放 2 张几何与网格线稿图；14 设计系统规则 / DESIGN SYSTEM RULES，放最小尺寸图标、留白示意图和 4 个使用示例；15 资产变体 / ASSET VARIANTS，放 3 个尺寸变体、3 个线稿变体和 3 个简化扁平头部；16 数字应用 / DIGITAL APPLICATIONS，放 1 个应用图标、2 个社交头像、UI 元素和 3 步动画循环；17 实物应用 / PHYSICAL APPLICATIONS，放毛绒玩具 mockup、包装 mockup、周边 mockup 和门店 mockup；18 最终主视觉 / FINAL RENDERING，放一张角色手捧茶饮的大尺寸高分辨率 3D 渲染，并附 logo 和文件格式列表。
 ```
 
 ***
@@ -1027,107 +534,7 @@ YouTube 缩略图风格的拼贴画，用于{argument name="overall momo" defaul
 **提示词：**
 
 ```text
-{
-  "type": "brand identity system presentation board",
-  "header": {
-    "title": "品牌视觉识别系统 BRAND IDENTITY SYSTEM",
-    "slogan": "爱它·懂它·陪伴它"
-  },
-  "main_logo": {
-    "text": "{argument name=\"brand name\" default=\"GDX\"}",
-    "subtitle": "{argument name=\"brand chinese name\" default=\"狗东西\"}",
-    "design_feature": "{argument name=\"main subject\" default=\"Dog profile in negative space of the letter D\"}",
-    "metadata": [
-      "品牌名称",
-      "行业属性 {argument name=\"industry\" default=\"宠物行业\"}",
-      "设计时间 2024.05"
-    ]
-  },
-  "layout": {
-    "sections": [
-      {
-        "title": "设计网格",
-        "count": 1,
-        "description": "Logo with architectural grid lines and golden ratio measurements"
-      },
-      {
-        "title": "概念草图",
-        "count": 4,
-        "description": "Evolution steps from rough dog sketch to final geometric logo"
-      },
-      {
-        "title": "灵感来源",
-        "count": 4,
-        "description": "Moodboard images including minimalist architecture, a golden retriever, and dark green geometric shapes"
-      },
-      {
-        "title": "创意理念",
-        "count": 4,
-        "description": "Text blocks with minimalist icons explaining design philosophy, positioning, color psychology, and scalability"
-      },
-      {
-        "title": "品牌应用",
-        "count": 6,
-        "labels": [
-          "名片 正反面",
-          "信纸信封",
-          "APP图标",
-          "网站页眉 / 网站图标",
-          "产品包装 / 购物袋",
-          "店面门头 / 标识牌"
-        ],
-        "description": "Mockups of business cards, envelopes, app icons, website header with a dog, paper shopping bags, and a storefront sign"
-      },
-      {
-        "title": "色彩规范",
-        "count": 5,
-        "labels": [
-          "主色",
-          "辅助色",
-          "强调色"
-        ],
-        "colors": [
-          "{argument name=\"primary color\" default=\"#1E3D34\"}",
-          "#F5F3EF",
-          "#E5E2DD",
-          "#A8C5B1",
-          "#E0A86E"
-        ]
-      },
-      {
-        "title": "字体规范",
-        "count": 2,
-        "labels": [
-          "思源黑体 CN",
-          "思源柔黑体 CN"
-        ],
-        "description": "Typography specimens showing 'Aa', alphabet, and numbers"
-      },
-      {
-        "title": "最小使用尺寸",
-        "count": 2,
-        "description": "Minimum logo size specifications at 20mm and 12mm"
-      },
-      {
-        "title": "安全留白区域",
-        "count": 1,
-        "description": "Logo surrounded by a bounding box with 'X' indicating clear space margins"
-      },
-      {
-        "title": "错误使用示例",
-        "count": 5,
-        "labels": [
-          "不可拉伸变形",
-          "不可改变颜色",
-          "不可添加阴影",
-          "不可倾斜使用",
-          "不可复杂背景上使用"
-        ],
-        "description": "Examples of incorrect logo usage: stretched, wrong color, drop shadow, tilted, and placed on a busy photographic background"
-      }
-    ]
-  }
-}
+请制作一张品牌视觉识别系统展示板，整体主题为“品牌视觉识别系统 BRAND IDENTITY SYSTEM”，副标题写“爱它·懂它·陪伴它”。主标志区域使用 {argument name="brand name" default="GDX"}，下方写 {argument name="brand chinese name" default="狗东西"}，核心设计特征是 {argument name="main subject" default="Dog profile in negative space of the letter D"}，并在信息区标注“品牌名称”“行业属性 {argument name="industry" default="宠物行业"}”“设计时间 2024.05”。版面需要包含设计网格一栏，表现为带建筑感网格线和黄金比例测量的 logo；概念草图一栏，展示从粗略狗狗草图到最终几何化标志的 4 个演变步骤；灵感来源一栏，包含极简建筑、金毛犬和深绿色几何形状等 moodboard 图片；创意理念一栏，用极简图标和文字解释设计哲学、定位、色彩心理与可扩展性。还要加入品牌应用一栏，展示名片正反面、信纸信封、APP图标、网站页眉 / 网站图标、产品包装 / 购物袋、店面门头 / 标识牌等 6 个应用 mockup；色彩规范一栏，列出 {argument name="primary color" default="#1E3D34"}、#F5F3EF、#E5E2DD、#A8C5B1、#E0A86E；字体规范一栏，展示“思源黑体 CN”“思源柔黑体 CN”的 Aa、字母和数字；最小使用尺寸一栏，标注 20mm 和 12mm；安全留白区域一栏，用边框和 X 表示安全距离；错误使用示例一栏，展示不可拉伸变形、不可改变颜色、不可添加阴影、不可倾斜使用、不可复杂背景上使用等 5 个错误示例。
 ```
 
 ***
@@ -1141,53 +548,7 @@ YouTube 缩略图风格的拼贴画，用于{argument name="overall momo" defaul
 **提示词：**
 
 ```text
-{
-  "type": "skincare e-commerce landing page mockup",
-  "brand": "{argument name=\"brand name\" default=\"DERMA CALM\"}",
-  "color_palette": ["white", "light blue", "{argument name=\"primary color\" default=\"dark blue\"}"],
-  "layout": {
-    "header": {
-      "logo": "left-aligned brand name with Japanese subtext",
-      "navigation_links": {
-        "count": 6,
-        "labels": ["ABOUT", "PRODUCT", "FEATURE", "INGREDIENT", "VOICE", "Q&A"]
-      },
-      "buttons": {
-        "count": 2,
-        "labels": ["マイページ", "今すぐ購入する"]
-      }
-    },
-    "hero_section": {
-      "left_column": {
-        "headline": "{argument name=\"hero headline\" default=\"敏感な肌にも、毎日つづけられる安心ケア。\"}",
-        "subtext": "paragraph detailing low irritation, moisturizing, fragrance-free, and alcohol-free benefits",
-        "buttons": {
-          "count": 2,
-          "labels": ["今すぐ購入する", "詳しく見る"]
-        }
-      },
-      "center_column": {
-        "product": "white pump bottle with clear cap labeled {argument name=\"product type\" default=\"Moisture Barrier Serum\"}",
-        "props": ["dollop of white cream", "circular badge reading 皮膚科医監修"]
-      },
-      "right_column": {
-        "subject": "{argument name=\"model description\" default=\"young East Asian woman with clear glowing skin touching her cheek\"}",
-        "background": "blurred laboratory glassware in a bright, clean clinical setting"
-      }
-    },
-    "bottom_features_panel": {
-      "left_cards": {
-        "count": 3,
-        "descriptions": ["95% satisfaction with 5 stars", "shield icon for low irritation formula", "drop icon for skin barrier support"]
-      },
-      "right_badges": {
-        "count": 3,
-        "descriptions": ["no fragrance icon", "no alcohol icon", "patch tested icon"]
-      },
-      "footer": "fine print disclaimers at the bottom"
-    }
-  }
-}
+请设计一张护肤品电商落地页 mockup，品牌为 {argument name="brand name" default="DERMA CALM"}，整体配色使用白色、浅蓝和 {argument name="primary color" default="dark blue"}。顶部导航栏左侧是带日文副文的品牌名，右侧有 6 个导航链接 ABOUT、PRODUCT、FEATURE、INGREDIENT、VOICE、Q&A，以及两个按钮“マイページ”“今すぐ購入する”。首屏左侧放主标题 {argument name="hero headline" default="敏感な肌にも、毎日つづけられる安心ケア。"}，下面是一段描述低刺激、保湿、无香料、无酒精优势的正文，再放“今すぐ購入する”“詳しく見る”两个按钮。中间展示白色泵头瓶和透明瓶盖，标签写 {argument name="product type" default="Moisture Barrier Serum"}，旁边配白色乳霜和写有“皮膚科医監修”的圆形徽章。右侧放一位 {argument name="model description" default="young East Asian woman with clear glowing skin touching her cheek"}，背景是明亮洁净的实验室玻璃器皿虚化场景。底部功能区左侧有 3 个卡片，分别表现 95% 满意度五星、低刺激配方盾牌图标、肌肤屏障支持水滴图标；右侧有 3 个徽章，分别是无香料、无酒精、通过 patch 测试图标；最底部保留细小免责声明文字。
 ```
 
 ***
@@ -1201,58 +562,7 @@ YouTube 缩略图风格的拼贴画，用于{argument name="overall momo" defaul
 **提示词：**
 
 ```text
-{
-  "type": "website landing page mockup",
-  "theme": "men's skincare, sleek, professional, dark mode",
-  "color_palette": "{argument name=\"color scheme\" default=\"dark navy blue\"}, white text, subtle blue gradients",
-  "header": {
-    "logo": "{argument name=\"brand name\" default=\"NEX SKIN\"}",
-    "navigation": ["HOME", "PRODUCT", "ABOUT", "FEATURE", "FAQ"],
-    "cta_button": "今すぐ始める >"
-  },
-  "hero_section": {
-    "left_column": {
-      "headline": "{argument name=\"main headline\" default=\"清潔感は、毎日のスキンケアから。\"}",
-      "sub_headline": "男の肌は、もっとシンプルでいい。",
-      "body_text": "3 lines of descriptive text about skincare benefits",
-      "buttons": [
-        {"style": "solid blue", "text": "今すぐ始める >"},
-        {"style": "outlined", "text": "詳しく見る >"}
-      ],
-      "feature_highlights": {
-        "count": 3,
-        "items": [
-          {"icon": "sparkle", "title": "テカリ対策", "subtitle": "皮脂バランスを整える"},
-          {"icon": "water drop", "title": "保湿", "subtitle": "うるおいを与え続ける"},
-          {"icon": "shield/bottle", "title": "オールインワン", "subtitle": "化粧水・美容液・乳液がこれ1本"}
-        ]
-      }
-    },
-    "center_image": {
-      "subject": "handsome {argument name=\"target demographic\" default=\"young Asian man\"}",
-      "appearance": "clean-cut, dark hair, flawless glowing skin, wearing a black shirt",
-      "pose": "hand touching chin thoughtfully",
-      "lighting": "dramatic studio lighting highlighting facial structure"
-    },
-    "right_column": {
-      "product_shot": {
-        "bottle": "tall cylindrical dark blue bottle with water droplets",
-        "labels": ["{argument name=\"brand name\" default=\"NEX SKIN\"}", "{argument name=\"product type\" default=\"ALL-IN-ONE LOTION\"}", "150mL"],
-        "base": "textured dark rock surface",
-        "badge": "circular outlined badge reading 'これ1本で男の肌悩みをトータルケア'"
-      }
-    }
-  },
-  "bottom_stats_bar": {
-    "count": 3,
-    "items": [
-      {"icon": "users", "label": "累計販売本数", "value": "120万本突破"},
-      {"icon": "star", "label": "使用感満足度", "value": "92.1%"},
-      {"icon": "checklist", "label": "リピート率", "value": "85.3%"}
-    ],
-    "footnotes": "small legal text on the right"
-  }
-}
+请制作一张男士护肤网站落地页 mockup，主题是男士护肤，整体风格简洁、专业、深色模式。配色使用 {argument name="color scheme" default="dark navy blue"}、白色文字和微妙的蓝色渐变。页眉左侧是 {argument name="brand name" default="NEX SKIN"}，右侧是 HOME、PRODUCT、ABOUT、FEATURE、FAQ 这些导航项，以及“今すぐ始める >”按钮。首屏左侧主标题为 {argument name="main headline" default="清潔感は、毎日のスキンケアから。"}，副标题写“男の肌は、もっとシンプルでいい。”，正文是 3 行护肤益处说明，再放两个按钮：实心蓝色“今すぐ始める >”和描边“詳しく見る >”。下方显示 3 个功能亮点，分别是带 sparkles 图标的“テカリ対策 / 皮脂バランスを整える”、water drop 图标的“保湿 / うるおいを与え続ける”、shield/bottle 图标的“オールインワン / 化粧水・美容液・乳液がこれ1本”。中间放一位 {argument name="target demographic" default="young Asian man"}，外形清爽、黑发、皮肤通透，穿黑衬衫，摆出手托下巴思考的姿势，采用强调面部轮廓的戏剧性影棚灯光。右侧展示产品图，一支带水珠的深蓝色圆柱瓶，标签写 {argument name="brand name" default="NEX SKIN"}、{argument name="product type" default="ALL-IN-ONE LOTION"}、150mL，放在有纹理的深色岩石表面上，并配一个圆形描边徽章，文字是“これ1本で男の肌悩みをトータルケア”。底部统计条放 3 项数据：累计销售本数 120万本突破、使用感满意度 92.1%、复购率 85.3%，右侧保留小号法律声明文字。
 ```
 
 ***
@@ -1266,61 +576,7 @@ YouTube 缩略图风格的拼贴画，用于{argument name="overall momo" defaul
 **提示词：**
 
 ```text
-{
-  "type": "e-commerce landing page hero section mockup",
-  "aesthetic": "clean, bright, airy, feminine, floral accents with purple flowers, {argument name=\"primary color\" default=\"soft pink\"} and white color palette, soft lighting",
-  "header": {
-    "logo": "{argument name=\"brand name\" default=\"LUMEA BEAUTY\"}",
-    "navigation_links": {
-      "count": 5,
-      "labels": ["特徴", "成分", "お客様の声", "使い方", "FAQ"]
-    },
-    "cta_button": "今すぐ試す"
-  },
-  "hero_section": {
-    "left_column": {
-      "headline": "{argument name=\"headline text\" default=\"鏡を見るたび、うるおう透明感。\"}",
-      "subheadline": "乾燥・くすみが気になる肌に。美容成分を贅沢に配合した、毎日のための集中保湿美容液。",
-      "feature_badges": {
-        "count": 3,
-        "style": "pill-shaped with small icons",
-        "labels": ["敏感肌OK", "高保湿", "朝晩使える"]
-      },
-      "bullet_points": {
-        "count": 3,
-        "style": "pink checkmarks",
-        "labels": ["美容成分をしっかり届ける", "ハリ・ツヤのある印象へ", "続けやすいシンプルケア"]
-      },
-      "cta_buttons": {
-        "count": 2,
-        "labels": ["初回限定で試してみる >", "成分をチェック >"]
-      },
-      "trust_badges": "送料無料 / 初回限定 / 定期縛りなし"
-    },
-    "center_subject": {
-      "model": "{argument name=\"model description\" default=\"young East Asian woman smiling, touching her cheek\"}",
-      "action": "holding a dropper bottle of serum"
-    },
-    "right_column": {
-      "product_display": {
-        "count": 2,
-        "items": ["{argument name=\"product type\" default=\"moisturizing boost serum\"} dropper bottle", "packaging box"]
-      },
-      "stat_cards": {
-        "count": 3,
-        "style": "floating white rounded rectangles with gold accents",
-        "labels": ["満足度 96%", "美容成分 5種配合", "愛用者 12,000人突破"]
-      }
-    }
-  },
-  "bottom_section": {
-    "benefit_cards": {
-      "count": 3,
-      "style": "horizontal white rounded rectangles with icons",
-      "labels": ["うるおい", "透明感", "使いやすさ"]
-    }
-  }
-}
+请设计一张电商落地页首屏 mockup，整体气质清爽、明亮、轻盈、偏女性化，带有紫色花朵的花卉点缀，使用 {argument name="primary color" default="soft pink"} 和白色配色，并带柔和光线。页眉左侧是 {argument name="brand name" default="LUMEA BEAUTY"}，右侧有 5 个导航链接“特徴”“成分”“お客様の声”“使い方”“FAQ”，以及“今すぐ試す”按钮。首屏左侧主标题为 {argument name="headline text" default="鏡を見るたび、うるおう透明感。"}，副标题写“乾燥・くすみが気になる肌に。美容成分を贅沢に配合した、毎日のための集中保湿美容液。”，再放 3 个胶囊形小徽章“敏感肌OK”“高保湿”“朝晩使える”，以及 3 条带粉色勾选标记的要点“美容成分をしっかり届ける”“ハリ・ツヤのある印象へ”“続けやすいシンプルケア”。接着放两个 CTA 按钮“初回限定で試してみる >”和“成分をチェック >”，并保留“送料無料 / 初回限定 / 定期縛りなし”的信任徽章。中间主体是 {argument name="model description" default="young East Asian woman smiling, touching her cheek"}，手拿滴管瓶精华。右侧摆放 2 个产品展示，一个是 {argument name="product type" default="moisturizing boost serum"} 滴管瓶，一个是包装盒；旁边放 3 张浮动白色圆角统计卡片，带金色点缀，分别写“満足度 96%”“美容成分 5種配合”“愛用者 12,000人突破”。底部再加一排 3 个横向白色圆角利益卡片，带图标，标题为“うるおい”“透明感”“使いやすさ”。
 ```
 
 ***
@@ -1404,72 +660,7 @@ YouTube 缩略图风格的拼贴画，用于{argument name="overall momo" defaul
 **提示词：**
 
 ```text
-{
-  "type": "mobile livestream e-commerce interface mockup",
-  "subject": {
-    "person": "Elon Musk",
-    "clothing": "black t-shirt with SPACEX logo",
-    "pose": "gesturing towards camera with both hands, explaining enthusiastically",
-    "watermark": "@Proof AI"
-  },
-  "background": {
-    "setting": "large display screen",
-    "image": "Mars landscape with Starship rocket and dome habitats",
-    "text": [
-      "SPACEX",
-      "{argument name=\"background title\" default=\"移民火星计划\"}"
-    ]
-  },
-  "ui_layout": {
-    "header": {
-      "broadcaster_info": {
-        "name": "{argument name=\"broadcaster name\" default=\"ElonMusk\"}",
-        "stats": "75.8万本场点赞",
-        "follow_button": "关注"
-      },
-      "viewer_stats": {
-        "avatars_count": 3,
-        "text": "10万+",
-        "close_button": "X"
-      },
-      "tags": [
-        "带货总榜第1名",
-        "更多直播 >"
-      ]
-    },
-    "product_card": {
-      "position": "mid-right",
-      "status": "讲解中",
-      "image": "Mars dome habitats",
-      "title": "{argument name=\"product title\" default=\"火星移民基础套餐\"}",
-      "price": "{argument name=\"product price\" default=\"¥99.00\"}",
-      "action_button": "抢"
-    },
-    "chat_overlay": {
-      "position": "bottom-left",
-      "join_alert": "星辰大海 加入了直播间",
-      "messages_count": 7,
-      "messages": [
-        "{argument name=\"top chat message\" default=\"梦想家: 支持马斯克！！🚀\"}",
-        "火星弟弟: 多少钱一位？",
-        "科技迷: 太酷了！想去火星！",
-        "未来已来: 如何报名？",
-        "小火箭: 🌹🌹🌹",
-        "宇宙无敌: 讲解一下细节",
-        "东方不败: 老马牛逼！👍👍👍"
-      ]
-    },
-    "bottom_action_bar": {
-      "input_placeholder": "说点什么...",
-      "icons_count": 4,
-      "icons": ["shopping cart", "gift box", "heart planet", "plus sign"]
-    },
-    "floating_reactions": {
-      "position": "bottom-right",
-      "elements": "stack of floating hearts, thumbs up, and laughing emojis"
-    }
-  }
-}
+请制作一张移动端直播带货界面 mockup，主体人物是 Elon Musk，穿黑色带 SPACEX 标志的 T 恤，正双手朝向镜头热情讲解，画面上带有 @Proof AI 水印。背景是一块大型显示屏，画面内容为火星地貌、Starship 火箭和穹顶居住舱，并显示“SPACEX”和 {argument name="background title" default="移民火星计划"} 两行文字。界面顶部栏左侧显示主播信息，名字为 {argument name="broadcaster name" default="ElonMusk"}，点赞数 75.8万本场点赞，并有“关注”按钮；右侧显示 3 个头像、10万+ 文本和关闭按钮 X；再加上“带货总榜第1名”和“更多直播 >”两个标签。中部偏右放商品卡片，状态为“讲解中”，图片是 Mars dome habitats，标题为 {argument name="product title" default="火星移民基础套餐"}，价格为 {argument name="product price" default="¥99.00"}，按钮写“抢”。左下角覆盖聊天区，包含“星辰大海 加入了直播间”的入场提示以及 7 条消息，其中首条为 {argument name="top chat message" default="梦想家: 支持马斯克！！🚀"}，其余依次是“火星弟弟: 多少钱一位？”“科技迷: 太酷了！想去火星！”“未来已来: 如何报名？”“小火箭: 🌹🌹🌹”“宇宙无敌: 讲解一下细节”“东方不败: 老马牛逼！👍👍👍”。底部操作栏左侧放输入框占位文字“说点什么...”，右侧放 4 个图标：shopping cart、gift box、heart planet、plus sign。右下角叠加一组漂浮反应图标，包含爱心、点赞和笑脸表情。
 ```
 
 ***
@@ -1483,60 +674,7 @@ YouTube 缩略图风格的拼贴画，用于{argument name="overall momo" defaul
 **提示词：**
 
 ```text
-{
-  "type": "2x2 advertising banner grid",
-  "layout": "4 distinct quadrants, each featuring a different industry advertisement",
-  "quadrants": [
-    {
-      "position": "top-left",
-      "industry": "skincare",
-      "visuals": "Asian woman touching cheek, floating water droplets, white pump bottle",
-      "brand": "BALANCÉE",
-      "copy": {
-        "headline": "{argument name=\"skincare headline\" default=\"素肌が、目覚める。\"}",
-        "subheadline": "透明感あふれる、新しいわたしへ。",
-        "features_count": 3,
-        "features_labels": ["高保湿", "肌荒れ予防", "美白ケア*"]
-      }
-    },
-    {
-      "position": "top-right",
-      "industry": "restaurant food",
-      "visuals": "close-up of spaghetti bolognese with grated cheese and parsley, dark moody lighting",
-      "brand": "Trattoria Luce",
-      "copy": {
-        "headline": "{argument name=\"food headline\" default=\"このパスタ、事件級。\"}",
-        "badge": "期間限定",
-        "description": "黒毛和牛のボロネーゼ 〜トリュフの香り〜"
-      }
-    },
-    {
-      "position": "bottom-left",
-      "industry": "travel",
-      "visuals": "woman with backpack facing a scenic mountain lake, bright daylight",
-      "brand": "NATURE JOURNEY",
-      "copy": {
-        "headline": "{argument name=\"travel headline\" default=\"わたしを、解き放つ旅へ。\"}",
-        "subheadline": "自然の中で、心が動き出す。",
-        "script": "Find your freedom.",
-        "banner_details": ["初夏の特別キャンペーン", "6.1 SAT - 6.30 SUN", "最大 20%OFF", "今だけの特別プラン多数！"]
-      }
-    },
-    {
-      "position": "bottom-right",
-      "industry": "SaaS app",
-      "visuals": "smartphone displaying a task management app interface with 4 schedule items",
-      "brand": "{argument name=\"app brand name\" default=\"Taskme\"}",
-      "copy": {
-        "headline": "{argument name=\"app headline\" default=\"タスク管理を、もっとシンプルに、スマートに。\"}",
-        "circle_badge": "1日を、デザインしよう。",
-        "features_count": 3,
-        "features_labels": ["直感的な操作性", "チームで共有可能", "どこでもアクセス"],
-        "bottom_banner": "7日間無料トライアル実施中！"
-      }
-    }
-  ]
-}
+制作一张2x2广告横幅拼图，画面被分成四个清晰独立的象限，每个象限展示一个不同产业的广告。左上角是护肤广告：一位亚洲女性轻触脸颊，周围有漂浮的水滴，旁边放着白色泵头瓶，品牌为 BALANCÉE，文案包含 {argument name="skincare headline" default="素肌が、目覚める。"}、“透明感あふれる、新しいわたしへ。”，并列出 3 个卖点“高保湿”“肌荒れ予防”“美白ケア*”。右上角是餐饮美食广告：一盘近景意大利肉酱意面，撒有奶酪和欧芹，整体为深色、情绪感强的光线，品牌是 Trattoria Luce，主标题为 {argument name="food headline" default="このパスタ、事件級。"}，带有“期間限定”徽章和“黒毛和牛のボロネーゼ 〜トリュフの香り〜”说明。左下角是旅行广告：一位背着背包的女性面向风景壮阔的山间湖泊，画面明亮、日光充足，品牌为 NATURE JOURNEY，主标题为 {argument name="travel headline" default="わたしを、解き放つ旅へ。"}，副标题是“自然の中で、心が動き出す。”，还有英文手写体“Find your freedom.”以及“初夏の特別キャンペーン”“6.1 SAT - 6.30 SUN”“最大 20%OFF”“今だけの特別プラン多数！”等横幅信息。右下角是 SaaS 应用广告：一部智能手机展示待办事项管理界面，界面里有 4 个日程项目，品牌名为 {argument name="app brand name" default="Taskme"}，主标题为 {argument name="app headline" default="タスク管理を、もっとシンプルに、スマートに。"}，圆形徽章写着“1日を、デザインしよう。”，并列出 3 个特点“直感的な操作性”“チームで共有可能”“どこでもアクセス”，底部横幅写“7日間無料トライアル実施中！”。
 ```
 
 ***
@@ -1550,64 +688,7 @@ YouTube 缩略图风格的拼贴画，用于{argument name="overall momo" defaul
 **提示词：**
 
 ```text
-{
-  "type": "e-commerce livestream screenshot mockup",
-  "scene": {
-    "subject": "{argument name=\"main subject\" default=\"Caucasian male resembling Sam Altman\"}",
-    "clothing": "dark green crewneck sweater",
-    "action": "holding a black product box in one hand and pointing at it with the other",
-    "setting": "dark studio with a microphone on the left, faint 'AI' text in the background",
-    "props": [
-      "black mug with white OpenAI logo",
-      "stack of 4 black product boxes on the right"
-    ]
-  },
-  "product_design": {
-    "box_color": "black",
-    "logo": "orange asterisk or sunburst",
-    "text": "{argument name=\"product name\" default=\"Claude Opus 4.7\"}"
-  },
-  "ui_overlays": {
-    "top_left_product_info": {
-      "brand_tag": "Anthropic 官方旗舰店",
-      "title": "{argument name=\"product name\" default=\"Claude Opus 4.7\"}",
-      "subtitle": "{argument name=\"main headline\" default=\"更强推理·更高智能\"}",
-      "sub_subtitle": "最强大模型: Opus 4.7 重磅发布!",
-      "bullet_points_count": 3,
-      "bullet_points": ["超强推理能力", "代码能力巅峰", "复杂任务轻松搞定"]
-    },
-    "top_right_live_status": {
-      "viewer_info": "直播中 | 52.8万人观看",
-      "promo_banner": "直播专属福利 限时折扣·错过不再有",
-      "countdown": "倒计时 00:09:47"
-    },
-    "middle_right_price_card": {
-      "header": "{argument name=\"product name\" default=\"Claude Opus 4.7\"} 直播间专享价",
-      "price_currency": "¥",
-      "price_value": "{argument name=\"promotional price\" default=\"0.47\"}",
-      "price_unit": "/百万tokens起",
-      "original_price": "原价: ¥1.89",
-      "button": "立即抢购"
-    },
-    "bottom_left_chat": {
-      "message_count": 9,
-      "input_box_placeholder": "说点什么..."
-    },
-    "bottom_right_banner": {
-      "headline": "奥特曼首推！认准Claude Opus 4.7",
-      "subheadline": "更智能 · 更安全 · 更可靠",
-      "feature_tags_count": 4,
-      "feature_tags": ["强大推理", "代码神器", "安全可靠", "极速响应"]
-    },
-    "floating_elements": [
-      {
-        "type": "sticker",
-        "position": "middle right over product boxes",
-        "text": "{argument name=\"sticker text\" default=\"史上最强 AI模型!\"}"
-      }
-    ]
-  }
-}
+制作一张电商直播截图风格的 mockup。画面中的主角是一位外形酷似 Sam Altman 的白人男性，穿着深绿色圆领毛衣，一只手拿着黑色产品盒，另一只手指向它；场景设在黑暗的工作室里，左侧放着一支麦克风，背景里隐约能看到 “AI” 字样。画面中还要出现一个印有白色 OpenAI 标志的黑色马克杯，以及右侧叠放的 4 个黑色产品盒。产品包装为黑色，使用橙色星芒或太阳放射状标志，盒面文字为 {argument name="product name" default="Claude Opus 4.7"}。顶部左侧显示产品信息卡，品牌标签写“Anthropic 官方旗舰店”，标题为 {argument name="product name" default="Claude Opus 4.7"}，副标题为 {argument name="main headline" default="更强推理·更高智能"}，并补充“最强大模型: Opus 4.7 重磅发布!”和 3 条卖点“超强推理能力”“代码能力巅峰”“复杂任务轻松搞定”。右上角显示直播状态，包括“直播中 | 52.8万人观看”、 “直播专属福利 限时折扣·错过不再有”以及倒计时“00:09:47”。中右侧放一个价格卡片，标题为“{argument name="product name" default="Claude Opus 4.7"} 直播间专享价”，价格为 ¥ {argument name="promotional price" default="0.47"}，单位写“/百万tokens起”，原价为“¥1.89”，按钮写“立即抢购”。左下角显示 9 条聊天信息和输入框占位文字“说点什么...”。右下角有宣传横幅，写“奥特曼首推！认准Claude Opus 4.7”“更智能 · 更安全 · 更可靠”，并列出 4 个标签“强大推理”“代码神器”“安全可靠”“极速响应”。画面中还要有一个漂浮贴纸，位置在产品盒右侧中部，内容为 {argument name="sticker text" default="史上最强 AI模型!"}。
 ```
 
 ***
@@ -1621,73 +702,7 @@ YouTube 缩略图风格的拼贴画，用于{argument name="overall momo" defaul
 **提示词：**
 
 ```text
-{
-  "type": "mobile live-streaming e-commerce interface mockup",
-  "subject": {
-    "description": "young Asian woman, long dark hair, wearing light-colored floral pajama set with a pink bow, holding the pajama top outward to show the fabric",
-    "background": "cozy room, clothing rack with pajamas, flowers, warm lighting"
-  },
-  "ui_layout": {
-    "top_bar": {
-      "time": "20:34",
-      "host_info": {
-        "name": "{argument name=\"host name\" default=\"小雨睡衣\"}",
-        "stats": "12.8万本场点赞",
-        "button": "关注"
-      },
-      "viewer_info": {
-        "avatars_count": 3,
-        "total_viewers": "1.2万"
-      }
-    },
-    "floating_tags": {
-      "count": 2,
-      "labels": ["带货总榜第3名", "人气榜"]
-    },
-    "widgets": {
-      "top_left": "red envelope icon with timer 03:45",
-      "top_right": "floating heart icon with text 直播好物大赏 发现新热爱"
-    },
-    "marketing_text_overlay": {
-      "position": "mid-right",
-      "lines_count": 5,
-      "lines": [
-        "{argument name=\"main headline\" default=\"新款睡衣\"}",
-        "{argument name=\"sub headline\" default=\"正在秒杀中...\"}",
-        "亲肤透气",
-        "柔软舒适",
-        "不起球 不褪色"
-      ]
-    },
-    "chat_log": {
-      "position": "bottom-left",
-      "message_count": 7,
-      "messages": [
-        "32 雨*** 加入了直播间",
-        "小***: 好看，多少钱",
-        "小***: 拍了，期待发货",
-        "C***: 质量看着不错",
-        "用***: 身高165，体重120斤，穿多大码？",
-        "@***: 主播身上这款有货吗？",
-        "晴***: 已拍，坐等收货！"
-      ]
-    },
-    "product_card": {
-      "position": "bottom-right",
-      "thumbnail": "miniature of the host",
-      "title": "{argument name=\"product title\" default=\"【小雨睡衣】春季新款家居服套装\"}",
-      "tags_count": 2,
-      "tags": ["7天无理由退货", "运费险"],
-      "price_section": "秒杀价 ¥ {argument name=\"product price\" default=\"89.9\"}",
-      "action_button": "抢"
-    },
-    "bottom_bar": {
-      "input_placeholder": "说点什么...",
-      "icon_count": 5,
-      "icons": ["smiley face", "shopping cart", "heart/gift", "gift box", "three dots"]
-    }
-  }
-}
+制作一张手机端直播带货界面的 mockup。主画面是一位年轻亚洲女性，长黑发，穿着浅色碎花睡衣套装，系着粉色蝴蝶结，双手把睡衣上衣向外展示布料；背景是温馨的房间，里面有挂满睡衣的衣架和花朵，整体光线温暖柔和。顶部状态栏显示时间 20:34；主播信息区里，昵称为 {argument name="host name" default="小雨睡衣"}，旁边写着“12.8万本场点赞”，并有“关注”按钮；右侧显示 3 个观众头像和“1.2万”观众数。画面中有两个浮动标签，分别是“带货总榜第3名”和“人气榜”。左上角放一个红色红包图标和倒计时“03:45”，右上角放一个漂浮爱心图标，并写“直播好物大赏 发现新热爱”。中右侧叠加 5 行营销文案，依次是 {argument name="main headline" default="新款睡衣"}、{argument name="sub headline" default="正在秒杀中..."}、“亲肤透气”“柔软舒适”“不起球 不褪色”。左下角显示 7 条聊天消息，其中包括“32 雨*** 加入了直播间”“小***: 好看，多少钱”“小***: 拍了，期待发货”“C***: 质量看着不错”“用***: 身高165，体重120斤，穿多大码？”“@***: 主播身上这款有货吗？”和“晴***: 已拍，坐等收货！”。右下角放产品卡，缩略图是主播本人，标题为 {argument name="product title" default="【小雨睡衣】春季新款家居服套装"}，标签为“7天无理由退货”“运费险”，价格区写“秒杀价 ¥ {argument name="product price" default="89.9"}”，按钮写“抢”。底部输入栏占位文字为“说点什么...”，旁边有 5 个图标，依次是表情、购物车、爱心/礼物、礼盒和三点更多。
 ```
 
 ***
@@ -1701,83 +716,7 @@ YouTube 缩略图风格的拼贴画，用于{argument name="overall momo" defaul
 **提示词：**
 
 ```text
-{
-  "type": "e-commerce live stream interface mockup",
-  "subject": {
-    "description": "young Asian woman, long wavy dark hair, wearing a white short-sleeve polo shirt and white pleated tennis skirt, holding a white tennis racket over her right shoulder, looking directly at the camera with a soft expression",
-    "background": "soft light grey studio background"
-  },
-  "layout": {
-    "header": {
-      "left": {
-        "avatar": "female portrait",
-        "name": "{argument name=\"host name\" default=\"小鹿运动优选\"}",
-        "stats": "12.8万本场点赞",
-        "button": "关注",
-        "badge": "带货榜第3名"
-      },
-      "right": {
-        "viewer_avatars_count": 3,
-        "viewer_count": "1.2万",
-        "close_icon": "X"
-      }
-    },
-    "floating_elements": [
-      {
-        "position": "top right",
-        "type": "coupon card",
-        "title": "直播间专属券",
-        "details": "¥20 满199可用",
-        "button": "领取"
-      },
-      {
-        "position": "mid left",
-        "type": "campaign text",
-        "subtitle": "夏日运动季",
-        "headline": "{argument name=\"main headline\" default=\"活力开场\"}",
-        "bullet_points_count": 3,
-        "bullet_points": ["透气速干", "弹力舒适", "运动百搭"]
-      },
-      {
-        "position": "mid right",
-        "type": "product card active",
-        "badge": "正在讲解",
-        "image": "white polo and skirt flat lay",
-        "title": "{argument name=\"product name\" default=\"运动POLO衫套装\"}",
-        "details": "白色·M码",
-        "price": "{argument name=\"price\" default=\"¥129\"}",
-        "button": "去抢购"
-      },
-      {
-        "position": "bottom right",
-        "type": "product card secondary",
-        "badge": "热卖 x 156",
-        "image": "model wearing the outfit",
-        "title": "运动POLO衫套装女 透气速干 显瘦百搭",
-        "tags": ["7天无理由退货", "运费险"],
-        "price": "¥129",
-        "button": "抢"
-      }
-    ],
-    "chat_overlay": {
-      "position": "bottom left",
-      "message_count": 5,
-      "messages": [
-        "小鹿姐姐: 欢迎新朋友们来到直播间~",
-        "运动达人: {argument name=\"chat message\" default=\"这套好看!\"}",
-        "卡卡西: 布料透气吗?",
-        "小鹿运动优选: 我们这个面料是冰丝速干的，运动出汗也不闷热哦~",
-        "用户_6789: 已拍!"
-      ],
-      "purchase_alert": "用户_6789 等3人 正在去购买"
-    },
-    "footer": {
-      "input_bar": "说点什么...",
-      "icons_count": 5,
-      "icons": ["smile", "shopping cart", "heart", "share", "more"]
-    }
-  }
-}
+制作一张电商直播界面的 mockup。主角是一位年轻亚洲女性，长卷黑发，穿白色短袖 polo 衫和白色百褶网球裙，右肩上搭着一支白色网球拍，正以柔和的表情直视镜头，背景是浅灰色的柔光影棚。顶部标题栏左侧放主播头像、昵称 {argument name="host name" default="小鹿运动优选"}、“12.8万本场点赞”、 “关注”按钮和“带货榜第3名”徽章；右侧放 3 个观众头像、“1.2万”观众数和关闭图标 X。画面上方右侧漂浮一个优惠券卡片，写“直播间专属券”“¥20 满199可用”“领取”。中左侧放活动文案，副标题为“夏日运动季”，主标题为 {argument name="main headline" default="活力开场"}，并列出 3 个卖点“透气速干”“弹力舒适”“运动百搭”。中右侧放正在讲解的商品卡，包含“正在讲解”徽章、白色 polo 和裙子的平铺图、标题 {argument name="product name" default="运动POLO衫套装"}、规格“白色·M码”、价格 {argument name="price" default="¥129"} 和按钮“去抢购”。右下角再放一张次级商品卡，标记“热卖 x 156”，缩略图为模特穿着同款，标题“运动POLO衫套装女 透气速干 显瘦百搭”，标签为“7天无理由退货”“运费险”，价格“¥129”，按钮“抢”。左下角是滚动聊天区和购买提示“用户_6789 等3人 正在去购买”，底部输入栏写“说点什么...”，并排列 5 个图标：表情、购物车、爱心、分享和更多。
 ```
 
 ***
@@ -1791,73 +730,7 @@ YouTube 缩略图风格的拼贴画，用于{argument name="overall momo" defaul
 **提示词：**
 
 ```text
-{
-  "type": "e-commerce livestream UI mockup",
-  "subject": {
-    "description": "photorealistic young Asian woman, sweaty glowing skin, long dark wavy hair, wearing a white short-sleeve polo shirt and white pleated tennis skirt, holding a white tennis racket over her right shoulder, looking directly at camera, studio lighting, white background"
-  },
-  "layout": {
-    "top_header": {
-      "host_info": {
-        "name": "{argument name=\"host name\" default=\"小鹿运动优选\"}",
-        "stats": "12.8万本场点赞",
-        "button": "关注"
-      },
-      "rank_tag": "带货榜第3名",
-      "viewer_stats": "1.2万"
-    },
-    "top_right": {
-      "coupon": {
-        "title": "直播间专属券",
-        "value": "￥20 满199可用",
-        "button": "领取"
-      }
-    },
-    "left_overlay": {
-      "title": "{argument name=\"campaign title\" default=\"夏日运动季\"}",
-      "subtitle": "{argument name=\"campaign subtitle\" default=\"活力开场\"}",
-      "bullet_points": {
-        "count": 3,
-        "items": ["透气速干", "弹力舒适", "运动百搭"]
-      }
-    },
-    "right_overlay": {
-      "product_cards": {
-        "count": 2,
-        "card_1": {
-          "status": "正在讲解",
-          "image": "white polo shirt and skirt flat lay",
-          "title": "{argument name=\"product name\" default=\"运动POLO衫套装\"}",
-          "details": "白色·M码",
-          "price": "{argument name=\"price\" default=\"￥129\"}",
-          "button": "去抢购"
-        },
-        "card_2": {
-          "status": "热卖 x 156",
-          "image": "miniature of main model",
-          "title": "运动POLO衫套装女",
-          "details": "透气速干 显瘦百搭",
-          "price": "{argument name=\"price\" default=\"￥129\"}",
-          "button": "抢"
-        }
-      }
-    },
-    "bottom_left": {
-      "chat_messages": {
-        "count": 5,
-        "description": "scrolling chat messages with usernames and comments"
-      },
-      "purchase_alert": "用户_6789 等3人 正在去购买"
-    },
-    "bottom_bar": {
-      "input_field": "说点什么...",
-      "icons": {
-        "count": 5,
-        "types": ["smile", "shopping cart", "heart", "gift", "more"]
-      }
-    }
-  }
-}
+制作一张电商直播 UI mockup。主角是一位写实感很强的年轻亚洲女性，皮肤带着汗润发光的质感，长黑色波浪发，穿白色短袖 polo 衫和白色百褶网球裙，右肩上搭着白色网球拍，正直视镜头，画面采用影棚灯光，背景为纯白。顶部信息区展示主播昵称 {argument name="host name" default="小鹿运动优选"}、“12.8万本场点赞”、 “关注”按钮和“带货榜第3名”标签，右侧显示“1.2万”观众数。右上角有优惠券卡片，内容是“直播间专属券”“￥20 满199可用”“领取”。左侧浮层写活动标题 {argument name="campaign title" default="夏日运动季"}，副标题 {argument name="campaign subtitle" default="活力开场"}，并列出“透气速干”“弹力舒适”“运动百搭” 3 个卖点。右侧浮层放两张商品卡：第一张显示“正在讲解”、平铺商品图、标题 {argument name="product name" default="运动POLO衫套装"}、规格“白色·M码”、价格 {argument name="price" default="￥129"} 和按钮“去抢购”；第二张显示“热卖 x 156”、模特缩略图、标题“运动POLO衫套装女”、说明“透气速干 显瘦百搭”、价格 {argument name="price" default="￥129"} 和按钮“抢”。左下角是 5 条滚动聊天消息，并显示购买提醒“用户_6789 等3人 正在去购买”；底部输入栏写“说点什么...”，并排列 5 个图标：表情、购物车、爱心、礼物和更多。
 ```
 
 ***
@@ -1871,51 +744,7 @@ YouTube 缩略图风格的拼贴画，用于{argument name="overall momo" defaul
 **提示词：**
 
 ```text
-{
-  "type": "视频游戏截图模型",
-  "perspective": "第三人称过肩视角",
-  “字符”：{
-    "description": "男主角从后面看",
-    "clothing": "带有图形 '{argument name=\"shirt Graphic\" default=\"LEONIDA MARINE CENTER\"}' 的灰色背心，迷彩工装短裤"
-  },
-  “环境”：{
-    "setting": "热带沿海小镇，土路，阳光明媚的白天，云朵散落",
-    "left_side": "木制欢迎标志，上面写着'欢迎来到{参数名称=\"地点名称\" 默认=\"LEONIDA KEYS\"} 你的天堂'，粉色塑料火烈鸟，热带树叶，远处的水塔",
-    "center": "带有‘FISH’标志和马林鱼图形的绿色建筑，标志上写着‘BAIT TACKLE ICE BEER WINE’，行人在行走”,
-    "right_side": "两层木结构建筑‘布莱恩造船厂和码头’、‘布莱恩酒吧’霓虹灯、停放的皮卡车、拖车上的摩托艇”
-  },
-  “ui_elements”：{
-    “计数”：5，
-    “组件”：[
-      {
-        "position": "左上角",
-        “type”：“任务目标”，
-        "text": "{参数名称=\"任务标题\" 默认=\"MEET RAUL\"}\n{参数名称=\"任务描述\" 默认=\"劳尔在他的造船厂为你做一些工作\"}"
-      },
-      {
-        "position": "右上角",
-        “type”：“状态HUD”，
-        "text": "13:47\n$1,142",
-        “图标”：“粉红色棕榈树”
-      },
-      {
-        "position": "左下角",
-        "type": "小地图",
-        “description”：“带有紫色边框的圆形地图，白色地图图标，其中‘N’代表北方”
-      },
-      {
-        "position": "小地图的左下角右侧",
-        “type”：“位置文本”，
-        "text": "{参数名称=\"位置名称\" 默认=\"LEONIDA KEYS\"}\n棕榈岛"
-      },
-      {
-        "position": "右下角",
-        "type": "水印",
-        "text": "{参数名称=\"游戏标题\" 默认=\"GTA VI\"}\nPRE-ALPHA FOOTAGE"
-      }
-    ]
-  }
-}
+制作一张视频游戏截图风格的模型图，采用第三人称过肩视角。主角从背后可见，穿着灰色背心，背心上有图形 “{argument name="shirt Graphic" default="LEONIDA MARINE CENTER"}”，下身是迷彩工装短裤。场景设在热带沿海小镇，土路在阳光明媚的白天延伸，天空里散落着云朵。左侧放一个木制欢迎标志，写着“欢迎来到{参数名称="地点名称" 默认="LEONIDA KEYS"} 你的天堂”，旁边有粉色塑料火烈鸟、热带树叶和远处的水塔。画面中央是一栋绿色建筑，门口有写着 FISH 的标志和马林鱼图形，旁边的招牌写“BAIT TACKLE ICE BEER WINE”，并有人行走经过。右侧是两层木结构建筑，能看到“布莱恩造船厂和码头”“布莱恩酒吧”霓虹灯、停放的皮卡车，以及拖车上的摩托艇。左上角显示任务目标卡，标题为 {参数名称="任务标题" 默认="MEET RAUL"}，描述为 {参数名称="任务描述" 默认="劳尔在他的造船厂为你做一些工作"}。右上角是状态 HUD，显示时间 13:47 和 $1,142，并带有粉红色棕榈树图标。左下角是带紫色边框的圆形小地图，白色地图图标上标出北方 N；小地图右侧显示位置文本 {参数名称="位置名称" 默认="LEONIDA KEYS"} 和“棕榈岛”。右下角放水印，内容为 {参数名称="游戏标题" 默认="GTA VI"} 和 “PRE-ALPHA FOOTAGE”。
 ```
 
 ***
@@ -2058,65 +887,7 @@ Language:
 **提示词：**
 
 ```text
-{
-  超写实iPhone 15 Pro前置摄像头自拍，一位成年女性在明亮的沙滩上，
-  从举臂高角度自拍视角拍摄。手机略微举在脸部上方，
-  营造出自然的前置摄像头几何形态，带有轻微的等效24mm广角畸变，
-  写实的面部比例，
-  以及智能手机的深景深。她向上抬起下巴，一只手遮挡刺眼的阳光，同时直视手机镜头。她的表情中性，
-  面无表情，
-  且略带疏离感，
-  眼睛大而专注，但在解剖学上具有真实的眼部尺寸和自然面部比例。\n\n她有着极浅的铂金色头发，梳成两条紧紧的辫子，
-  苍白的皮肤带有真实摄影的皮肤纹理，
-  可见的毛孔，
-  细微的绒毛，
-  淡淡的眼下纹理，
-  自然的唇部纹理，
-  以及柔和的阳光光泽，而不是磨皮后的完美无瑕。她的嘴唇是自然色调且略丰满，
-  她的鼻子小巧精致但很写实。她的指甲是鲜艳的蓝色。她穿着一件浅蓝色紧身弹力棉上衣，领口非常深且宽，以自然、
-  非风格化的方式露出突出的锁骨和上胸结构。\n\n背景是宽阔的海岸沙滩，在强烈的上午晚些时候的阳光下，
-  背景中有一条柔和模糊的地平线。光线明亮，
-  色温约5500K的高调海岸日光，
-  强烈的白色沙子反光从下方和脸部周围均匀地填充阴影。皮肤被直射阳光加上海滩宽阔柔和的反射补光照亮，
-  产生清脆但写实的高光，没有生硬的对比。明亮沙子的细小颗粒微妙地捕捉光线。整体图像应该感觉像是在强烈的海边光线下在户外拍摄的真正高曝光智能手机自拍。\n\n色彩渲染应该是柔和、
-  干净、
-  且现代的，
-  带有中性至柔和的色调，
-  写实的iPhone计算摄影，
-  略微提高的曝光，
-  受控的高光过渡，
-  自然的肤色，
-  没有电影级调色。优先考虑写实性、
-  物理准确性、
-  可信的解剖结构，
-  以及真实的智能手机图像表现，而不是美化风格化。", "negative_prompt": "动漫，
-  洋娃娃脸，
-  瓷器皮肤，
-  无毛孔皮肤，
-  塑料皮肤，
-  CGI，
-  3D渲染，
-  超现实眼睛，
-  过大的眼睛，
-  奇幻美，
-  磨皮精修，
-  浓妆，
-  魅力光，
-  戏剧性阴影，
-  胶片颗粒，
-  雪，
-  冬装，
-  黑色上衣，
-  红指甲，
-  保守领口，
-  影棚背景，
-  人造模糊，
-  扭曲的手，
-  变形的手指，
-  畸形的脸，
-  对称完美，
-  美颜滤镜，
-  惊悚的皮肤平滑" }
+一张超写实的 iPhone 15 Pro 前置摄像头自拍照：一位成年女性站在明亮的沙滩上，从举臂高角度自拍，手机略微举在脸部上方，形成自然的前置摄像头几何视角，并带有轻微的等效 24mm 广角畸变、写实的面部比例和智能手机特有的深景深。她抬起下巴，一只手遮挡刺眼阳光，同时直视手机镜头；表情保持中性、面无表情、略带疏离感，眼睛大而专注，但仍要符合真实的眼部尺寸和自然面部比例。她有极浅的铂金色头发，梳成两条紧紧的辫子，皮肤苍白但保留真实摄影质感，可见毛孔、细微绒毛、淡淡的眼下纹理、自然的唇部纹理，以及柔和的阳光光泽，不要磨皮成完美无瑕。嘴唇呈自然色调且略丰满，鼻子小巧精致但必须写实；指甲是鲜艳的蓝色。她穿着浅蓝色紧身弹力棉上衣，领口非常深且宽，以自然、非风格化的方式露出明显的锁骨和上胸结构。背景是宽阔的海岸沙滩，处在强烈的上午晚些时候阳光下，远处地平线要柔和模糊。整体光线应是约 5500K 的高调海岸日光，白色沙子的强反射从下方和脸部周围均匀填补阴影；直射阳光加上海滩宽阔柔和的反射补光，让皮肤出现清脆但真实的高光，没有生硬对比。沙粒要能微妙地捕捉光线。整张图应像是在强烈海边光线下拍到的真实高曝光智能手机自拍，色彩渲染要柔和、干净、现代，偏中性到柔和色调，保持写实的 iPhone 计算摄影感、略微提高的曝光、受控的高光过渡和自然肤色，不要电影级调色。要优先真实感、物理准确性、可信的解剖结构和真实的智能手机图像表现，不要美化成风格化作品。避免动漫、洋娃娃脸、瓷器皮肤、无毛孔皮肤、塑料皮肤、CGI、3D 渲染、超现实眼睛、过大的眼睛、奇幻美、磨皮精修、浓妆、魅力光、戏剧性阴影、胶片颗粒、雪、冬装、黑色上衣、红指甲、保守领口、影棚背景、人造模糊、扭曲的手、变形的手指、畸形的脸、对称完美、美颜滤镜和惊悚的皮肤平滑。
 ```
 
 ***
@@ -2186,17 +957,7 @@ Language:
 **提示词：**
 
 ```text
-{
-  "prompt": {
-    "style_and_tech": "手机照片，老式CCD相机美学，刺眼的闪光灯，颗粒感，昏暗杂乱的室内光线，抓拍快照感觉，轻微的运动模糊",
-    "subject": "年轻的韩国女偶像，温柔纯真的外表",
-    "pose": "动作进行中，微微转头看向镜头，仿佛刚刚注意到正在被拍照，肩膀微微耸起",
-    "expression": "眼睛微微睁大，因惊讶而微微张开的嘴唇，害羞且猝不及防的表情",
-    "clothing": "宽松柔软的居家服（薄开衫+内搭上衣），一侧肩膀微微滑落但没有暴露",
-    "vibe": "毫无防备，亲密，意外的瞬间，唤起好奇心与保护欲",
-    "aspect ratio": "9:16"
-  }
-}
+一张手机快照风格的照片，带有老式 CCD 相机美学、刺眼闪光灯、颗粒感、昏暗杂乱的室内光线、抓拍感和轻微运动模糊。主体是一位年轻的韩国女偶像，外表温柔纯真；她正在动作进行中，微微转头看向镜头，像是刚刚注意到自己被拍到，肩膀轻轻耸起。表情要是眼睛微微睁大、嘴唇因惊讶而轻轻张开，同时带一点害羞和猝不及防的感觉。服装是宽松柔软的居家服，采用薄开衫加内搭上衣的组合，只有一侧肩膀微微滑落，但不能有暴露感。整体气质要传达毫无防备、亲密、意外瞬间的感觉，并唤起好奇心与保护欲。画面比例保持 9:16。
 ```
 
 ***
