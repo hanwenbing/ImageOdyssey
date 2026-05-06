@@ -157,8 +157,8 @@ async function main(): Promise<void> {
   });
 
   const supabaseUrl = requireEnv("SUPABASE_URL");
-  const serviceRoleKey = requireEnv("SUPABASE_SERVICE_ROLE_KEY");
-  const supabase = createClient<Database>(supabaseUrl, serviceRoleKey);
+  const secretKey = requireEnv("SUPABASE_SECRET_KEY");
+  const supabase = createClient<Database>(supabaseUrl, secretKey);
   const { categories: localCategories, promptCases: localPromptCases } =
     loadLocalCorpus();
   ensureUniqueCaseNumbers(localPromptCases);

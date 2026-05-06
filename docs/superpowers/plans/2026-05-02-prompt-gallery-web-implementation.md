@@ -16,7 +16,7 @@
 - Build the formal app in `web/`.
 - Keep `gallery*.md`, `assets/case*.jpg`, and `index.md` until migration is verified.
 - Do not delete any files in the cleanup phase without a separate user confirmation.
-- Do not expose Supabase `service_role` keys to browser code.
+- Do not expose Supabase secret keys to browser code.
 - Do not expose a general shell execution endpoint.
 
 ## Review-Driven Amendments
@@ -814,7 +814,7 @@ function requireEnv(name: string): string {
 async function main() {
   const supabase = createClient(
     requireEnv("SUPABASE_URL"),
-    requireEnv("SUPABASE_SERVICE_ROLE_KEY")
+    requireEnv("SUPABASE_SECRET_KEY")
   );
 
   const indexMarkdown = await readFile(path.join(repoRoot, "index.md"), "utf8");
@@ -929,7 +929,7 @@ function requireEnv(name: string): string {
 async function main() {
   const supabase = createClient(
     requireEnv("SUPABASE_URL"),
-    requireEnv("SUPABASE_SERVICE_ROLE_KEY")
+    requireEnv("SUPABASE_SECRET_KEY")
   );
 
   const indexMarkdown = await readFile(path.join(repoRoot, "index.md"), "utf8");
@@ -1023,8 +1023,8 @@ Then run:
 
 ```bash
 cd web
-SUPABASE_URL="$SUPABASE_URL" SUPABASE_SERVICE_ROLE_KEY="$SUPABASE_SERVICE_ROLE_KEY" npm run import:gallery
-SUPABASE_URL="$SUPABASE_URL" SUPABASE_SERVICE_ROLE_KEY="$SUPABASE_SERVICE_ROLE_KEY" npm run validate:gallery
+SUPABASE_URL="$SUPABASE_URL" SUPABASE_SECRET_KEY="$SUPABASE_SECRET_KEY" npm run import:gallery
+SUPABASE_URL="$SUPABASE_URL" SUPABASE_SECRET_KEY="$SUPABASE_SECRET_KEY" npm run validate:gallery
 ```
 
 Expected validation output:
@@ -1124,7 +1124,7 @@ function requireEnv(name: string): string {
 export async function cacheExperimentImage(storagePath: string): Promise<string> {
   const supabase = createClient(
     requireEnv("SUPABASE_URL"),
-    requireEnv("SUPABASE_SERVICE_ROLE_KEY")
+    requireEnv("SUPABASE_SECRET_KEY")
   );
 
   const { data, error } = await supabase.storage
@@ -2271,7 +2271,7 @@ Run:
 cd web
 npm test
 npm run build
-SUPABASE_URL="$SUPABASE_URL" SUPABASE_SERVICE_ROLE_KEY="$SUPABASE_SERVICE_ROLE_KEY" npm run validate:gallery
+SUPABASE_URL="$SUPABASE_URL" SUPABASE_SECRET_KEY="$SUPABASE_SECRET_KEY" npm run validate:gallery
 ```
 
 Expected: tests pass, build passes, gallery validation prints 13 categories and 352 prompt cases.
@@ -2354,7 +2354,7 @@ git status --short
 cd web
 npm test
 npm run build
-SUPABASE_URL="$SUPABASE_URL" SUPABASE_SERVICE_ROLE_KEY="$SUPABASE_SERVICE_ROLE_KEY" npm run validate:gallery
+SUPABASE_URL="$SUPABASE_URL" SUPABASE_SECRET_KEY="$SUPABASE_SECRET_KEY" npm run validate:gallery
 ```
 
 Expected:
