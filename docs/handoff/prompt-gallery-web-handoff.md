@@ -45,7 +45,7 @@ a GPT Image 2 API client.
 - `experiment-images` is private.
 - `experiments` has no anonymous read/write policy.
 - Browser code uses only `VITE_SUPABASE_URL` and
-  `VITE_SUPABASE_PUBLISHABLE_KEY`; service-role credentials are reserved for
+  `VITE_SUPABASE_PUBLISHABLE_KEY`; secret-key credentials are reserved for
   local scripts and the future local Node API.
 
 ### Task 3: Gallery Markdown parser
@@ -67,7 +67,7 @@ a GPT Image 2 API client.
 - Added `npm run validate:gallery`.
 - Import script:
   - loads env with precedence: shell env > `.env.local` > `.env`;
-  - requires `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`;
+  - requires `SUPABASE_URL` and `SUPABASE_SECRET_KEY`;
   - fail-fast validates local corpus shape before remote mutation;
   - asserts 13 categories, 352 prompt cases, and missing case numbers
     `[12, 169, 170]`;
@@ -89,8 +89,8 @@ From the feature branch:
 npm -C web test
 npm -C web run build
 npm -C web run lint
-env -u SUPABASE_URL -u SUPABASE_SERVICE_ROLE_KEY npm -C web run import:gallery
-env -u SUPABASE_URL -u SUPABASE_SERVICE_ROLE_KEY npm -C web run validate:gallery
+env -u SUPABASE_URL -u SUPABASE_SECRET_KEY npm -C web run import:gallery
+env -u SUPABASE_URL -u SUPABASE_SECRET_KEY npm -C web run validate:gallery
 ```
 
 Observed results:
@@ -104,7 +104,7 @@ Observed results:
 Not yet run:
 
 - Live Supabase import and validation, because `SUPABASE_URL` and
-  `SUPABASE_SERVICE_ROLE_KEY` were not available in this session.
+  `SUPABASE_SECRET_KEY` were not available in this session.
 
 ## Setup For The Next Developer
 
@@ -119,7 +119,7 @@ Create local env files or export shell variables:
 
 ```bash
 SUPABASE_URL="https://..."
-SUPABASE_SERVICE_ROLE_KEY="..."
+SUPABASE_SECRET_KEY="..."
 VITE_SUPABASE_URL="https://..."
 VITE_SUPABASE_PUBLISHABLE_KEY="..."
 ```
@@ -237,7 +237,7 @@ Continue from Task 5 in the implementation plan.
 ## Important Boundaries
 
 - Do not rely on or modify `learn/my-app`; it contains unrelated local changes.
-- Do not expose `SUPABASE_SERVICE_ROLE_KEY` to browser code.
+- Do not expose `SUPABASE_SECRET_KEY` to browser code.
 - Do not add a general shell execution endpoint.
 - Do not add GPT Image 2 API integration in v1.
 - Do not add authentication or multi-user behavior unless the product scope is

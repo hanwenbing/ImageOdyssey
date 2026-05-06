@@ -165,8 +165,8 @@ async function main(): Promise<void> {
   });
 
   const supabaseUrl = requireEnv("SUPABASE_URL");
-  const serviceRoleKey = requireEnv("SUPABASE_SERVICE_ROLE_KEY");
-  const supabase = createClient<Database>(supabaseUrl, serviceRoleKey);
+  const secretKey = requireEnv("SUPABASE_SECRET_KEY");
+  const supabase = createClient<Database>(supabaseUrl, secretKey);
   const categoriesTable = supabase.from("categories") as unknown as TableBuilder<
     CategoryRow,
     CategoryInsert

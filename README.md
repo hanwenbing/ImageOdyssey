@@ -66,7 +66,7 @@ Web App 使用 Supabase 存储 Gallery 元数据、提示词、示例图片和�
 
 ```bash
 SUPABASE_URL="https://..."
-SUPABASE_SERVICE_ROLE_KEY="..."
+SUPABASE_SECRET_KEY="..."
 VITE_SUPABASE_URL="https://..."
 VITE_SUPABASE_PUBLISHABLE_KEY="..."
 ```
@@ -95,7 +95,7 @@ npm -C web run validate:gallery
 }
 ```
 
-如果没有 `SUPABASE_URL` 和 `SUPABASE_SERVICE_ROLE_KEY`，导入和校验脚本会明确失败，不会伪造成功。
+如果没有 `SUPABASE_URL` 和 `SUPABASE_SECRET_KEY`，导入和校验脚本会明确失败，不会伪造成功。
 
 ## 继续开发入口
 
@@ -117,7 +117,7 @@ docs/handoff/prompt-gallery-web-handoff.md
 
 ## 安全和协作边界
 
-- 不要把 `SUPABASE_SERVICE_ROLE_KEY` 暴露到浏览器代码。
+- 不要把 `SUPABASE_SECRET_KEY` 暴露到浏览器代码。
 - 浏览器端不要直接写入 `experiments`，也不要直接上传到私有的 `experiment-images` bucket；这些操作应走本地 Node API。
 - 不要添加通用 shell execution API。Local Codex Bridge 只允许固定的推荐和改写任务。
 - 不要在第一版加入 GPT Image 2 API 调用。

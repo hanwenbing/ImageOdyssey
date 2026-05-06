@@ -169,7 +169,7 @@ The first version is a personal local tool without login.
 - `experiments` can be inserted and read by the local frontend.
 - Gallery images are readable by the frontend.
 - Experiment images are uploadable and readable by the local tool.
-- No `service_role` key is exposed in browser code.
+- No Supabase secret key is exposed in browser code.
 - Management import scripts may use privileged environment variables locally.
 
 RLS remains enabled for exposed tables, with policies that match this local-tool access model.

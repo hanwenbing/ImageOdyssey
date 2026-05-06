@@ -10,16 +10,16 @@ export function loadServerEnvFromDir(baseDir = webRoot): void {
   config({ path: resolve(baseDir, ".env") });
 }
 
-export function getSupabaseServiceRoleConfig() {
+export function getSupabaseServerConfig() {
   const supabaseUrl = process.env.SUPABASE_URL?.trim();
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+  const secretKey = process.env.SUPABASE_SECRET_KEY?.trim();
 
-  if (!supabaseUrl || !serviceRoleKey) {
-    throw new Error("Missing SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY for Supabase routes");
+  if (!supabaseUrl || !secretKey) {
+    throw new Error("Missing SUPABASE_URL and SUPABASE_SECRET_KEY for Supabase routes");
   }
 
   return {
     supabaseUrl,
-    serviceRoleKey
+    secretKey
   };
 }
