@@ -1,14 +1,14 @@
 # ImageOdyssey
 
-ImageOdyssey is the Prompt Gallery Web App project. It provides a local visual
-studio for browsing GPT Image 2 prompt cases, uploading a source image, asking
-Huawei MaaS for recommendations and prompt rewrites, and saving experiment
-records through the local API.
+ImageOdyssey is the Prompt Gallery Web App project. It provides a simplified
+browser for GPT Image 2 prompt cases and a Huawei MaaS text rewrite flow that
+adapts a selected prompt for use with a person photo uploaded later in ChatGPT.
 
 The repository is being prepared for Huawei Cloud deployment:
 
-- React frontend: `web/`
-- Backend API: `web/server/`
+- React frontend: `apps/web/`
+- Backend API: `apps/api/`
+- Shared API contracts: `packages/shared/`
 - Migration-period Gallery archive data: `data/gallery/`
 - Deployment and handoff documents: `docs/`
 
@@ -37,19 +37,13 @@ ImageOdyssey/
 │   ├── deployment/
 │   ├── handoff/
 │   └── superpowers/
-├── run-web-dev.cmd
-└── web/
-    ├── .env.example
-    ├── eslint.config.js
-    ├── index.html
-    ├── package-lock.json
-    ├── package.json
-    ├── scripts/
-    ├── server/
-    ├── src/
-    ├── supabase/
-    ├── tsconfig.json
-    └── vite.config.ts
+├── package.json
+├── packages/
+│   └── shared/
+├── apps/
+│   ├── api/
+│   └── web/
+└── run-web-dev.cmd
 ```
 
 ## Local Development
@@ -57,28 +51,27 @@ ImageOdyssey/
 Install dependencies:
 
 ```bash
-npm -C web install
+npm install
 ```
 
 Run checks:
 
 ```bash
-npm -C web test
-npm -C web run build
-npm -C web run lint
+npm test
+npm run build
+npm run lint
 ```
 
-Start the frontend only:
+Start the API and frontend together:
 
 ```bash
-npm -C web run dev
+npm run dev:all
 ```
 
-Start the local API and frontend together:
-
-```bash
-npm -C web run dev:all
-```
+The frontend lives in `apps/web`.
+The backend API lives in `apps/api`.
+The migration-period Gallery archive lives in `data/gallery`.
+Runtime Gallery reads must go through the backend API, not directly from Markdown.
 
 On Windows, use:
 
@@ -96,12 +89,19 @@ The local Gallery source corpus has moved out of the project root:
 
 This archive is retained only as migration reference material until the Huawei
 Cloud RDS/OBS migration is complete and verified. The repo-local Codex skill
-and local Markdown parser/import scripts have been removed; new runtime work
-should use backend APIs backed by RDS PostgreSQL and OBS.
+and local Markdown parser/import scripts have been removed. Runtime Gallery
+reads now go through backend APIs backed by structured JSON, with RDS/OBS as
+the later cloud storage target.
 
 ## Current Runtime Notes
 
-The current migration branch still contains Supabase-era code under `web/`.
+The current runtime is front-end/back-end separated:
+
+- `apps/web` serves the React/Vite/Tailwind UI.
+- `apps/api` serves Hono API routes for Gallery data, Gallery assets, and MaaS text rewriting.
+- `packages/shared` contains Zod schemas and TypeScript API contracts.
+- `data/gallery/*.md` remains archive-only. Runtime code reads `data/gallery/*.json`.
+
 The approved target architecture is documented in:
 
 ```text

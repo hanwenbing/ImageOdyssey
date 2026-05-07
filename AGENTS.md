@@ -10,7 +10,10 @@
 
 ## 目录结构
 
-- `web/`：正式 Web App，包含 React 前端、本地 Node API、测试和当前 Supabase 迁移期代码。
+- `apps/web/`：React + TailwindCSS 前端，只通过后端 API 读取 Gallery 数据和请求 Prompt 改写。
+- `apps/api/`：Hono 后端 API，负责 Gallery 数据、Gallery 图片静态访问和华为云 MaaS 文本改写。
+- `packages/shared/`：前后端共享的 Zod schema 和 TypeScript API 类型。
+- `data/gallery/categories.json`、`data/gallery/prompt-cases.json`、`data/gallery/featured-case-numbers.json`：迁移期结构化 Gallery 数据，当前运行时只读取这些结构化数据。
 - `data/gallery/index.md`：迁移期 Gallery 归档索引。
 - `data/gallery/gallery<n>.md`：迁移期中文提示词归档分册。
 - `data/gallery/assets/case<n>.jpg`：迁移期 Gallery 示例图片归档。
@@ -23,7 +26,7 @@
 - 提示词只保留中文。
 - 每个案例只保留标题、示例图片和一个提示词代码块。
 - 案例条目不保留来源信息。
-- 不要在本仓库恢复 repo-local Codex skill 或本地 Gallery Markdown parser/import/scan 脚本；迁移后的运行链路应通过 Web App、后端 API、RDS 和 OBS 完成。
+- 不要在本仓库恢复 repo-local Codex skill 或本地 Gallery Markdown parser/import/scan 脚本；当前运行链路应通过 Web App、后端 API 和结构化 Gallery 数据完成，后续上云再替换为 RDS/OBS。
 - 如确需修改归档案例，图片使用下一个可用的 `case<n>.jpg` 文件名，放入 `data/gallery/assets/`，并同步更新 `data/gallery/index.md`。
 - 除非用户明确要求重编号，否则保留现有案例编号。
 - 如果无法稳定判断案例主题，放入 `其他应用场景`，不要临时发明新主题。
