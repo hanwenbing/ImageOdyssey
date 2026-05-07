@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { categoriesResponseSchema, promptCasesResponseSchema } from "@imageodyssey/shared";
 import { createApp } from "../app";
 
 describe("gallery routes", () => {
@@ -13,9 +14,9 @@ describe("gallery routes", () => {
     expect(featuredResponse.status).toBe(200);
     expect(allResponse.status).toBe(200);
 
-    const categoriesBody = await categoriesResponse.json();
-    const featuredBody = await featuredResponse.json();
-    const allBody = await allResponse.json();
+    const categoriesBody = categoriesResponseSchema.parse(await categoriesResponse.json());
+    const featuredBody = promptCasesResponseSchema.parse(await featuredResponse.json());
+    const allBody = promptCasesResponseSchema.parse(await allResponse.json());
 
     expect(categoriesBody.categories[0]).toMatchObject({ slug: "featured", name: "精选" });
     expect(featuredBody.cases).toHaveLength(12);
