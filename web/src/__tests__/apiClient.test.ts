@@ -23,7 +23,7 @@ describe("apiClient", () => {
         source_image_storage_path: "source/path.png",
         user_query: "test",
         category_filter: null,
-        cases: []
+        case_numbers: [1, 2, 3, 4, 5, 6]
       })
     ).rejects.toThrow("upstream failed");
   });
@@ -41,7 +41,7 @@ describe("apiClient", () => {
         source_image_storage_path: "source/path.png",
         user_query: "test",
         category_filter: null,
-        cases: []
+        case_numbers: [1, 2, 3, 4, 5, 6]
       })
     ).rejects.toThrow(
       "本地 API 未连接。请运行 run-web-dev.cmd 或 npm -C web run dev:all。"

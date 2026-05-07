@@ -1,5 +1,4 @@
 import type {
-  CaseIndexItem,
   RecommendRequest,
   RecommendResponse,
   RewriteRequest,
@@ -133,29 +132,4 @@ export async function saveExperiment(payload: ExperimentInsert): Promise<{ id: s
 
 export async function logWorkflowEvent(event: ClientWorkflowEvent): Promise<void> {
   await postJson<{ ok: true }>("/api/workflow-events", event);
-}
-
-export function toCaseIndexItem(promptCase: {
-  case_number: number;
-  title: string;
-  category_name: string;
-  summary: string;
-  tags: string[];
-  prompt_text: string;
-  image_storage_path: string;
-}): CaseIndexItem {
-  const normalizedPrompt = promptCase.prompt_text.replace(/\s+/g, " ").trim();
-
-  return {
-    case_number: promptCase.case_number,
-    title: promptCase.title,
-    category_name: promptCase.category_name,
-    summary: promptCase.summary,
-    tags: promptCase.tags,
-    prompt_excerpt:
-      normalizedPrompt.length <= 180
-        ? normalizedPrompt
-        : `${normalizedPrompt.slice(0, 180)}...`,
-    image_storage_path: promptCase.image_storage_path
-  };
 }

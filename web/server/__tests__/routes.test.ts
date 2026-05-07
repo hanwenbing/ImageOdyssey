@@ -161,7 +161,7 @@ describe("API routes", () => {
     }
   });
 
-  it("forwards recommend requests to codexBridge and returns JSON", async () => {
+  it("forwards recommend requests to MaaS bridge and returns JSON", async () => {
     const serviceRoleClient = createServiceRoleClientMock();
     const recommend = vi.fn(async (request: RecommendRequest): Promise<RecommendResponse> => {
       void request;
@@ -186,17 +186,7 @@ describe("API routes", () => {
       source_image_storage_path: "source/path.jpg",
       user_query: "match the closest cases",
       category_filter: null,
-      cases: [
-        {
-          case_number: 7,
-          title: "Case 7",
-          category_name: "Portrait",
-          summary: "Summary",
-          tags: ["portrait"],
-          prompt_excerpt: "Excerpt",
-          image_storage_path: "cases/case7.jpg"
-        }
-      ]
+      case_numbers: [1, 2, 3, 4, 5, 6]
     };
 
     const { response, json } = await requestJson(app, "/api/recommend", payload);
@@ -252,15 +242,7 @@ describe("API routes", () => {
       source_image_storage_path: "source/path.jpg",
       user_query: "",
       category_filter: null,
-      cases: [1, 2, 3, 4, 5, 6].map((caseNumber) => ({
-        case_number: caseNumber,
-        title: `Case ${caseNumber}`,
-        category_name: "Portrait",
-        summary: "Summary",
-        tags: ["portrait"],
-        prompt_excerpt: "Excerpt",
-        image_storage_path: `cases/case${caseNumber}.jpg`
-      }))
+      case_numbers: [1, 2, 3, 4, 5, 6]
     };
 
     const { response, json } = await requestJson(app, "/api/recommend", payload);
@@ -296,6 +278,42 @@ describe("API routes", () => {
     expect(startedEvent.request_id).toBe(succeededEvent.request_id);
   });
 
+  it("accepts full-gallery recommend case number payloads without a large JSON body", async () => {
+    const serviceRoleClient = createServiceRoleClientMock();
+    const recommend = vi.fn(async (request: RecommendRequest): Promise<RecommendResponse> => {
+      void request;
+      return {
+        recommendations: [1, 2, 3, 4, 5, 6].map((caseNumber) => ({
+          case_number: caseNumber,
+          reason: `reason ${caseNumber}`
+        }))
+      };
+    });
+    const app = createApp({
+      recommend,
+      rewrite: vi.fn(),
+      getServiceRoleClient: vi.fn().mockReturnValue(serviceRoleClient.client)
+    });
+    const payload = {
+      source_image_storage_path: "source/path.jpg",
+      user_query: "",
+      category_filter: null,
+      case_numbers: Array.from({ length: 352 }, (_value, index) => index + 1)
+    };
+
+    const { response, json } = await requestJson(app, "/api/recommend", payload);
+
+    expect(response.status).toBe(200);
+    expect(await json()).toEqual({
+      recommendations: [1, 2, 3, 4, 5, 6].map((caseNumber) => ({
+        case_number: caseNumber,
+        reason: `reason ${caseNumber}`
+      }))
+    });
+    expect(JSON.stringify(payload).length).toBeLessThan(100_000);
+    expect(recommend).toHaveBeenCalledWith(payload);
+  });
+
   it("returns a 400 error for invalid recommend requests", async () => {
     const app = createApp({
       recommend: vi.fn(),
@@ -307,7 +325,7 @@ describe("API routes", () => {
       source_image_storage_path: "",
       user_query: "match the closest cases",
       category_filter: null,
-      cases: []
+      case_numbers: []
     });
 
     expect(response.status).toBe(400);
@@ -328,17 +346,7 @@ describe("API routes", () => {
       source_image_storage_path: "source/path.jpg",
       user_query: "match the closest cases",
       category_filter: null,
-      cases: [
-        {
-          case_number: 7,
-          title: "Case 7",
-          category_name: "Portrait",
-          summary: "Summary",
-          tags: ["portrait"],
-          prompt_excerpt: "Excerpt",
-          image_storage_path: "cases/case7.jpg"
-        }
-      ]
+      case_numbers: [1, 2, 3, 4, 5, 6]
     };
 
     const { response, json } = await requestJson(app, "/api/recommend", payload);
@@ -374,7 +382,7 @@ describe("API routes", () => {
     expect(startedEvent.request_id).toBe(failedEvent.request_id);
   });
 
-  it("forwards rewrite requests to codexBridge and returns JSON", async () => {
+  it("forwards rewrite requests to MaaS bridge and returns JSON", async () => {
     const serviceRoleClient = createServiceRoleClientMock();
     const rewrite = vi.fn(async (request: RewriteRequest): Promise<RewriteResponse> => {
       void request;

@@ -4,7 +4,6 @@ import {
   requestRecommendations,
   requestRewrite,
   saveExperiment,
-  toCaseIndexItem,
   logWorkflowEvent,
   uploadExperimentImage
 } from "./lib/apiClient";
@@ -245,7 +244,7 @@ export default function App() {
   );
 
   const canRecommend =
-    Boolean(sourceStoragePath) && !sourceUploadBusy && !recommendBusy && filteredCases.length > 0;
+    Boolean(sourceStoragePath) && !sourceUploadBusy && !recommendBusy && filteredCases.length >= 6;
   const canRewrite =
     Boolean(sourceStoragePath) &&
     Boolean(selectedCase) &&
@@ -307,6 +306,10 @@ export default function App() {
     }
     if (filteredCases.length === 0) {
       return "当前筛选下没有可用于推荐的案例。";
+    }
+
+    if (filteredCases.length < 6) {
+      return "当前筛选结果少于 6 个候选案例，无法获取推荐。";
     }
 
     return null;
@@ -429,7 +432,7 @@ export default function App() {
         user_query: query,
         category_filter:
           selectedCategory === allCategoriesLabel ? null : selectedCategory,
-        cases: filteredCases.map(toCaseIndexItem)
+        case_numbers: filteredCases.map((promptCase) => promptCase.case_number)
       });
 
       setRecommendationQuery(query.trim().length > 0 ? query : null);
@@ -522,6 +525,7 @@ export default function App() {
                 }`}
                 type="button"
                 aria-disabled={!canRecommend}
+                disabled={!canRecommend}
                 onClick={handleRecommend}
               >
                 {recommendBusy ? "推荐中..." : "推荐"}
@@ -559,7 +563,10 @@ export default function App() {
                 没有匹配的案例
               </div>
             ) : (
-              <div className="grid h-full grid-cols-2 gap-3 overflow-y-auto pr-1 md:grid-cols-3 xl:grid-cols-4">
+              <div
+                data-testid="gallery-grid"
+                className="grid content-start grid-cols-2 gap-3 overflow-y-auto pr-1 md:grid-cols-3 xl:grid-cols-4"
+              >
                 {visibleCases.map((promptCase) => (
                   <CaseCard
                     key={promptCase.id}

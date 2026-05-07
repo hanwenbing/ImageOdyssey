@@ -6,7 +6,7 @@ ImageOdyssey 是一个围绕 GPT Image 2 中文提示词工作流整理的本地
 2. Prompt Gallery Web App，本地可视化选择、推荐和改写提示词的网页工具。
 3. Codex 官方插件中文清单。
 
-这个项目当前不是公开在线服务，也不是 GPT Image 2 API 客户端。Prompt Gallery Web App 的第一版目标是帮助用户在本地上传参考图、浏览 Gallery 案例、选择提示词、通过本地 Codex CLI 桥接服务改写提示词，然后手动把改写后的提示词发送到 ChatGPT 生成图片。
+这个项目当前不是公开在线服务，也不是 GPT Image 2 API 客户端。Prompt Gallery Web App 的目标是帮助用户在本地上传参考图、浏览 Gallery 案例、选择提示词、通过本地 Node API 和华为云 MaaS 推荐与改写提示词，然后手动把改写后的提示词发送到 ChatGPT 生成图片。
 
 ## 当前状态
 
@@ -58,7 +58,7 @@ npm -C web run lint
 npm -C web run dev
 ```
 
-当前 `web/` 还没有实现本地 Node API，因此不要提前添加或依赖 `server` / `dev:all` 脚本。后续应在实现 Local Codex Bridge API 时再添加。
+当前 `web/` 已包含本地 Node API，可使用 `npm -C web run dev:all` 同时启动 API 和前端。
 
 ## Supabase 导入
 
@@ -69,6 +69,11 @@ SUPABASE_URL="https://..."
 SUPABASE_SECRET_KEY="..."
 VITE_SUPABASE_URL="https://..."
 VITE_SUPABASE_PUBLISHABLE_KEY="..."
+HUAWEI_MAAS_API_KEY="..."
+HUAWEI_MAAS_CHAT_COMPLETIONS_URL="https://api.modelarts-maas.com/v2/chat/completions"
+HUAWEI_MAAS_MODEL="deepseek-v4-flash"
+HUAWEI_MAAS_VISION_CHAT_COMPLETIONS_URL="https://api.modelarts-maas.com/v1/chat/completions"
+HUAWEI_MAAS_VISION_MODEL="qwen2.5-vl-72b"
 ```
 
 先应用 SQL：
@@ -107,7 +112,7 @@ docs/handoff/prompt-gallery-web-handoff.md
 
 后续开发从实施计划的 Task 5 开始：
 
-1. Task 5：实现 Local Image Cache 与 Codex Bridge core。
+1. Task 5：实现 Local Image Cache 与 MaaS Bridge core。
 2. Task 6：暴露本地 API routes，包括 `/api/recommend`、`/api/rewrite`、`/api/experiment-images`、`/api/experiments`。
 3. Task 7：实现 Gallery 数据读取、搜索、分类过滤和推荐排序。
 4. Task 8：实现 Two-Pane Studio UI 和底部 Prompt Bar。
@@ -119,7 +124,7 @@ docs/handoff/prompt-gallery-web-handoff.md
 
 - 不要把 `SUPABASE_SECRET_KEY` 暴露到浏览器代码。
 - 浏览器端不要直接写入 `experiments`，也不要直接上传到私有的 `experiment-images` bucket；这些操作应走本地 Node API。
-- 不要添加通用 shell execution API。Local Codex Bridge 只允许固定的推荐和改写任务。
+- 不要添加通用 shell execution API。推荐和改写仅通过本地 Node API 调用华为云 MaaS。
 - 不要在第一版加入 GPT Image 2 API 调用。
 - 不要删除 `index.md`、`gallery*.md`、`assets/case*.jpg`，除非 Gallery 迁移和 smoke test 已验证，并且用户明确批准 cleanup。
 - 不要依赖或修改 `learn/my-app`，它不是正式 Web App 的实现入口。

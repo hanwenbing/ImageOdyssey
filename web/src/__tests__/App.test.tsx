@@ -47,7 +47,21 @@ const mockData = vi.hoisted(() => ({
       source_gallery_file: "gallery2.md",
       created_at: "2026-05-02T00:00:00Z",
       updated_at: "2026-05-02T00:00:00Z"
-    }
+    },
+    ...[303, 304, 305, 306].map((caseNumber) => ({
+      id: `case-${caseNumber}`,
+      case_number: caseNumber,
+      title: `Case ${caseNumber}`,
+      category_id: "cat-1",
+      prompt_text: `Prompt ${caseNumber}`,
+      image_storage_path: `cases/case${caseNumber}.jpg`,
+      image_public_url: `https://example.com/case${caseNumber}.jpg`,
+      summary: `Summary ${caseNumber}`,
+      tags: ["extra"],
+      source_gallery_file: "gallery1.md",
+      created_at: "2026-05-02T00:00:00Z",
+      updated_at: "2026-05-02T00:00:00Z"
+    }))
   ]
 }));
 
@@ -176,9 +190,12 @@ describe("App", () => {
       expect(fetchMock).toHaveBeenCalledWith("/api/recommend", expect.any(Object));
     });
     const recommendCall = fetchMock.mock.calls.find(([url]) => url === "/api/recommend");
-    expect(JSON.parse(String(recommendCall?.[1]?.body))).toMatchObject({
-      user_query: ""
+    const recommendPayload = JSON.parse(String(recommendCall?.[1]?.body));
+    expect(recommendPayload).toMatchObject({
+      user_query: "",
+      case_numbers: [101, 202, 303, 304, 305, 306]
     });
+    expect(recommendPayload).not.toHaveProperty("cases");
 
     fireEvent.click(screen.getByRole("button", { name: "Case 101 品牌海报" }));
     fireEvent.click(screen.getByRole("button", { name: "展开 Prompt" }));
@@ -199,6 +216,41 @@ describe("App", () => {
     await waitFor(() => {
       expect(fetchMock).toHaveBeenCalledWith("/api/experiments", expect.any(Object));
     });
+  });
+
+  it("blocks recommendations when fewer than six cases are visible", async () => {
+    render(<App />);
+
+    await screen.findByRole("button", { name: "Case 101 品牌海报" });
+
+    const sourceInput = screen.getAllByLabelText("Source Image")[0];
+    const sourceFile = new File(["source"], "source.png", { type: "image/png" });
+    fireEvent.change(sourceInput, { target: { files: [sourceFile] } });
+
+    await waitFor(() => {
+      expect(fetchMock).toHaveBeenCalledWith(
+        "/api/experiment-images",
+        expect.any(Object)
+      );
+    });
+
+    fetchMock.mockClear();
+    fireEvent.change(screen.getByLabelText("Search cases"), {
+      target: { value: "202" }
+    });
+
+    const recommendButton = screen.getByRole("button", { name: "推荐" });
+
+    await waitFor(() =>
+      expect(recommendButton).toHaveAttribute("aria-disabled", "true")
+    );
+    expect(recommendButton).toBeDisabled();
+
+    fireEvent.click(recommendButton);
+
+    expect(
+      fetchMock.mock.calls.some(([url]) => url === "/api/recommend")
+    ).toBe(false);
   });
 
   it("expands the prompt drawer and shows original and rewritten prompts", async () => {
@@ -249,12 +301,12 @@ describe("App", () => {
     expect(screen.getByRole("button", { name: "收起 Prompt" })).toBeVisible();
   });
 
-  it("logs blocked recommendation, rewrite, and result upload actions", async () => {
+  it("disables blocked recommendations and logs rewrite and result upload blocks", async () => {
     render(<App />);
 
     await screen.findByRole("button", { name: "Case 101 品牌海报" });
 
-    fireEvent.click(screen.getByRole("button", { name: "推荐" }));
+    expect(screen.getByRole("button", { name: "推荐" })).toBeDisabled();
     fireEvent.click(screen.getByRole("button", { name: "改写" }));
     fireEvent.click(screen.getByText("等待改写完成"));
 
@@ -262,18 +314,14 @@ describe("App", () => {
       const workflowEventCalls = fetchMock.mock.calls.filter(
         ([url]) => url === "/api/workflow-events"
       );
-      expect(workflowEventCalls).toHaveLength(3);
+      expect(workflowEventCalls).toHaveLength(2);
     });
 
     const stages = fetchMock.mock.calls
       .filter(([url]) => url === "/api/workflow-events")
       .map(([, init]) => JSON.parse(String(init?.body)).stage);
 
-    expect(stages).toEqual([
-      "recommend_blocked",
-      "rewrite_blocked",
-      "result_upload_blocked"
-    ]);
+    expect(stages).toEqual(["rewrite_blocked", "result_upload_blocked"]);
   });
 
   it("uses a full-card hover overlay instead of repeating hover details by default", async () => {
@@ -291,6 +339,9 @@ describe("App", () => {
     expect(overlay).toHaveClass("opacity-0");
     expect(overlay).toHaveClass("group-hover:opacity-100");
     expect(overlay).toHaveClass("group-focus-visible:opacity-100");
+    const galleryGrid = screen.getByTestId("gallery-grid");
+    expect(galleryGrid).toHaveClass("content-start");
+    expect(galleryGrid).not.toHaveClass("h-full");
     expect(compact).not.toHaveTextContent("适合宣传图");
     expect(compact).not.toHaveTextContent("点击选择");
     expect(overlay).toHaveTextContent("适合宣传图");

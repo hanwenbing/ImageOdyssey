@@ -12,7 +12,7 @@ export type RecommendRequest = {
   source_image_storage_path: string;
   user_query: string;
   category_filter: string | null;
-  cases: CaseIndexItem[];
+  case_numbers: number[];
 };
 
 export type RecommendResponse = {
