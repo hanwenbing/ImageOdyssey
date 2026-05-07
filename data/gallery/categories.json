@@ -1,0 +1,77 @@
+[
+  {
+    "slug": "featured",
+    "name": "精选",
+    "sort_order": 0
+  },
+  {
+    "slug": "all",
+    "name": "全部",
+    "sort_order": 1
+  },
+  {
+    "slug": "gallery1-md-ui与界面",
+    "name": "gallery1.md：UI与界面",
+    "sort_order": 2
+  },
+  {
+    "slug": "gallery2-md-图表与信息可视化",
+    "name": "gallery2.md：图表与信息可视化",
+    "sort_order": 3
+  },
+  {
+    "slug": "gallery3-md-海报与排版",
+    "name": "gallery3.md：海报与排版",
+    "sort_order": 4
+  },
+  {
+    "slug": "gallery4-md-商品与电商",
+    "name": "gallery4.md：商品与电商",
+    "sort_order": 5
+  },
+  {
+    "slug": "gallery5-md-品牌与标志",
+    "name": "gallery5.md：品牌与标志",
+    "sort_order": 6
+  },
+  {
+    "slug": "gallery6-md-建筑与空间",
+    "name": "gallery6.md：建筑与空间",
+    "sort_order": 7
+  },
+  {
+    "slug": "gallery7-md-摄影与写实",
+    "name": "gallery7.md：摄影与写实",
+    "sort_order": 8
+  },
+  {
+    "slug": "gallery8-md-插画与艺术",
+    "name": "gallery8.md：插画与艺术",
+    "sort_order": 9
+  },
+  {
+    "slug": "gallery9-md-人物与角色",
+    "name": "gallery9.md：人物与角色",
+    "sort_order": 10
+  },
+  {
+    "slug": "gallery10-md-场景与叙事",
+    "name": "gallery10.md：场景与叙事",
+    "sort_order": 11
+  },
+  {
+    "slug": "gallery11-md-历史与古风题材",
+    "name": "gallery11.md：历史与古风题材",
+    "sort_order": 12
+  },
+  {
+    "slug": "gallery12-md-文档与出版物",
+    "name": "gallery12.md：文档与出版物",
+    "sort_order": 13
+  },
+  {
+    "slug": "gallery13-md-其他应用场景",
+    "name": "gallery13.md：其他应用场景",
+    "sort_order": 14
+  }
+]
