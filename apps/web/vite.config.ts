@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [tailwindcss(), react()],
   server: {
     proxy: {
-      "/api": "http://127.0.0.1:8787"
+      "/api": "http://127.0.0.1:8787",
+      "/gallery": "http://127.0.0.1:8787"
     },
     port: 5173,
     strictPort: false
