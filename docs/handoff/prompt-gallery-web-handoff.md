@@ -5,6 +5,11 @@ Date: 2026-05-03
 This document hands off the current Prompt Gallery web app work for continued
 development after the repository is forked from GitHub.
 
+Update on 2026-05-07: the repo-local prompt workflow skill and local Gallery
+Markdown parser/import/validation scripts described below were removed during
+the Web project slim-down. Treat those sections as historical context only; new
+data migration work should create RDS/OBS-specific tooling.
+
 ## Source Documents
 
 - Product design: `docs/superpowers/specs/2026-05-02-prompt-gallery-web-design.md`
@@ -14,7 +19,7 @@ development after the repository is forked from GitHub.
 
 ## Product Goal
 
-The app turns the current `get-image-prompt` workflow into a local visual web
+The app turns the earlier prompt matching workflow into a local visual web
 studio. The user uploads a source image, browses or asks for recommendations
 from the existing GPT Image 2 prompt Gallery, selects a prompt case, asks the
 local Node API and Huawei MaaS bridge to recommend and rewrite prompts around
@@ -49,11 +54,11 @@ a GPT Image 2 API client.
   `VITE_SUPABASE_PUBLISHABLE_KEY`; secret-key credentials are reserved for
   local scripts and the future local Node API.
 
-### Task 3: Gallery Markdown parser
+### Task 3: Historical Gallery Markdown parser
 
-- Added parser APIs in `web/scripts/parseGallery.ts`:
+- Added parser APIs that were later removed during the Web project slim-down:
   - `parseIndexMarkdown`
-  - `parseGalleryMarkdown`
+  - gallery Markdown parsing
   - `createPromptExcerpt`
 - Parser handles CRLF and extra blank lines.
 - Parser validates anchors, headings, image references, prompt fences, duplicate
@@ -62,10 +67,10 @@ a GPT Image 2 API client.
 - Parser tests cover fixture cases and the real corpus.
 - Current real corpus parses as 13 categories and 352 prompt cases.
 
-### Task 4: Supabase import and validation scripts
+### Task 4: Historical Supabase import and validation scripts
 
-- Added `npm run import:gallery`.
-- Added `npm run validate:gallery`.
+- Added import and validation scripts that were later removed during the Web
+  project slim-down.
 - Import script:
   - loads env with precedence: shell env > `.env.local` > `.env`;
   - requires `SUPABASE_URL` and `SUPABASE_SECRET_KEY`;
@@ -90,8 +95,6 @@ From the feature branch:
 npm -C web test
 npm -C web run build
 npm -C web run lint
-env -u SUPABASE_URL -u SUPABASE_SECRET_KEY npm -C web run import:gallery
-env -u SUPABASE_URL -u SUPABASE_SECRET_KEY npm -C web run validate:gallery
 ```
 
 Observed results:
@@ -99,8 +102,8 @@ Observed results:
 - Vitest passed: 2 test files, 17 tests.
 - Build passed.
 - Lint passed.
-- `import:gallery` and `validate:gallery` fail clearly when Supabase env vars
-  are absent: `Missing required environment variable: SUPABASE_URL`.
+- The removed import and validation scripts failed clearly when Supabase env
+  vars were absent: `Missing required environment variable: SUPABASE_URL`.
 
 Not yet run:
 
@@ -137,14 +140,8 @@ web/supabase/migrations/0001_prompt_gallery_schema.sql
 web/supabase/migrations/0002_restrict_experiment_access.sql
 ```
 
-Then import and validate the Gallery:
-
-```bash
-npm run import:gallery
-npm run validate:gallery
-```
-
-Expected validation summary:
+Gallery seed and validation tooling must be recreated for the target RDS/OBS
+runtime. Expected migration summary:
 
 ```json
 {

@@ -1,11 +1,6 @@
 import { getHuaweiMaasConfig } from "./env";
-import {
-  getLocalCaseByNumber,
-  type LocalCaseRecord
-} from "./localCorpus";
 import { resolveSourceImageDataUrl as defaultResolveSourceImageDataUrl } from "./sourceImageCache";
 import type {
-  CaseIndexItem,
   RecommendRequest,
   RecommendResponse,
   RewriteRequest,
@@ -277,40 +272,24 @@ function validateRequestedCaseNumbers(caseNumbers: number[]): number[] {
       throw new Error(`recommend request includes duplicate case number: ${caseNumber}`);
     }
 
-    getLocalCaseByNumber(caseNumber);
     seenCaseNumbers.add(caseNumber);
   }
 
   return caseNumbers;
 }
 
-function getRequestedLocalCases(caseNumbers: number[]): CaseIndexItem[] {
-  return caseNumbers.map((caseNumber) => {
-    const localCase = getLocalCaseByNumber(caseNumber);
-    return {
-      case_number: localCase.case_number,
-      title: localCase.title,
-      category_name: localCase.category_name,
-      summary: localCase.summary,
-      tags: localCase.tags,
-      prompt_excerpt: localCase.prompt_text.replace(/\s+/g, " ").trim().slice(0, 220),
-      image_storage_path: localCase.image_storage_path
-    };
-  });
-}
-
 function buildRecommendPrompt(
   request: RecommendRequest,
   imageDescription: string,
-  cases: CaseIndexItem[]
+  caseNumbers: number[]
 ): string {
   return [
     "你是本地中文提示词案例库的推荐器。",
-    "请根据 source image 的视觉描述、用户搜索词和候选案例，选择最适合用于后续主体锚点式改写的 6 个案例。",
+    "请根据 source image 的视觉描述、用户搜索词和候选案例编号，选择最适合用于后续主体锚点式改写的 6 个案例。",
     "只返回一个 JSON 对象，不要 Markdown、代码块或解释。",
     'JSON schema: {"recommendations":[{"case_number":number,"reason":string}]}',
     `必须正好返回 ${expectedRecommendationCount} 条 recommendations。`,
-    "case_number 必须来自候选案例，不能重复。reason 必须是中文非空字符串。",
+    "case_number 必须来自候选案例编号，不能重复。reason 必须是中文非空字符串。",
     "",
     "Source image description:",
     imageDescription,
@@ -320,7 +299,7 @@ function buildRecommendPrompt(
       {
         user_query: request.user_query,
         category_filter: request.category_filter,
-        cases
+        case_numbers: caseNumbers
       },
       null,
       2
@@ -330,8 +309,7 @@ function buildRecommendPrompt(
 
 function buildRewritePrompt(
   request: RewriteRequest,
-  imageDescription: string,
-  caseRecord: LocalCaseRecord
+  imageDescription: string
 ): string {
   return [
     "你是中文 GPT Image 2 提示词改写助手。",
@@ -347,11 +325,7 @@ function buildRewritePrompt(
     "Case:",
     JSON.stringify(
       {
-        case_number: caseRecord.case_number,
-        title: caseRecord.title,
-        category_name: caseRecord.category_name,
-        summary: caseRecord.summary,
-        tags: caseRecord.tags,
+        case_number: request.case_number,
         original_prompt_text: request.original_prompt_text
       },
       null,
@@ -439,7 +413,6 @@ export async function recommend(
   dependencies: MaasBridgeDependencies = {}
 ): Promise<RecommendResponse> {
   const caseNumbers = validateRequestedCaseNumbers(request.case_numbers);
-  const cases = getRequestedLocalCases(caseNumbers);
   const imageDescription = await describeSourceImage(request, dependencies);
   const config = getConfig(dependencies);
   const content = await callChatCompletions(
@@ -455,7 +428,7 @@ export async function recommend(
         },
         {
           role: "user",
-          content: buildRecommendPrompt(request, imageDescription, cases)
+          content: buildRecommendPrompt(request, imageDescription, caseNumbers)
         }
       ]
     }
@@ -467,7 +440,8 @@ export async function rewrite(
   request: RewriteRequest,
   dependencies: MaasBridgeDependencies = {}
 ): Promise<RewriteResponse> {
-  const caseRecord = getLocalCaseByNumber(request.case_number);
+  requireInteger(request.case_number, "case_number");
+  requireNonEmptyString(request.original_prompt_text, "original_prompt_text");
   const imageDescription = await describeSourceImage(request, dependencies);
   const config = getConfig(dependencies);
   const content = await callChatCompletions(
@@ -483,7 +457,7 @@ export async function rewrite(
         },
         {
           role: "user",
-          content: buildRewritePrompt(request, imageDescription, caseRecord)
+          content: buildRewritePrompt(request, imageDescription)
         }
       ]
     }

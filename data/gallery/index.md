@@ -33,7 +33,7 @@
 - 提示词只写中文，不保留英文版本。
 - 案例条目只保留标题、示例图片和提示词。
 - 新增或移动案例后，同步更新本索引的分册入口。
-- 项目工作流说明见 [AGENTS.md](AGENTS.md)，repo-local skill 见 `.codex/skills/get-image-prompt/SKILL.md`。
+- 项目说明见 [../../README.md](../../README.md) 和 [../../AGENTS.md](../../AGENTS.md)。
 
 ## 当前资产
 

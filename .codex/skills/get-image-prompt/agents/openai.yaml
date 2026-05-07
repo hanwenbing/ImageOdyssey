@@ -1,4 +1,0 @@
-interface:
-  display_name: "Get Image Prompt"
-  short_description: "从本地画廊匹配并改写中文图像提示词"
-  default_prompt: "Use $get-image-prompt to analyze this uploaded image and recommend three matching GPT Image 2 Chinese prompts."

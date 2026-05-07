@@ -24,7 +24,7 @@ This plan is intentionally phased. Tasks 1-6 are code migration tasks that can b
 - Modify `web/server/routes.ts` to expose backend gallery APIs and use repositories/storage.
 - Modify `web/server/sourceImageCache.ts` to download private experiment images from OBS.
 - Modify `web/src/lib/apiClient.ts`, `web/src/App.tsx`, and `web/src/vite-env.d.ts` so the browser uses `VITE_API_BASE_URL` and backend APIs instead of Supabase.
-- Replace or fork `web/scripts/importGallery.ts` and `web/scripts/validateGalleryImport.ts` so they target PostgreSQL plus OBS.
+- Create new PostgreSQL/OBS seed and validation tooling only when the RDS/OBS schema is ready. The earlier local Gallery Markdown scripts have been removed from `web/scripts/`.
 - Create `docs/deployment/huawei-cloud.md` for the manual cloud runbook.
 
 ## Task 1: Lock Runtime Configuration
@@ -280,16 +280,16 @@ git add web/server/routes.ts web/server/__tests__/routes.test.ts web/src/lib/api
 git commit -m "feat: save experiments with rds and obs"
 ```
 
-## Task 6: Replace Import And Validation Scripts
+## Task 6: Add RDS/OBS Seed And Validation Tooling
 
 **Files:**
-- Modify: `web/scripts/importGallery.ts`
-- Modify: `web/scripts/validateGalleryImport.ts`
-- Test: existing parser/import validation tests where applicable
+- Create: new RDS/OBS seed script under `web/scripts/` only after repository/storage modules exist.
+- Create: new RDS/OBS validation script under `web/scripts/` only after repository/storage modules exist.
+- Test: focused tests for the new seed/validation helpers where applicable.
 
 - [ ] **Step 1: Update import behavior**
 
-Change `importGallery.ts` to:
+Create a new seed script that:
 
 - Read local `data/gallery/index.md`, `data/gallery/gallery*.md`, and `data/gallery/assets/case*.jpg`.
 - Upload gallery images to `OBS_GALLERY_BUCKET` at `cases/case<n>.jpg`.
@@ -298,7 +298,7 @@ Change `importGallery.ts` to:
 
 - [ ] **Step 2: Update validation behavior**
 
-Change `validateGalleryImport.ts` to:
+Create a new validation script that:
 
 - Query RDS/PostgreSQL directly.
 - Compare table rows against the local corpus.
@@ -310,7 +310,7 @@ Change `validateGalleryImport.ts` to:
 Run:
 
 ```bash
-npm -C web test -- scripts/__tests__/parseGallery.test.ts
+npm -C web test
 npm -C web run build
 npm -C web run lint
 ```
@@ -320,7 +320,7 @@ Expected: tests, build, and lint pass. Live import/validation requires cloud or 
 - [ ] **Step 4: Commit**
 
 ```bash
-git add web/scripts/importGallery.ts web/scripts/validateGalleryImport.ts
+git add web/scripts web/package.json web/package-lock.json
 git commit -m "feat: import gallery to postgres and obs"
 ```
 
@@ -423,11 +423,11 @@ npm -C web run lint
 
 Expected: all pass.
 
-- [ ] **Step 2: Run import and validation against production resources**
+- [ ] **Step 2: Run seed and validation against production resources**
 
 ```bash
-npm -C web run import:gallery
-npm -C web run validate:gallery
+npm -C web run seed:gallery
+npm -C web run validate:cloud-gallery
 ```
 
 Expected: validation reports 13 categories, 352 prompt cases, and known missing prompt numbers `[12, 169, 170]`.

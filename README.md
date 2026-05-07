@@ -9,7 +9,7 @@ The repository is being prepared for Huawei Cloud deployment:
 
 - React frontend: `web/`
 - Backend API: `web/server/`
-- Migration-period Gallery source data: `data/gallery/`
+- Migration-period Gallery archive data: `data/gallery/`
 - Deployment and handoff documents: `docs/`
 
 Codex plugin catalog maintenance has moved to:
@@ -22,21 +22,17 @@ Codex plugin catalog maintenance has moved to:
 
 ```text
 ImageOdyssey/
-├── .codex/
-│   └── skills/
-│       └── get-image-prompt/
 ├── .gitignore
 ├── AGENTS.md
 ├── README.md
 ├── data/
-│   ├── gallery/
+│   └── gallery/
 │   │   ├── index.md
 │   │   ├── gallery1.md
 │   │   ├── ...
 │   │   ├── gallery13.md
 │   │   └── assets/
 │   │       └── case<n>.jpg
-│   └── images/
 ├── docs/
 │   ├── deployment/
 │   ├── handoff/
@@ -90,7 +86,7 @@ On Windows, use:
 run-web-dev.cmd
 ```
 
-## Migration-Period Gallery Data
+## Migration-Period Gallery Archive
 
 The local Gallery source corpus has moved out of the project root:
 
@@ -98,19 +94,10 @@ The local Gallery source corpus has moved out of the project root:
 - `data/gallery/gallery*.md`
 - `data/gallery/assets/case*.jpg`
 
-This source corpus is kept only until the Huawei Cloud RDS/OBS migration is
-complete and verified. Runtime code should move toward backend APIs backed by
-RDS PostgreSQL and OBS.
-
-Current expected Gallery validation summary:
-
-```json
-{
-  "categories": 13,
-  "prompt_cases": 352,
-  "known_missing_prompt_numbers": [12, 169, 170]
-}
-```
+This archive is retained only as migration reference material until the Huawei
+Cloud RDS/OBS migration is complete and verified. The repo-local Codex skill
+and local Markdown parser/import scripts have been removed; new runtime work
+should use backend APIs backed by RDS PostgreSQL and OBS.
 
 ## Current Runtime Notes
 
@@ -134,5 +121,7 @@ Target deployment:
 
 - Do not expose backend secrets in frontend files.
 - Do not add GPT Image 2 API integration unless explicitly requested.
-- Do not restore the removed learning project or plugin catalog business line.
-- Keep `data/gallery/` until RDS/OBS migration and browser smoke tests verify that the runtime no longer depends on local Markdown and image files.
+- Do not restore the removed learning project, plugin catalog business line,
+  repo-local Codex skill, or local Gallery parser/import scripts.
+- Keep `data/gallery/` as archive data until RDS/OBS migration and browser
+  smoke tests verify that it is no longer needed.

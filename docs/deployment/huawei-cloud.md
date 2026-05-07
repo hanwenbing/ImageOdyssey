@@ -15,9 +15,10 @@ architecture.
 
 ## Current State
 
-The repository is still in migration. The local Gallery source corpus is under
-`data/gallery/` and the Supabase-era runtime code remains under `web/` until the
-RDS/OBS migration tasks are implemented.
+The repository is still in migration. The local Gallery archive remains under
+`data/gallery/` as reference data, but the repo-local Codex skill and local
+Markdown parser/import scripts have been removed. Supabase-era runtime code
+remains under `web/` until the RDS/OBS migration tasks are implemented.
 
 ## Verification
 
