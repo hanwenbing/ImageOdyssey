@@ -12,3 +12,10 @@ web/dist/
 web/.env
 web/.env.local
 web/tmp/
+node_modules/
+apps/*/node_modules/
+packages/*/node_modules/
+apps/web/dist/
+apps/api/dist/
+apps/*/.env
+apps/*/.env.local

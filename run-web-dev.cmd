@@ -18,7 +18,7 @@ if not defined NPM_CMD (
     goto done
 )
 
-call "%NPM_CMD%" -C web run dev:all
+call "%NPM_CMD%" run dev:all
 set "EXIT_CODE=%ERRORLEVEL%"
 
 :done
