@@ -2,11 +2,20 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { createFileGalleryRepository } from "./repositories/fileGalleryRepository";
+import type { GalleryRepository } from "./repositories/galleryRepository";
 import { createGalleryRoutes } from "./routes/gallery";
+import { createRewriteRoutes, type RewritePrompt } from "./routes/rewrite";
+import { rewritePrompt } from "./services/promptRewriteService";
 
-export function createApp() {
+export type AppDependencies = {
+  galleryRepository?: GalleryRepository;
+  rewritePrompt?: RewritePrompt;
+};
+
+export function createApp(dependencies: AppDependencies = {}) {
   const app = new Hono();
-  const galleryRepository = createFileGalleryRepository();
+  const galleryRepository = dependencies.galleryRepository ?? createFileGalleryRepository();
+  const rewritePromptDependency = dependencies.rewritePrompt ?? rewritePrompt;
 
   app.use(
     "*",
@@ -18,6 +27,7 @@ export function createApp() {
   app.get("/api/health", (context) => context.json({ ok: true }));
   app.use("/gallery/assets/*", serveStatic({ root: "../../data" }));
   app.route("/api", createGalleryRoutes(galleryRepository));
+  app.route("/api", createRewriteRoutes(rewritePromptDependency));
 
   app.notFound((context) => context.json({ error: "Not found" }, 404));
   app.onError((error, context) => {
