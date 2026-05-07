@@ -1,8 +1,0 @@
-[project]
-name = "imageodyssey"
-version = "0.1.0"
-description = "Chinese GPT Image 2 prompt gallery and Codex plugin catalog."
-requires-python = ">=3.14.4,<3.15"
-dependencies = [
-    "pyyaml>=6.0.3",
-]

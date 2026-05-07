@@ -237,13 +237,13 @@ Continue from Task 5 in the implementation plan.
 - Prepare a reviewable cleanup proposal only after migration and smoke tests are
   verified.
 - Keep these files until the user explicitly approves cleanup:
-  - `index.md`
-  - `gallery*.md`
-  - `assets/case*.jpg`
+  - `data/gallery/index.md`
+  - `data/gallery/gallery*.md`
+  - `data/gallery/assets/case*.jpg`
 
 ## Important Boundaries
 
-- Do not rely on or modify `learn/my-app`; it contains unrelated local changes.
+- `learn/my-app` was a learning experiment and is not part of the formal Web App.
 - Do not expose `SUPABASE_SECRET_KEY` to browser code.
 - Do not add a general shell execution endpoint.
 - Do not add GPT Image 2 API integration in v1.

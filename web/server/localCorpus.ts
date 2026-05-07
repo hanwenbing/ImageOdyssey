@@ -12,6 +12,7 @@ import {
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const webRoot = resolve(scriptDir, "..");
 const repoRoot = resolve(webRoot, "..");
+const galleryRoot = resolve(repoRoot, "data", "gallery");
 
 export type LocalCaseRecord = ParsedPromptCase & {
   image_storage_path: string;
@@ -25,14 +26,14 @@ type LocalCorpus = {
 let cachedCorpus: LocalCorpus | null = null;
 
 function assertCaseAssetExists(localImagePath: string): void {
-  const absolutePath = resolve(repoRoot, localImagePath);
+  const absolutePath = resolve(galleryRoot, localImagePath);
   if (!existsSync(absolutePath)) {
-    throw new Error(`Missing local image asset: ${localImagePath}`);
+    throw new Error(`Missing local image asset: data/gallery/${localImagePath}`);
   }
 }
 
 function readLocalCorpus(): LocalCorpus {
-  const indexMarkdown = readFileSync(resolve(repoRoot, "index.md"), "utf8");
+  const indexMarkdown = readFileSync(resolve(galleryRoot, "index.md"), "utf8");
   const categories = parseIndexMarkdown(indexMarkdown).sort(
     (left, right) => left.sort_order - right.sort_order
   );
@@ -42,7 +43,7 @@ function readLocalCorpus(): LocalCorpus {
 
   for (const category of categories) {
     const galleryMarkdown = readFileSync(
-      resolve(repoRoot, category.source_gallery_file),
+      resolve(galleryRoot, category.source_gallery_file),
       "utf8"
     );
     const parsedCases = parseGalleryMarkdown(
@@ -107,4 +108,3 @@ export function listLocalCaseRecords(): LocalCaseRecord[] {
     .map((localCase) => ({ ...localCase }))
     .sort((left, right) => left.case_number - right.case_number);
 }
-

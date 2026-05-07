@@ -291,7 +291,7 @@ git commit -m "feat: save experiments with rds and obs"
 
 Change `importGallery.ts` to:
 
-- Read local `index.md`, `gallery*.md`, and `assets/case*.jpg`.
+- Read local `data/gallery/index.md`, `data/gallery/gallery*.md`, and `data/gallery/assets/case*.jpg`.
 - Upload gallery images to `OBS_GALLERY_BUCKET` at `cases/case<n>.jpg`.
 - Upsert `categories` and `prompt_cases` using PostgreSQL SQL.
 - Store `image_public_url` as `${PUBLIC_GALLERY_ASSET_BASE_URL}/cases/case<n>.jpg`.

@@ -9,7 +9,7 @@ description: Use in this repository when the user uploads or references an image
 
 ## 规则
 
-- 除非用户明确要求外部提示词，否则只使用本仓库的 `gallery*.md` 作为提示词来源。
+- 除非用户明确要求外部提示词，否则只使用本仓库的 `data/gallery/gallery*.md` 作为提示词来源。
 - 面向用户输出的提示词必须是中文。
 - 不生成图片，不调用图像 API；最终产物是供用户粘贴到网页版 ChatGPT 的提示词。
 - 不要跳过用户选择步骤。必须先给出 3 个候选，再等待用户选择。
@@ -21,7 +21,7 @@ description: Use in this repository when the user uploads or references an image
 1. 分析用户上传或引用的图片。
    - 识别主体、场景、视觉风格、构图、颜色、比例、可见文字和关键不确定点。
    - 如果关键细节不清楚，直接说明，不要编造。
-2. 搜索 `gallery*.md` 中的合适案例。
+2. 搜索 `data/gallery/gallery*.md` 中的合适案例。
    - 优先匹配图片输出类型，例如 UI 截图、信息图、海报、商品视觉、人像、插画或写实摄影。
    - 再比较风格、构图、信息密度、文字需求和画面比例。
 3. 给出恰好 3 个候选。
@@ -50,7 +50,7 @@ description: Use in this repository when the user uploads or references an image
 优先使用 `rg`：
 
 ```bash
-rg -n "关键词|主题|风格" gallery*.md
+rg -n "关键词|主题|风格" data/gallery/gallery*.md
 ```
 
-如果图片类型较宽泛，先查看 `index.md`，再选择可能匹配的主题分册。
+如果图片类型较宽泛，先查看 `data/gallery/index.md`，再选择可能匹配的主题分册。

@@ -12,6 +12,7 @@ import {
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const webRoot = resolve(scriptDir, "..");
 const repoRoot = resolve(webRoot, "..");
+const galleryRoot = resolve(repoRoot, "data", "gallery");
 const galleryImagesBucket = "gallery-images";
 const knownMissingPromptNumbers = [12, 169, 170];
 const expectedCategoryCount = 13;
@@ -67,12 +68,12 @@ function requireEnv(name: string): string {
 }
 
 function loadLocalCorpus() {
-  const indexMarkdown = readFileSync(resolve(repoRoot, "index.md"), "utf8");
+  const indexMarkdown = readFileSync(resolve(galleryRoot, "index.md"), "utf8");
   const categories = parseIndexMarkdown(indexMarkdown);
 
   const promptCases = categories.flatMap((category) => {
     const galleryMarkdown = readFileSync(
-      resolve(repoRoot, category.source_gallery_file),
+      resolve(galleryRoot, category.source_gallery_file),
       "utf8"
     );
 
@@ -263,9 +264,9 @@ async function main(): Promise<void> {
       throw new Error(`Missing category id for ${promptCase.source_gallery_file}`);
     }
 
-    const localImagePath = resolve(repoRoot, promptCase.local_image_path);
+    const localImagePath = resolve(galleryRoot, promptCase.local_image_path);
     if (!existsSync(localImagePath)) {
-      throw new Error(`Missing image asset: ${promptCase.local_image_path}`);
+      throw new Error(`Missing image asset: data/gallery/${promptCase.local_image_path}`);
     }
 
     const storagePath = `cases/case${promptCase.case_number}.jpg`;

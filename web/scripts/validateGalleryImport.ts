@@ -12,6 +12,7 @@ import {
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const webRoot = resolve(scriptDir, "..");
 const repoRoot = resolve(webRoot, "..");
+const galleryRoot = resolve(repoRoot, "data", "gallery");
 const galleryImagesBucket = "gallery-images";
 const expectedCategoryCount = 13;
 const expectedPromptCaseCount = 352;
@@ -90,12 +91,12 @@ function requireEnv(name: string): string {
 }
 
 function loadLocalCorpus() {
-  const indexMarkdown = readFileSync(resolve(repoRoot, "index.md"), "utf8");
+  const indexMarkdown = readFileSync(resolve(galleryRoot, "index.md"), "utf8");
   const categories = parseIndexMarkdown(indexMarkdown);
 
   const promptCases = categories.flatMap((category) => {
     const galleryMarkdown = readFileSync(
-      resolve(repoRoot, category.source_gallery_file),
+      resolve(galleryRoot, category.source_gallery_file),
       "utf8"
     );
 

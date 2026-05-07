@@ -28,4 +28,3 @@ describe("local corpus", () => {
     expect(caseRecord.prompt_text.trim().length).toBeGreaterThan(0);
   });
 });
-

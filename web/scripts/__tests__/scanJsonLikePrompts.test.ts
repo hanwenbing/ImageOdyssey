@@ -104,16 +104,17 @@ describe("findJsonLikePromptCasesInMarkdown", () => {
 });
 
 describe("scanRepoForJsonLikePrompts", () => {
-  it("scans root gallery files in stable filename order", () => {
+  it("scans data gallery files in stable filename order", () => {
     const repoRoot = join(
       tmpdir(),
       `scan-json-like-prompts-${Date.now()}-${Math.random()
         .toString(16)
         .slice(2)}`
     );
-    mkdirSync(repoRoot);
+    const galleryRoot = join(repoRoot, "data", "gallery");
+    mkdirSync(galleryRoot, { recursive: true });
     writeFileSync(
-      join(repoRoot, "gallery2.md"),
+      join(galleryRoot, "gallery2.md"),
       `
 <a id="case-2"></a>
 ### 例 2：第二个文件
@@ -125,7 +126,7 @@ describe("scanRepoForJsonLikePrompts", () => {
       "utf8"
     );
     writeFileSync(
-      join(repoRoot, "gallery1.md"),
+      join(galleryRoot, "gallery1.md"),
       `
 <a id="case-1"></a>
 ### 例 1：第一个文件

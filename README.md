@@ -1,50 +1,70 @@
 # ImageOdyssey
 
-ImageOdyssey 是一个围绕 GPT Image 2 中文提示词工作流整理的本地项目。目前仓库包含三部分内容：
+ImageOdyssey is the Prompt Gallery Web App project. It provides a local visual
+studio for browsing GPT Image 2 prompt cases, uploading a source image, asking
+Huawei MaaS for recommendations and prompt rewrites, and saving experiment
+records through the local API.
 
-1. GPT Image 2 中文提示词资料库。
-2. Prompt Gallery Web App，本地可视化选择、推荐和改写提示词的网页工具。
-3. Codex 官方插件中文清单。
+The repository is being prepared for Huawei Cloud deployment:
 
-这个项目当前不是公开在线服务，也不是 GPT Image 2 API 客户端。Prompt Gallery Web App 的目标是帮助用户在本地上传参考图、浏览 Gallery 案例、选择提示词、通过本地 Node API 和华为云 MaaS 推荐与改写提示词，然后手动把改写后的提示词发送到 ChatGPT 生成图片。
+- React frontend: `web/`
+- Backend API: `web/server/`
+- Migration-period Gallery source data: `data/gallery/`
+- Deployment and handoff documents: `docs/`
 
-## 当前状态
-
-- Gallery 资料库已经存在，入口是 `index.md`，各主题分册是 `gallery*.md`，示例图片在 `assets/`。
-- Web App 已完成前 4 个阶段：
-  - Task 1：`web/` Vite + React + Tailwind + TypeScript 脚手架。
-  - Task 2：Supabase schema、RLS/storage 基础策略和共享类型。
-  - Task 3：Gallery Markdown parser。
-  - Task 4：Supabase import / validate 脚本。
-- Web App 还没有完成最终可用界面，后续应从 Task 5 继续。
-- 交接文档在 `docs/handoff/prompt-gallery-web-handoff.md`。
-- 完整设计和实施计划在：
-  - `docs/superpowers/specs/2026-05-02-prompt-gallery-web-design.md`
-  - `docs/superpowers/plans/2026-05-02-prompt-gallery-web-implementation.md`
-
-## 主要目录
+Codex plugin catalog maintenance has moved to:
 
 ```text
-index.md                         # Gallery 总入口
-gallery*.md                      # GPT Image 2 中文提示词分册
-assets/                          # Gallery 示例图片
-web/                             # Prompt Gallery Web App
-docs/handoff/                    # 交接文档
-docs/superpowers/                # 设计与实施计划
-docs/codex-plugins/              # Codex 官方插件中文清单
-data/codex-plugins/              # 插件中文资料和分类修正数据
-tools/                           # 本地资料生成工具
+/Users/godw/code/codex-plugins
 ```
 
-## Web App 本地开发
+## Project Layout
 
-安装依赖：
+```text
+ImageOdyssey/
+├── .codex/
+│   └── skills/
+│       └── get-image-prompt/
+├── .gitignore
+├── AGENTS.md
+├── README.md
+├── data/
+│   ├── gallery/
+│   │   ├── index.md
+│   │   ├── gallery1.md
+│   │   ├── ...
+│   │   ├── gallery13.md
+│   │   └── assets/
+│   │       └── case<n>.jpg
+│   └── images/
+├── docs/
+│   ├── deployment/
+│   ├── handoff/
+│   └── superpowers/
+├── run-web-dev.cmd
+└── web/
+    ├── .env.example
+    ├── eslint.config.js
+    ├── index.html
+    ├── package-lock.json
+    ├── package.json
+    ├── scripts/
+    ├── server/
+    ├── src/
+    ├── supabase/
+    ├── tsconfig.json
+    └── vite.config.ts
+```
+
+## Local Development
+
+Install dependencies:
 
 ```bash
 npm -C web install
 ```
 
-常规验证：
+Run checks:
 
 ```bash
 npm -C web test
@@ -52,45 +72,37 @@ npm -C web run build
 npm -C web run lint
 ```
 
-启动前端开发服务器：
+Start the frontend only:
 
 ```bash
 npm -C web run dev
 ```
 
-当前 `web/` 已包含本地 Node API，可使用 `npm -C web run dev:all` 同时启动 API 和前端。
-
-## Supabase 导入
-
-Web App 使用 Supabase 存储 Gallery 元数据、提示词、示例图片和后续实验记录。导入 Gallery 前需要配置：
+Start the local API and frontend together:
 
 ```bash
-SUPABASE_URL="https://..."
-SUPABASE_SECRET_KEY="..."
-VITE_SUPABASE_URL="https://..."
-VITE_SUPABASE_PUBLISHABLE_KEY="..."
-HUAWEI_MAAS_API_KEY="..."
-HUAWEI_MAAS_CHAT_COMPLETIONS_URL="https://api.modelarts-maas.com/v2/chat/completions"
-HUAWEI_MAAS_MODEL="deepseek-v4-flash"
-HUAWEI_MAAS_VISION_CHAT_COMPLETIONS_URL="https://api.modelarts-maas.com/v1/chat/completions"
-HUAWEI_MAAS_VISION_MODEL="qwen2.5-vl-72b"
+npm -C web run dev:all
 ```
 
-先应用 SQL：
+On Windows, use:
 
-```text
-web/supabase/migrations/0001_prompt_gallery_schema.sql
-web/supabase/migrations/0002_restrict_experiment_access.sql
+```cmd
+run-web-dev.cmd
 ```
 
-然后运行：
+## Migration-Period Gallery Data
 
-```bash
-npm -C web run import:gallery
-npm -C web run validate:gallery
-```
+The local Gallery source corpus has moved out of the project root:
 
-当前 Gallery 预期校验结果：
+- `data/gallery/index.md`
+- `data/gallery/gallery*.md`
+- `data/gallery/assets/case*.jpg`
+
+This source corpus is kept only until the Huawei Cloud RDS/OBS migration is
+complete and verified. Runtime code should move toward backend APIs backed by
+RDS PostgreSQL and OBS.
+
+Current expected Gallery validation summary:
 
 ```json
 {
@@ -100,41 +112,27 @@ npm -C web run validate:gallery
 }
 ```
 
-如果没有 `SUPABASE_URL` 和 `SUPABASE_SECRET_KEY`，导入和校验脚本会明确失败，不会伪造成功。
+## Current Runtime Notes
 
-## 继续开发入口
-
-同事接手时请先阅读：
+The current migration branch still contains Supabase-era code under `web/`.
+The approved target architecture is documented in:
 
 ```text
-docs/handoff/prompt-gallery-web-handoff.md
+docs/superpowers/specs/2026-05-07-huawei-cloud-deployment-design.md
+docs/superpowers/plans/2026-05-07-huawei-cloud-migration.md
 ```
 
-后续开发从实施计划的 Task 5 开始：
+Target deployment:
 
-1. Task 5：实现 Local Image Cache 与 MaaS Bridge core。
-2. Task 6：暴露本地 API routes，包括 `/api/recommend`、`/api/rewrite`、`/api/experiment-images`、`/api/experiments`。
-3. Task 7：实现 Gallery 数据读取、搜索、分类过滤和推荐排序。
-4. Task 8：实现 Two-Pane Studio UI 和底部 Prompt Bar。
-5. Task 9：连接前端、Supabase 和本地 API。
-6. Task 10：本地端到端 smoke test。
-7. Task 11：准备 cleanup proposal。
+- OBS/CDN hosts the React frontend.
+- Flexus L runs the Node API.
+- RDS PostgreSQL is private to the application network.
+- OBS stores public Gallery assets and private experiment images.
+- Huawei MaaS remains the AI service.
 
-## 安全和协作边界
+## Safety Boundaries
 
-- 不要把 `SUPABASE_SECRET_KEY` 暴露到浏览器代码。
-- 浏览器端不要直接写入 `experiments`，也不要直接上传到私有的 `experiment-images` bucket；这些操作应走本地 Node API。
-- 不要添加通用 shell execution API。推荐和改写仅通过本地 Node API 调用华为云 MaaS。
-- 不要在第一版加入 GPT Image 2 API 调用。
-- 不要删除 `index.md`、`gallery*.md`、`assets/case*.jpg`，除非 Gallery 迁移和 smoke test 已验证，并且用户明确批准 cleanup。
-- 不要依赖或修改 `learn/my-app`，它不是正式 Web App 的实现入口。
-
-## 协作流程建议
-
-推荐使用 fork + pull request：
-
-1. 从本仓库 fork。
-2. 在 fork 中为每个任务新建 feature branch。
-3. 完成一个清晰阶段后提交 pull request。
-4. PR 描述中写明变更范围、验证命令、未验证项和是否需要 Supabase 环境变量。
-5. 维护者 review 通过后再 merge 到 `main`。
+- Do not expose backend secrets in frontend files.
+- Do not add GPT Image 2 API integration unless explicitly requested.
+- Do not restore the removed learning project or plugin catalog business line.
+- Keep `data/gallery/` until RDS/OBS migration and browser smoke tests verify that the runtime no longer depends on local Markdown and image files.

@@ -98,9 +98,10 @@ if (isCli) {
     readFileSync(resolve(process.cwd(), rewritesPath), "utf8")
   ) as Record<string, PromptRewrite[]>;
   const repoRoot = resolve(process.cwd(), "..");
+  const galleryRoot = resolve(repoRoot, "data", "gallery");
 
   for (const [fileName, rewrites] of Object.entries(rewritesByFile)) {
-    const markdownPath = resolve(repoRoot, fileName);
+    const markdownPath = resolve(galleryRoot, fileName);
     const markdown = readFileSync(markdownPath, "utf8");
     writeFileSync(
       markdownPath,

@@ -8,6 +8,7 @@ import {
 } from "../parseGallery";
 
 const repoRoot = resolve(process.cwd(), "..");
+const galleryRoot = resolve(repoRoot, "data", "gallery");
 
 describe("parseIndexMarkdown", () => {
   it("extracts category metadata from index links", () => {
@@ -357,21 +358,21 @@ describe("createPromptExcerpt", () => {
 });
 
 describe("real gallery corpus", () => {
-  it("parses the root index into 13 categories", () => {
-    const indexMarkdown = readFileSync(resolve(repoRoot, "index.md"), "utf8");
+  it("parses the data gallery index into 13 categories", () => {
+    const indexMarkdown = readFileSync(resolve(galleryRoot, "index.md"), "utf8");
 
     expect(parseIndexMarkdown(indexMarkdown)).toHaveLength(13);
   });
 
-  it("parses all root gallery files into 352 prompt cases", () => {
-    const indexMarkdown = readFileSync(resolve(repoRoot, "index.md"), "utf8");
+  it("parses all data gallery files into 352 prompt cases", () => {
+    const indexMarkdown = readFileSync(resolve(galleryRoot, "index.md"), "utf8");
     const categoriesByFile = new Map(
       parseIndexMarkdown(indexMarkdown).map((category) => [
         category.source_gallery_file,
         category.name
       ])
     );
-    const totalCases = readdirSync(repoRoot)
+    const totalCases = readdirSync(galleryRoot)
       .filter((fileName) => /^gallery\d+\.md$/.test(fileName))
       .sort(
         (left, right) =>
@@ -383,7 +384,7 @@ describe("real gallery corpus", () => {
           throw new Error(`Missing index category for ${fileName}`);
         }
 
-        const galleryMarkdown = readFileSync(resolve(repoRoot, fileName), "utf8");
+        const galleryMarkdown = readFileSync(resolve(galleryRoot, fileName), "utf8");
         return (
           total +
           parseGalleryMarkdown(fileName, categoryName, galleryMarkdown).length

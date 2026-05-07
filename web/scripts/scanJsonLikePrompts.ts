@@ -94,13 +94,15 @@ export function findJsonLikePromptCasesInMarkdown(
 export function scanRepoForJsonLikePrompts(
   repoRoot: string
 ): JsonLikePromptCase[] {
-  return readdirSync(repoRoot)
+  const galleryRoot = resolve(repoRoot, "data", "gallery");
+
+  return readdirSync(galleryRoot)
     .filter((fileName) => /^gallery\d+\.md$/.test(fileName))
     .sort((left, right) =>
       left.localeCompare(right, undefined, { numeric: true })
     )
     .flatMap((fileName) => {
-      const markdown = readFileSync(resolve(repoRoot, fileName), "utf8");
+      const markdown = readFileSync(resolve(galleryRoot, fileName), "utf8");
       return findJsonLikePromptCasesInMarkdown(fileName, markdown);
     });
 }
