@@ -28,6 +28,7 @@ Important current facts:
 Create:
 
 - `package.json` - root workspace scripts.
+- `eslint.config.js` - root ESLint flat config shared by workspaces.
 - `packages/shared/package.json` - shared package manifest.
 - `packages/shared/tsconfig.json` - shared TypeScript config.
 - `packages/shared/src/gallery.ts` - category and prompt-case schemas/types.
@@ -35,6 +36,7 @@ Create:
 - `packages/shared/src/index.ts` - shared exports.
 - `apps/api/package.json` - API package manifest.
 - `apps/api/tsconfig.json` - API TypeScript config.
+- `apps/api/eslint.config.js` - API ESLint entry that imports root config.
 - `apps/api/src/config/env.ts` - server env loading and validation.
 - `apps/api/src/repositories/galleryRepository.ts` - repository interface.
 - `apps/api/src/repositories/fileGalleryRepository.ts` - structured JSON repository.
@@ -53,6 +55,7 @@ Create:
 - `apps/web/tsconfig.json` - frontend TypeScript config.
 - `apps/web/vite.config.ts` - Vite config with API proxy.
 - `apps/web/index.html` - frontend HTML entry.
+- `apps/web/eslint.config.js` - web ESLint entry that imports root config.
 - `apps/web/src/...` - moved and simplified frontend files.
 - `data/gallery/categories.json` - structured category data.
 - `data/gallery/prompt-cases.json` - structured prompt-case data.
@@ -327,7 +330,66 @@ export default defineConfig({
 
 Move `web/index.html` to `apps/web/index.html`. Ensure its script tag still points to `/src/main.tsx`.
 
-- [ ] **Step 10: Update Windows launcher**
+- [ ] **Step 10: Create shared ESLint config**
+
+Create root `eslint.config.js`:
+
+```js
+import js from "@eslint/js";
+import globals from "globals";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import tseslint from "typescript-eslint";
+
+export default tseslint.config(
+  { ignores: ["node_modules", "apps/*/dist", "packages/*/dist"] },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    files: ["**/*.{ts,tsx}"],
+    languageOptions: {
+      ecmaVersion: 2022,
+      globals: {
+        ...globals.browser,
+        ...globals.node
+      }
+    }
+  },
+  {
+    files: ["apps/web/**/*.{ts,tsx}"],
+    plugins: {
+      "react-hooks": reactHooks,
+      "react-refresh": reactRefresh
+    },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }]
+    }
+  }
+);
+```
+
+- [ ] **Step 11: Create workspace ESLint entries**
+
+Create `apps/web/eslint.config.js`:
+
+```js
+export { default } from "../../eslint.config.js";
+```
+
+Create `apps/api/eslint.config.js`:
+
+```js
+export { default } from "../../eslint.config.js";
+```
+
+Create `packages/shared/eslint.config.js`:
+
+```js
+export { default } from "../../eslint.config.js";
+```
+
+- [ ] **Step 12: Update Windows launcher**
 
 Replace `run-web-dev.cmd` command invocation with:
 
@@ -335,7 +397,7 @@ Replace `run-web-dev.cmd` command invocation with:
 call "%NPM_CMD%" run dev:all
 ```
 
-- [ ] **Step 11: Install workspace dependencies**
+- [ ] **Step 13: Install workspace dependencies**
 
 Run:
 
@@ -345,7 +407,7 @@ npm install
 
 Expected: root `package-lock.json` is created or updated and workspace packages are linked.
 
-- [ ] **Step 12: Commit workspace skeleton**
+- [ ] **Step 14: Commit workspace skeleton**
 
 Run:
 
@@ -1933,7 +1995,19 @@ git commit -m "feat: simplify gallery frontend"
 - Modify: `.gitignore`
 - Modify: `README.md`
 
-- [ ] **Step 1: Delete old runtime package**
+- [ ] **Step 1: Preserve ignored local env files**
+
+Before deleting `web/`, preserve local ignored env files outside the deleted tree:
+
+```bash
+mkdir tmp\env-backup
+if exist web\.env.local copy web\.env.local tmp\env-backup\web.env.local
+if exist web\.env copy web\.env tmp\env-backup\web.env
+```
+
+Expected: local env files are backed up if they exist. Do not commit files under `tmp/env-backup`.
+
+- [ ] **Step 2: Delete old runtime package**
 
 Run:
 
@@ -1943,7 +2017,18 @@ rmdir /s /q web
 
 Expected: `web/` is removed.
 
-- [ ] **Step 2: Update `.gitignore`**
+- [ ] **Step 3: Restore local env files into API package**
+
+If backups were created, restore them to `apps/api` for local development:
+
+```bash
+if exist tmp\env-backup\web.env.local copy tmp\env-backup\web.env.local apps\api\.env.local
+if exist tmp\env-backup\web.env copy tmp\env-backup\web.env apps\api\.env
+```
+
+Expected: local MaaS env remains available to the API. `apps/api/.env.local` and `apps/api/.env` must be ignored and not committed.
+
+- [ ] **Step 4: Update `.gitignore`**
 
 Ensure `.gitignore` contains:
 
@@ -1954,11 +2039,13 @@ packages/*/node_modules/
 apps/web/dist/
 apps/api/dist/
 *.local
+apps/*/.env
+apps/*/.env.local
 tmp/
 .superpowers/
 ```
 
-- [ ] **Step 3: Update README**
+- [ ] **Step 5: Update README**
 
 Replace README runtime notes with:
 
@@ -1991,7 +2078,7 @@ The migration-period Gallery archive lives in `data/gallery`.
 Runtime Gallery reads must go through the backend API, not directly from Markdown.
 ````
 
-- [ ] **Step 4: Verify no legacy imports remain**
+- [ ] **Step 6: Verify no legacy imports remain**
 
 Run:
 
@@ -2001,7 +2088,7 @@ git grep -n "source_image_storage_path\|ImageUploadPanel\|requestRecommendations
 
 Expected: no matches in runtime code. Matches in historical docs are acceptable.
 
-- [ ] **Step 5: Commit cleanup**
+- [ ] **Step 7: Commit cleanup**
 
 Run:
 
