@@ -1,11 +1,9 @@
-import { readFile } from "node:fs/promises";
-import { extname } from "node:path";
 import { getHuaweiMaasConfig } from "./env";
 import {
   getLocalCaseByNumber,
   type LocalCaseRecord
 } from "./localCorpus";
-import { resolveSourceImagePath as defaultResolveSourceImagePath } from "./sourceImageCache";
+import { resolveSourceImageDataUrl as defaultResolveSourceImageDataUrl } from "./sourceImageCache";
 import type {
   CaseIndexItem,
   RecommendRequest,
@@ -16,7 +14,7 @@ import type {
 
 type MaasBridgeDependencies = {
   fetch?: typeof fetch;
-  resolveSourceImagePath?: (storagePath: string) => Promise<string>;
+  resolveSourceImageDataUrl?: (storagePath: string) => Promise<string>;
   config?: ReturnType<typeof getHuaweiMaasConfig>;
 };
 
@@ -184,29 +182,6 @@ function looksLikeStructuredPromptText(value: string): boolean {
   ) || /^(?:主题|主体|风格|构图|布局|背景|说明)\s*[:：=]/.test(trimmedValue);
 }
 
-function getMimeType(filePath: string): string {
-  switch (extname(filePath).toLowerCase()) {
-    case ".jpg":
-    case ".jpeg":
-      return "image/jpeg";
-    case ".png":
-      return "image/png";
-    case ".webp":
-      return "image/webp";
-    default:
-      return "application/octet-stream";
-  }
-}
-
-async function imageFileToDataUrl(filePath: string): Promise<string> {
-  const buffer = await readFile(filePath);
-  if (buffer.length === 0) {
-    throw new Error("Source image cache file is empty");
-  }
-
-  return `data:${getMimeType(filePath)};base64,${buffer.toString("base64")}`;
-}
-
 async function callChatCompletions(
   fetchImpl: typeof fetch,
   apiKey: string,
@@ -251,10 +226,9 @@ async function describeSourceImage(
   dependencies: MaasBridgeDependencies
 ): Promise<string> {
   const config = getConfig(dependencies);
-  const resolveSourceImagePath =
-    dependencies.resolveSourceImagePath ?? defaultResolveSourceImagePath;
-  const sourceImagePath = await resolveSourceImagePath(request.source_image_storage_path);
-  const imageDataUrl = await imageFileToDataUrl(sourceImagePath);
+  const resolveSourceImageDataUrl =
+    dependencies.resolveSourceImageDataUrl ?? defaultResolveSourceImageDataUrl;
+  const sourceImageDataUrl = await resolveSourceImageDataUrl(request.source_image_storage_path);
 
   return callChatCompletions(
     getFetch(dependencies),
@@ -279,7 +253,7 @@ async function describeSourceImage(
             {
               type: "image_url",
               image_url: {
-                url: imageDataUrl
+                url: sourceImageDataUrl
               }
             }
           ]

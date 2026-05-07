@@ -1,8 +1,5 @@
 // @vitest-environment node
 
-import { mkdtempSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { loadLocalCaseIndex } from "../localCorpus";
 import { recommend, rewrite } from "../maasBridge";
@@ -41,12 +38,7 @@ function recommendationsJson(caseNumbers: number[]) {
   });
 }
 
-function createSourceImage() {
-  const tempDir = mkdtempSync(join(tmpdir(), "imageodyssey-maas-"));
-  const imagePath = join(tempDir, "source.png");
-  writeFileSync(imagePath, Buffer.from([137, 80, 78, 71, 1, 2, 3]));
-  return imagePath;
-}
+const sourceImageDataUrl = "data:image/jpeg;base64,test-image";
 
 function testConfig() {
   return {
@@ -74,14 +66,14 @@ beforeEach(() => {
 describe("maasBridge.recommend", () => {
   it("describes the source image with VL MaaS and asks DeepSeek for six recommendations", async () => {
     const caseNumbers = loadLocalCaseIndex().slice(0, 6).map((item) => item.case_number);
-    const sourceImagePath = createSourceImage();
+    const sourceImagePath = sourceImageDataUrl;
     const fetchMock = vi.fn()
       .mockResolvedValueOnce(chatResponse("图片中是一位人物，柔和侧光，浅景深背景。"))
       .mockResolvedValueOnce(chatResponse(`noise\n${recommendationsJson(caseNumbers)}\ndone`));
 
     const result = await recommend(createRecommendRequest(caseNumbers), {
       fetch: fetchMock,
-      resolveSourceImagePath: vi.fn(async () => sourceImagePath),
+      resolveSourceImageDataUrl: vi.fn(async () => sourceImagePath),
       config: testConfig()
     });
 
@@ -97,7 +89,7 @@ describe("maasBridge.recommend", () => {
     });
     const visionBody = JSON.parse(String(visionInit.body));
     expect(visionBody.model).toBe("qwen2.5-vl-72b");
-    expect(JSON.stringify(visionBody)).toContain("data:image/png;base64");
+    expect(JSON.stringify(visionBody)).toContain(sourceImageDataUrl);
 
     const [textUrl, textInit] = fetchMock.mock.calls[1];
     expect(textUrl).toBe("https://maas.example/v2/chat/completions");
@@ -113,7 +105,7 @@ describe("maasBridge.recommend", () => {
 
     await expect(recommend(createRecommendRequest(caseNumbers), {
       fetch: fetchMock,
-      resolveSourceImagePath: vi.fn(async () => createSourceImage()),
+      resolveSourceImageDataUrl: vi.fn(async () => sourceImageDataUrl),
       config: testConfig()
     })).rejects.toThrow(/status 429/i);
   });
@@ -126,7 +118,7 @@ describe("maasBridge.recommend", () => {
 
     await expect(recommend(createRecommendRequest(caseNumbers), {
       fetch: fetchMock,
-      resolveSourceImagePath: vi.fn(async () => createSourceImage()),
+      resolveSourceImageDataUrl: vi.fn(async () => sourceImageDataUrl),
       config: testConfig()
     })).rejects.toThrow(/invalid JSON/i);
   });
@@ -137,7 +129,7 @@ describe("maasBridge.recommend", () => {
 
     await expect(recommend(createRecommendRequest(caseNumbers), {
       fetch: fetchMock,
-      resolveSourceImagePath: vi.fn(async () => createSourceImage()),
+      resolveSourceImageDataUrl: vi.fn(async () => sourceImageDataUrl),
       config: testConfig()
     })).rejects.toThrow(/no choices/i);
   });
@@ -150,7 +142,7 @@ describe("maasBridge.recommend", () => {
 
     await expect(recommend(createRecommendRequest(caseNumbers), {
       fetch: fetchMock,
-      resolveSourceImagePath: vi.fn(async () => createSourceImage()),
+      resolveSourceImageDataUrl: vi.fn(async () => sourceImageDataUrl),
       config: testConfig()
     })).rejects.toThrow(/expected exactly 6 recommendations/i);
   });
@@ -166,7 +158,7 @@ describe("maasBridge.recommend", () => {
 
     await expect(recommend(createRecommendRequest(caseNumbers), {
       fetch: fetchMock,
-      resolveSourceImagePath: vi.fn(async () => createSourceImage()),
+      resolveSourceImageDataUrl: vi.fn(async () => sourceImageDataUrl),
       config: testConfig()
     })).rejects.toThrow(/duplicate case_number/i);
   });
@@ -182,7 +174,7 @@ describe("maasBridge.recommend", () => {
 
     await expect(recommend(createRecommendRequest(caseNumbers), {
       fetch: fetchMock,
-      resolveSourceImagePath: vi.fn(async () => createSourceImage()),
+      resolveSourceImageDataUrl: vi.fn(async () => sourceImageDataUrl),
       config: testConfig()
     })).rejects.toThrow(/invalid case_number 99999/i);
   });
@@ -205,7 +197,7 @@ describe("maasBridge.rewrite", () => {
       original_prompt_text: "Original prompt"
     }, {
       fetch: fetchMock,
-      resolveSourceImagePath: vi.fn(async () => createSourceImage()),
+      resolveSourceImageDataUrl: vi.fn(async () => sourceImageDataUrl),
       config: testConfig()
     })).resolves.toEqual({
       rewritten_prompt_text: "一张自然语言中文提示词，描绘上传图片中的主体置于柔和电影侧光下，保留原案例的浅景深和精致构图。",
@@ -230,7 +222,7 @@ describe("maasBridge.rewrite", () => {
       original_prompt_text: "Original prompt"
     }, {
       fetch: fetchMock,
-      resolveSourceImagePath: vi.fn(async () => createSourceImage()),
+      resolveSourceImageDataUrl: vi.fn(async () => sourceImageDataUrl),
       config: testConfig()
     })).rejects.toThrow(/natural-language prompt text/i);
   });

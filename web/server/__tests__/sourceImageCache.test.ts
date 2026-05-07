@@ -13,7 +13,7 @@ vi.mock("../supabase", () => ({
   getServiceRoleClient: getServiceRoleClientMock
 }));
 
-import { resolveSourceImagePath } from "../sourceImageCache";
+import { resolveSourceImageDataUrl, resolveSourceImagePath } from "../sourceImageCache";
 
 const cacheRoot = resolve(process.cwd(), "tmp", "maas-source-images");
 
@@ -34,6 +34,43 @@ beforeEach(async () => {
 });
 
 describe("source image cache", () => {
+  it("converts private experiment images to MaaS data URLs", async () => {
+    const download = vi.fn().mockResolvedValue({
+      data: new Blob([new Uint8Array([1, 2, 3])], { type: "image/png" }),
+      error: null
+    });
+    getServiceRoleClientMock.mockReturnValue(createStorageClient(download));
+
+    const dataUrl = await resolveSourceImageDataUrl("source/source-image.png");
+
+    expect(download).toHaveBeenCalledWith("source/source-image.png");
+    expect(dataUrl).toBe("data:image/png;base64,AQID");
+  });
+
+  it("uses the storage path extension for data URLs when Blob type is missing", async () => {
+    const download = vi.fn().mockResolvedValue({
+      data: new Blob([new Uint8Array([1, 2, 3])]),
+      error: null
+    });
+    getServiceRoleClientMock.mockReturnValue(createStorageClient(download));
+
+    const dataUrl = await resolveSourceImageDataUrl("source/source-image.jpg");
+
+    expect(dataUrl).toBe("data:image/jpeg;base64,AQID");
+  });
+
+  it("fails clearly when data URL download fails", async () => {
+    const download = vi.fn().mockResolvedValue({
+      data: null,
+      error: new Error("not found")
+    });
+    getServiceRoleClientMock.mockReturnValue(createStorageClient(download));
+
+    await expect(resolveSourceImageDataUrl("source/missing.png")).rejects.toThrow(
+      /Source image download failed: not found/
+    );
+  });
+
   it("downloads private experiment images to the local MaaS cache", async () => {
     const download = vi.fn().mockResolvedValue({
       data: new Blob([new Uint8Array([1, 2, 3])], { type: "image/png" }),

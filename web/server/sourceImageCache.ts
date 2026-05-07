@@ -27,6 +27,25 @@ function getCachedImagePath(storagePath: string): string {
   return resolve(cacheRoot, `${digest}${getSafeExtension(storagePath)}`);
 }
 
+function getImageMimeType(storagePath: string, blobType: string): string {
+  const normalizedBlobType = blobType.trim().toLowerCase();
+  if (/^image\/(?:jpeg|png|webp)$/.test(normalizedBlobType)) {
+    return normalizedBlobType;
+  }
+
+  switch (extname(storagePath).toLowerCase()) {
+    case ".jpg":
+    case ".jpeg":
+      return "image/jpeg";
+    case ".png":
+      return "image/png";
+    case ".webp":
+      return "image/webp";
+    default:
+      throw new Error("Source image must be JPEG, PNG, or WEBP");
+  }
+}
+
 async function fileExists(filePath: string): Promise<boolean> {
   try {
     const fileStat = await stat(filePath);
@@ -72,4 +91,31 @@ export async function resolveSourceImagePath(storagePath: string): Promise<strin
 
   await writeFile(cachedImagePath, buffer);
   return cachedImagePath;
+}
+
+export async function resolveSourceImageDataUrl(storagePath: string): Promise<string> {
+  if (storagePath.trim().length === 0) {
+    throw new Error("source image storage path is required");
+  }
+
+  const client = getServiceRoleClient();
+  const { data, error } = await client.storage
+    .from("experiment-images")
+    .download(storagePath);
+
+  if (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`Source image download failed: ${message}`);
+  }
+
+  if (!data) {
+    throw new Error("Source image download returned no data");
+  }
+
+  const buffer = await blobToBuffer(data);
+  if (buffer.length === 0) {
+    throw new Error("Source image download returned an empty file");
+  }
+
+  return `data:${getImageMimeType(storagePath, data.type)};base64,${buffer.toString("base64")}`;
 }
