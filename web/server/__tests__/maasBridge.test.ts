@@ -1,7 +1,6 @@
 // @vitest-environment node
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { loadLocalCaseIndex } from "../localCorpus";
 import { recommend, rewrite } from "../maasBridge";
 import type { RecommendRequest } from "../types";
 
@@ -39,6 +38,7 @@ function recommendationsJson(caseNumbers: number[]) {
 }
 
 const sourceImageDataUrl = "data:image/jpeg;base64,test-image";
+const validCaseNumbers = [1, 2, 3, 4, 5, 6];
 
 function testConfig() {
   return {
@@ -65,7 +65,7 @@ beforeEach(() => {
 
 describe("maasBridge.recommend", () => {
   it("describes the source image with VL MaaS and asks DeepSeek for six recommendations", async () => {
-    const caseNumbers = loadLocalCaseIndex().slice(0, 6).map((item) => item.case_number);
+    const caseNumbers = validCaseNumbers;
     const sourceImagePath = sourceImageDataUrl;
     const fetchMock = vi.fn()
       .mockResolvedValueOnce(chatResponse("图片中是一位人物，柔和侧光，浅景深背景。"))
@@ -100,7 +100,7 @@ describe("maasBridge.recommend", () => {
   });
 
   it("rejects non-2xx MaaS responses", async () => {
-    const caseNumbers = loadLocalCaseIndex().slice(0, 6).map((item) => item.case_number);
+    const caseNumbers = validCaseNumbers;
     const fetchMock = vi.fn().mockResolvedValueOnce(chatResponse("rate limited", 429));
 
     await expect(recommend(createRecommendRequest(caseNumbers), {
@@ -111,7 +111,7 @@ describe("maasBridge.recommend", () => {
   });
 
   it("rejects invalid MaaS JSON responses", async () => {
-    const caseNumbers = loadLocalCaseIndex().slice(0, 6).map((item) => item.case_number);
+    const caseNumbers = validCaseNumbers;
     const fetchMock = vi.fn().mockResolvedValueOnce(
       new Response("not json", { status: 200 })
     );
@@ -124,7 +124,7 @@ describe("maasBridge.recommend", () => {
   });
 
   it("rejects MaaS responses with no choices", async () => {
-    const caseNumbers = loadLocalCaseIndex().slice(0, 6).map((item) => item.case_number);
+    const caseNumbers = validCaseNumbers;
     const fetchMock = vi.fn().mockResolvedValueOnce(jsonResponse({ choices: [] }));
 
     await expect(recommend(createRecommendRequest(caseNumbers), {
@@ -135,7 +135,7 @@ describe("maasBridge.recommend", () => {
   });
 
   it("rejects recommendation counts other than six", async () => {
-    const caseNumbers = loadLocalCaseIndex().slice(0, 6).map((item) => item.case_number);
+    const caseNumbers = validCaseNumbers;
     const fetchMock = vi.fn()
       .mockResolvedValueOnce(chatResponse("图片描述"))
       .mockResolvedValueOnce(chatResponse(recommendationsJson(caseNumbers.slice(0, 5))));
@@ -148,7 +148,7 @@ describe("maasBridge.recommend", () => {
   });
 
   it("rejects duplicate recommendation case numbers", async () => {
-    const caseNumbers = loadLocalCaseIndex().slice(0, 6).map((item) => item.case_number);
+    const caseNumbers = validCaseNumbers;
     const fetchMock = vi.fn()
       .mockResolvedValueOnce(chatResponse("图片描述"))
       .mockResolvedValueOnce(chatResponse(recommendationsJson([
@@ -164,7 +164,7 @@ describe("maasBridge.recommend", () => {
   });
 
   it("rejects recommendation case numbers outside the candidates", async () => {
-    const caseNumbers = loadLocalCaseIndex().slice(0, 6).map((item) => item.case_number);
+    const caseNumbers = validCaseNumbers;
     const fetchMock = vi.fn()
       .mockResolvedValueOnce(chatResponse("图片描述"))
       .mockResolvedValueOnce(chatResponse(recommendationsJson([
@@ -182,7 +182,7 @@ describe("maasBridge.recommend", () => {
 
 describe("maasBridge.rewrite", () => {
   it("returns natural-language Chinese rewritten prompts from MaaS", async () => {
-    const caseNumber = loadLocalCaseIndex()[0].case_number;
+    const caseNumber = 1;
     const fetchMock = vi.fn()
       .mockResolvedValueOnce(chatResponse("图片中是一位人物，柔和侧光。"))
       .mockResolvedValueOnce(chatResponse(JSON.stringify({
@@ -207,7 +207,7 @@ describe("maasBridge.rewrite", () => {
   });
 
   it("rejects JSON-like rewritten prompt text", async () => {
-    const caseNumber = loadLocalCaseIndex()[0].case_number;
+    const caseNumber = 1;
     const fetchMock = vi.fn()
       .mockResolvedValueOnce(chatResponse("图片描述"))
       .mockResolvedValueOnce(chatResponse(JSON.stringify({

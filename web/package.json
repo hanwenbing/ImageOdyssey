@@ -10,10 +10,7 @@
     "build": "tsc --noEmit && vite build",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "eslint .",
-    "import:gallery": "tsx scripts/importGallery.ts",
-    "scan:json-prompts": "tsx scripts/scanJsonLikePrompts.ts",
-    "validate:gallery": "tsx scripts/validateGalleryImport.ts"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.1",
