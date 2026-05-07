@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ImageUploadPanel } from "./components/ImageUploadPanel";
 import {
   requestRecommendations,
@@ -139,6 +139,7 @@ export default function App() {
   const [recommendBusy, setRecommendBusy] = useState(false);
   const [rewriteBusy, setRewriteBusy] = useState(false);
   const [promptDrawerOpen, setPromptDrawerOpen] = useState(false);
+  const galleryScrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -222,6 +223,12 @@ export default function App() {
       }
     };
   }, [resultPreviewUrl]);
+
+  useEffect(() => {
+    if (galleryScrollContainerRef.current) {
+      galleryScrollContainerRef.current.scrollTop = 0;
+    }
+  }, [query, selectedCategory]);
 
   const selectedCase = useMemo(
     () => cases.find((promptCase) => promptCase.id === selectedCaseId) ?? null,
@@ -553,7 +560,11 @@ export default function App() {
             </div>
           </div>
 
-          <div className="min-h-0 flex-1 overflow-hidden">
+          <div
+            data-testid="gallery-scroll-container"
+            ref={galleryScrollContainerRef}
+            className="min-h-0 flex-1 overflow-y-auto pr-1"
+          >
             {galleryLoading ? (
               <div className="flex h-full items-center justify-center rounded-lg border border-dashed border-white/10 text-sm text-zinc-400">
                 正在加载 Gallery...
@@ -565,7 +576,7 @@ export default function App() {
             ) : (
               <div
                 data-testid="gallery-grid"
-                className="grid content-start grid-cols-2 gap-3 overflow-y-auto pr-1 md:grid-cols-3 xl:grid-cols-4"
+                className="grid content-start grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4"
               >
                 {visibleCases.map((promptCase) => (
                   <CaseCard

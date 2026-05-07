@@ -339,13 +339,36 @@ describe("App", () => {
     expect(overlay).toHaveClass("opacity-0");
     expect(overlay).toHaveClass("group-hover:opacity-100");
     expect(overlay).toHaveClass("group-focus-visible:opacity-100");
+    const galleryScrollContainer = screen.getByTestId("gallery-scroll-container");
+    expect(galleryScrollContainer).toHaveClass("overflow-y-auto");
     const galleryGrid = screen.getByTestId("gallery-grid");
     expect(galleryGrid).toHaveClass("content-start");
+    expect(galleryGrid).not.toHaveClass("overflow-y-auto");
     expect(galleryGrid).not.toHaveClass("h-full");
     expect(compact).not.toHaveTextContent("适合宣传图");
     expect(compact).not.toHaveTextContent("点击选择");
     expect(overlay).toHaveTextContent("适合宣传图");
     expect(overlay).toHaveTextContent("点击选择");
+  });
+
+  it("resets gallery scroll position when filters change", async () => {
+    render(<App />);
+
+    await screen.findByRole("button", { name: "Case 101 品牌海报" });
+
+    const galleryScrollContainer = screen.getByTestId("gallery-scroll-container");
+    galleryScrollContainer.scrollTop = 500;
+
+    fireEvent.click(screen.getByRole("button", { name: "图表与信息可视化" }));
+
+    await waitFor(() => expect(galleryScrollContainer.scrollTop).toBe(0));
+
+    galleryScrollContainer.scrollTop = 500;
+    fireEvent.change(screen.getByLabelText("Search cases"), {
+      target: { value: "品牌" }
+    });
+
+    await waitFor(() => expect(galleryScrollContainer.scrollTop).toBe(0));
   });
 
   it("revokes blob previews when replaced and unmounted", async () => {
